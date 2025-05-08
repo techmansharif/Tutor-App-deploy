@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from .session import Base
 from sqlalchemy.sql import func
 from sqlalchemy.dialects.postgresql import ARRAY
-from pgvector.sqlalchemy import Vector
+
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy import LargeBinary  # Add this import for binary data
 class Subject(Base):
@@ -51,7 +51,7 @@ class MCQ(Base):
     
 
     explanation = Column(Text, nullable=True)  # New column for explanation
-    hardness_level = Column(String, nullable=True)  # New column for hardness level (or Integer)
+    hardness_level = Column(Integer, nullable=True, default=5)  # Set default to 5
     subtopic_id = Column(Integer, ForeignKey("subtopics.id"))
 
 

@@ -154,19 +154,7 @@ class Quiz0Response(BaseModel):
     class Config:
         orm_mode = True
 
-# Response model for MCQ questions (Quiz-2 and Quiz-3)
-class MCQResponse(BaseModel):
-    id: int
-    question: str
-    option_a: str
-    option_b: str
-    option_c: str
-    option_d: str
-    hardness_level: str | None
 
-    class Config:
-        from_attributes=True
-        orm_mode = True
 
 # Request model for submitting answers
 class AnswerSubmission(BaseModel):
@@ -175,6 +163,39 @@ class AnswerSubmission(BaseModel):
 
 class QuizSubmission(BaseModel):
     answers: List[AnswerSubmission]
+
+
+
+# Updated MCQResponse model to include correct_option
+class MCQResponse(BaseModel):
+    id: int
+    question: str
+    option_a: str
+    option_b: str
+    option_c: str
+    option_d: str
+    hardness_level: int
+    correct_option: str
+    explanation: Optional[str] = None
+    class Config:
+        from_attributes = True
+
+
+# Response model for practice quiz question
+class PracticeQuizQuestionResponse(BaseModel):
+    question: Optional[MCQResponse] = None
+    hardness_level: int
+    message: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+# Request model for submitting practice quiz answer
+class PracticeQuizAnswerSubmission(BaseModel):
+    question_id: int
+    is_correct: bool
+    current_hardness_level: int
+    questions_tried: int
 
 # # Model for selecting subject, topic, subtopic
 # class SelectionRequest(BaseModel):
@@ -735,8 +756,13 @@ Instructions:
 1. Explain the context in fun and interesting ways
 2. Make the Explanation engaging , use story if necessary
 3. if necessary refer to chat history
-4.Use bangla language 
+
 """
+    if subject !="English":
+        prompt=prompt+"\n"+"4. Reply in Bengali language"
+    else:
+        prompt=prompt+"\n"+"4. Reply in very simple English and write meaning around difficult word if necessary"
+
 
     # Generate response
     response = gemini_model.generate_content(prompt)
@@ -752,6 +778,94 @@ Instructions:
     db.commit()
 
     return ExplainResponse(answer=answer,image=image_data)
+
+
+
+
+
+
+# Practice quiz endpoint
+@app.post("/{subject}/{topic}/{subtopic}/practise/", response_model=PracticeQuizQuestionResponse)
+async def practice_quiz(
+    subject: str,
+    topic: str,
+    subtopic: str,
+    submission: Optional[PracticeQuizAnswerSubmission] = None,
+    user_id: int = Header(...),
+    db: Session = Depends(get_db)
+):
+    # Validate user
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
+
+    # Validate subject, topic, and subtopic
+    subject_obj = db.query(Subject).filter(Subject.name == subject).first()
+    if not subject_obj:
+        raise HTTPException(status_code=404, detail=f"Subject {subject} not found")
+    
+    topic_obj = db.query(Topic).filter(
+        Topic.name == topic,
+        Topic.subject_id == subject_obj.id
+    ).first()
+    if not topic_obj:
+        raise HTTPException(status_code=404, detail=f"Topic {topic} not found in subject {subject}")
+    
+    subtopic_obj = db.query(Subtopic).filter(
+        Subtopic.name == subtopic,
+        Subtopic.topic_id == topic_obj.id
+    ).first()
+    if not subtopic_obj:
+        raise HTTPException(status_code=404, detail=f"Subtopic {subtopic} not found in topic {topic}")
+
+    # Determine hardness level and questions tried
+    hardness_level = 5  # Default for first question
+    questions_tried = 0
+    if submission:
+        # Validate question
+        question = db.query(MCQ).filter(MCQ.id == submission.question_id).first()
+        if not question:
+            raise HTTPException(status_code=404, detail=f"Question ID {submission.question_id} not found")
+
+        # Update hardness level based on correctness
+        hardness_level = submission.current_hardness_level
+        if submission.is_correct:
+            hardness_level = min(hardness_level + 1, 10)  # Increase, max 10
+        else:
+            hardness_level = max(hardness_level - 1, 1)   # Decrease, min 1
+
+        # Update questions tried
+        questions_tried = submission.questions_tried
+
+        # Check if 20 questions have been reached
+        if questions_tried >= 20:
+            return PracticeQuizQuestionResponse(
+                hardness_level=hardness_level,
+                message="You have completed 20 practice questions!"
+            )
+
+    # Fetch next question (allow reuse of questions)
+    next_question = (
+        db.query(MCQ)
+        .filter(
+            MCQ.subtopic_id == subtopic_obj.id,
+            MCQ.hardness_level == hardness_level
+        )
+        .order_by(func.random())
+        .first()
+    )
+
+    # If no questions are available at this hardness level, end the quiz
+    if not next_question:
+        return PracticeQuizQuestionResponse(
+            hardness_level=hardness_level,
+            message=f"No questions available at difficulty level {hardness_level}. Practice completed!"
+        )
+
+    return PracticeQuizQuestionResponse(
+        question=MCQResponse.from_orm(next_question),
+        hardness_level=hardness_level
+    )
 
 
 @app.on_event("startup")

@@ -2,8 +2,8 @@ import json
 from database.session import SessionLocal
 from database.models import Subtopic, Explain
 
-json_file_name = "set_latex_image.json"
-subtopic_name = "Set Latex"
+json_file_name = "chunk.json"
+subtopic_name = "Number"
 
 def insert_chunk_to_subtopic():
     # Load chunks from JSON file
@@ -11,7 +11,7 @@ def insert_chunk_to_subtopic():
         with open(json_file_name, 'r') as f:
             chunks = json.load(f)
     except FileNotFoundError:
-        print("set_latex_image.json not found. Please place it in the working directory.")
+        print(json_file_name+" not found. Please place it in the working directory.")
         return
     except json.JSONDecodeError:
         print("Invalid JSON format in set_latex_image.json.")

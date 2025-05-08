@@ -11,6 +11,7 @@ backend/*.json
 backend/venv/
 backend/__pycache__/
 backend/*.pyc
+backend/app/Images/
 *.pyo
 *.pyd
 .Python
@@ -19,6 +20,7 @@ backend/*.pyc
 dist/
 build/
 *.log
+
 
 # React/Node.js-specific ignores for frontend/tutor/
 frontend/tutor/node_modules/
