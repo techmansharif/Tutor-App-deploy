@@ -1,0 +1,115 @@
+import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import axios from 'axios';
+import './Explains.css';
+
+const Explains = ({
+  selectedSubject,
+  selectedTopic,
+  selectedSubtopic,
+  user,
+  API_BASE_URL,
+  onProceedToPractice // Updated prop name to match App.js
+}) => {
+  const [explainText, setExplainText] = useState('');
+  const [explainImage, setExplainImage] = useState(null);
+  const [isExplainLoading, setIsExplainLoading] = useState(false);
+  const [explainFinished, setExplainFinished] = useState(false);
+
+  // Fetch explanation when component mounts (initial "continue" query)
+  useEffect(() => {
+    fetchExplain("continue");
+  }, []);
+
+  // Helper function to process the explanation text
+  const processExplanation = (text) => {
+    let processed = text.replace(/\n\s*\*\s+/g, '\n• ');
+    processed = processed.replace(/\n\n/g, '\n\n');
+    return processed;
+  };
+
+  // Fetch explanation from API
+  const fetchExplain = async (query) => {
+    setIsExplainLoading(true);
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/${selectedSubject}/${selectedTopic}/${selectedSubtopic}/explains/`,
+        { query },
+        {
+          headers: { 'user-id': user.user_id },
+          withCredentials: true
+        }
+      );
+      
+      if (response.data.answer === "Congratulations, you have mastered the topic!") {
+        setExplainFinished(true);
+        setExplainImage(null);
+      } else {
+        setExplainText(response.data.answer);
+        setExplainImage(response.data.image);
+      }
+    } catch (error) {
+      console.error('Error fetching explanation:', error);
+      alert('Error fetching explanation. Please try again.');
+    } finally {
+      setIsExplainLoading(false);
+    }
+  };
+
+  // Handle moving to next explanation
+  const handleContinueExplain = () => {
+    fetchExplain("continue");
+  };
+
+  // Handle asking for explanation again
+  const handleExplainAgain = () => {
+    fetchExplain("Explain");
+  };
+
+  return (
+    <div className="explains-component-container">
+      <h2>Learning: {selectedSubject} - {selectedTopic} - {selectedSubtopic}</h2>
+      
+      {isExplainLoading ? (
+        <div className="loading-component">
+          <div className="loading-spinner-component"></div>
+          <p>Loading explanation...</p>
+        </div>
+      ) : (
+        <div className="explanation-content-component">
+          <ReactMarkdown>
+            {processExplanation(explainText)}
+          </ReactMarkdown>
+          {explainImage && (
+            <div className="explanation-image-component">
+              <img
+                src={`data:image/png;base64,${explainImage}`}
+                alt="Explanation diagram"
+                style={{ maxWidth: '100%', marginTop: '20px' }}
+              />
+            </div>
+          )}
+        </div>
+      )}
+      
+      <div className="explain-controls-component">
+        {explainFinished ? (
+          <button onClick={onProceedToPractice} className="primary-button-component">
+            Start Practice
+          </button>
+        ) : (
+          <>
+            <button onClick={handleContinueExplain} className="primary-button-component">
+              Let's Move On
+            </button>
+            <button onClick={handleExplainAgain} className="secondary-button-component">
+              Explain Once Again
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Explains;
