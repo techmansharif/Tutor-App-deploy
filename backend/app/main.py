@@ -27,6 +27,7 @@ from sentence_transformers import SentenceTransformer
 from pylatexenc.latex2text import LatexNodes2Text
 
 import base64  # Add this import for base64 encoding
+import json 
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
@@ -769,13 +770,21 @@ Instructions:
     answer = LatexNodes2Text().latex_to_text(response.text.strip())
 
     # NEW: Update UserProgress with new chunk_index and chat_memory
-    chat_memory.append({"question": explain_query.query, "answer": answer})
-    if len(chat_memory) > 30:
-        chat_memory.pop(0)
+    # chat_memory.append({"question": explain_query.query, "answer": answer})
+
+    # When updating:
+    new_pair = {"question": explain_query.query, "answer": answer}
+    chat_memory_updated = chat_memory + [new_pair] 
+    if len(chat_memory_updated) > 30:
+        chat_memory_updated = chat_memory_updated[-30:]  # Keep only last 30
+
+    # Assign the new list to progress.chat_memory
+    progress.chat_memory = chat_memory_updated
     progress.chunk_index = chunk_index
-    progress.chat_memory = chat_memory
     progress.last_updated = datetime.utcnow()
     db.commit()
+
+    print('after commit : ', progress.chat_memory)
 
     return ExplainResponse(answer=answer,image=image_data)
 
