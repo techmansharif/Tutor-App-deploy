@@ -10,16 +10,28 @@ const Explains = ({
   user,
   API_BASE_URL,
   onProceedToPractice // Updated prop name to match App.js
-}) => {
+  }) => {
   const [explainText, setExplainText] = useState('');
   const [explainImage, setExplainImage] = useState(null);
   const [isExplainLoading, setIsExplainLoading] = useState(false);
   const [explainFinished, setExplainFinished] = useState(false);
+  const [hasFetchedInitial, setHasFetchedInitial] = useState(false);
 
   // Fetch explanation when component mounts (initial "continue" query)
   useEffect(() => {
+  if (!hasFetchedInitial) {
     fetchExplain("continue");
-  }, []);
+    setHasFetchedInitial(true);
+  }
+
+  return () => {
+    // Cleanup logic if needed (e.g., cancel pending requests)
+  };
+}, [hasFetchedInitial]);
+  // useEffect(() => {
+  //   fetchExplain("continue");
+
+  // }, []);
 
   // Helper function to process the explanation text
   const processExplanation = (text) => {
@@ -43,6 +55,7 @@ const Explains = ({
       
       if (response.data.answer === "Congratulations, you have mastered the topic!") {
         setExplainFinished(true);
+        setExplainText(response.data.answer); // Store the message
         setExplainImage(null);
       } else {
         setExplainText(response.data.answer);

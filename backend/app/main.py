@@ -681,7 +681,6 @@ async def post_explain(
     # NEW: Use chunk_index and chat_memory from UserProgress
     chunk_index = progress.chunk_index
     chat_memory = progress.chat_memory
-
     # Handle query
     query = explain_query.query.lower()
     context = None
@@ -750,11 +749,11 @@ user_input:
 Recent Chat History:
 {memory_text}
 
-Relevant Context:
+Relevant Text:
 {context if context else chunks}
 
 Instructions:
-1. Explain the context in fun and interesting ways
+1. Explain the Relevant Text in fun and interesting ways
 2. Make the Explanation engaging , use story if necessary
 3. if necessary refer to chat history
 
@@ -775,6 +774,7 @@ Instructions:
     # When updating:
     new_pair = {"question": explain_query.query, "answer": answer}
     chat_memory_updated = chat_memory + [new_pair] 
+    
     if len(chat_memory_updated) > 30:
         chat_memory_updated = chat_memory_updated[-30:]  # Keep only last 30
 
@@ -784,7 +784,7 @@ Instructions:
     progress.last_updated = datetime.utcnow()
     db.commit()
 
-    print('after commit : ', progress.chat_memory)
+
 
     return ExplainResponse(answer=answer,image=image_data)
 
