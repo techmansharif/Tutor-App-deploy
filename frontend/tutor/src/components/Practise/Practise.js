@@ -1,15 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import './Practise.css';
 
 const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompletePractice }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
-  const [hardnessLevel, setHardnessLevel] = useState(5); // Default as per backend
-  const [questionsTried, setQuestionsTried] = useState(0);
+  const [hardnessLevel, setHardnessLevel] = useState(5);
+  const [questionsTried, setQuestionsTried] = useState(1);
   const [selectedOption, setSelectedOption] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const [completionMessage, setCompletionMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  // Integrity score hook
+  const {
+    questionStartTime,
+    setQuestionStartTime,
+    cheatScore,
+    calculateCheatProbability,
+    updateCheatScore,
+    logResponseTime
+  } = useIntegrityScore();
+
+  // Start timing when a new question is loaded
+  useEffect(() => {
+    if (currentQuestion) {
+      setQuestionStartTime(Date.now());
+    }
+  }, [currentQuestion, setQuestionStartTime]);
 
   // Fetch the first practice question on mount
   useEffect(() => {
@@ -32,8 +50,10 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
       if (question) {
         setCurrentQuestion(question);
         setHardnessLevel(hardness_level);
-        setSelectedOption(''); // Reset selected option for new question
+        setSelectedOption('');
+        if(submission){
         setQuestionsTried((prev) => prev + 1);
+        }
       } else if (message) {
         setIsComplete(true);
         setCompletionMessage(message);
@@ -56,7 +76,12 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
       return;
     }
 
+    const responseTime = (Date.now() - questionStartTime) / 1000;
+    const cheatProbability = calculateCheatProbability(responseTime);
+    updateCheatScore(cheatProbability);
     const isCorrect = selectedOption === currentQuestion.correct_option;
+    logResponseTime(responseTime, isCorrect, currentQuestion, hardnessLevel);
+
     const submission = {
       question_id: currentQuestion.id,
       is_correct: isCorrect,
@@ -71,6 +96,8 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
     onCompletePractice();
   };
 
+  const integrityScore = 100 - cheatScore;
+
   if (isComplete) {
     return (
       <div className="practice-quiz-container">
@@ -78,6 +105,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
         <p>{completionMessage}</p>
         <p>Total Questions Tried: {questionsTried}</p>
         <p>Final Difficulty Level: {hardnessLevel}</p>
+        <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
         <button onClick={handleCompletePractice} className="primary-button">
           Proceed to Quiz
         </button>
@@ -100,6 +128,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
     <div className="practice-quiz-container">
       <h2>Practice Quiz: {subject} - {topic} - {subtopic}</h2>
       <p>Question {questionsTried} | Difficulty Level: {hardnessLevel}</p>
+      <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
       <div className="question-container">
         <h4>{currentQuestion.question}</h4>
         <div className="options">
