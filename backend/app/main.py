@@ -279,8 +279,14 @@ async def get_subtopics(subject: str, topic: str, db: Session = Depends(get_db))
 @app.post("/quiz1/", response_model=QuizQuestionResponse)
 async def quiz1(
     submission: Optional[QuizAnswerSubmission] = None,
+    user_id: int = Header(...),
     db: Session = Depends(get_db)
 ):
+    # Validate user
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
+
     hardness_level = 1
     attempt_id = None
 
@@ -290,17 +296,20 @@ async def quiz1(
         if not question:
             raise HTTPException(status_code=404, detail=f"Question ID {submission.question_id} not found")
 
-        attempt = db.query(Quiz1Attempt).filter(Quiz1Attempt.id == submission.attempt_id).first()
+        attempt = db.query(Quiz1Attempt).filter(Quiz1Attempt.id == submission.attempt_id, Quiz1Attempt.user_id == user_id).first()
         if not attempt:
             raise HTTPException(status_code=404, detail=f"Attempt ID {submission.attempt_id} not found")
         attempt_id = submission.attempt_id
 
         # Record quiz answer
         quiz_answer = Quiz1(
+            user_id=user_id,
             attempt_id=submission.attempt_id,
             question_id=submission.question_id,
             hardness_level=submission.current_hardness_level,
-            is_correct=submission.is_correct
+            is_correct=submission.is_correct,
+            user_answer=question.correct_option if submission.is_correct else "incorrect",
+            correct_answer=question.correct_option
         )
         db.add(quiz_answer)
         db.commit()
@@ -339,7 +348,9 @@ async def quiz1(
         attempt_id = submission.attempt_id
     else:
         # Create new quiz attempt
-        quiz_attempt = Quiz1Attempt()
+        quiz_attempt = Quiz1Attempt(
+            user_id=user_id
+        )
         db.add(quiz_attempt)
         db.commit()
         db.refresh(quiz_attempt)
@@ -351,7 +362,7 @@ async def quiz1(
 
     # Try to find a question by randomly selecting subject, topic, and subtopic
     next_question = None
-    max_attempts = 100  # Prevent infinite loop
+    max_attempts = 1000  # Prevent infinite loop
     attempt_count = 0
 
     while not next_question and attempt_count < max_attempts:
@@ -398,13 +409,6 @@ async def quiz1(
         hardness_level=hardness_level,
         attempt_id=attempt_id
     )
-# Endpoint to fetch 5 random Quiz0 questions
-@app.get("/quiz0/questions/", response_model=List[Quiz0Response])
-async def get_quiz0_questions(db: Session = Depends(get_db)):
-    questions = db.query(Quiz0).order_by(func.random()).limit(5).all()
-    if not questions:
-        raise HTTPException(status_code=404, detail="No questions found in Quiz0")
-    return questions
 
 # Endpoint to submit answers for Quiz0
 @app.post("/quiz0/submit/")

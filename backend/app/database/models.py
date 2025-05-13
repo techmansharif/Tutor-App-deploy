@@ -182,30 +182,33 @@ class Diagram(Base):
     
 
 # New Quiz1 model
+# Quiz1 model
 class Quiz1(Base):
     __tablename__ = "quiz1s"
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), index=True, nullable=False)
     attempt_id = Column(Integer, ForeignKey("quiz1_attempts.id"), index=True)
     question_id = Column(Integer, ForeignKey("mcqs.id"), index=True)
     hardness_level = Column(Integer, nullable=False)
     is_correct = Column(Boolean, nullable=False)
+    user_answer = Column(String)  # Store user's selected answer
+    correct_answer = Column(String)  # Store correct answer
     user = relationship("User")
     attempt = relationship("Quiz1Attempt", back_populates="answers")
     question = relationship("MCQ")
 
-# New Quiz1Attempt model
+# Quiz1Attempt model
 class Quiz1Attempt(Base):
     __tablename__ = "quiz1_attempts"
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), index=True, nullable=False)
     started_at = Column(DateTime(timezone=True), server_default=func.now())
     completed_at = Column(DateTime(timezone=True), nullable=True)
     user = relationship("User")
     answers = relationship("Quiz1", back_populates="attempt")
     score = relationship("Quiz1Score", uselist=False, back_populates="attempt")
 
-# New Quiz1Score model
+# Quiz1Score model
 class Quiz1Score(Base):
     __tablename__ = "quiz1_scores"
     id = Column(Integer, primary_key=True, index=True)
