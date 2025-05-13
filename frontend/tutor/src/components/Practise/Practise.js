@@ -203,16 +203,22 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
           Restart Practice
         </button>
       </div>
-      <div className="quiz-info">
-        <p>Question {questionsTried + 1} | Difficulty Level: {hardnessLevel}</p>
-        <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} pause={isTimerPaused} />
-        <p>Score: {score} / {questionsTried}</p>
+      <div className="quiz-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+        <div className="left-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <p style={{ margin: '5px 0', fontWeight: 'normal' }}>Question {questionsTried + 1} | Difficulty Level: {hardnessLevel}</p>
+          <p style={{ margin: '5px 0', fontWeight: 'normal' }}>Score: {score} / {questionsTried}</p>
+        </div>
+        <div className="right-section">
+          <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} pause={isTimerPaused} />
+        </div>
       </div>
-      <div className="integrity-score">
-        <span>Integrity Score</span>
-        <span>{integrityScore}%</span>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '10px' }}>
+        <span style={{ fontWeight: 'normal', marginBottom: '5px' }}>Integrity mode (helps you answer faster)</span>
+        <div style={{ width: '100%' }}>
+          <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
+        </div>
+        <span style={{ fontWeight: 'normal', marginTop: '5px' }}>{integrityScore}%</span>
       </div>
-      <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
       <div className="question-container">
         <h4>{currentQuestion.question}</h4>
         <div className="options">
@@ -227,7 +233,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
                 onChange={() => handleAnswerSelect(option)}
                 disabled={isAnswerSubmitted && isAnswerIncorrect}
               />
-              <label htmlFor={`q韩${currentQuestion.id}-${option}`}>
+              <label htmlFor={`q-${currentQuestion.id}-${option}`}>
                 {option.toUpperCase()}: {currentQuestion[`option_${option}`]}
               </label>
             </div>

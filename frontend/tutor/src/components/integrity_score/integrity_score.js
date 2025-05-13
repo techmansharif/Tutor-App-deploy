@@ -60,29 +60,13 @@ export const useIntegrityScore = () => {
 };
 
 export const IntegrityScore = ({ integrityScore, cheatScore }) => {
-  return (
+  return  (
     <div className="cheating-detection">
       <div className="progress-bar-container">
         <div
           className="progress-bar cheat-bar"
           style={{ width: `${cheatScore}%` }}
         ></div>
-      </div>
-      <div className="cheat-score-container">
-        <span>Integrity Score</span>
-        <span
-          className="cheat-score"
-          style={{
-            color:
-              integrityScore >= 80
-                ? '#28a745'
-                : integrityScore >= 50
-                ? '#ffc107'
-                : '#dc3545'
-          }}
-        >
-          {integrityScore}%
-        </span>
       </div>
     </div>
   );
