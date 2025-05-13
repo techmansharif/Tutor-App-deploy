@@ -208,6 +208,22 @@ class SelectionRequest(BaseModel):
     subtopic: Optional[str] = None  # Subtopic is optional now
 
 
+# New QuizQuestionResponse schema
+class QuizQuestionResponse(BaseModel):
+    question: Optional[MCQResponse] = None
+    hardness_level: int
+    message: Optional[str] = None
+    attempt_id: Optional[int] = None
+    class Config:
+        from_attributes = True
+
+# New QuizAnswerSubmission schema
+class QuizAnswerSubmission(BaseModel):
+    question_id: int
+    is_correct: bool
+    current_hardness_level: int
+    questions_tried: int
+    attempt_id: int
 # Request model for user input
 class ExplainQuery(BaseModel):
     query: str
@@ -340,240 +356,183 @@ async def select_subject_topic_subtopic(
     
     return {"message": f"Selected subject: {selection.subject}, topic: {selection.topic}, subtopic: {selection.subtopic if selection.subtopic else 'None'}", "selection_id": user_selection.id}
 
-
-
-
-
-# Endpoint to fetch 10 MCQs: first 5 for Quiz-2 (3 easy, 2 medium), last 5 for Quiz-3 (2 medium, 3 hard)
-@app.get("/{subject}/{topic}/{subtopic}/quizquestions/")
-async def get_quiz_questions(
+@app.post("/{subject}/{topic}/{subtopic}/quiz/", response_model=QuizQuestionResponse)
+async def quiz(
     subject: str,
     topic: str,
     subtopic: str,
+    submission: Optional[QuizAnswerSubmission] = None,
     user_id: int = Header(...),
     db: Session = Depends(get_db)
-) -> dict:
+):
+    # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
 
-    # Validate subject, topic, and subtopic
+    # Validate subject, topic, subtopic
     subject_obj = db.query(Subject).filter(Subject.name == subject).first()
     if not subject_obj:
         raise HTTPException(status_code=404, detail=f"Subject {subject} not found")
     
-    topic_obj = db.query(Topic).filter(
-        Topic.name == topic,
-        Topic.subject_id == subject_obj.id
-    ).first()
+    topic_obj = db.query(Topic).filter(Topic.name == topic, Topic.subject_id == subject_obj.id).first()
     if not topic_obj:
         raise HTTPException(status_code=404, detail=f"Topic {topic} not found in subject {subject}")
     
-    subtopic_obj = db.query(Subtopic).filter(
-        Subtopic.name == subtopic,
-        Subtopic.topic_id == topic_obj.id
-    ).first()
+    subtopic_obj = db.query(Subtopic).filter(Subtopic.name == subtopic, Subtopic.topic_id == topic_obj.id).first()
     if not subtopic_obj:
         raise HTTPException(status_code=404, detail=f"Subtopic {subtopic} not found in topic {topic}")
-    
-    # Create a new selection entry
-    user_selection = UserSelection(
-        user_id=user_id,
-        subject_id=subject_obj.id,
-        topic_id=topic_obj.id,
-        subtopic_id=subtopic_obj.id
-    )
-    db.add(user_selection)
-    db.commit()
-    db.refresh(user_selection)
 
-    # Create a new quiz attempt
-    quiz_attempt = QuizAttempt(
-        user_id=user_id,
-        selection_id=user_selection.id
-    )
-    db.add(quiz_attempt)
-    db.commit()
-    db.refresh(quiz_attempt)
+    hardness_level = 5
+    attempt_id = None
 
-    # Fetch questions for Quiz-2: 3 easy, 2 medium
-    easy_questions = (
-        db.query(MCQ)
-        .filter(MCQ.subtopic_id == subtopic_obj.id, MCQ.hardness_level == "easy")
-        .order_by(func.random())
-        .limit(3)
-        .all()
-    )
-    medium_questions_quiz2 = (
-        db.query(MCQ)
-        .filter(MCQ.subtopic_id == subtopic_obj.id, MCQ.hardness_level == "medium")
-        .order_by(func.random())
-        .limit(2)
-        .all()
-    )
-    quiz2_questions = easy_questions + medium_questions_quiz2
-    if len(quiz2_questions) < 5:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Not enough questions for Quiz-2 in subtopic {subtopic} (need 3 easy, 2 medium, found {len(easy_questions)} easy, {len(medium_questions_quiz2)} medium)"
-        )
-    
-    # Fetch questions for Quiz-3: 2 medium, 3 hard
-    medium_questions_quiz3 = (
-        db.query(MCQ)
-        .filter(MCQ.subtopic_id == subtopic_obj.id, MCQ.hardness_level == "medium")
-        .order_by(func.random())
-        .limit(2)
-        .all()
-    )
-    hard_questions = (
-        db.query(MCQ)
-        .filter(MCQ.subtopic_id == subtopic_obj.id, MCQ.hardness_level == "hard")
-        .order_by(func.random())
-        .limit(3)
-        .all()
-    )
-    quiz3_questions = medium_questions_quiz3 + hard_questions
-    if len(quiz3_questions) < 5:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Not enough questions for Quiz-3 in subtopic {subtopic} (need 2 medium, 3 hard, found {len(medium_questions_quiz3)} medium, {len(hard_questions)} hard)"
-        )
-    
-    # Combine questions: first 5 for Quiz-2, last 5 for Quiz-3
-    questions = quiz2_questions + quiz3_questions
-    questions_response = [MCQResponse.from_orm(q) for q in questions]
-    return {"attempt_id": quiz_attempt.id, "questions": questions_response}
-
-
-
-# Endpoint to submit answers for Quiz-2 and Quiz-3 (10 questions: first 5 for Quiz-2, last 5 for Quiz-3)
-@app.post("/quiz/submit/")
-async def submit_quiz_answers(
-    submission: QuizSubmission,
-    user_id: int = Header(...),
-    attempt_id: int = Query(...),
-    db: Session = Depends(get_db)
-):
-    user = db.query(User).filter(User.id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
-
-    # Validate quiz attempt
-    attempt = db.query(QuizAttempt).filter(QuizAttempt.id == attempt_id, QuizAttempt.user_id == user_id).first()
-    if not attempt:
-        raise HTTPException(status_code=404, detail=f"Quiz attempt ID {attempt_id} not found for user ID {user_id}")
-
-    # Ensure exactly 10 answers are submitted
-    if len(submission.answers) != 10:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Expected 10 answers (5 for Quiz-2, 5 for Quiz-3), but received {len(submission.answers)}"
-        )
-    
-    # Split answers: first 5 for Quiz-2, last 5 for Quiz-3
-    quiz2_answers = submission.answers[:5]
-    quiz3_answers = submission.answers[5:]
-    
-    # Process Quiz-2 answers
-    quiz2_results = []
-    quiz2_correct_count = 0
-    for answer in quiz2_answers:
-        question = db.query(MCQ).filter(MCQ.id == answer.question_id).first()
+    if submission:
+        # Validate question and attempt
+        question = db.query(MCQ).filter(MCQ.id == submission.question_id).first()
         if not question:
-            raise HTTPException(status_code=404, detail=f"Question ID {answer.question_id} not found")
+            raise HTTPException(status_code=404, detail=f"Question ID {submission.question_id} not found")
 
-        # No need to pass subject or topic anymore; everything is inferred from the MCQ table
-        is_correct = answer.selected_option == question.correct_option
-        if is_correct:
-            quiz2_correct_count += 1
-        
-        # Store the answer
+        attempt = db.query(QuizAttempt).filter(QuizAttempt.id == submission.attempt_id, QuizAttempt.user_id == user_id).first()
+        if not attempt:
+            raise HTTPException(status_code=404, detail=f"Attempt ID {submission.attempt_id} not found")
+        attempt_id = submission.attempt_id
+
+        # Record quiz answer
+        question_number = db.query(QuizAnswer).filter(QuizAnswer.attempt_id == submission.attempt_id).count() + 1
+        quiz_type = "quiz2" if question_number <= 5 else "quiz3"
+
         quiz_answer = QuizAnswer(
-            attempt_id=attempt_id,
-            quiz_type="quiz2",
-            question_id=answer.question_id,
-            user_answer=answer.selected_option,
+            attempt_id=submission.attempt_id,
+            quiz_type=quiz_type,
+            question_id=submission.question_id,
+            user_answer=question.correct_option if submission.is_correct else "incorrect",
             correct_answer=question.correct_option,
-            is_correct=is_correct
+            is_correct=submission.is_correct
         )
         db.add(quiz_answer)
-        
-        quiz2_results.append({
-            "question_id": answer.question_id,
-            "selected_option": answer.selected_option,
-            "correct_option": question.correct_option,
-            "is_correct": is_correct,
-            "explanation": question.explanation
-        })
-    
-    quiz2_score = (quiz2_correct_count / 5) * 100
-    
-    # Process Quiz-3 answers
-    quiz3_results = []
-    quiz3_correct_count = 0
-    for answer in quiz3_answers:
-        question = db.query(MCQ).filter(MCQ.id == answer.question_id).first()
-        if not question:
-            raise HTTPException(status_code=404, detail=f"Question ID {answer.question_id} not found")
+        db.commit()
 
-        # No need to pass subject or topic anymore; everything is inferred from the MCQ table
-        is_correct = answer.selected_option == question.correct_option
-        if is_correct:
-            quiz3_correct_count += 1
+        # Adjust hardness level
+        hardness_level = submission.current_hardness_level
+        if submission.is_correct:
+            hardness_level = min(hardness_level + 1, 10)
+        else:
+            hardness_level = max(hardness_level - 1, 1)
+
+        # Check if quiz is complete (10 questions)
+        if question_number >= 10:
+            quiz2_answers = db.query(QuizAnswer).filter(QuizAnswer.attempt_id == submission.attempt_id, QuizAnswer.quiz_type == "quiz2").all()
+            quiz3_answers = db.query(QuizAnswer).filter(QuizAnswer.attempt_id == submission.attempt_id, QuizAnswer.quiz_type == "quiz3").all()
+            quiz2_correct = sum(1 for ans in quiz2_answers if ans.is_correct)
+            quiz3_correct = sum(1 for ans in quiz3_answers if ans.is_correct)
+            quiz2_score = (quiz2_correct / 5) * 100 if quiz2_answers else 0
+            quiz3_score = (quiz3_correct / 5) * 100 if quiz3_answers else 0
+
+            quiz_score = QuizScore(
+                attempt_id=submission.attempt_id,
+                quiz2_correct=quiz2_correct,
+                quiz3_correct=quiz3_correct,
+                total_correct=quiz2_correct + quiz3_correct,
+                quiz2_score=quiz2_score,
+                quiz3_score=quiz3_score
+            )
+            db.add(quiz_score)
+            attempt.completed_at = datetime.utcnow()
+            db.commit()
+
+            return QuizQuestionResponse(
+                hardness_level=hardness_level,
+                message="You have completed the quiz! Check your scores.",
+                attempt_id=submission.attempt_id
+            )
         
-        # Store the answer
-        quiz_answer = QuizAnswer(
-            attempt_id=attempt_id,
-            quiz_type="quiz3",
-            question_id=answer.question_id,
-            user_answer=answer.selected_option,
-            correct_answer=question.correct_option,
-            is_correct=is_correct
+        attempt_id = submission.attempt_id
+    else:
+        # Create new user selection and quiz attempt
+        user_selection = UserSelection(
+            user_id=user_id,
+            subject_id=subject_obj.id,
+            topic_id=topic_obj.id,
+            subtopic_id=subtopic_obj.id
         )
-        db.add(quiz_answer)
-        
-        quiz3_results.append({
-            "question_id": answer.question_id,
-            "selected_option": answer.selected_option,
-            "correct_option": question.correct_option,
-            "is_correct": is_correct,
-            "explanation": question.explanation
-        })
-    
-    quiz3_score = (quiz3_correct_count / 5) * 100
-    
-    # Store the scores
-    total_correct = quiz2_correct_count + quiz3_correct_count
-    quiz_score = QuizScore(
-        attempt_id=attempt_id,
-        quiz2_correct=quiz2_correct_count,
-        quiz3_correct=quiz3_correct_count,
-        total_correct=total_correct,
-        quiz2_score=quiz2_score,
-        quiz3_score=quiz3_score
-    )
-    db.add(quiz_score)
-    
-    # Update the quiz attempt
-    attempt.completed_at = datetime.utcnow()
-    db.commit()
-    
-    return {
-        "quiz2_results": {
-            "results": quiz2_results,
-            "score": quiz2_score,
-            "correct_answers": quiz2_correct_count,
-            "total_questions": 5
-        },
-        "quiz3_results": {
-            "results": quiz3_results,
-            "score": quiz3_score,
-            "correct_answers": quiz3_correct_count,
-            "total_questions": 5
-        }
-    }
+        db.add(user_selection)
+        db.commit()
+        db.refresh(user_selection)
 
+        quiz_attempt = QuizAttempt(
+            user_id=user_id,
+            selection_id=user_selection.id
+        )
+        db.add(quiz_attempt)
+        db.commit()
+        db.refresh(quiz_attempt)
+        attempt_id = quiz_attempt.id
+
+    # Get answered question IDs
+    answered_question_ids = db.query(QuizAnswer.question_id).filter(QuizAnswer.attempt_id == attempt_id).all()
+    answered_question_ids = [qid for (qid,) in answered_question_ids]
+
+    # Try to find a question at the current hardness level
+    next_question = (
+        db.query(MCQ)
+        .filter(
+            MCQ.subtopic_id == subtopic_obj.id,
+            MCQ.hardness_level == hardness_level,
+            ~MCQ.id.in_(answered_question_ids)
+        )
+        .order_by(func.random())
+        .first()
+    )
+
+    # If no question at current level, check upper then lower levels
+    if not next_question:
+        current_level = hardness_level
+        # Check upper levels (up to 10)
+        for level in range(current_level + 1, 11):
+            next_question = (
+                db.query(MCQ)
+                .filter(
+                    MCQ.subtopic_id == subtopic_obj.id,
+                    MCQ.hardness_level == level,
+                    ~MCQ.id.in_(answered_question_ids)
+                )
+                .order_by(func.random())
+                .first()
+            )
+            if next_question:
+                hardness_level = level
+                break
+
+        # If no upper level question found, check lower levels (down to 1)
+        if not next_question:
+            for level in range(current_level - 1, 0, -1):
+                next_question = (
+                    db.query(MCQ)
+                    .filter(
+                        MCQ.subtopic_id == subtopic_obj.id,
+                        MCQ.hardness_level == level,
+                        ~MCQ.id.in_(answered_question_ids)
+                    )
+                    .order_by(func.random())
+                    .first()
+                )
+                if next_question:
+                    hardness_level = level
+                    break
+
+        # If still no question found, quiz is complete
+        if not next_question:
+            return QuizQuestionResponse(
+                hardness_level=hardness_level,
+                message="No questions available at any difficulty level. Quiz completed!",
+                attempt_id=attempt_id
+            )
+
+    return QuizQuestionResponse(
+        question=MCQResponse.from_orm(next_question),
+        hardness_level=hardness_level,
+        attempt_id=attempt_id
+    )
 
 # Updated function to handle various LaTeX commands in the first line
 def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Optional[str]:
