@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import './Stopwatch.css';
 
-const Stopwatch = ({ reset, onTimeExpired }) => {
-  const [time, setTime] = useState(60); // Start at買取
+const Stopwatch = ({ reset, onTimeExpired, pause }) => {
+  const [time, setTime] = useState(60); // Start at 60s
 
   useEffect(() => {
     setTime(60); // Reset time when reset prop changes
   }, [reset]);
 
   useEffect(() => {
-    if (time <= 0) {
-      onTimeExpired(); // Call callback when time expires
-      return;
+    if (pause || time <= 0) {
+      return; // Do not run timer if paused or time is up
     }
 
     const timer = setInterval(() => {
-      setTime((prev) => prev - 1);
+      setTime((prev) => {
+        const newTime = prev - 1;
+        if (newTime <= 0) {
+          onTimeExpired(); // Call callback when time expires
+          return 0;
+        }
+        return newTime;
+      });
     }, 1000);
 
     return () => clearInterval(timer); // Cleanup interval
-  }, [time, onTimeExpired]);
+  }, [time, pause, onTimeExpired]);
 
   // Calculate color: interpolate from green (0, 128, 0) to yellow (255, 255, 0) to red (255, 0, 0)
   const getColor = () => {

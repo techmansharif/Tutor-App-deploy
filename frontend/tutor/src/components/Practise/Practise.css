@@ -5,6 +5,30 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.quiz-header p {
+  margin: 0;
+}
+
+.stopwatch {
+  margin: 0 auto;
+}
+
+.integrity-score {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .question-container {
@@ -33,10 +57,82 @@
   color: #007bff;
 }
 
+.feedback {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #e9ecef;
+}
+
+.feedback.correct {
+  border: 2px solid #28a745;
+}
+
+.feedback.incorrect {
+  border: 2px solid #dc3545;
+}
+
+.feedback h3 {
+  margin: 0 0 10px 0;
+  color: #28a745;
+}
+
+.feedback.incorrect h3 {
+  color: #dc3545;
+}
+
 .explanation {
-  font-style: italic;
+  font-style: normal;
   color: #333;
-  margin-top: 10px;
+  margin: 10px 0;
+}
+
+.explanation strong {
+  font-weight: bold;
+}
+
+.feedback p {
+  margin: 5px 0;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.retry-button {
+  padding: 10px 20px;
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 150px;
+  text-align: center;
+}
+
+.next-button {
+  padding: 10px 20px;
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 150px;
+  text-align: center;
+}
+
+.retry-button:hover {
+  background-color: #e0a800;
+}
+
+.next-button:hover {
+  background-color: #138496;
 }
 
 .loading {
@@ -71,4 +167,33 @@
 .primary-button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Hide the practice-quiz-container content when modal is active */
+.practice-quiz-container:has(.modal-overlay) > *:not(.modal-overlay) {
+  visibility: hidden;
 }

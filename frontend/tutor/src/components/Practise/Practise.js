@@ -16,6 +16,8 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
   const [isAnswerIncorrect, setIsAnswerIncorrect] = useState(false);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
   const [timerReset, setTimerReset] = useState(0); // Trigger timer reset
+  const [showCongrats, setShowCongrats] = useState(false); // Track congratulatory message
+  const [isTimerPaused, setIsTimerPaused] = useState(false); // Track timer pause state
 
   // Integrity score hook
   const {
@@ -32,6 +34,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
     if (currentQuestion) {
       setQuestionStartTime(Date.now());
       setTimerReset((prev) => prev + 1); // Reset timer
+      setIsTimerPaused(false); // Ensure timer is not paused for new question
     }
   }, [currentQuestion, setQuestionStartTime]);
 
@@ -59,6 +62,8 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
         setSelectedOption('');
         setIsAnswerSubmitted(false);
         setIsAnswerIncorrect(false);
+        setShowCongrats(false); // Reset congratulatory message
+        setIsTimerPaused(false); // Ensure timer is not paused
       } else if (message) {
         setIsComplete(true);
         setCompletionMessage(message);
@@ -88,13 +93,17 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
     if (isCorrect) {
       setScore((prev) => prev + 1);
       setQuestionsTried((prev) => prev + 1);
-      const submission = {
-        question_id: currentQuestion.id,
-        is_correct: isCorrect,
-        current_hardness_level: hardnessLevel,
-        questions_tried: questionsTried + 1
-      };
-      await fetchPracticeQuestion(submission);
+      setShowCongrats(true); // Show congratulatory message
+      setIsTimerPaused(true); // Pause the stopwatch
+      setTimeout(async () => {
+        const submission = {
+          question_id: currentQuestion.id,
+          is_correct: isCorrect,
+          current_hardness_level: hardnessLevel,
+          questions_tried: questionsTried + 1
+        };
+        await fetchPracticeQuestion(submission);
+      }, 1500); // Wait 3 seconds before moving to next question
     }
   };
 
@@ -115,6 +124,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
     setIsAnswerIncorrect(false);
     setQuestionStartTime(Date.now()); // Reset timer for integrity score
     setTimerReset((prev) => prev + 1); // Reset stopwatch
+    setIsTimerPaused(false); // Ensure timer is not paused
   };
 
   const handleNextQuestion = async () => {
@@ -165,9 +175,15 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
   return (
     <div className="practice-quiz-container">
       <h2>Practice Quiz: {subject} - {topic} - {subtopic}</h2>
-      <p>Question {questionsTried + 1} | Difficulty Level: {hardnessLevel}</p>
-      <p>Score: {score} / {questionsTried}</p>
-      <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} />
+      <div className="quiz-header">
+        <p>Question {questionsTried + 1} | Difficulty Level: {hardnessLevel}</p>
+        <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} pause={isTimerPaused} />
+        <p>Score: {score} / {questionsTried}</p>
+      </div>
+      <div className="integrity-score">
+        <span>Integrity Score</span>
+        <span>{integrityScore}%</span>
+      </div>
       <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
       <div className="question-container">
         <h4>{currentQuestion.question}</h4>
@@ -189,22 +205,39 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
             </div>
           ))}
         </div>
-        {currentQuestion.explanation && isAnswerSubmitted && isAnswerIncorrect && (
-          <p className="explanation">Explanation: {currentQuestion.explanation}</p>
+        {showCongrats && (
+          <div className="feedback correct">
+            <h3>Correct!</h3>
+            <p>Well done! You selected the right answer.</p>
+            <p>Great speed!</p>
+            <p>Moving to a more challenging question...</p>
+          </div>
         )}
       </div>
       {isAnswerSubmitted && isAnswerIncorrect && (
-        <div>
-          <button onClick={handleRetry} className="primary-button">
-            Retry
-          </button>
-          <button onClick={handleNextQuestion} className="primary-button" style={{ marginLeft: '10px' }}>
-            Next Question
-          </button>
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="feedback incorrect">
+              <h3>Incorrect</h3>
+              <p>You answered quickly in {(Date.now() - questionStartTime) / 1000} seconds, but incorrectly.</p>
+              <p className="explanation">
+                <strong>Explanation:</strong> {currentQuestion.explanation}
+              </p>
+              <p>You can retry this question or move to an easier question.</p>
+              <p>Questions completed in this batch: {score}/{questionsTried}</p>
+            </div>
+            <div className="action-buttons">
+              <button onClick={handleRetry} className="retry-button">
+                Retry Question
+              </button>
+              <button onClick={handleNextQuestion} className="next-button">
+                Next Question
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
   );
-};
-
+}
 export default PracticeQuiz;
