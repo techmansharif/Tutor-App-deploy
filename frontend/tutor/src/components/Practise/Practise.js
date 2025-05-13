@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
+import Stopwatch from '../Stopwatch/Stopwatch';
 import './Practise.css';
 
 const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompletePractice }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [hardnessLevel, setHardnessLevel] = useState(5);
-  const [questionsTried, setQuestionsTried] = useState(1);
+  const [questionsTried, setQuestionsTried] = useState(0);
   const [selectedOption, setSelectedOption] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const [completionMessage, setCompletionMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [score, setScore] = useState(0);
+  const [isAnswerIncorrect, setIsAnswerIncorrect] = useState(false);
+  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
+  const [timerReset, setTimerReset] = useState(0); // Trigger timer reset
 
   // Integrity score hook
   const {
@@ -26,6 +31,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
   useEffect(() => {
     if (currentQuestion) {
       setQuestionStartTime(Date.now());
+      setTimerReset((prev) => prev + 1); // Reset timer
     }
   }, [currentQuestion, setQuestionStartTime]);
 
@@ -51,9 +57,8 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
         setCurrentQuestion(question);
         setHardnessLevel(hardness_level);
         setSelectedOption('');
-        if(submission){
-        setQuestionsTried((prev) => prev + 1);
-        }
+        setIsAnswerSubmitted(false);
+        setIsAnswerIncorrect(false);
       } else if (message) {
         setIsComplete(true);
         setCompletionMessage(message);
@@ -66,29 +71,61 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
     }
   };
 
-  const handleAnswerSelect = (option) => {
+  const handleAnswerSelect = async (option) => {
     setSelectedOption(option);
-  };
 
-  const handleAnswerSubmit = async () => {
-    if (!selectedOption) {
-      alert('Please select an option before submitting.');
-      return;
-    }
-
+    // Auto-submit the answer
     const responseTime = (Date.now() - questionStartTime) / 1000;
     const cheatProbability = calculateCheatProbability(responseTime);
     updateCheatScore(cheatProbability);
-    const isCorrect = selectedOption === currentQuestion.correct_option;
+    const isCorrect = option === currentQuestion.correct_option;
     logResponseTime(responseTime, isCorrect, currentQuestion, hardnessLevel);
 
+    setIsAnswerSubmitted(true);
+    setIsAnswerIncorrect(!isCorrect);
+
+    // Increment score and questionsTried if answer is correct
+    if (isCorrect) {
+      setScore((prev) => prev + 1);
+      setQuestionsTried((prev) => prev + 1);
+      const submission = {
+        question_id: currentQuestion.id,
+        is_correct: isCorrect,
+        current_hardness_level: hardnessLevel,
+        questions_tried: questionsTried + 1
+      };
+      await fetchPracticeQuestion(submission);
+    }
+  };
+
+  const handleTimeExpired = () => {
+    if (!isAnswerSubmitted) {
+      // Treat as incorrect answer
+      const responseTime = (Date.now() - questionStartTime) / 1000;
+      logResponseTime(responseTime, false, currentQuestion, hardnessLevel);
+      setIsAnswerSubmitted(true);
+      setIsAnswerIncorrect(true);
+    }
+  };
+
+  const handleRetry = () => {
+    // Reset for retrying the same question
+    setSelectedOption('');
+    setIsAnswerSubmitted(false);
+    setIsAnswerIncorrect(false);
+    setQuestionStartTime(Date.now()); // Reset timer for integrity score
+    setTimerReset((prev) => prev + 1); // Reset stopwatch
+  };
+
+  const handleNextQuestion = async () => {
+    // Move to next question, count the incorrect attempt
+    setQuestionsTried((prev) => prev + 1);
     const submission = {
       question_id: currentQuestion.id,
-      is_correct: isCorrect,
+      is_correct: false,
       current_hardness_level: hardnessLevel,
-      questions_tried: questionsTried
+      questions_tried: questionsTried + 1
     };
-
     await fetchPracticeQuestion(submission);
   };
 
@@ -103,6 +140,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
       <div className="practice-quiz-container">
         <h2>Practice Session Complete</h2>
         <p>{completionMessage}</p>
+        <p>Score: {score} / {questionsTried}</p>
         <p>Total Questions Tried: {questionsTried}</p>
         <p>Final Difficulty Level: {hardnessLevel}</p>
         <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
@@ -127,7 +165,9 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
   return (
     <div className="practice-quiz-container">
       <h2>Practice Quiz: {subject} - {topic} - {subtopic}</h2>
-      <p>Question {questionsTried} | Difficulty Level: {hardnessLevel}</p>
+      <p>Question {questionsTried + 1} | Difficulty Level: {hardnessLevel}</p>
+      <p>Score: {score} / {questionsTried}</p>
+      <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} />
       <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
       <div className="question-container">
         <h4>{currentQuestion.question}</h4>
@@ -141,6 +181,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
                 value={option}
                 checked={selectedOption === option}
                 onChange={() => handleAnswerSelect(option)}
+                disabled={isAnswerSubmitted && isAnswerIncorrect}
               />
               <label htmlFor={`q-${currentQuestion.id}-${option}`}>
                 {option.toUpperCase()}: {currentQuestion[`option_${option}`]}
@@ -148,17 +189,20 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
             </div>
           ))}
         </div>
-        {currentQuestion.explanation && (
+        {currentQuestion.explanation && isAnswerSubmitted && isAnswerIncorrect && (
           <p className="explanation">Explanation: {currentQuestion.explanation}</p>
         )}
       </div>
-      <button
-        onClick={handleAnswerSubmit}
-        disabled={!selectedOption}
-        className="primary-button"
-      >
-        Submit Answer
-      </button>
+      {isAnswerSubmitted && isAnswerIncorrect && (
+        <div>
+          <button onClick={handleRetry} className="primary-button">
+            Retry
+          </button>
+          <button onClick={handleNextQuestion} className="primary-button" style={{ marginLeft: '10px' }}>
+            Next Question
+          </button>
+        </div>
+      )}
     </div>
   );
 };
