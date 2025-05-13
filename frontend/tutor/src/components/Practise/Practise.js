@@ -213,11 +213,13 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '10px' }}>
-        <span style={{ fontWeight: 'normal', marginBottom: '5px' }}>Integrity mode (helps you answer faster)</span>
         <div style={{ width: '100%' }}>
           <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
         </div>
-        <span style={{ fontWeight: 'normal', marginTop: '5px' }}>{integrityScore}%</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: '2px' }}>
+          <span style={{ fontWeight: 'normal' , fontSize: '0.8em'}}>Integrity mode (helps you answer faster)</span>
+          <span style={{ fontWeight: 'normal', fontSize: '0.8em' }}>{integrityScore}%</span>
+        </div>
       </div>
       <div className="question-container">
         <h4>{currentQuestion.question}</h4>
