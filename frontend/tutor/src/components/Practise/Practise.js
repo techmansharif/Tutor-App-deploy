@@ -143,6 +143,24 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
     onCompletePractice();
   };
 
+  const handleRestart = () => {
+    // Reset all relevant states to initial values
+    setCurrentQuestion(null);
+    setHardnessLevel(5);
+    setQuestionsTried(0);
+    setSelectedOption('');
+    setIsComplete(false);
+    setCompletionMessage('');
+    setScore(0);
+    setIsAnswerIncorrect(false);
+    setIsAnswerSubmitted(false);
+    setTimerReset((prev) => prev + 1); // Reset timer
+    setShowCongrats(false);
+    setIsTimerPaused(false);
+    // Fetch a new question to start the next part
+    fetchPracticeQuestion();
+  };
+
   const integrityScore = 100 - cheatScore;
 
   if (isComplete) {
@@ -154,9 +172,14 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
         <p>Total Questions Tried: {questionsTried}</p>
         <p>Final Difficulty Level: {hardnessLevel}</p>
         <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
-        <button onClick={handleCompletePractice} className="primary-button">
-          Proceed to Quiz
-        </button>
+        <div className="action-buttons">
+          <button onClick={handleRestart} className="restart-button">
+            Restart Practice
+          </button>
+          <button onClick={handleCompletePractice} className="primary-button">
+            Proceed to Quiz
+          </button>
+        </div>
       </div>
     );
   }
@@ -173,75 +196,81 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
   }
 
   return (
-  <div className="practice-quiz-container">
-    <h2>Practice Quiz: {subject} - {topic} - {subtopic}</h2>
-    <div className="quiz-header">
-      <p>Question {questionsTried + 1} | Difficulty Level: {hardnessLevel}</p>
-      <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} pause={isTimerPaused} />
-      <p>Score: {score} / {questionsTried}</p>
-    </div>
-    <div className="integrity-score">
-      <span>Integrity Score</span>
-      <span>{integrityScore}%</span>
-    </div>
-    <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
-    <div className="question-container">
-      <h4>{currentQuestion.question}</h4>
-      <div className="options">
-        {['a', 'b', 'c', 'd'].map((option) => (
-          <div key={option} className="option">
-            <input
-              type="radio"
-              id={`q-${currentQuestion.id}-${option}`}
-              name={`question-${currentQuestion.id}`}
-              value={option}
-              checked={selectedOption === option}
-              onChange={() => handleAnswerSelect(option)}
-              disabled={isAnswerSubmitted && isAnswerIncorrect}
-            />
-            <label htmlFor={`q-${currentQuestion.id}-${option}`}>
-              {option.toUpperCase()}: {currentQuestion[`option_${option}`]}
-            </label>
-          </div>
-        ))}
+    <div className="practice-quiz-container">
+      <div className="quiz-header">
+        <h2>Practice Quiz: {subject} - {topic} - {subtopic}</h2>
+        <button onClick={handleRestart} className="restart-button">
+          Restart Practice
+        </button>
       </div>
-    </div>
-    {showCongrats && (
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <div className="feedback correct">
-            <h3>Correct!</h3>
-            <p>Well done! You selected the right answer.</p>
-            <p>Great speed!</p>
-            <p>Moving to a more challenging question...</p>
-          </div>
+      <div className="quiz-info">
+        <p>Question {questionsTried + 1} | Difficulty Level: {hardnessLevel}</p>
+        <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} pause={isTimerPaused} />
+        <p>Score: {score} / {questionsTried}</p>
+      </div>
+      <div className="integrity-score">
+        <span>Integrity Score</span>
+        <span>{integrityScore}%</span>
+      </div>
+      <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
+      <div className="question-container">
+        <h4>{currentQuestion.question}</h4>
+        <div className="options">
+          {['a', 'b', 'c', 'd'].map((option) => (
+            <div key={option} className="option">
+              <input
+                type="radio"
+                id={`q-${currentQuestion.id}-${option}`}
+                name={`question-${currentQuestion.id}`}
+                value={option}
+                checked={selectedOption === option}
+                onChange={() => handleAnswerSelect(option)}
+                disabled={isAnswerSubmitted && isAnswerIncorrect}
+              />
+              <label htmlFor={`q韩${currentQuestion.id}-${option}`}>
+                {option.toUpperCase()}: {currentQuestion[`option_${option}`]}
+              </label>
+            </div>
+          ))}
         </div>
       </div>
-    )}
-    {isAnswerSubmitted && isAnswerIncorrect && (
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <div className="feedback incorrect">
-            <h3>Incorrect</h3>
-            <p>You answered quickly in {(Date.now() - questionStartTime) / 1000} seconds, but incorrectly.</p>
-            <p className="explanation">
-              <strong>Explanation:</strong> {currentQuestion.explanation}
-            </p>
-            <p>You can retry this question or move to an easier question.</p>
-            <p>Questions completed in this batch: {score}/{questionsTried}</p>
-          </div>
-          <div className="action-buttons">
-            <button onClick={handleRetry} className="retry-button">
-              Retry Question
-            </button>
-            <button onClick={handleNextQuestion} className="next-button">
-              Next Question
-            </button>
+      {showCongrats && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="feedback correct">
+              <h3>Correct!</h3>
+              <p>Well done! You selected the right answer.</p>
+              <p>Great speed!</p>
+              <p>Moving to a more challenging question...</p>
+            </div>
           </div>
         </div>
-      </div>
-    )}
-  </div>
-);
-}
+      )}
+      {isAnswerSubmitted && isAnswerIncorrect && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="feedback incorrect">
+              <h3>Incorrect</h3>
+              <p>You answered quickly in {(Date.now() - questionStartTime) / 1000} seconds, but incorrectly.</p>
+              <p className="explanation">
+                <strong>Explanation:</strong> {currentQuestion.explanation}
+              </p>
+              <p>You can retry this question or move to an easier question.</p>
+              <p>Questions completed in this batch: {score}/{questionsTried}</p>
+            </div>
+            <div className="action-buttons">
+              <button onClick={handleRetry} className="retry-button">
+                Retry Question
+              </button>
+              <button onClick={handleNextQuestion} className="next-button">
+                Next Question
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default PracticeQuiz;
