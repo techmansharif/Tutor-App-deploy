@@ -9,8 +9,13 @@ from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 from dotenv import load_dotenv
+from sqlalchemy.orm import Session
+from .database.session import SessionLocal, Base, engine
+from .database.models import User
+
 # Load environment variables from .env file
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
+
 # Configuration
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
@@ -42,7 +47,8 @@ app.add_middleware(
 )
 
 # Models
-class User(BaseModel):
+class UserModel(BaseModel):
+    id: Optional[int] = None
     email: str
     name: str
     picture: Optional[str] = None
@@ -114,21 +120,36 @@ async def auth_callback(request: Request):
     
     user_info = user_response.json()
     
-    user = User(
-        email=user_info.get("email", ""),
-        name=user_info.get("name", ""),
-        picture=user_info.get("picture", "")
-    )
-    
-    request.session["user"] = {
-        "email": user.email,
-        "name": user.name,
-        "picture": user.picture
-    }
-    
-    request.session.pop("oauth_state", None)
-    
-    return RedirectResponse(url="http://localhost:3000")
+    # Database session
+    db: Session = SessionLocal()
+    try:
+        # Check if user exists, if not create new user
+        db_user = db.query(User).filter(User.email == user_info.get("email")).first()
+        if not db_user:
+            db_user = User(email=user_info.get("email"))
+            db.add(db_user)
+            db.commit()
+            db.refresh(db_user)
+        
+        user = UserModel(
+            id=db_user.id,
+            email=user_info.get("email", ""),
+            name=user_info.get("name", ""),
+            picture=user_info.get("picture", "")
+        )
+        
+        request.session["user"] = {
+            "id": user.id,
+            "email": user.email,
+            "name": user.name,
+            "picture": user.picture
+        }
+        
+        request.session.pop("oauth_state", None)
+        
+        return RedirectResponse(url="http://localhost:3000")
+    finally:
+        db.close()
 
 @app.get("/logout")
 async def logout(request: Request):

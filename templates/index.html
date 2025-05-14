@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FastAPI Google OAuth</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .user-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .user-content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        .user-details {
+            flex: 1;
+        }
+        .profile-container {
+            margin-left: 20px;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #4285F4;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .btn-logout {
+            background-color: #db4437;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        .actions {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FastAPI Google OAuth Authentication</h1>
+        
+        {% if user %}
+            <div class="user-info">
+                <div class="user-content">
+                    <div class="user-details">
+                        <h2>Welcome, {{ user.name }}!</h2>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p>You are authenticated!</p>
+                        <div class="actions">
+                            <a href="/protected" class="btn">Access Protected Page</a>
+                            <a href="/logout" class="btn btn-logout">Logout</a>
+                        </div>
+                    </div>
+                    {% if user.picture %}
+                    <div class="profile-container">
+                        <img src="{{ user.picture }}" alt="Profile picture" class="profile-img">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <p>You are not logged in.</p>
+            <a href="/login" class="btn">Login with Google</a>
+        {% endif %}
+    </div>
+</body>
+</html>
+    
