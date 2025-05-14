@@ -333,7 +333,8 @@ async def quiz1(
                 attempt_id=submission.attempt_id,
                 total_correct=total_correct,
                 total_questions=total_questions,
-                score_percentage=score_percentage
+                score_percentage=score_percentage,
+                student_level=hardness_level
             )
             db.add(quiz_score)
             attempt.completed_at = datetime.utcnow()
@@ -410,37 +411,7 @@ async def quiz1(
         attempt_id=attempt_id
     )
 
-# Endpoint to submit answers for Quiz0
-@app.post("/quiz0/submit/")
-async def submit_quiz0_answers(submission: QuizSubmission, db: Session = Depends(get_db)):
-    results = []
-    correct_count = 0
-    total_questions = len(submission.answers)
 
-    for answer in submission.answers:
-        question = db.query(Quiz0).filter(Quiz0.id == answer.question_id).first()
-        if not question:
-            raise HTTPException(status_code=404, detail=f"Question ID {answer.question_id} not found")
-        
-        is_correct = answer.selected_option == question.correct_option
-        if is_correct:
-            correct_count += 1
-        
-        results.append({
-            "question_id": answer.question_id,
-            "selected_option": answer.selected_option,
-            "correct_option": question.correct_option,
-            "is_correct": is_correct,
-            "explanation": question.explanation
-        })
-
-    score = (correct_count / total_questions) * 100 if total_questions > 0 else 0
-    return {
-        "results": results,
-        "score": score,
-        "correct_answers": correct_count,
-        "total_questions": total_questions
-    }
 # Endpoint to select subject, topic, and subtopic in one request
 @app.post("/select/")
 async def select_subject_topic_subtopic(
@@ -511,7 +482,7 @@ async def quiz(
     if not subtopic_obj:
         raise HTTPException(status_code=404, detail=f"Subtopic {subtopic} not found in topic {topic}")
 
-    hardness_level = 5
+    hardness_level = db.query(Quiz1Score).filter(Quiz1Score.attempt_id == db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first().id).first().student_level if db.query(Quiz1Score).filter(Quiz1Score.attempt_id == db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first().id).first() else 5
     attempt_id = None
 
     if submission:
@@ -772,7 +743,10 @@ async def post_explain(
     query = explain_query.query.lower()
     context = None
     if query == "explain":
-        query = "please explain more easily and elaborately"
+        if subject =="English":
+            query="please explain in easier english and easily"
+        else:
+            query = "please explain more easily and elaborately"
         context = chunks[chunk_index]
             # After determining context and chunk_index
         selected_chunk =chunks[chunk_index]
@@ -915,7 +889,7 @@ async def practice_quiz(
         raise HTTPException(status_code=404, detail=f"Subtopic {subtopic} not found in topic {topic}")
 
     # Determine hardness level and questions tried
-    hardness_level = 5  # Default for first question
+    hardness_level = db.query(Quiz1Score).filter(Quiz1Score.attempt_id == db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first().id).first().student_level if db.query(Quiz1Score).filter(Quiz1Score.attempt_id == db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first().id).first() else 5  # Default for first question
     questions_tried = 0
     if submission:
         # Validate question

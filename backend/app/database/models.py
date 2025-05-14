@@ -216,4 +216,5 @@ class Quiz1Score(Base):
     total_correct = Column(Integer, default=0)
     total_questions = Column(Integer, default=0)
     score_percentage = Column(Float, default=0.0)
+    student_level=Column(Integer,default=1)
     attempt = relationship("Quiz1Attempt", back_populates="score")
