@@ -61,11 +61,11 @@ export const useIntegrityScore = () => {
 
 export const IntegrityScore = ({ integrityScore, cheatScore }) => {
   return  (
-    <div className="cheating-detection">
-      <div className="progress-bar-container">
+    <div className="cheating-detection" style={{ marginBottom: '5px' }} >
+      <div className="progress-bar-container" style={{ marginBottom: '5px 0' }}>
         <div
           className="progress-bar cheat-bar"
-          style={{ width: `${cheatScore}%` }}
+          style={{ width: `${100-cheatScore}%` }}
         ></div>
       </div>
     </div>

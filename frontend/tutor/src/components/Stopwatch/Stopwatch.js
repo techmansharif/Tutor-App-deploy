@@ -33,8 +33,8 @@ const Stopwatch = ({ reset, onTimeExpired, pause }) => {
     if (ratio > 0.5) {
       // Green to yellow: 60s to 30s
       const subRatio = (ratio - 0.5) * 2; // 1 to 0
-      const red = Math.round(255 * (1 - subRatio)); // 0 to 255
-      const green = Math.round(128 + 127 * (1 - subRatio)); // 128 to 255
+      const red = Math.round(255 * (1 - subRatio)+4); // 0 to 255
+      const green = Math.round(110 + 127 * (1 - subRatio)); // 128 to 255
       return `rgb(${red}, ${green}, 0)`;
     } else {
       // Yellow to red: 30s to 0s

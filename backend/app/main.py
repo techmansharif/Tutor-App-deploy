@@ -915,17 +915,35 @@ Instructions:
 
 """
     if subject !="English":
-        prompt=prompt+"\n"+"4. Reply in Bengali language"
+        prompt=prompt+"\n"+'''
+        4. **Text**: Use Markdown for all text, headings, and lists. Use simple sentences for clarity.
+5. **Mathematical Expressions**:
+   - Inline math: Enclose in single dollar signs, e.g., `$x^2$`.
+   - Display equations: Enclose in double dollar signs, e.g., `$$ \frac{{a}}{{b}} $$`.
+   - Ensure valid LaTeX syntax.
+6. **Tables**: Use Markdown table syntax, e.g.:
+
+        
+        
+        
+        '''
     else:
         prompt=prompt+"\n"+"4. Reply in very simple English and write meaning around difficult word if necessary"
 
 
     # Generate response
     response = gemini_model.generate_content(prompt)
-    answer = LatexNodes2Text().latex_to_text(response.text.strip())
-
+   # answer = LatexNodes2Text().latex_to_text(response.text.strip())
+    answer = response.text.strip()
+    
+    current_dir = os.getcwd()
+    filename = os.path.join(current_dir, "explain_raw_text.txt")
+    with open(filename, 'w', encoding='utf-8') as file:
+        file.write(answer)
+    
+    
     # NEW: Update UserProgress with new chunk_index and chat_memory
-    # chat_memory.append({"question": explain_query.query, "answer": answer})
+ 
 
     # When updating:
     new_pair = {"question": explain_query.query, "answer": answer}

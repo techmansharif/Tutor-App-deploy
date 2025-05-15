@@ -205,8 +205,13 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
       </div>
       <div className="quiz-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
         <div className="left-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-          <p style={{ margin: '5px 0', fontWeight: 'normal' }}>Question {questionsTried + 1} | Difficulty Level: {hardnessLevel}</p>
-          <p style={{ margin: '5px 0', fontWeight: 'normal' }}>Score: {score} / {questionsTried}</p>
+          <p style={{ margin: '5px 0', fontWeight: 'normal' }}>
+  Question {questionsTried + 1}/20 |{' '}
+  <span style={{ color: 'rgb(128, 128, 128)' }}>
+    Difficulty Level: {hardnessLevel}
+  </span>
+</p>
+          <p style={{ margin: '5px 0', fontWeight: 'normal' }}>Score    {score} / {questionsTried}</p>
         </div>
         <div className="right-section">
           <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} pause={isTimerPaused} />
@@ -217,11 +222,11 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
           <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: '2px' }}>
-          <span style={{ fontWeight: 'normal' , fontSize: '0.8em'}}>Integrity mode (helps you answer faster)</span>
-          <span style={{ fontWeight: 'normal', fontSize: '0.8em' }}>{integrityScore}%</span>
+          <span style={{ fontWeight: 'normal' , fontSize: '0.7em'}}>Integrity mode (helps you answer faster)</span>
+          <span style={{ fontWeight: 'normal', fontSize: '0.7em' }}>{integrityScore}%</span>
         </div>
       </div>
-      <div className="question-container">
+      <div className="question-container"  >
         <h4>{currentQuestion.question}</h4>
         <div className="options">
           {['a', 'b', 'c', 'd'].map((option) => (
@@ -259,7 +264,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
           <div className="modal-content">
             <div className="feedback incorrect">
               <h3>Incorrect</h3>
-              <p>You answered quickly in {(Date.now() - questionStartTime) / 1000} seconds, but incorrectly.</p>
+              <p>You answered in {(Date.now() - questionStartTime) / 1000} seconds, but incorrectly.</p>
               <p className="explanation">
                 <strong>Explanation:</strong> {currentQuestion.explanation}
               </p>

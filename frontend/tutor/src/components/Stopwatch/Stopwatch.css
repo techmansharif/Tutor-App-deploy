@@ -5,12 +5,12 @@
   
   padding: 15px;
   margin: 10px 0;
-  border: 2px solid #333;
+  border: None;
   border-radius: 50%; /* Circular shape */
   width: 60px;
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: black; /* White text for contrast */
+  color: rgb(10,10,10); /* White text for contrast */
 }

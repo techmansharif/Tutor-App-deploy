@@ -1,0 +1,25 @@
+Okay, Detective! This time, we're going to solve quadratic equations using graphs! It's like finding hidden treasure on a map!
+
+**Step 1: Plot the Coordinates**
+
+*   Imagine your quadratic equation as a treasure map: `$y = ax^2 + bx + c$`.
+*   The text mentions the values of `$x$` when `$y = 0$`. These are like the secret spots where your treasure is buried. The X-axis is where `$y = 0$`.
+
+**Step 2: Draw the Treasure Map (Graph)**
+
+*   When we draw (graph) the equation, it might look like a curve.
+*   The curve could cross the X-axis in a few spots.
+
+**Step 3: Find the Treasure (Roots)**
+
+*   The text mentions, "the graph of `$y$` intersects the `$X$-axis`". The spots where the curve touches the X-axis are the solutions! They're the values of `$x$` that make the equation `$ax^2 + bx + c = 0$` true! These are your hidden treasures!
+
+**Story Time: The Treasure Hunt!**
+
+Imagine your equation `$y = ax^2 + bx + c$` is a set of directions. When you set `$y = 0$`, you're saying, "I want to find the places on the map that are at sea level (the X-axis)". You draw the map (graph), and the spots where your directions cross the sea level line are where the treasure is buried.
+
+**In Short**
+
+Solving with a graph is like finding where your secret treasure map crosses the sea-level line. The equation is the direction. Those spots (roots) are the hidden treasure. We solve for the value of x where y=0. It is like when the line crosses the X-Axis!
+
+Do you understand how to solve equations using graph? Are you ready to start the treasure hunt?
