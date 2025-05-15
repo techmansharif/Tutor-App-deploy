@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
+import AudioPlayer from '../AudioPlayer/AudioPlayer';
 import './Explains.css';
 
 const Explains = ({
@@ -9,29 +10,26 @@ const Explains = ({
   selectedSubtopic,
   user,
   API_BASE_URL,
-  onProceedToPractice // Updated prop name to match App.js
-  }) => {
+  onProceedToPractice
+}) => {
   const [explainText, setExplainText] = useState('');
   const [explainImage, setExplainImage] = useState(null);
   const [isExplainLoading, setIsExplainLoading] = useState(false);
   const [explainFinished, setExplainFinished] = useState(false);
-  const [hasFetchedInitial, setHasFetchedInitial] = useState(false);
+  const initialFetchRef = useRef(false);
 
   // Fetch explanation when component mounts (initial "continue" query)
+  // Use a ref to track if we've already fetched to prevent duplicate requests
   useEffect(() => {
-  if (!hasFetchedInitial) {
-    fetchExplain("continue");
-    setHasFetchedInitial(true);
-  }
-
-  return () => {
-    // Cleanup logic if needed (e.g., cancel pending requests)
-  };
-}, [hasFetchedInitial]);
-  // useEffect(() => {
-  //   fetchExplain("continue");
-
-  // }, []);
+    if (!initialFetchRef.current) {
+      initialFetchRef.current = true;
+      fetchExplain("continue");
+    }
+    
+    return () => {
+      // Cleanup logic if needed (e.g., cancel pending requests)
+    };
+  }, []); // Empty dependency array - runs once on mount
 
   // Helper function to process the explanation text
   const processExplanation = (text) => {
@@ -101,6 +99,9 @@ const Explains = ({
                 style={{ maxWidth: '100%', marginTop: '20px' }}
               />
             </div>
+          )}
+          {explainText && !explainFinished && (
+            <AudioPlayer text={explainText} />
           )}
         </div>
       )}

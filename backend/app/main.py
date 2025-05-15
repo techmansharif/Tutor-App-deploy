@@ -325,6 +325,8 @@ class ExplainQuery(BaseModel):
 class ExplainResponse(BaseModel):
     answer: str
     image: Optional[str] = None  # Base64-encoded image string (or None if no image)
+    total:Optional[int]=None
+    current:Optional[int]=None
 
 # Root endpoint
 @app.get("/")
