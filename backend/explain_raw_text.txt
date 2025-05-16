@@ -1,25 +1,63 @@
-Okay, Detective! This time, we're going to solve quadratic equations using graphs! It's like finding hidden treasure on a map!
+Okay, let's solve the quadratic equation `$3 - 4x - x^2 = 0$` from your text! We'll make it a fun adventure, like finding hidden treasure.
 
-**Step 1: Plot the Coordinates**
+**Step 1: Tidy Up the Room!**
 
-*   Imagine your quadratic equation as a treasure map: `$y = ax^2 + bx + c$`.
-*   The text mentions the values of `$x$` when `$y = 0$`. These are like the secret spots where your treasure is buried. The X-axis is where `$y = 0$`.
+First, let's rearrange the equation so it looks more familiar. We want it in the form `$ax^2 + bx + c = 0$`. So, let's rewrite it as:
 
-**Step 2: Draw the Treasure Map (Graph)**
+`$-x^2 - 4x + 3 = 0$`
 
-*   When we draw (graph) the equation, it might look like a curve.
-*   The curve could cross the X-axis in a few spots.
+**Step 2: Meet the Treasure Hunters (a, b, c)!**
 
-**Step 3: Find the Treasure (Roots)**
+Remember our movie cast from before? We need to identify `a`, `b`, and `c` again:
 
-*   The text mentions, "the graph of `$y$` intersects the `$X$-axis`". The spots where the curve touches the X-axis are the solutions! They're the values of `$x$` that make the equation `$ax^2 + bx + c = 0$` true! These are your hidden treasures!
+*   `a`: The number in front of `$x^2$`. Here, `a = -1`.
+*   `b`: The number in front of `x`. Here, `b = -4`.
+*   `c`: The lonely number. So, `c = 3`.
 
-**Story Time: The Treasure Hunt!**
+**Step 3: The Discriminant's Secret Hideout!**
 
-Imagine your equation `$y = ax^2 + bx + c$` is a set of directions. When you set `$y = 0$`, you're saying, "I want to find the places on the map that are at sea level (the X-axis)". You draw the map (graph), and the spots where your directions cross the sea level line are where the treasure is buried.
+Like before, the discriminant `$b^2 - 4ac$` is important. Let's find it:
 
-**In Short**
+`$(-4)^2 - 4 \cdot (-1) \cdot 3 = 16 + 12 = 28$`
 
-Solving with a graph is like finding where your secret treasure map crosses the sea-level line. The equation is the direction. Those spots (roots) are the hidden treasure. We solve for the value of x where y=0. It is like when the line crosses the X-Axis!
+So, the discriminant is 28. It's like a clue that tells us how many solutions we'll find.
 
-Do you understand how to solve equations using graph? Are you ready to start the treasure hunt?
+**Step 4: The Quadratic Formula Map!**
+
+Time to use our formula (the map to the treasure):
+
+$$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+
+**Step 5: Filling in the Map (Plugging in a, b, c)!**
+
+Let's put in our values for `a`, `b`, and `c`:
+
+$$ x = \frac{-(-4) \pm \sqrt{(-4)^2 - 4 \cdot (-1) \cdot 3}}{2 \cdot (-1)} $$
+
+**Step 6: Simplify the Route!**
+
+Let's make it easier to read:
+
+$$ x = \frac{4 \pm \sqrt{28}}{-2} $$
+
+**Step 7: Unlocking the Square Root!**
+
+We can simplify `$\sqrt{28}$` because 28 = 4 * 7, and the square root of 4 is 2:
+
+$$ x = \frac{4 \pm 2\sqrt{7}}{-2} $$
+
+**Step 8: Almost There! (Final Simplification)**
+
+Now, let's divide everything by -2:
+
+$$ x = -2 \pm -\sqrt{7} $$
+$$ x = -2 \pm \sqrt{7} $$
+
+**Step 9: The Treasure! (Our Two Solutions)**
+
+We found the two solutions!
+
+*   `$x_1 = -2 - \sqrt{7}$`
+*   `$x_2 = -2 + \sqrt{7}$`
+
+**So, the solutions to `$3 - 4x - x^2 = 0$` are `$x = -2 - \sqrt{7}$` and `$x = -2 + \sqrt{7}$`.** Congratulations, treasure hunter!

@@ -933,8 +933,10 @@ Instructions:
 
     # Generate response
     response = gemini_model.generate_content(prompt)
-   # answer = LatexNodes2Text().latex_to_text(response.text.strip())
+
     answer = response.text.strip()
+   
+   
     
     current_dir = os.getcwd()
     filename = os.path.join(current_dir, "explain_raw_text.txt")
