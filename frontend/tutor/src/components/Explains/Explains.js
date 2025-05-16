@@ -16,14 +16,13 @@ const Explains = ({
   API_BASE_URL,
   onProceedToPractice
 }) => {
-  const [explainText, setExplainText] = useState('');
-  const [explainImage, setExplainImage] = useState(null);
+  const [explanationHistory, setExplanationHistory] = useState([]);
   const [isExplainLoading, setIsExplainLoading] = useState(false);
   const [explainFinished, setExplainFinished] = useState(false);
-  const [userQuery, setUserQuery] = useState(''); // New state for user input
+  const [userQuery, setUserQuery] = useState('');
   const initialFetchRef = useRef(false);
+  const explanationContainerRef = useRef(null);
 
-  // Fetch explanation when component mounts (initial "continue" query)
   useEffect(() => {
     if (!initialFetchRef.current) {
       initialFetchRef.current = true;
@@ -31,52 +30,44 @@ const Explains = ({
     }
     
     return () => {
-      // Cleanup logic if needed (e.g., cancel pending requests)
+      // Cleanup logic if needed
     };
   }, []);
 
-// Helper function to process the explanation text
+  useEffect(() => {
+    if (explanationContainerRef.current) {
+      explanationContainerRef.current.scrollTop = explanationContainerRef.current.scrollHeight;
+    }
+  }, [explanationHistory, isExplainLoading]); // Also scroll when loading state changes
+
   const processExplanation = (text) => {
     let processed = text;
 
-    // Step 1: Fix missing closing dollar signs within backticks
     processed = processed.replace(/`(\$+)([^`$]*?)(?=`)/g, (match, p1, p2) => {
-      // p1: The opening dollar signs ($ or $$)
-      // p2: The content inside (e.g., b^2 - 4ac)
-      // If p2 doesn't contain a closing $, add one matching p1
       if (!p2.includes('$')) {
         return `\`${p1}${p2}${p1}\``;
       }
       return match;
     });
 
-    // Step 2: Normalize mismatched dollar signs within backticks
     processed = processed.replace(/`(\$+)([^$]*?)(\$+)([^`]*?)`/g, (match, p1, p2, p3, p4) => {
-      // p1: Opening dollar signs ($ or $$)
-      // p2: LaTeX expression (e.g., x)
-      // p3: Closing dollar signs ($ or $$)
-      // p4: Additional text after LaTeX (e.g., -axis)
       const dollarCount = Math.min(p1.length, p3.length);
       const dollars = '$'.repeat(dollarCount);
       return `\`${dollars}${p2}${dollars}${p4}\``;
     });
 
-    // Step 3: Remove single quotes or backticks surrounding LaTeX expressions (both $...$ and $$...$$), even with spaces
     processed = processed.replace(/(['`])\s*(\$+)([^\$]*)\2\s*\1/g, '$2$3$2');
 
-    // Step 4: Remove backticks from LaTeX expressions followed by additional text
     processed = processed.replace(/`(\$+)([^$]*?)(\$+)([^`]*?)`/g, (match, p1, p2, p3, p4) => {
       return `${p1}${p2}${p3}${p4}`;
     });
 
-    // Step 5: Normalize mismatched dollar signs in the entire text (after backticks are removed)
     processed = processed.replace(/(\$+)([^$]*?)(\$+)/g, (match, p1, p2, p3) => {
       const dollarCount = Math.min(p1.length, p3.length);
       const dollars = '$'.repeat(dollarCount);
       return `${dollars}${p2}${dollars}`;
     });
 
-    // Step 6: Remove backticks from single words that do not contain a $ (LaTeX indicator)
     processed = processed.replace(/`([^$\s]*?)`/g, (match, p1) => {
       if (p1.includes('$')) {
         return match;
@@ -84,7 +75,6 @@ const Explains = ({
       return p1;
     });
 
-    // Step 7: No need to replace * with •; keep * for markdown list parsing
     const lines = processed.split('\n');
     processed = lines
       .map((line) => {
@@ -100,7 +90,7 @@ const Explains = ({
     console.log(processed);
     return processed;
   };
-  // Fetch explanation from API
+
   const fetchExplain = async (query) => {
     setIsExplainLoading(true);
     try {
@@ -115,11 +105,15 @@ const Explains = ({
       
       if (response.data.answer === "Congratulations, you have mastered the topic!") {
         setExplainFinished(true);
-        setExplainText(response.data.answer);
-        setExplainImage(null);
+        setExplanationHistory((prev) => [
+          ...prev,
+          { text: response.data.answer, image: null }
+        ]);
       } else {
-        setExplainText(response.data.answer);
-        setExplainImage(response.data.image);
+        setExplanationHistory((prev) => [
+          ...prev,
+          { text: response.data.answer, image: response.data.image }
+        ]);
       }
     } catch (error) {
       console.error('Error fetching explanation:', error);
@@ -129,21 +123,18 @@ const Explains = ({
     }
   };
 
-  // Handle moving to next explanation
   const handleContinueExplain = () => {
     fetchExplain("continue");
   };
 
-  // Handle asking for explanation again
   const handleExplainAgain = () => {
     fetchExplain("Explain");
   };
 
-  // Handle custom user query
   const handleCustomQuery = () => {
-    if (userQuery.trim()) { // Only fetch if the query is not empty
+    if (userQuery.trim()) {
       fetchExplain(userQuery);
-      setUserQuery(''); // Clear the input after submission
+      setUserQuery('');
     }
   };
 
@@ -151,54 +142,60 @@ const Explains = ({
     <div className="explains-component-container">
       <h2>Learning: {selectedSubject} - {selectedTopic} - {selectedSubtopic}</h2>
       
-      {isExplainLoading ? (
-        <div className="loading-component">
-          <div className="loading-spinner-component"></div>
-          <p>Loading explanation...</p>
-        </div>
-      ) : (
-        <div className="explanation-content-component">
-          <ReactMarkdown
-            children={processExplanation(explainText)}
-            remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-            components={{
-              table: ({node, ...props}) => (
-                <div className="table-container">
-                  <table {...props} className="markdown-table" />
-                </div>
-              ),
-              code: ({node, inline, className, children, ...props}) => {
-                return inline ? (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                ) : (
-                  <div className="code-block-container">
-                    <pre>
-                      <code className={className} {...props}>
-                        {children}
-                      </code>
-                    </pre>
+      <div
+        className="explanation-content-component chat-container"
+        ref={explanationContainerRef}
+      >
+        {explanationHistory.map((entry, index) => (
+          <div key={index} className="explanation-entry">
+            <ReactMarkdown
+              children={processExplanation(entry.text)}
+              remarkPlugins={[remarkGfm, remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+              components={{
+                table: ({node, ...props}) => (
+                  <div className="table-container">
+                    <table {...props} className="markdown-table" />
                   </div>
-                );
-              }
-            }}
-          />
-          {explainImage && (
-            <div className="explanation-image-component">
-              <img
-                src={`data:image/png;base64,${explainImage}`}
-                alt="Explanation diagram"
-                style={{ maxWidth: '100%', marginTop: '20px' }}
-              />
-            </div>
-          )}
-          {explainText && !explainFinished && (
-            <AudioPlayer text={processExplanation(explainText)} />
-          )}
-        </div>
-      )}
+                ),
+                code: ({node, inline, className, children, ...props}) => {
+                  return inline ? (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  ) : (
+                    <div className="code-block-container">
+                      <pre>
+                        <code className={className} {...props}>
+                          {children}
+                        </code>
+                      </pre>
+                    </div>
+                  );
+                }
+              }}
+            />
+            {entry.image && (
+              <div className="explanation-image-component">
+                <img
+                  src={`data:image/png;base64,${entry.image}`}
+                  alt="Explanation diagram"
+                  style={{ maxWidth: '100%', marginTop: '20px' }}
+                />
+              </div>
+            )}
+            {!explainFinished && (
+              <AudioPlayer text={processExplanation(entry.text)} />
+            )}
+          </div>
+        ))}
+        {isExplainLoading && (
+          <div className="loading-component">
+            <div className="loading-spinner-component"></div>
+            <p>Loading explanation...</p>
+          </div>
+        )}
+      </div>
       
       <div className="explain-controls-component">
         {explainFinished ? (

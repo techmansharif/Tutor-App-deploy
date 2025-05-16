@@ -11,6 +11,27 @@
   overflow-x: auto;
 }
 
+/* Chat-like container */
+.explanation-content-component.chat-container {
+  max-height: 500px; /* Adjust height as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  background-color: #f9f9f9;
+}
+
+/* Style for each explanation entry */
+.explanation-entry {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee; /* Separator between entries */
+}
+
+.explanation-entry:last-child {
+  border-bottom: none; /* Remove border from the last entry */
+}
+
 .explanation-content-component h1,
 .explanation-content-component h2,
 .explanation-content-component h3 {
@@ -154,7 +175,7 @@ code {
   gap: 10px;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  flex-wrap: wrap;
 }
 
 .primary-button-component {
@@ -198,7 +219,7 @@ code {
   border-radius: 4px;
   font-size: 16px;
   outline: none;
-  width: 200px; /* Adjust width as needed */
+  width: 200px;
 }
 
 .custom-query-input:focus {

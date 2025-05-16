@@ -1,52 +1,39 @@
-Okay, treasure hunter! Let's explore another treasure map (quadratic equation)! We will work with the example: `$x^2 - 6x + 9 = 0$`. We'll solve it just like before.
+Okay, Treasure Hunter! Let's use the text you provided to find another treasure by drawing a graph!
 
-**Step 1: Find a, b, and c**
+**The Text: A Map to Our Next Treasure!**
 
-Remember our map looks like this: `$ax^2 + bx + c = 0$`.
+The text gives us a new treasure map: `$x^2 - 4x + 4 = 0$`. It wants us to find the treasures (roots) by drawing a graph (a picture of our island).
 
-From our example `$x^2 - 6x + 9 = 0$`, we can see:
+**Step 1: Turn the map into a roller coaster!**
 
-*   `$a = 1$` (because `$x^2$` is the same as `$1x^2$`)
-*   `$b = -6$`
-*   `$c = 9$`
+The text says: "Suppose, `$y = x^2 - 4x + 4$`". This is like turning our map into instructions to build a roller coaster! `$y$` tells us how high or low the track goes.
 
-**Step 2: Use the Quadratic Formula (Our Trusty GPS)**
+**Step 2: Scout Out The Island**
 
-To find the treasure (roots), we'll again use the quadratic formula:
+The table in the text is like our scouting report. It tells us where to put the supports for our roller coaster:
 
-$$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+| `$x$` | 0 | 1 | 1.5 | 2 | 2.5 | 3 | 4 |
+| :---- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| `$y$` | 4 | 1 | 0.25 | 0 | 0.25 | 1 | 4 |
 
-**Step 3: Plug in the Values (Following the GPS)**
+*This means that at location `$x = 0$`, the roller coaster is `$y = 4$` units high. At `$x = 2$`, the roller coaster is right on the ground `$y = 0$`!*
 
-Let's put our `$a$`, `$b$`, and `$c$` values into the formula:
+**Step 3: Build the Roller Coaster!**
 
-$$ x = \frac{-(-6) \pm \sqrt{(-6)^2 - 4 \cdot 1 \cdot 9}}{2 \cdot 1} $$
+The text says, "Now we draw the graph of equation (2) plotting the points given in the above table." This means we take our scouting report and draw the roller coaster on our map! We put a dot at `(0, 4)`, `(1, 1)`, `(1.5, 0.25)` and so on, and connect the dots!
 
-**Step 4: Simplify (Digging Carefully!)**
+**Step 4: Find The Treasure!**
 
-Now, we simplify the equation:
+The text says, "It is seen that the graph intersects the `$X$`-axis at `(2, 0)`." This is where the roller coaster touches the ground! That's our treasure! At `$x = 2$`, `$y = 0$`. The treasure is `$x = 2$`!
 
-$$ x = \frac{6 \pm \sqrt{36 - 36}}{2} $$
+**Important Note:**
 
-$$ x = \frac{6 \pm \sqrt{0}}{2} $$
+The text says "Since a quadratic equation has two roots, the solutions of the equation are `$x = 2, x = 2$`."
 
-$$ x = \frac{6 \pm 0}{2} $$
+*Because our roller coaster only touches the ground at one spot, that means we found the same treasure twice! Just like finding two identical gems in the same spot!*
 
-**Step 5: Find the Treasure (Root)**
+**Why is this Fun?**
 
-We have one solution because the `$\pm$` part becomes zero:
+Because we can *see* the answer! Instead of just doing math, we can draw a picture and find the treasure (roots) that way.
 
-*   `$x = \frac{6 + 0}{2} = \frac{6}{2} = 3$`
-*   `$x = \frac{6 - 0}{2} = \frac{6}{2} = 3$`
-
-**So, the treasure (root) is `$x = 3$`.** It is the same for both roots! This means `$x_1 = 3$` and `$x_2 = 3$`.
-
-**What kind of treasure did we find?**
-
-Let's look at the discriminant `$b^2 - 4ac$`.
-
-In our problem `$b^2 - 4ac = 0$`.
-
-*   Since the discriminant is equal to 0, we know the roots are real and equal! Think of finding two identical gems at the same spot. It is simply `$x = -\frac{b}{2a}$`.
-
-You found the treasure again! Are you ready for the next adventure?
+The illustration is a great way to see the graph and imagine building your own roller coaster! Do you have a better understanding now?
