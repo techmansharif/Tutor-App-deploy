@@ -1,63 +1,39 @@
-Okay, let's solve the quadratic equation `$3 - 4x - x^2 = 0$` from your text! We'll make it a fun adventure, like finding hidden treasure.
+Okay, let's become treasure hunters using this text! It's like we have a message that leads us to the location of lost treasure, and this time, it tells us how to graph a treasure map!
 
-**Step 1: Tidy Up the Room!**
+**Step 1: The Treasure Clue**
 
-First, let's rearrange the equation so it looks more familiar. We want it in the form `$ax^2 + bx + c = 0$`. So, let's rewrite it as:
+The text gives us the clue: `$-x^2 + 3x - 2 = 0$`. This is a secret code we need to solve to find the treasure.
 
-`$-x^2 - 4x + 3 = 0$`
+**Step 2: Make the Treasure Map**
 
-**Step 2: Meet the Treasure Hunters (a, b, c)!**
+The text tells us to make a treasure map using this equation: `$y = -x^2 + 3x - 2$`. This is the map that leads us to the treasure!
 
-Remember our movie cast from before? We need to identify `a`, `b`, and `c` again:
+**Step 3: Find the Spots**
 
-*   `a`: The number in front of `$x^2$`. Here, `a = -1`.
-*   `b`: The number in front of `x`. Here, `b = -4`.
-*   `c`: The lonely number. So, `c = 3`.
+The table in the text shows us different spots on the map. For example, at location `$x = 0$`, the table tells us our height is `$y = -2$`. At location `$x = 1$`, our height is `$y = 0$`. These spots help us draw the map to find the treasure!
 
-**Step 3: The Discriminant's Secret Hideout!**
+*   `$x$` : 0, 0.5, 1, 1.5, 2, 2.5, 3
+*   `$y$` : -2, -0.75, 0, 0.25, 0, -0.75, -2
 
-Like before, the discriminant `$b^2 - 4ac$` is important. Let's find it:
+This is like our list of spots where we think the treasures will be located!
 
-`$(-4)^2 - 4 \cdot (-1) \cdot 3 = 16 + 12 = 28$`
+**Step 4: Where Map touches the ground**
 
-So, the discriminant is 28. It's like a clue that tells us how many solutions we'll find.
+We know that we have the information to create our map. With this map we know where the treasure is located!
 
-**Step 4: The Quadratic Formula Map!**
+The text tells us that the graph crosses the `$X$$-axis (ground) at `(1, 0)` and `(2, 0)`. These are the secret locations where the treasure is buried!
 
-Time to use our formula (the map to the treasure):
+**Solution to the treasure locations**
 
-$$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+*   `$x = 1$`
+*   `$x = 2$`
 
-**Step 5: Filling in the Map (Plugging in a, b, c)!**
+**In Treasure Hunter Terms**
 
-Let's put in our values for `a`, `b`, and `c`:
+*   Secret Clue: `$-x^2 + 3x - 2 = 0$`.
+*   Map of the treasure island: `$y = -x^2 + 3x - 2$`.
+*   Spots to dig:
+    *   `$x = 1$`
+    *   `$x = 2$`
 
-$$ x = \frac{-(-4) \pm \sqrt{(-4)^2 - 4 \cdot (-1) \cdot 3}}{2 \cdot (-1)} $$
-
-**Step 6: Simplify the Route!**
-
-Let's make it easier to read:
-
-$$ x = \frac{4 \pm \sqrt{28}}{-2} $$
-
-**Step 7: Unlocking the Square Root!**
-
-We can simplify `$\sqrt{28}$` because 28 = 4 * 7, and the square root of 4 is 2:
-
-$$ x = \frac{4 \pm 2\sqrt{7}}{-2} $$
-
-**Step 8: Almost There! (Final Simplification)**
-
-Now, let's divide everything by -2:
-
-$$ x = -2 \pm -\sqrt{7} $$
-$$ x = -2 \pm \sqrt{7} $$
-
-**Step 9: The Treasure! (Our Two Solutions)**
-
-We found the two solutions!
-
-*   `$x_1 = -2 - \sqrt{7}$`
-*   `$x_2 = -2 + \sqrt{7}$`
-
-**So, the solutions to `$3 - 4x - x^2 = 0$` are `$x = -2 - \sqrt{7}$` and `$x = -2 + \sqrt{7}$`.** Congratulations, treasure hunter!
+Do you want to continue the treasure hunt?

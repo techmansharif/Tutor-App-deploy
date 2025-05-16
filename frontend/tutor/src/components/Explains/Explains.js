@@ -33,19 +33,47 @@ const Explains = ({
     return () => {
       // Cleanup logic if needed (e.g., cancel pending requests)
     };
-  }, []); // Empty dependency array - runs once on mount
+  }, []); // Empty dependency array - runs încep
 
-  // Helper function to process the explanation text
+// Helper function to process the explanation text
   const processExplanation = (text) => {
-    // Remove single quotes or backticks surrounding LaTeX expressions, even with spaces
-    let processed = text.replace(/(['`])\s*\$([^$]*)\$\s*\1/g, '$$$2$$');
-    // Minimal preprocessing: only replace bullet points, avoid touching LaTeX
-    processed = processed.replace(/\n\s*\*\s+/g, '\n• ');
-    processed = processed.replace(/\n\n/g, '\n\n'); // Normalize newlines
-    console.log(processed)
+    // Step 1: Remove single quotes or backticks surrounding LaTeX expressions (both $...$ and $$...$$), even with spaces
+    let processed = text.replace(/(['`])\s*(\$+)([^\$]*)\2\s*\1/g, '$2$3$2');
+
+    // Step 2: Remove backticks from LaTeX expressions followed by additional text
+    // Matches patterns like `$X$-axis` or `$$X$$-axis` inside backticks
+    processed = processed.replace(/`(\$+)([^\$]*)\1([^`]*?)`/g, (match, p1, p2, p3) => {
+      // p1: The dollar signs ($ or $$)
+      // p2: The LaTeX expression (e.g., X)
+      // p3: The additional text after the LaTeX (e.g., -axis)
+      return `${p1}${p2}${p1}${p3}`; // Reconstruct without backticks
+    });
+
+    // Step 3: Remove backticks from single words that do not contain a $ (LaTeX indicator)
+    processed = processed.replace(/`([^$\s]*?)`/g, (match, p1) => {
+      if (p1.includes('$')) {
+        return match;
+      }
+      return p1;
+    });
+
+    // Step 4: No need to replace * with •; keep * for markdown list parsing
+    // We can trim lines to clean up extra spaces, but keep the * intact
+    const lines = processed.split('\n');
+    processed = lines
+      .map((line) => {
+        const trimmedLine = line.trim();
+        if (trimmedLine.startsWith('*')) {
+          const indent = line.match(/^\s*/)[0]; // Preserve indentation
+          return `${indent}* ${trimmedLine.slice(1).trim()}`; // Ensure clean formatting
+        }
+        return line;
+      })
+      .join('\n');
+
+    console.log(processed);
     return processed;
   };
-
   // Fetch explanation from API
   const fetchExplain = async (query) => {
     setIsExplainLoading(true);
