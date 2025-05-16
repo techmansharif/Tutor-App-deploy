@@ -20,10 +20,10 @@ const Explains = ({
   const [explainImage, setExplainImage] = useState(null);
   const [isExplainLoading, setIsExplainLoading] = useState(false);
   const [explainFinished, setExplainFinished] = useState(false);
+  const [userQuery, setUserQuery] = useState(''); // New state for user input
   const initialFetchRef = useRef(false);
 
   // Fetch explanation when component mounts (initial "continue" query)
-  // Use a ref to track if we've already fetched to prevent duplicate requests
   useEffect(() => {
     if (!initialFetchRef.current) {
       initialFetchRef.current = true;
@@ -33,23 +33,50 @@ const Explains = ({
     return () => {
       // Cleanup logic if needed (e.g., cancel pending requests)
     };
-  }, []); // Empty dependency array - runs încep
+  }, []);
 
 // Helper function to process the explanation text
   const processExplanation = (text) => {
-    // Step 1: Remove single quotes or backticks surrounding LaTeX expressions (both $...$ and $$...$$), even with spaces
-    let processed = text.replace(/(['`])\s*(\$+)([^\$]*)\2\s*\1/g, '$2$3$2');
+    let processed = text;
 
-    // Step 2: Remove backticks from LaTeX expressions followed by additional text
-    // Matches patterns like `$X$-axis` or `$$X$$-axis` inside backticks
-    processed = processed.replace(/`(\$+)([^\$]*)\1([^`]*?)`/g, (match, p1, p2, p3) => {
-      // p1: The dollar signs ($ or $$)
-      // p2: The LaTeX expression (e.g., X)
-      // p3: The additional text after the LaTeX (e.g., -axis)
-      return `${p1}${p2}${p1}${p3}`; // Reconstruct without backticks
+    // Step 1: Fix missing closing dollar signs within backticks
+    processed = processed.replace(/`(\$+)([^`$]*?)(?=`)/g, (match, p1, p2) => {
+      // p1: The opening dollar signs ($ or $$)
+      // p2: The content inside (e.g., b^2 - 4ac)
+      // If p2 doesn't contain a closing $, add one matching p1
+      if (!p2.includes('$')) {
+        return `\`${p1}${p2}${p1}\``;
+      }
+      return match;
     });
 
-    // Step 3: Remove backticks from single words that do not contain a $ (LaTeX indicator)
+    // Step 2: Normalize mismatched dollar signs within backticks
+    processed = processed.replace(/`(\$+)([^$]*?)(\$+)([^`]*?)`/g, (match, p1, p2, p3, p4) => {
+      // p1: Opening dollar signs ($ or $$)
+      // p2: LaTeX expression (e.g., x)
+      // p3: Closing dollar signs ($ or $$)
+      // p4: Additional text after LaTeX (e.g., -axis)
+      const dollarCount = Math.min(p1.length, p3.length);
+      const dollars = '$'.repeat(dollarCount);
+      return `\`${dollars}${p2}${dollars}${p4}\``;
+    });
+
+    // Step 3: Remove single quotes or backticks surrounding LaTeX expressions (both $...$ and $$...$$), even with spaces
+    processed = processed.replace(/(['`])\s*(\$+)([^\$]*)\2\s*\1/g, '$2$3$2');
+
+    // Step 4: Remove backticks from LaTeX expressions followed by additional text
+    processed = processed.replace(/`(\$+)([^$]*?)(\$+)([^`]*?)`/g, (match, p1, p2, p3, p4) => {
+      return `${p1}${p2}${p3}${p4}`;
+    });
+
+    // Step 5: Normalize mismatched dollar signs in the entire text (after backticks are removed)
+    processed = processed.replace(/(\$+)([^$]*?)(\$+)/g, (match, p1, p2, p3) => {
+      const dollarCount = Math.min(p1.length, p3.length);
+      const dollars = '$'.repeat(dollarCount);
+      return `${dollars}${p2}${dollars}`;
+    });
+
+    // Step 6: Remove backticks from single words that do not contain a $ (LaTeX indicator)
     processed = processed.replace(/`([^$\s]*?)`/g, (match, p1) => {
       if (p1.includes('$')) {
         return match;
@@ -57,15 +84,14 @@ const Explains = ({
       return p1;
     });
 
-    // Step 4: No need to replace * with •; keep * for markdown list parsing
-    // We can trim lines to clean up extra spaces, but keep the * intact
+    // Step 7: No need to replace * with •; keep * for markdown list parsing
     const lines = processed.split('\n');
     processed = lines
       .map((line) => {
         const trimmedLine = line.trim();
         if (trimmedLine.startsWith('*')) {
-          const indent = line.match(/^\s*/)[0]; // Preserve indentation
-          return `${indent}* ${trimmedLine.slice(1).trim()}`; // Ensure clean formatting
+          const indent = line.match(/^\s*/)[0];
+          return `${indent}* ${trimmedLine.slice(1).trim()}`;
         }
         return line;
       })
@@ -89,7 +115,7 @@ const Explains = ({
       
       if (response.data.answer === "Congratulations, you have mastered the topic!") {
         setExplainFinished(true);
-        setExplainText(response.data.answer); // Store the message
+        setExplainText(response.data.answer);
         setExplainImage(null);
       } else {
         setExplainText(response.data.answer);
@@ -113,6 +139,14 @@ const Explains = ({
     fetchExplain("Explain");
   };
 
+  // Handle custom user query
+  const handleCustomQuery = () => {
+    if (userQuery.trim()) { // Only fetch if the query is not empty
+      fetchExplain(userQuery);
+      setUserQuery(''); // Clear the input after submission
+    }
+  };
+
   return (
     <div className="explains-component-container">
       <h2>Learning: {selectedSubject} - {selectedTopic} - {selectedSubtopic}</h2>
@@ -125,9 +159,9 @@ const Explains = ({
       ) : (
         <div className="explanation-content-component">
           <ReactMarkdown
-            children={processExplanation(explainText)} // Apply processing for consistent LaTeX rendering
-            remarkPlugins={[remarkGfm, remarkMath]} // Ensure remarkMath processes LaTeX
-            rehypePlugins={[rehypeKatex]} // Ensure rehypeKatex renders LaTeX
+            children={processExplanation(explainText)}
+            remarkPlugins={[remarkGfm, remarkMath]}
+            rehypePlugins={[rehypeKatex]}
             components={{
               table: ({node, ...props}) => (
                 <div className="table-container">
@@ -161,7 +195,7 @@ const Explains = ({
             </div>
           )}
           {explainText && !explainFinished && (
-            <AudioPlayer text={processExplanation(explainText)} /> // Apply processing only for AudioPlayer
+            <AudioPlayer text={processExplanation(explainText)} />
           )}
         </div>
       )}
@@ -179,6 +213,18 @@ const Explains = ({
             <button onClick={handleExplainAgain} className="secondary-button-component">
               Explain Once Again
             </button>
+            <div className="custom-query-container">
+              <input
+                type="text"
+                value={userQuery}
+                onChange={(e) => setUserQuery(e.target.value)}
+                placeholder="Ask a question..."
+                className="custom-query-input"
+              />
+              <button onClick={handleCustomQuery} className="custom-query-button">
+                Submit
+              </button>
+            </div>
           </>
         )}
       </div>

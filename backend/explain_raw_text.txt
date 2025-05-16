@@ -1,39 +1,52 @@
-Okay, let's become treasure hunters using this text! It's like we have a message that leads us to the location of lost treasure, and this time, it tells us how to graph a treasure map!
+Okay, treasure hunter! Let's explore another treasure map (quadratic equation)! We will work with the example: `$x^2 - 6x + 9 = 0$`. We'll solve it just like before.
 
-**Step 1: The Treasure Clue**
+**Step 1: Find a, b, and c**
 
-The text gives us the clue: `$-x^2 + 3x - 2 = 0$`. This is a secret code we need to solve to find the treasure.
+Remember our map looks like this: `$ax^2 + bx + c = 0$`.
 
-**Step 2: Make the Treasure Map**
+From our example `$x^2 - 6x + 9 = 0$`, we can see:
 
-The text tells us to make a treasure map using this equation: `$y = -x^2 + 3x - 2$`. This is the map that leads us to the treasure!
+*   `$a = 1$` (because `$x^2$` is the same as `$1x^2$`)
+*   `$b = -6$`
+*   `$c = 9$`
 
-**Step 3: Find the Spots**
+**Step 2: Use the Quadratic Formula (Our Trusty GPS)**
 
-The table in the text shows us different spots on the map. For example, at location `$x = 0$`, the table tells us our height is `$y = -2$`. At location `$x = 1$`, our height is `$y = 0$`. These spots help us draw the map to find the treasure!
+To find the treasure (roots), we'll again use the quadratic formula:
 
-*   `$x$` : 0, 0.5, 1, 1.5, 2, 2.5, 3
-*   `$y$` : -2, -0.75, 0, 0.25, 0, -0.75, -2
+$$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
-This is like our list of spots where we think the treasures will be located!
+**Step 3: Plug in the Values (Following the GPS)**
 
-**Step 4: Where Map touches the ground**
+Let's put our `$a$`, `$b$`, and `$c$` values into the formula:
 
-We know that we have the information to create our map. With this map we know where the treasure is located!
+$$ x = \frac{-(-6) \pm \sqrt{(-6)^2 - 4 \cdot 1 \cdot 9}}{2 \cdot 1} $$
 
-The text tells us that the graph crosses the `$X$$-axis (ground) at `(1, 0)` and `(2, 0)`. These are the secret locations where the treasure is buried!
+**Step 4: Simplify (Digging Carefully!)**
 
-**Solution to the treasure locations**
+Now, we simplify the equation:
 
-*   `$x = 1$`
-*   `$x = 2$`
+$$ x = \frac{6 \pm \sqrt{36 - 36}}{2} $$
 
-**In Treasure Hunter Terms**
+$$ x = \frac{6 \pm \sqrt{0}}{2} $$
 
-*   Secret Clue: `$-x^2 + 3x - 2 = 0$`.
-*   Map of the treasure island: `$y = -x^2 + 3x - 2$`.
-*   Spots to dig:
-    *   `$x = 1$`
-    *   `$x = 2$`
+$$ x = \frac{6 \pm 0}{2} $$
 
-Do you want to continue the treasure hunt?
+**Step 5: Find the Treasure (Root)**
+
+We have one solution because the `$\pm$` part becomes zero:
+
+*   `$x = \frac{6 + 0}{2} = \frac{6}{2} = 3$`
+*   `$x = \frac{6 - 0}{2} = \frac{6}{2} = 3$`
+
+**So, the treasure (root) is `$x = 3$`.** It is the same for both roots! This means `$x_1 = 3$` and `$x_2 = 3$`.
+
+**What kind of treasure did we find?**
+
+Let's look at the discriminant `$b^2 - 4ac$`.
+
+In our problem `$b^2 - 4ac = 0$`.
+
+*   Since the discriminant is equal to 0, we know the roots are real and equal! Think of finding two identical gems at the same spot. It is simply `$x = -\frac{b}{2a}$`.
+
+You found the treasure again! Are you ready for the next adventure?

@@ -153,6 +153,8 @@ code {
   display: flex;
   gap: 10px;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 .primary-button-component {
@@ -181,6 +183,41 @@ code {
 
 .secondary-button-component:hover {
   background-color: #5a6268;
+}
+
+/* Custom query input and button styling */
+.custom-query-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.custom-query-input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  width: 200px; /* Adjust width as needed */
+}
+
+.custom-query-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.custom-query-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.custom-query-button:hover {
+  background-color: #218838;
 }
 
 /* Blockquote styling */
@@ -202,114 +239,3 @@ code {
 .explanation-content-component em {
   font-style: italic;
 }
-
-
-
-/* .explains-component-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
-
-.explanation-content-component {
-  margin-top: 20px;
-  line-height: 1.6;
-}
-
-.explanation-content-component h1,
-.explanation-content-component h2,
-.explanation-content-component h3 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.explanation-content-component p {
-  margin-bottom: 15px;
-}
-
-.explanation-content-component ul {
-  list-style-type: disc;
-  margin-left: 20px;
-  margin-bottom: 15px;
-}
-
-.explanation-content-component li {
-  margin-bottom: 8px;
-}
-
-/* Style for LaTeX equations */
-/*
-.katex {
-  font-size: 1.1em;
-  margin: 10px 0;
-  display: block;
-}
-
-.explanation-image-component {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.explanation-image-component img {
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.loading-component {
-  text-align: center;
-  padding: 40px;
-}
-
-.loading-spinner-component {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 20px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.explain-controls-component {
-  margin-top: 30px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.primary-button-component {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.primary-button-component:hover {
-  background-color: #0056b3;
-}
-
-.secondary-button-component {
-  background-color: #6c757d;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.secondary-button-component:hover {
-  background-color: #5a6268;
-}
-*/
