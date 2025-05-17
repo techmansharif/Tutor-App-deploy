@@ -1,39 +1,7 @@
-Okay, Treasure Hunter! Let's use the text you provided to find another treasure by drawing a graph!
 
-**The Text: A Map to Our Next Treasure!**
-
-The text gives us a new treasure map: `$x^2 - 4x + 4 = 0$`. It wants us to find the treasures (roots) by drawing a graph (a picture of our island).
-
-**Step 1: Turn the map into a roller coaster!**
-
-The text says: "Suppose, `$y = x^2 - 4x + 4$`". This is like turning our map into instructions to build a roller coaster! `$y$` tells us how high or low the track goes.
-
-**Step 2: Scout Out The Island**
-
-The table in the text is like our scouting report. It tells us where to put the supports for our roller coaster:
-
-| `$x$` | 0 | 1 | 1.5 | 2 | 2.5 | 3 | 4 |
-| :---- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| `$y$` | 4 | 1 | 0.25 | 0 | 0.25 | 1 | 4 |
-
-*This means that at location `$x = 0$`, the roller coaster is `$y = 4$` units high. At `$x = 2$`, the roller coaster is right on the ground `$y = 0$`!*
-
-**Step 3: Build the Roller Coaster!**
-
-The text says, "Now we draw the graph of equation (2) plotting the points given in the above table." This means we take our scouting report and draw the roller coaster on our map! We put a dot at `(0, 4)`, `(1, 1)`, `(1.5, 0.25)` and so on, and connect the dots!
-
-**Step 4: Find The Treasure!**
-
-The text says, "It is seen that the graph intersects the `$X$`-axis at `(2, 0)`." This is where the roller coaster touches the ground! That's our treasure! At `$x = 2$`, `$y = 0$`. The treasure is `$x = 2$`!
-
-**Important Note:**
-
-The text says "Since a quadratic equation has two roots, the solutions of the equation are `$x = 2, x = 2$`."
-
-*Because our roller coaster only touches the ground at one spot, that means we found the same treasure twice! Just like finding two identical gems in the same spot!*
-
-**Why is this Fun?**
-
-Because we can *see* the answer! Instead of just doing math, we can draw a picture and find the treasure (roots) that way.
-
-The illustration is a great way to see the graph and imagine building your own roller coaster! Do you have a better understanding now?
+    
+|   | a   | b   |
+|---|-----|-----|
+| a | a^2 | ab  |
+| b | ab  | b^2 |
+    

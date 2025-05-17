@@ -111,7 +111,8 @@ def process_latex_file(latex_file_path: str, image_folder: str, subject_name: st
             print(f"Created new topic: {topic_name} under subject: {subject_name}")
 
         # Read LaTeX file
-        with open(latex_file_path, 'r') as file:
+        # Read LaTeX file with UTF-8 encoding
+        with open(latex_file_path, 'r', encoding='utf-8') as file:
             latex_document = file.read()
 
         # Clean LaTeX document

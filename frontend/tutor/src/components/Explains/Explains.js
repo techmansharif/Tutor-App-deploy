@@ -40,8 +40,16 @@ const Explains = ({
     }
   }, [explanationHistory, isExplainLoading]); // Also scroll when loading state changes
 
+
+ 
   const processExplanation = (text) => {
     let processed = text;
+
+    // Handle LaTeX expressions wrapped in backticks and \( \), replacing with dollar signs
+    processed = processed.replace(/`\\\((\s*.*?[^\\]\s*)\\\)`/gs, '$$$1$$');
+
+    // Handle LaTeX expressions in \( \) without backticks, replacing with dollar signs
+    processed = processed.replace(/\\\((\s*.*?[^\\]\s*)\\\)/gs, '$$$1$$');
 
     processed = processed.replace(/`(\$+)([^`$]*?)(?=`)/g, (match, p1, p2) => {
       if (!p2.includes('$')) {
@@ -56,7 +64,7 @@ const Explains = ({
       return `\`${dollars}${p2}${dollars}${p4}\``;
     });
 
-    processed = processed.replace(/(['`])\s*(\$+)([^\$]*)\2\s*\1/g, '$2$3$2');
+    processed = processed.replace(/(['`])\s*(\$+)([^\$]*)\ акции/g, '$2$3$2');
 
     processed = processed.replace(/`(\$+)([^$]*?)(\$+)([^`]*?)`/g, (match, p1, p2, p3, p4) => {
       return `${p1}${p2}${p3}${p4}`;

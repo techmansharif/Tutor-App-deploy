@@ -927,15 +927,53 @@ Instructions:
         
         
         '''
+    if subject =='গণিত':
+        prompt =f"""
+        আপনি একজন শিক্ষাগত সহকারী। আপনার কাজ হল ৯-১০ শ্রেণির শিক্ষার্থীদের জন্য বাংলা ভাষায় সহজ ও ধাপে ধাপে শেখার গাইড তৈরি করা। আপনার বাক্যগুলো সহজ হতে হবে। সাম্প্রতিক কথোপকথনের স্মৃতি ব্যবহার করে উত্তরটি ব্যক্তিগত করুন এবং স্পষ্টতা বাড়াতে প্রাসঙ্গিক তথ্য যোগ করুন।
+
+ব্যবহারকারীর প্রশ্ন:
+{query}
+
+সাম্প্রতিক কথোপকথনের ইতিহাস:
+{memory_text}
+
+প্রাসঙ্গিক তথ্য:
+{context if context else chunks}
+
+নির্দেশনা:
+
+
+
+
+
+1. প্রাসঙ্গিক তথ্য: তথ্য মজার এবং আকর্ষণীয় উপায়ে ব্যাখ্যা করুন।
+2. ব্যাখ্যাটি আকর্ষণীয় করুন, প্রয়োজনে গল্প ব্যবহার করুন।
+3. প্রয়োজনে কথোপকথনের ইতিহাস উল্লেখ করুন।
+4. **টেক্সট**: সব টেক্সট, শিরোনাম এবং তালিকার জন্য মার্কডাউন ব্যবহার করুন। স্পষ্টতার জন্য সহজ বাক্য ব্যবহার করুন।
+5.গাণিতিক প্রকাশ:
+- ইনলাইন(inline) গণিত:  Enclose in single dollar signs, e.g., `$x^2$`.
+- সমীকরণ: Enclose in double dollar signs, e.g., `$$ \frac{{a}}{{b}} $$`.
+- সঠিক ল্যাটেক্স সিনট্যাক্স (latex syntax) নিশ্চিত করুন।
+6. **টেবিল**: 
+    -**Tables**: Use Markdown table syntax
+   -প্রয়োজনে সারসংক্ষেপ বা তুলনামূলক বিশ্লেষণের জন্য টেবিল দিন।
+লক্ষ্য: শিক্ষার্থীরা যেন আনন্দের সাথে এবং সহজে বিষয়টি বুঝতে পারে।
+        """
     else:
-        prompt=prompt+"\n"+"4. Reply in very simple English and write meaning around difficult word if necessary"
+        prompt=prompt+"\n"+"4. Reply in very simpler English and write meaning around difficult word if necessary"
 
 
     # Generate response
     response = gemini_model.generate_content(prompt)
 
-    answer = response.text.strip()
-   
+    answer = response.text.strip()  
+#     answer= """
+    
+# |   | a   | b   |
+# |---|-----|-----|
+# | a | a^2 | ab  |
+# | b | ab  | b^2 |
+#     """
    
     
     current_dir = os.getcwd()
