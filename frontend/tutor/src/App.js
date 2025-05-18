@@ -25,16 +25,15 @@ function App() {
       .then(response => response.json())
       .then(data => {
         setUser({
-    email: data.user.email,
-    user_id: data.user.id,
-    picture:data.user.picture,
-    name:data.user.name
-
-  });
+          email: data.user.email,
+          user_id: data.user.id,
+          picture: data.user.picture,
+          name: data.user.name
+        });
         if (data.user) {
           console.log('User Email:', data.user.email);
           console.log('User ID:', data.user.id);
-          console.log('user name',data.user.name);
+          console.log('user name', data.user.name);
         }
         setLoading(false);
       })
@@ -66,7 +65,7 @@ function App() {
 
   const onSelectionSubmit = (values) => {
     setSelectedValues(values);
-    setQuizStage('explains');
+    // Stay in selection stage, do not auto-advance to explains
   };
 
   const onProceedToPractice = () => {
@@ -80,6 +79,22 @@ function App() {
   const onCompleteQuiz = () => {
     setSelectedValues({ selectedSubject: '', selectedTopic: '', selectedSubtopic: '' });
     setQuizStage('selection');
+  };
+
+  const areSelectionsComplete = () => {
+    return (
+      selectedValues.selectedSubject &&
+      selectedValues.selectedTopic &&
+      selectedValues.selectedSubtopic
+    );
+  };
+
+  const handleStageChange = (stage) => {
+    if (['explains', 'practice', 'quiz'].includes(stage) && !areSelectionsComplete()) {
+      setQuizStage('selection');
+    } else {
+      setQuizStage(stage);
+    }
   };
 
   const renderCurrentStage = () => {
@@ -142,6 +157,45 @@ function App() {
     }
   };
 
+  const renderNavigationButtons = () => {
+    if (!user) return null;
+
+    return (
+      <div className="navigation-buttons flex justify-center gap-4 mt-4">
+        <button
+          onClick={() => handleStageChange('quiz1')}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Quiz 1
+        </button>
+        <button
+          onClick={() => handleStageChange('selection')}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Selection
+        </button>
+        <button
+          onClick={() => handleStageChange('explains')}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Explains
+        </button>
+        <button
+          onClick={() => handleStageChange('practice')}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Practice
+        </button>
+        <button
+          onClick={() => handleStageChange('quiz')}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Quiz
+        </button>
+      </div>
+    );
+  };
+
   if (loading) {
     return <div className="text-center mt-10">Loading...</div>;
   }
@@ -165,7 +219,10 @@ function App() {
           </div>
         )}
       </header>
-      <main className="flex-grow p-4">{renderCurrentStage()}</main>
+      <main className="flex-grow p-4">
+        {renderCurrentStage()}
+        {renderNavigationButtons()}
+      </main>
       <footer className="bg-gray-200 p-2 text-center">
         <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
       </footer>

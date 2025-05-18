@@ -65,8 +65,8 @@ const Selection = ({ user, API_BASE_URL, onSelectionSubmit }) => {
     }
   }, [selectedTopic, selectedSubject, API_BASE_URL, user.user_id]);
 
-  // Handle form submission
-  const handleSelectionSubmit = async (e) => {
+  // Handle form submission for confirmation
+  const handleConfirmSelection = async (e) => {
     e.preventDefault();
     if (!selectedSubject || !selectedTopic || !selectedSubtopic) {
       alert('Please select a subject, topic, and subtopic');
@@ -84,8 +84,9 @@ const Selection = ({ user, API_BASE_URL, onSelectionSubmit }) => {
         }
       );
 
-      // Notify App.js of the submission with the selected values
+      // Notify App.js of the confirmed selection
       onSelectionSubmit({ selectedSubject, selectedTopic, selectedSubtopic });
+      alert('Selection confirmed! Use the navigation buttons to proceed.');
     } catch (error) {
       console.error('Error during selection:', error);
       alert('Error during selection. Please try again.');
@@ -95,7 +96,7 @@ const Selection = ({ user, API_BASE_URL, onSelectionSubmit }) => {
   return (
     <div className="selection-component-container">
       <h2>Select Subject, Topic, and Subtopic</h2>
-      <form onSubmit={handleSelectionSubmit}>
+      <form onSubmit={handleConfirmSelection}>
         <div className="selection-group-component">
           <label>Subject:</label>
           <select
@@ -157,7 +158,7 @@ const Selection = ({ user, API_BASE_URL, onSelectionSubmit }) => {
           type="submit"
           disabled={!selectedSubject || !selectedTopic || !selectedSubtopic}
         >
-          Start Learning
+          Confirm Selection
         </button>
       </form>
     </div>

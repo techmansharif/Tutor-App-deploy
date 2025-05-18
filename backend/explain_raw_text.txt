@@ -1,7 +1,27 @@
+Okay! Let's do Activity 1! It's like a fill-in-the-blanks game to learn about the "boy," "girl," "both," and "neither" labels for words! We will use our memory from the previous chat to help us solve it
 
-    
-|   | a   | b   |
-|---|-----|-----|
-| a | a^2 | ab  |
-| b | ab  | b^2 |
-    
+1.  **The masculine gender denotes a \_\_ person or animal.**
+
+   *   This is asking: What kind of person or animal is "masculine"? Remember "Mr. Rahman" and "son" from our story? They were boys or men!
+
+   *   **Answer:** The masculine gender denotes a **male** person or animal. (Male means "boy" or "man").
+
+2.  **The feminine gender refers to a \_\_ person or animal.**
+
+    *   This is asking: What kind of person or animal is "feminine"? Think about "wife" and "daughter" from our story. They were girls or women!
+
+    *   **Answer:** The feminine gender refers to a **female** person or animal. (Female means "girl" or "woman").
+
+3.  **The common gender refers to both \_\_ and \_\_ persons/animals.**
+
+    *   This is asking: What kind of person or animal is "common gender"? Think about "teachers" from our story! They could be men or women.
+
+    *   **Answer:** The common gender refers to both **male** and **female** persons/animals.
+
+4.  **The neuter gender denotes a thing which is neither \_\_ nor \_\_.**
+
+    *   This is asking: What kind of thing is "neuter"? Remember "house" from our story? It wasn't a boy or a girl.
+
+    *   **Answer:** The neuter gender denotes a thing which is neither **male** nor **female**.
+
+**Great job!** You have now filled in the blanks. Now you know what each gender mean! It's all about "boy," "girl," "both," or "neither"!
