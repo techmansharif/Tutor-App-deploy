@@ -34,12 +34,13 @@
 }
 
 .play-button {
-  background-color: #28a745;
+  background-color: #ffc107; /* Changed to yellow */
   color: white;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   padding: 0;
+  min-width: unset;
 }
 
 .play-button:disabled {
@@ -49,19 +50,19 @@
 
 /* Circular animation with bouncing bars when playing */
 .play-button.playing {
-  background-color: #28a745;
+  background-color: #dc3545; /* Changed to red */
   position: relative;
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  box-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
+  box-shadow: 0 0 15px rgba(220, 53, 69, 0.5); /* Updated shadow to match red */
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); box-shadow: 0 0 15px rgba(40, 167, 69, 0.5); }
-  50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(40, 167, 69, 0.8); }
-  100% { transform: scale(1); box-shadow: 0 0 15px rgba(40, 167, 69, 0.5); }
+  0% { transform: scale(1); box-shadow: 0 0 15px rgba(220, 53, 69, 0.5); } /* Updated shadow to match red */
+  50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(220, 53, 69, 0.8); } /* Updated shadow to match red */
+  100% { transform: scale(1); box-shadow: 0 0 15px rgba(220, 53, 69, 0.5); } /* Updated shadow to match red */
 }
 
 .play-button.playing::before {
