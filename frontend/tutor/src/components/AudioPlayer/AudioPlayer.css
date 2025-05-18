@@ -9,7 +9,7 @@
 
 .audio-controls {
   display: flex;
-  gap: 10px;
+  gap: 15px;
   justify-content: center;
 }
 
@@ -20,21 +20,80 @@
 }
 
 .audio-button {
-  padding: 8px 16px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  transition: all 0.3s ease;
 }
 
 .play-button {
   background-color: #28a745;
   color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  padding: 0;
 }
 
 .play-button:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
+}
+
+/* Circular animation with bouncing bars when playing */
+.play-button.playing {
+  background-color: #28a745;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 15px rgba(40, 167, 69, 0.5); }
+  50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(40, 167, 69, 0.8); }
+  100% { transform: scale(1); box-shadow: 0 0 15px rgba(40, 167, 69, 0.5); }
+}
+
+.play-button.playing::before {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.play-button.playing::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M6 4h2v16H6zm6-2h2v18h-2zm6 4h2v14h-2z"/></svg>') no-repeat center;
+  background-size: contain;
+  animation: bounceBars 1s infinite;
+}
+
+@keyframes bounceBars {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.speaker-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pause-button {

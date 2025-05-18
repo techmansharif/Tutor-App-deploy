@@ -148,68 +148,81 @@ const AudioPlayer = ({ text }) => {
   }, [text]);
 
   return (
-    <div className="audio-player-container">
-      <div className="audio-controls">
-        <button
-          onClick={handlePlay}
-          disabled={isPlaying && !isPaused}
-          className="audio-button play-button"
-        >
-          {isPaused ? 'Resume' : 'Play'}
-        </button>
-        <button
-          onClick={handlePause}
-          disabled={!isPlaying || isPaused}
-          className="audio-button pause-button"
-        >
-          Pause
-        </button>
-        <button
-          onClick={handleStop}
-          disabled={!isPlaying}
-          className="audio-button stop-button"
-        >
-          Stop
-        </button>
-        <button
-          onClick={handleSpeakAgain}
-          className="audio-button speak-again-button"
-        >
-          Speak Again
-        </button>
-      </div>
-      <div className="audio-settings">
-        <select
-          value={selectedVoice ? selectedVoice.name : ''}
-          onChange={(e) => {
-            const voice = voices.find((v) => v.name === e.target.value);
-            setSelectedVoice(voice);
-          }}
-          className="voice-select"
-        >
-          <option value="">Select Voice</option>
-          {voices.map((voice) => (
-            <option key={voice.name} value={voice.name}>
-              {voice.name} ({voice.lang})
-            </option>
-          ))}
-        </select>
-        <select
-          value={speechRate}
-          onChange={(e) => setSpeechRate(parseFloat(e.target.value))}
-          className="speed-select"
-        >
-          <option value={0.5}>0.5x</option>
-          <option value={0.75}>0.75x</option>
-          <option value={1}>1x</option>
-          <option value={1.25}>1.25x</option>
-          <option value={1.5}>1.5x</option>
-          <option value={1.75}>1.75x</option>
-          <option value={2}>2x</option>
-        </select>
-      </div>
-    </div>
-  );
+   <div className="audio-player-container">
+  <div className="audio-controls">
+    <button
+      onClick={handlePlay}
+      disabled={isPlaying && !isPaused}
+      className={`audio-button play-button ${isPlaying && !isPaused ? 'playing' : ''}`}
+    >
+      {isPlaying && !isPaused ? '' : (
+        <span className="speaker-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="white"
+            width="20px"
+            height="20px"
+          >
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          </svg>
+        </span>
+      )}
+    </button>
+    <button
+      onClick={handlePause}
+      disabled={!isPlaying || isPaused}
+      className="audio-button pause-button"
+    >
+      Pause
+    </button>
+    <button
+      onClick={handleStop}
+      disabled={!isPlaying}
+      className="audio-button stop-button"
+    >
+      Stop
+    </button>
+    <button
+      onClick={handleSpeakAgain}
+      className="audio-button speak-again-button"
+    >
+      Speak Again
+    </button>
+  </div>
+  <div className="audio-settings">
+    <select
+      value={selectedVoice ? selectedVoice.name : ''}
+      onChange={(e) => {
+        const voice = voices.find((v) => v.name === e.target.value);
+        setSelectedVoice(voice);
+      }}
+      className="voice-select"
+    >
+      <option value="">Select Voice</option>
+      {voices.map((voice) => (
+        <option key={voice.name} value={voice.name}>
+          {voice.name} ({voice.lang})
+        </option>
+      ))}
+    </select>
+    <select
+      value={speechRate}
+      onChange={(e) => setSpeechRate(parseFloat(e.target.value))}
+      className="speed-select"
+    >
+      <option value={0.5}>0.5x</option>
+      <option value={0.75}>0.75x</option>
+      <option value={1}>1x</option>
+      <option value={1.25}>1.25x</option>
+      <option value={1.5}>1.5x</option>
+      <option value={1.75}>1.75x</option>
+      <option value={2}>2x</option>
+    </select>
+  </div>
+</div>
+
+  )
 };
 
 export default AudioPlayer;
