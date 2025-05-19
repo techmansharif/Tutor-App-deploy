@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
+import { processExplanation } from '../ProcessText/ProcessExplain'; 
 import './Explains.css';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -40,62 +41,6 @@ const Explains = ({
     }
   }, [explanationHistory, isExplainLoading]); // Also scroll when loading state changes
 
-  const processExplanation = (text) => {
-    let processed = text;
-
-    // Handle LaTeX expressions wrapped in backticks and \( \), replacing with dollar signs
-    processed = processed.replace(/`\\\((\s*.*?[^\\]\s*)\\\)`/gs, '$$$1$$');
-
-    // Handle LaTeX expressions in \( \) without backticks, replacing with dollar signs
-    processed = processed.replace(/\\\((\s*.*?[^\\]\s*)\\\)/gs, '$$$1$$');
-
-    processed = processed.replace(/`(\$+)([^`$]*?)(?=`)/g, (match, p1, p2) => {
-      if (!p2.includes('$')) {
-        return `\`${p1}${p2}${p1}\``;
-      }
-      return match;
-    });
-
-    processed = processed.replace(/`(\$+)([^$]*?)(\$+)([^`]*?)`/g, (match, p1, p2, p3, p4) => {
-      const dollarCount = Math.min(p1.length, p3.length);
-      const dollars = '$'.repeat(dollarCount);
-      return `\`${dollars}${p2}${dollars}${p4}\``;
-    });
-
-    processed = processed.replace(/(['`])\s*(\$+)([^\$]*)\ акции/g, '$2$3$2');
-
-    processed = processed.replace(/`(\$+)([^$]*?)(\$+)([^`]*?)`/g, (match, p1, p2, p3, p4) => {
-      return `${p1}${p2}${p3}${p4}`;
-    });
-
-    processed = processed.replace(/(\$+)([^$]*?)(\$+)/g, (match, p1, p2, p3) => {
-      const dollarCount = Math.min(p1.length, p3.length);
-      const dollars = '$'.repeat(dollarCount);
-      return `${dollars}${p2}${dollars}`;
-    });
-
-    processed = processed.replace(/`([^$\s]*?)`/g, (match, p1) => {
-      if (p1.includes('$')) {
-        return match;
-      }
-      return p1;
-    });
-
-    const lines = processed.split('\n');
-    processed = lines
-      .map((line) => {
-        const trimmedLine = line.trim();
-        if (trimmedLine.startsWith('*')) {
-          const indent = line.match(/^\s*/)[0];
-          return `${indent}* ${trimmedLine.slice(1).trim()}`;
-        }
-        return line;
-      })
-      .join('\n');
-
-    console.log(processed);
-    return processed;
-  };
 
   const fetchExplain = async (query, isInitial = false) => {
     setIsExplainLoading(true);
