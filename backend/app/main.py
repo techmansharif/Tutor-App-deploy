@@ -861,18 +861,27 @@ async def post_explain(
         context = chunks[chunk_index]
             # After determining context and chunk_index
         selected_chunk =chunks[chunk_index]
+                
     elif query == "continue":
         chunk_index += 1
         if chunk_index >= len(chunks):
-            chunk_index = 0
-            progress.chunk_index = chunk_index
-            progress.chat_memory = []
-            db.commit()
+            #chunk_index = -1
+            #progress.chunk_index = chunk_index
+            #db.commit()
             return ExplainResponse(answer="Congratulations, you have mastered the topic!")
         query = "Explain the context easy fun way"
         context = chunks[chunk_index]
             # After determining context and chunk_index
         selected_chunk =chunks[chunk_index]
+    elif query == "refresh":
+        chunk_index = 0 # Start from chunk_index = 1
+        progress.chunk_index = chunk_index
+        chat_memory=[]
+        progress.chat_memory = []  # Clear chat_memory
+        db.commit()
+        query =  "Explain the context easy fun way"
+        context = chunks[chunk_index]
+        selected_chunk = chunks[chunk_index]
     else:
         # Custom query with FAISS
         model = SentenceTransformer('all-MiniLM-L6-v2')

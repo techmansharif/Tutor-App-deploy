@@ -39,8 +39,7 @@ const Explains = ({
     if (explanationContainerRef.current) {
       explanationContainerRef.current.scrollTop = explanationContainerRef.current.scrollHeight;
     }
-  }, [explanationHistory, isExplainLoading]); // Also scroll when loading state changes
-
+  }, [explanationHistory, isExplainLoading]);
 
   const fetchExplain = async (query, isInitial = false) => {
     setIsExplainLoading(true);
@@ -94,6 +93,12 @@ const Explains = ({
       fetchExplain(userQuery);
       setUserQuery('');
     }
+  };
+
+  const handleRefresh = () => {
+    setExplanationHistory([]);
+    setExplainFinished(false);
+    fetchExplain("refresh");
   };
 
   return (
@@ -158,8 +163,8 @@ const Explains = ({
       <div className="explain-controls-component">
         {explainFinished ? (
           <button onClick={onProceedToPractice} className="primary-button-component">
-          Start Practice
-        </button>
+            Start Practice
+          </button>
         ) : (
           <>
             <button onClick={handleContinueExplain} className="primary-button-component">
@@ -167,6 +172,9 @@ const Explains = ({
             </button>
             <button onClick={handleExplainAgain} className="secondary-button-component">
               Explain Once Again
+            </button>
+            <button onClick={handleRefresh} className="secondary-button-component">
+              Refresh
             </button>
             <div className="custom-query-container">
               <input
