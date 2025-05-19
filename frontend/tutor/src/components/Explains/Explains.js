@@ -26,7 +26,7 @@ const Explains = ({
   useEffect(() => {
     if (!initialFetchRef.current) {
       initialFetchRef.current = true;
-      fetchExplain("continue");
+      fetchExplain("explain", true);
     }
     
     return () => {
@@ -40,8 +40,6 @@ const Explains = ({
     }
   }, [explanationHistory, isExplainLoading]); // Also scroll when loading state changes
 
-
- 
   const processExplanation = (text) => {
     let processed = text;
 
@@ -99,12 +97,12 @@ const Explains = ({
     return processed;
   };
 
-  const fetchExplain = async (query) => {
+  const fetchExplain = async (query, isInitial = false) => {
     setIsExplainLoading(true);
     try {
       const response = await axios.post(
         `${API_BASE_URL}/${selectedSubject}/${selectedTopic}/${selectedSubtopic}/explains/`,
-        { query },
+        { query, is_initial: isInitial },
         {
           headers: { 'user-id': user.user_id },
           withCredentials: true
@@ -117,6 +115,13 @@ const Explains = ({
           ...prev,
           { text: response.data.answer, image: null }
         ]);
+      } else if (response.data.initial_response && isInitial) {
+        // Handle initial response with previous answers from chat_memory
+        const answers = response.data.initial_response.map(answer => ({
+          text: answer,
+          image: null
+        }));
+        setExplanationHistory((prev) => [...prev, ...answers]);
       } else {
         setExplanationHistory((prev) => [
           ...prev,
@@ -136,7 +141,7 @@ const Explains = ({
   };
 
   const handleExplainAgain = () => {
-    fetchExplain("Explain");
+    fetchExplain("explain");
   };
 
   const handleCustomQuery = () => {
@@ -208,8 +213,8 @@ const Explains = ({
       <div className="explain-controls-component">
         {explainFinished ? (
           <button onClick={onProceedToPractice} className="primary-button-component">
-            Start Practice
-          </button>
+          Start Practice
+        </button>
         ) : (
           <>
             <button onClick={handleContinueExplain} className="primary-button-component">

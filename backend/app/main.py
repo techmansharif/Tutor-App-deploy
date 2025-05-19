@@ -320,6 +320,7 @@ class QuizAnswerSubmission(BaseModel):
 # Request model for user input
 class ExplainQuery(BaseModel):
     query: str
+    is_initial: Optional[bool] = False
 
 # Response model for explain (only answer)
 class ExplainResponse(BaseModel):
@@ -327,6 +328,7 @@ class ExplainResponse(BaseModel):
     image: Optional[str] = None  # Base64-encoded image string (or None if no image)
     total:Optional[int]=None
     current:Optional[int]=None
+    initial_response: Optional[List[str]] = None
 
 # Root endpoint
 @app.get("/")
@@ -837,6 +839,20 @@ async def post_explain(
     # Handle query
     query = explain_query.query.lower()
     context = None
+    
+    
+    
+    
+      # NEW: Handle initial "explain" query with non-empty chat_memory
+    if query == "explain" and chat_memory and explain_query.is_initial:
+        # Return all previous answers from chat_memory in initial_response
+        previous_answers = [pair['answer'] for pair in chat_memory]
+        return ExplainResponse(
+            answer="",  # No new answer for initial response
+            image=None,
+            initial_response=previous_answers
+        )
+
     if query == "explain":
         if subject =="English":
             query="please explain in easier english and easily"
