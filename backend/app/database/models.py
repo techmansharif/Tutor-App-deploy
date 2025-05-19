@@ -218,3 +218,29 @@ class Quiz1Score(Base):
     score_percentage = Column(Float, default=0.0)
     student_level=Column(Integer,default=1)
     attempt = relationship("Quiz1Attempt", back_populates="score")
+    
+class PractiseAttempt(Base):
+    __tablename__ = "practise_attempts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), index=True, nullable=False)
+    subject_id = Column(Integer, ForeignKey("subjects.id"), nullable=False)
+    topic_id = Column(Integer, ForeignKey("topics.id"), nullable=False)
+    subtopic_id = Column(Integer, ForeignKey("subtopics.id"), nullable=False)
+    started_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    user = relationship("User")
+    subject = relationship("Subject")
+    topic = relationship("Topic")
+    subtopic = relationship("Subtopic")
+    answers = relationship("PractiseAnswer", back_populates="attempt")
+class PractiseAnswer(Base):
+    __tablename__ = "practise_answers"
+
+    id = Column(Integer, primary_key=True, index=True)
+    attempt_id = Column(Integer, ForeignKey("practise_attempts.id"), index=True, nullable=False)
+    question_id = Column(Integer, ForeignKey("mcqs.id"), index=True, nullable=False)
+    is_correct = Column(Boolean, nullable=False)
+
+    attempt = relationship("PractiseAttempt", back_populates="answers")
+    question = relationship("MCQ")

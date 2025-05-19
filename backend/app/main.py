@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from typing import List,Optional
 from datetime import datetime
 from .database.session import SessionLocal, Base, engine
-from .database.models import Quiz0, Subject, Topic, Subtopic, MCQ, User, UserSelection, QuizAttempt, QuizAnswer, QuizScore,UserProgress,Diagram,Quiz1,Quiz1Attempt,Quiz1Score
+from .database.models import Quiz0, Subject, Topic, Subtopic, MCQ, User, UserSelection, QuizAttempt, QuizAnswer, QuizScore,UserProgress,Diagram,Quiz1,Quiz1Attempt,Quiz1Score,PractiseAnswer,PractiseAttempt
 from .schemas.models import SubjectBase, TopicBase, SubtopicBase, MCQBase
 from sqlalchemy.sql import func
 from pydantic import BaseModel
@@ -280,6 +280,10 @@ class PracticeQuizQuestionResponse(BaseModel):
     question: Optional[MCQResponse] = None
     hardness_level: int
     message: Optional[str] = None
+    questions_tried: Optional[int] = None  # Number of questions tried in the attempt
+    number_correct: Optional[int] = None   # Number of correct answers in the attempt
+   # last_question_correct: Optional[bool] = None  # Whether the last question was correct
+
 
     class Config:
         from_attributes = True
@@ -1068,29 +1072,126 @@ async def practice_quiz(
 
     # Determine hardness level and questions tried
     hardness_level = db.query(Quiz1Score).filter(Quiz1Score.attempt_id == db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first().id).first().student_level if db.query(Quiz1Score).filter(Quiz1Score.attempt_id == db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first().id).first() else 5  # Default for first question
+ 
+    # Create or retrieve PractiseAttempt
+    practise_attempt = None
     questions_tried = 0
-    if submission:
-        # Validate question
-        question = db.query(MCQ).filter(MCQ.id == submission.question_id).first()
-        if not question:
-            raise HTTPException(status_code=404, detail=f"Question ID {submission.question_id} not found")
-
-        # Update hardness level based on correctness
+    number_correct = 0
+    if not submission:
+        # Check for the latest PractiseAttempt for the user and subtopic
+        practise_attempt = (
+            db.query(PractiseAttempt)
+            .filter(
+                PractiseAttempt.user_id == user_id,
+                PractiseAttempt.subtopic_id == subtopic_obj.id
+            )
+            .order_by(PractiseAttempt.started_at.desc())
+            .first()
+        )
+        if practise_attempt:
+            # Calculate questions tried and correct answers
+            questions_tried = (
+                db.query(PractiseAnswer)
+                .filter(PractiseAnswer.attempt_id == practise_attempt.id)
+                .count()
+            )
+            number_correct = (
+                db.query(PractiseAnswer)
+                .filter(
+                    PractiseAnswer.attempt_id == practise_attempt.id,
+                    PractiseAnswer.is_correct == True
+                )
+                .count()
+            )
+            # Get the last question's difficulty and correctness
+            last_answer = (
+                db.query(PractiseAnswer)
+                .filter(PractiseAnswer.attempt_id == practise_attempt.id)
+                .join(MCQ, PractiseAnswer.question_id == MCQ.id)
+                .order_by(PractiseAnswer.id.desc())
+                .first()
+            )
+            if last_answer:
+                hardness_level = last_answer.question.hardness_level
+                # Adjust hardness level based on last question's correctness
+                if last_answer.is_correct:
+                    hardness_level = min(hardness_level + 1, 10)  # Increase, max 10
+                else:
+                    hardness_level = max(hardness_level - 1, 1)   # Decrease, min 1
+        if not practise_attempt or questions_tried >= 20:
+            # Create a new PractiseAttempt if none exists or latest has >= 20 answers
+            practise_attempt = PractiseAttempt(
+                user_id=user_id,
+                subject_id=subject_obj.id,
+                topic_id=topic_obj.id,
+                subtopic_id=subtopic_obj.id
+            )
+            db.add(practise_attempt)
+            db.commit()
+            db.refresh(practise_attempt)
+            questions_tried = 0
+            number_correct = 0
+            hardness_level = db.query(Quiz1Score).filter(
+                Quiz1Score.attempt_id == db.query(Quiz1Attempt)
+                .filter(Quiz1Attempt.user_id == user_id)
+                .order_by(Quiz1Attempt.started_at.desc())
+                .first().id
+            ).first().student_level if db.query(Quiz1Score).filter(
+                Quiz1Score.attempt_id == db.query(Quiz1Attempt)
+                .filter(Quiz1Attempt.user_id == user_id)
+                .order_by(Quiz1Attempt.started_at.desc())
+                .first().id
+            ).first() else 5  # Default for first question
+    else:
+        # Retrieve the most recent PractiseAttempt for the user and subtopic
+        practise_attempt = (
+            db.query(PractiseAttempt)
+            .filter(
+                PractiseAttempt.user_id == user_id,
+                PractiseAttempt.subtopic_id == subtopic_obj.id
+            )
+            .order_by(PractiseAttempt.started_at.desc())
+            .first()
+        )
+        if not practise_attempt:
+            raise HTTPException(status_code=400, detail="No active practice attempt found")
+        # Save the user's answer to PractiseAnswer
+        practise_answer = PractiseAnswer(
+            attempt_id=practise_attempt.id,
+            question_id=submission.question_id,
+            is_correct=submission.is_correct
+        )
+        db.add(practise_answer)
+        db.commit()
+        # Update questions tried and correct count
+        questions_tried = (
+            db.query(PractiseAnswer)
+            .filter(PractiseAnswer.attempt_id == practise_attempt.id)
+            .count()
+        )
+        number_correct = (
+            db.query(PractiseAnswer)
+            .filter(
+                PractiseAnswer.attempt_id == practise_attempt.id,
+                PractiseAnswer.is_correct == True
+            )
+            .count()
+        )
+        # Update hardness level based on submission
         hardness_level = submission.current_hardness_level
         if submission.is_correct:
             hardness_level = min(hardness_level + 1, 10)  # Increase, max 10
         else:
             hardness_level = max(hardness_level - 1, 1)   # Decrease, min 1
 
-        # Update questions tried
-        questions_tried = submission.questions_tried
-
-        # Check if 20 questions have been reached
-        if questions_tried >= 20:
-            return PracticeQuizQuestionResponse(
-                hardness_level=hardness_level,
-                message="You have completed 20 practice questions!"
-            )
+    # Check if 20 questions have been reached
+    if questions_tried >= 20:
+        return PracticeQuizQuestionResponse(
+            hardness_level=hardness_level,
+            message="You have completed 20 practice questions!",
+            questions_tried=questions_tried,
+            number_correct=number_correct
+        )
 
     # Fetch next question (allow reuse of questions)
     next_question = (
@@ -1107,14 +1208,17 @@ async def practice_quiz(
     if not next_question:
         return PracticeQuizQuestionResponse(
             hardness_level=hardness_level,
-            message=f"No questions available at difficulty level {hardness_level}. Practice completed!"
+            message=f"No questions available at difficulty level {hardness_level}. Practice completed!",
+            questions_tried=questions_tried,
+            number_correct=number_correct
         )
 
     return PracticeQuizQuestionResponse(
         question=MCQResponse.from_orm(next_question),
-        hardness_level=hardness_level
+        hardness_level=hardness_level,
+        questions_tried=questions_tried,
+        number_correct=number_correct
     )
-
 
 @app.on_event("startup")
 async def startup_event():

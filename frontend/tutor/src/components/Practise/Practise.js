@@ -43,7 +43,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
     fetchPracticeQuestion();
   }, []);
 
-  const fetchPracticeQuestion = async (submission = null) => {
+const fetchPracticeQuestion = async (submission = null) => {
     setIsLoading(true);
     try {
       const response = await axios.post(
@@ -55,18 +55,32 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
         }
       );
 
-      const { question, hardness_level, message } = response.data;
+      const { question, hardness_level, message, questions_tried, number_correct } = response.data;
       if (question) {
         setCurrentQuestion(question);
         setHardnessLevel(hardness_level);
         setSelectedOption('');
         setIsAnswerSubmitted(false);
         setIsAnswerIncorrect(false);
-        setShowCongrats(false); // Reset congratulatory message
-        setIsTimerPaused(false); // Ensure timer is not paused
+        setShowCongrats(false);
+        setIsTimerPaused(false);
+        // Set questionsTried and score if resuming an incomplete session
+        if (questions_tried !== null && questions_tried !== undefined) {
+          setQuestionsTried(questions_tried);
+        }
+        if (number_correct !== null && number_correct !== undefined) {
+          setScore(number_correct);
+        }
       } else if (message) {
         setIsComplete(true);
         setCompletionMessage(message);
+        // Set final questionsTried and score for completion
+        if (questions_tried !== null && questions_tried !== undefined) {
+          setQuestionsTried(questions_tried);
+        }
+        if (number_correct !== null && number_correct !== undefined) {
+          setScore(number_correct);
+        }
       }
     } catch (error) {
       console.error('Error fetching practice question:', error);
@@ -75,7 +89,6 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
       setIsLoading(false);
     }
   };
-
   const handleAnswerSelect = async (option) => {
     setSelectedOption(option);
 
