@@ -44,7 +44,7 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
     fetchQuizQuestion();
   }, []);
 
-  const fetchQuizQuestion = async (submission = null) => {
+const fetchQuizQuestion = async (submission = null) => {
     setIsLoading(true);
     try {
       const response = await axios.post(
@@ -56,7 +56,7 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
         }
       );
 
-      const { question, hardness_level, message, attempt_id } = response.data;
+      const { question, hardness_level, message, attempt_id, questions_tried, correct_answers } = response.data;
       if (question) {
         setCurrentQuestion(question);
         setHardnessLevel(hardness_level);
@@ -66,10 +66,24 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
         setIsAnswerIncorrect(false);
         setShowCongrats(false);
         setIsTimerPaused(false);
+        // Set questions tried and score if provided
+        if (questions_tried !== undefined && questions_tried !== null) {
+          setQuestionsTried(questions_tried);
+        }
+        if (correct_answers !== undefined && correct_answers !== null) {
+          setScore(correct_answers);
+        }
       } else if (message) {
         setIsComplete(true);
         setCompletionMessage(message);
         setAttemptId(attempt_id);
+        // Set questions tried and score if provided
+        if (questions_tried !== undefined && questions_tried !== null) {
+          setQuestionsTried(questions_tried);
+        }
+        if (correct_answers !== undefined && correct_answers !== null) {
+          setScore(correct_answers);
+        }
       }
     } catch (error) {
       console.error('Error fetching quiz question:', error);

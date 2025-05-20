@@ -98,21 +98,25 @@ class UserSelection(Base):
     subject = relationship("Subject")
     topic = relationship("Topic")
     subtopic = relationship("Subtopic")
-    attempts = relationship("QuizAttempt", back_populates="selection")
+    #attempts = relationship("QuizAttempt", back_populates="selection")
 
 # New QuizAttempt model
+# Modified QuizAttempt model
 class QuizAttempt(Base):
     __tablename__ = "quiz_attempts"
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), index=True)
-    selection_id = Column(Integer, ForeignKey("user_selections.id"), index=True)
+    subject_id = Column(Integer, ForeignKey("subjects.id"), index=True, nullable=False)
+    topic_id = Column(Integer, ForeignKey("topics.id"), index=True, nullable=False)
+    subtopic_id = Column(Integer, ForeignKey("subtopics.id"), index=True, nullable=False)
     started_at = Column(DateTime(timezone=True), server_default=func.now())
     completed_at = Column(DateTime(timezone=True), nullable=True)
     user = relationship("User", back_populates="attempts")
-    selection = relationship("UserSelection", back_populates="attempts")
+    subject = relationship("Subject")
+    topic = relationship("Topic")
+    subtopic = relationship("Subtopic")
     answers = relationship("QuizAnswer", back_populates="attempt")
     score = relationship("QuizScore", uselist=False, back_populates="attempt")
-
 # New QuizAnswer model
 class QuizAnswer(Base):
     __tablename__ = "quiz_answers"
