@@ -383,8 +383,12 @@ async def get_subtopics(subject: str, topic: str, db: Session = Depends(get_db))
 async def quiz1(
     submission: Optional[QuizAnswerSubmission] = None,
     user_id: int = Header(...),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    request:Request=None
 ):
+    session_user = request.session.get("user")
+    if not session_user or session_user.get("id") != user_id:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
     # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
@@ -520,8 +524,12 @@ async def quiz1(
 async def select_subject_topic_subtopic(
     selection: SelectionRequest,
     user_id: int = Header(...),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    request:Request=None
 ):
+    session_user = request.session.get("user")
+    if not session_user or session_user.get("id") != user_id:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
@@ -565,8 +573,13 @@ async def quiz(
     subtopic: str,
     submission: Optional[QuizAnswerSubmission] = None,
     user_id: int = Header(...),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    request:Request=None
 ):
+    session_user = request.session.get("user")
+    if not session_user or session_user.get("id") != user_id:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
+    
     # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
@@ -800,8 +813,13 @@ async def post_explain(
     subtopic: str,
     explain_query: ExplainQuery,
     user_id: int = Header(...),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    request:Request=None 
 ):
+    # Check session for authenticated user
+    session_user = request.session.get("user")
+    if not session_user or session_user.get("id") != user_id:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
     # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
@@ -1059,8 +1077,12 @@ async def practice_quiz(
     subtopic: str,
     submission: Optional[PracticeQuizAnswerSubmission] = None,
     user_id: int = Header(...),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    request:Request=None
 ):
+    session_user = request.session.get("user")
+    if not session_user or session_user.get("id") != user_id:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
     # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
