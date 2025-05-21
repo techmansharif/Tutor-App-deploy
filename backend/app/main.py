@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from typing import List,Optional
 from datetime import datetime
 from .database.session import SessionLocal, Base, engine
-from .database.models import Quiz0, Subject, Topic, Subtopic, MCQ, User, UserSelection, QuizAttempt, QuizAnswer, QuizScore,UserProgress,Diagram,Quiz1,Quiz1Attempt,Quiz1Score,PractiseAnswer,PractiseAttempt
+from .database.models import Quiz0, Subject, Topic, Subtopic, MCQ, User, UserSelection, QuizAttempt, QuizAnswer, QuizScore,UserProgress,Diagram,Quiz1,Quiz1Attempt,Quiz1Score,PractiseAnswer,PractiseAttempt,FacialExpression
 from .schemas.models import SubjectBase, TopicBase, SubtopicBase, MCQBase
 from sqlalchemy.sql import func
 from pydantic import BaseModel
@@ -283,6 +283,8 @@ class PracticeQuizQuestionResponse(BaseModel):
     questions_tried: Optional[int] = None  # Number of questions tried in the attempt
     number_correct: Optional[int] = None   # Number of correct answers in the attempt
    # last_question_correct: Optional[bool] = None  # Whether the last question was correct
+    image1: Optional[str] = None  # Base64-encoded string for the first image
+    image2: Optional[str] = None  # Base64-encoded string for the second image
 
 
     class Config:
@@ -565,6 +567,7 @@ async def select_subject_topic_subtopic(
     db.refresh(user_selection)
     
     return {"message": f"Selected subject: {selection.subject}, topic: {selection.topic}, subtopic: {selection.subtopic if selection.subtopic else 'None'}", "selection_id": user_selection.id}
+
 
 @app.post("/{subject}/{topic}/{subtopic}/quiz/", response_model=QuizQuestionResponse)
 async def quiz(
@@ -1065,9 +1068,36 @@ Instructions:
     return ExplainResponse(answer=answer,image=image_data)
 
 
-
-
-
+# Update the fetch_random_images function to return Base64-encoded strings
+def fetch_random_images(db: Session):
+    import random
+    
+    group1_expressions = ["relieved", "happy", "dreamy"]
+    group2_expressions = ["surprised", "question"]
+    
+    send_images = random.choice([True, False])
+    if not send_images:
+        return None, None
+    
+    image1 = (
+        db.query(FacialExpression)
+        .filter(FacialExpression.facial_expression.in_(group1_expressions))
+        .order_by(func.random())
+        .first()
+    )
+    
+    image2 = (
+        db.query(FacialExpression)
+        .filter(FacialExpression.facial_expression.in_(group2_expressions))
+        .order_by(func.random())
+        .first()
+    )
+    
+    # Convert images to Base64 strings if they exist
+    image1_data = base64.b64encode(image1.image).decode('utf-8') if image1 else None
+    image2_data = base64.b64encode(image2.image).decode('utf-8') if image2 else None
+    
+    return image1_data, image2_data
 
 # Practice quiz endpoint
 @app.post("/{subject}/{topic}/{subtopic}/practise/", response_model=PracticeQuizQuestionResponse)
@@ -1087,7 +1117,8 @@ async def practice_quiz(
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
-
+    
+    image1, image2 = fetch_random_images(db)
     # Validate subject, topic, and subtopic
     subject_obj = db.query(Subject).filter(Subject.name == subject).first()
     if not subject_obj:
@@ -1227,7 +1258,9 @@ async def practice_quiz(
             hardness_level=hardness_level,
             message="You have completed 20 practice questions!",
             questions_tried=questions_tried,
-            number_correct=number_correct
+            number_correct=number_correct,
+            image1=image1,
+            image2=image2
         )
 
     # Fetch next question (allow reuse of questions)
@@ -1247,14 +1280,18 @@ async def practice_quiz(
             hardness_level=hardness_level,
             message=f"No questions available at difficulty level {hardness_level}. Practice completed!",
             questions_tried=questions_tried,
-            number_correct=number_correct
+            number_correct=number_correct,
+            image1=image1,
+            image2=image2
         )
 
     return PracticeQuizQuestionResponse(
         question=MCQResponse.from_orm(next_question),
         hardness_level=hardness_level,
         questions_tried=questions_tried,
-        number_correct=number_correct
+        number_correct=number_correct,
+        image1=image1,
+        image2=image2
     )
 
 @app.on_event("startup")

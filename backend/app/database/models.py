@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text,DateTime, Boolean, Float,JSON
+from sqlalchemy import Column, Integer, String, ForeignKey, Text,DateTime, Boolean, Float,JSON,LargeBinary
 from sqlalchemy.orm import relationship
 from .session import Base
 from sqlalchemy.sql import func
@@ -248,3 +248,13 @@ class PractiseAnswer(Base):
 
     attempt = relationship("PractiseAttempt", back_populates="answers")
     question = relationship("MCQ")
+    
+    
+    
+class FacialExpression(Base):
+    __tablename__ = "facial_expressions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    facial_expression = Column(String, nullable=False)
+    image = Column(LargeBinary, nullable=False)
