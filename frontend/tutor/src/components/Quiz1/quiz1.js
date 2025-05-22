@@ -20,6 +20,9 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
   const [isTimerPaused, setIsTimerPaused] = useState(false);
   const [attemptId, setAttemptId] = useState(null);
 
+   const [image1, setImage1] = useState(null); // State for correct answer image
+    const [image2, setImage2] = useState(null); // State for incorrect answer image
+
   // Integrity score hook
   const {
     questionStartTime,
@@ -56,7 +59,7 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
         }
       );
 
-      const { question, hardness_level, message, attempt_id } = response.data;
+      const { question, hardness_level, message, attempt_id,image1,image2 } = response.data;
       if (question) {
         setCurrentQuestion(question);
         setHardnessLevel(hardness_level);
@@ -66,6 +69,9 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
         setIsAnswerIncorrect(false);
         setShowCongrats(false);
         setIsTimerPaused(false);
+
+        setImage1(image1); // Store image1
+        setImage2(image2); // Store image2
       } else if (message) {
         setIsComplete(true);
         setCompletionMessage(message);
@@ -218,6 +224,19 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
             <div className="feedback correct">
               <h3>Correct!</h3>
               <p>Well done! You selected the right answer.</p>
+               {image1 && (
+                <img
+                  src={`data:image/png;base64,${image1}`}
+                  alt="Correct feedback"
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '200px',
+                    margin: '10px 0',
+                    borderRadius: '5px',
+                    objectFit: 'contain'
+                  }}
+                />
+              )}
               <p>Great speed!</p>
               <p>Moving to a more challenging question...</p>
             </div>
@@ -230,6 +249,19 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
             <div className="feedback incorrect">
               <h3>Incorrect</h3>
               <p>Your answer was incorrect.</p>
+                {image2 && (
+                <img
+                  src={`data:image/png;base64,${image2}`}
+                  alt="Incorrect feedback"
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '200px',
+                    margin: '10px 0',
+                    borderRadius: '5px',
+                    objectFit: 'contain'
+                  }}
+                />
+              )}
               <p>
                 <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: {currentQuestion[`option_${currentQuestion.correct_option}`]}
               </p>

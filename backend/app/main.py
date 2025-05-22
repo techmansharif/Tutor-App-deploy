@@ -315,6 +315,10 @@ class QuizQuestionResponse(BaseModel):
     attempt_id: Optional[int] = None
     questions_tried: Optional[int] = None  # New field
     correct_answers: Optional[int] = None  # New field
+    image1: Optional[str] = None  # Base64-encoded string for the first image
+    image2: Optional[str] = None  # Base64-encoded string for the second image
+
+
     class Config:
         from_attributes = True
 
@@ -395,7 +399,7 @@ async def quiz1(
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
-
+    image1, image2 = fetch_random_images(db)
     hardness_level = 1
     attempt_id = None
 
@@ -511,13 +515,17 @@ async def quiz1(
         return QuizQuestionResponse(
             hardness_level=hardness_level,
             message="No questions available at the current difficulty level. Quiz1 completed!",
-            attempt_id=attempt_id
+            attempt_id=attempt_id,
+            image1=image1,
+            image2=image2
         )
 
     return QuizQuestionResponse(
         question=MCQResponse.from_orm(next_question),
         hardness_level=hardness_level,
-        attempt_id=attempt_id
+        attempt_id=attempt_id,
+        image1=image1,
+        image2=image2
     )
 
 
@@ -587,7 +595,7 @@ async def quiz(
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
-
+    image1, image2 = fetch_random_images(db)
     # Validate subject, topic, subtopic
     subject_obj = db.query(Subject).filter(Subject.name == subject).first()
     if not subject_obj:
