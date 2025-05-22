@@ -761,7 +761,9 @@ async def quiz(
                 message="No questions available at any difficulty level. Quiz completed!",
                 attempt_id=attempt_id,
                 questions_tried=questions_tried,
-                correct_answers= correct_answers
+                correct_answers= correct_answers,
+                image1=image1,
+                image2=image2
         )
 
     print("question tried is ",questions_tried)
@@ -770,7 +772,9 @@ async def quiz(
         hardness_level=hardness_level,
         attempt_id=attempt_id,
         questions_tried=questions_tried,
-        correct_answers= correct_answers
+        correct_answers= correct_answers,
+        image1=image1,
+        image2=image2
     )
 
 # Updated function to handle various LaTeX commands in the first line
