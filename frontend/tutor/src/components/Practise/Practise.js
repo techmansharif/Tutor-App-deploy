@@ -19,6 +19,9 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
   const [showCongrats, setShowCongrats] = useState(false); // Track congratulatory message
   const [isTimerPaused, setIsTimerPaused] = useState(false); // Track timer pause state
 
+  const [image1, setImage1] = useState(null); // State for correct answer image
+  const [image2, setImage2] = useState(null); // State for incorrect answer image
+
   // Integrity score hook
   const {
     questionStartTime,
@@ -55,7 +58,7 @@ const fetchPracticeQuestion = async (submission = null) => {
         }
       );
 
-      const { question, hardness_level, message, questions_tried, number_correct } = response.data;
+      const { question, hardness_level, message, questions_tried, number_correct,image1,image2 } = response.data;
       if (question) {
         setCurrentQuestion(question);
         setHardnessLevel(hardness_level);
@@ -64,6 +67,9 @@ const fetchPracticeQuestion = async (submission = null) => {
         setIsAnswerIncorrect(false);
         setShowCongrats(false);
         setIsTimerPaused(false);
+
+        setImage1(image1); // Store image1
+        setImage2(image2); // Store image2
         // Set questionsTried and score if resuming an incomplete session
         if (questions_tried !== null && questions_tried !== undefined) {
           setQuestionsTried(questions_tried);
@@ -266,6 +272,19 @@ const fetchPracticeQuestion = async (submission = null) => {
             <div className="feedback correct">
               <h3>Correct!</h3>
               <p>Well done! You selected the right answer.</p>
+              {image1 && (
+                <img
+                  src={`data:image/png;base64,${image1}`}
+                  alt="Correct feedback"
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '200px',
+                    margin: '10px 0',
+                    borderRadius: '5px',
+                    objectFit: 'contain'
+                  }}
+                />
+              )}
               <p>Great speed!</p>
               <p>Moving to a more challenging question...</p>
             </div>
@@ -278,6 +297,19 @@ const fetchPracticeQuestion = async (submission = null) => {
             <div className="feedback incorrect">
               <h3>Incorrect</h3>
               <p>You answered in {(Date.now() - questionStartTime) / 1000} seconds, but incorrectly.</p>
+              {image2 && (
+                <img
+                  src={`data:image/png;base64,${image2}`}
+                  alt="Incorrect feedback"
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '200px',
+                    margin: '10px 0',
+                    borderRadius: '5px',
+                    objectFit: 'contain'
+                  }}
+                />
+              )}
               <p className="explanation">
                 <strong>Explanation:</strong> {currentQuestion.explanation}
               </p>
