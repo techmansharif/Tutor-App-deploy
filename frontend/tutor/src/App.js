@@ -4,6 +4,8 @@ import Selection from './components/Selection/Selection';
 import Explains from './components/Explains/Explains';
 import PracticeQuiz from './components/Practise/Practise';
 import Quiz from './components/Quiz/quiz';
+import Login from './components/Login/Login';
+import UserInfo from './components/Login/UserInfo'; // Added import
 import axios from 'axios';
 import './App.css';
 
@@ -11,11 +13,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quizStage, setQuizStage] = useState('quiz1');
-  const [selectedValues, setSelectedValues] = useState({
-    selectedSubject: '',
-    selectedTopic: '',
-    selectedSubtopic: ''
-  });
+  const [selectedValues, setSelectedValues] = useState({selectedSubject: '',selectedTopic: '', selectedSubtopic: '' });
   const API_BASE_URL = 'http://localhost:8000';
 
   useEffect(() => {
@@ -43,21 +41,7 @@ function App() {
       });
   }, []);
 
-  const handleLogin = () => {
-    window.location.href = `${API_BASE_URL}/login`;
-  };
-
-  const handleLogout = () => {
-    fetch(`${API_BASE_URL}/logout`, {
-      credentials: 'include'
-    })
-      .then(() => {
-        setUser(null);
-        setQuizStage('quiz1');
-        setSelectedValues({ selectedSubject: '', selectedTopic: '', selectedSubtopic: '' });
-      })
-      .catch(error => console.error('Error logging out:', error));
-  };
+  
 
   const onQuiz1Complete = () => {
     setQuizStage('selection');
@@ -100,16 +84,8 @@ function App() {
   const renderCurrentStage = () => {
     if (!user) {
       return (
-        <div className="text-center">
-          <h2 className="text-2xl mb-4">Please Log In</h2>
-          <button
-            onClick={handleLogin}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Login with Google
-          </button>
-        </div>
-      );
+    <Login API_BASE_URL={API_BASE_URL}/>
+  );
     }
 
     switch (quizStage) {
@@ -205,19 +181,14 @@ function App() {
       <header className="App-header bg-gray-800 text-white p-4 text-center">
         <h1 className="text-3xl">AI Tutor Quiz Application</h1>
         {user && (
-          <div className="user-info flex items-center justify-center gap-4 mt-2">
-            {user.picture && (
-              <img src={user.picture} alt="Profile" className="w-10 h-10 rounded-full" />
-            )}
-            <span>Welcome, {user.name}</span>
-            <button
-              onClick={handleLogout}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
-            >
-              Logout
-            </button>
-          </div>
-        )}
+    <UserInfo
+      user={user}
+      setUser={setUser}
+      setQuizStage={setQuizStage}
+      setSelectedValues={setSelectedValues}
+      API_BASE_URL={API_BASE_URL}
+    />
+  )}
       </header>
       <main className="flex-grow p-4">
         {renderCurrentStage()}
