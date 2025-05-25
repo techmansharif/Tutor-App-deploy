@@ -1,12 +1,16 @@
 
 
-from fastapi import FastAPI, Depends, HTTPException, Header, Query
+from fastapi import FastAPI, Depends, HTTPException, Header, Query,status
 from sqlalchemy.orm import Session
 from typing import List,Optional
 from datetime import datetime
 from .database.session import SessionLocal, Base, engine
-from .database.models import Quiz0, Subject, Topic, Subtopic, MCQ, User, UserSelection, QuizAttempt, QuizAnswer, QuizScore,UserProgress,Diagram,Quiz1,Quiz1Attempt,Quiz1Score,PractiseAnswer,PractiseAttempt,FacialExpression
-from .schemas.models import SubjectBase, TopicBase, SubtopicBase, MCQBase
+from .database.models import  Subject, Topic, Subtopic, MCQ, User, UserSelection, QuizAttempt, QuizAnswer, QuizScore,UserProgress,Diagram,Quiz1,Quiz1Attempt,Quiz1Score,PractiseAnswer,PractiseAttempt,FacialExpression
+from .schemas.models import SubjectBase, TopicBase, SubtopicBase,UserModel
+from .schemas.quizzes import QuizAnswerSubmission, QuizQuestionResponse, PracticeQuizAnswerSubmission, PracticeQuizQuestionResponse,MCQResponse
+from .schemas.explains import ExplainQuery,ExplainResponse
+from .schemas.selections import SelectionRequest
+
 from sqlalchemy.sql import func
 from pydantic import BaseModel
 
@@ -26,6 +30,12 @@ import faiss
 from sentence_transformers import SentenceTransformer
 from pylatexenc.latex2text import LatexNodes2Text
 
+
+import secrets
+from urllib.parse import urlencode
+import requests
+
+
 import base64  # Add this import for base64 encoding
 import json 
 
@@ -38,25 +48,8 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="AITutor Quiz Webapp")
 
-app.add_middleware(
-    SessionMiddleware,
-    secret_key=os.getenv("SESSION_SECRET", "quiz-app-se1ssion-secret-key"),
-    same_site="none",  # 👈 important for frontend-backend on different ports
-    https_only=False  # 👈 ensure False for localhost
-)
 
 
-# Add CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000"
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
 
 # Dependency to get DB session
 def get_db():
@@ -72,19 +65,13 @@ def get_db():
 
 
 
-import secrets
-from urllib.parse import urlencode
-import requests
-from fastapi import FastAPI, Request, HTTPException, status
-from fastapi.responses import RedirectResponse
-from starlette.middleware.sessions import SessionMiddleware
-from starlette.middleware.cors import CORSMiddleware
+
 from pydantic import BaseModel
-from typing import Optional
-from dotenv import load_dotenv
-from sqlalchemy.orm import Session
-from .database.session import SessionLocal, Base, engine
-from .database.models import User
+
+
+
+
+
 
 # Load environment variables from .env file
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
@@ -98,8 +85,6 @@ GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
 SECRET_KEY = secrets.token_hex(32)
 
-# Initialize FastAPI app
-app = FastAPI(title="FastAPI Google OAuth")
 
 # Add CORS middleware for React frontend
 app.add_middleware(
@@ -119,12 +104,6 @@ app.add_middleware(
     https_only=False
 )
 
-# Models
-class UserModel(BaseModel):
-    id: Optional[int] = None
-    email: str
-    name: str
-    picture: Optional[str] = None
 
 # Routes
 @app.get("/api/user")
@@ -236,111 +215,12 @@ async def logout(request: Request):
 
 
 #######################
-class Quiz0Response(BaseModel):
-    id: int
-    question: str
-    option_a: str
-    option_b: str
-    option_c: str
-    option_d: str
-    category: str
-
-    class Config:
-        orm_mode = True
 
 
 
-# Request model for submitting answers
-class AnswerSubmission(BaseModel):
-    question_id: int
-    selected_option: str
-
-class QuizSubmission(BaseModel):
-    answers: List[AnswerSubmission]
 
 
 
-# Updated MCQResponse model to include correct_option
-class MCQResponse(BaseModel):
-    id: int
-    question: str
-    option_a: str
-    option_b: str
-    option_c: str
-    option_d: str
-    hardness_level: int
-    correct_option: str
-    explanation: Optional[str] = None
-    class Config:
-        from_attributes = True
-
-
-# Response model for practice quiz question
-class PracticeQuizQuestionResponse(BaseModel):
-    question: Optional[MCQResponse] = None
-    hardness_level: int
-    message: Optional[str] = None
-    questions_tried: Optional[int] = None  # Number of questions tried in the attempt
-    number_correct: Optional[int] = None   # Number of correct answers in the attempt
-   # last_question_correct: Optional[bool] = None  # Whether the last question was correct
-    image1: Optional[str] = None  # Base64-encoded string for the first image
-    image2: Optional[str] = None  # Base64-encoded string for the second image
-
-
-    class Config:
-        from_attributes = True
-
-# Request model for submitting practice quiz answer
-class PracticeQuizAnswerSubmission(BaseModel):
-    question_id: int
-    is_correct: bool
-    current_hardness_level: int
-    questions_tried: int
-
-# # Model for selecting subject, topic, subtopic
-# class SelectionRequest(BaseModel):
-#     name: str
-# Model for selecting subject, topic, and subtopic
-class SelectionRequest(BaseModel):
-    subject: str  # Name of the subject
-    topic: str    # Name of the topic under the selected subject
-    subtopic: Optional[str] = None  # Subtopic is optional now
-
-
-# New QuizQuestionResponse schema
-class QuizQuestionResponse(BaseModel):
-    question: Optional[MCQResponse] = None
-    hardness_level: int
-    message: Optional[str] = None
-    attempt_id: Optional[int] = None
-    questions_tried: Optional[int] = None  # New field
-    correct_answers: Optional[int] = None  # New field
-    image1: Optional[str] = None  # Base64-encoded string for the first image
-    image2: Optional[str] = None  # Base64-encoded string for the second image
-
-
-    class Config:
-        from_attributes = True
-
-# New QuizAnswerSubmission schema
-class QuizAnswerSubmission(BaseModel):
-    question_id: int
-    is_correct: bool
-    current_hardness_level: int
-    questions_tried: int
-    attempt_id: int
-# Request model for user input
-class ExplainQuery(BaseModel):
-    query: str
-    is_initial: Optional[bool] = False
-
-# Response model for explain (only answer)
-class ExplainResponse(BaseModel):
-    answer: str
-    image: Optional[str] = None  # Base64-encoded image string (or None if no image)
-    total:Optional[int]=None
-    current:Optional[int]=None
-    initial_response: Optional[List[str]] = None
 
 # Root endpoint
 @app.get("/")

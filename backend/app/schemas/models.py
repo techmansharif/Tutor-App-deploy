@@ -55,3 +55,11 @@ class EngagingMCQ(EngagingMCQBase):
 
     class Config:
         orm_mode = True
+        
+        
+# Models
+class UserModel(BaseModel):
+    id: Optional[int] = None
+    email: str
+    name: str
+    picture: Optional[str] = None
