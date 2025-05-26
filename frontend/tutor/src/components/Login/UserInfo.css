@@ -5,3 +5,68 @@
   justify-content: center;
   align-items: center;
 }
+
+.user-box {
+  display: flex;
+  align-items: center;
+  background-color: #fff; /* White background for the box */
+  border: 1px solid #ddd; /* Light border to define the box */
+  border-radius: 5px; /* Rounded corners for the box */
+  padding: 2px 5px; /* Small padding inside the box */
+  position: relative
+}
+
+.user-box img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Already applied via rounded-full, but for clarity */
+  object-fit: cover;
+  border: 2px solid #fff; /* White border to enhance circular look */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  padding: 0 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.arrow-down {
+  color: #333;
+  font-size: 12px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Increased shadow for more apparent effect */
+  border-radius: 5px;
+  z-index: 1000;
+  min-width: 100px;
+  display: flex; /* Add flex to center the content */
+  justify-content: center; /* Center the logout button horizontally */
+  padding: 5px; /* Add small padding to avoid cramped look */
+}
+
+.logout-btn {
+  background-color: #ffffff; /* White background */
+  color: #000000; /* Black text */
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle drop shadow */
+  display: inline-block; /* Makes the button only as wide as its content */
+  text-align: center; /* Centers the text */
+}
+
+.logout-btn:hover {
+  background-color: #f0f0f0; /* Light gray on hover for feedback */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
+}

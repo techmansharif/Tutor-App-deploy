@@ -137,37 +137,39 @@ function App() {
     if (!user) return null;
 
     return (
-      <div className="navigation-buttons flex justify-center gap-4 mt-4">
+      <div className='navigation-button-container'>
+       <div className="navigation-buttons">
         <button
           onClick={() => handleStageChange('quiz1')}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="nav-button"
         >
           Quiz 1
         </button>
         <button
           onClick={() => handleStageChange('selection')}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="nav-button"
         >
           Selection
         </button>
         <button
           onClick={() => handleStageChange('explains')}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+         className="nav-button"
         >
           Explains
         </button>
         <button
           onClick={() => handleStageChange('practice')}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="nav-button"
         >
           Practice
         </button>
         <button
           onClick={() => handleStageChange('quiz')}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="nav-button"
         >
           Quiz
         </button>
+      </div>
       </div>
     );
   };
@@ -192,10 +194,13 @@ function App() {
       </header>
       <main className="flex-grow p-4">
         {renderCurrentStage()}
+        <div className="status-bar">
+    <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
+  </div>
         {renderNavigationButtons()}
       </main>
       <footer className="bg-gray-200 p-2 text-center">
-        <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
+        
       </footer>
     </div>
   );

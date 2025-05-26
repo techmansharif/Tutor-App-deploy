@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './UserInfo.css';
 
 
 const UserInfo = ({ user, setUser, setQuizStage, setSelectedValues, API_BASE_URL }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to toggle dropdown
  const handleLogout = () => {
     fetch(`${API_BASE_URL}/logout`, {
       credentials: 'include'
@@ -17,18 +18,23 @@ const UserInfo = ({ user, setUser, setQuizStage, setSelectedValues, API_BASE_URL
 
   return (
     <div className="user-info flex items-center justify-center gap-4 mt-2">
-      {user.picture && (
-        <img src={user.picture} alt="Profile" className="w-10 h-10 rounded-full" />
-      )}
-      <span>Welcome, {user.name}</span>
-      <button
-        onClick={handleLogout}
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
-      >
-        Logout
-      </button>
+      <div className="user-box">
+        {user.picture && (
+          <img src={user.picture} alt="Profile" className="w-10 h-10 rounded-full" />
+        )}
+        <button
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className="dropdown-toggle"
+        >
+          <span className="arrow-down">▼</span>
+        </button>
+        {isDropdownOpen && (
+          <div className="dropdown-menu">
+          <button onClick={handleLogout}  className="logout-btn"> Logout </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
-
 export default UserInfo;
