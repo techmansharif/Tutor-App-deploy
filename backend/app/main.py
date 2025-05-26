@@ -10,7 +10,7 @@ from .schemas.models import SubjectBase, TopicBase, SubtopicBase,UserModel
 from .schemas.quizzes import QuizAnswerSubmission, QuizQuestionResponse, PracticeQuizAnswerSubmission, PracticeQuizQuestionResponse,MCQResponse
 from .schemas.explains import ExplainQuery,ExplainResponse
 from .schemas.selections import SelectionRequest
-
+from prometheus_client import Counter, Histogram, make_asgi_app
 from sqlalchemy.sql import func
 from pydantic import BaseModel
 from .router.quizzes import router as quizzes_router
@@ -38,6 +38,7 @@ import requests
 
 import base64  # Add this import for base64 encoding
 import json 
+import time 
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
@@ -46,7 +47,52 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
+# Prometheus metrics
+REQUESTS_TOTAL = Counter(
+    "http_requests_total",
+    "Total HTTP Requests",
+    ["method", "endpoint", "http_status"]
+)
+REQUEST_LATENCY = Histogram(
+    "http_request_latency_seconds",
+    "HTTP Request Latency",
+    ["method", "endpoint"],
+    buckets=[0.01, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0]
+)
+
 app = FastAPI(title="AITutor Quiz Webapp")
+
+
+# Mount Prometheus metrics endpoint
+prometheus_app = make_asgi_app()
+app.mount("/metrics", prometheus_app)
+
+# Middleware to track metrics for all requests
+@app.middleware("http")
+async def add_prometheus_metrics(request: Request, call_next):
+    start_time = time.time()
+    method = request.method
+    path = request.url.path
+
+    # Process the request
+    response = await call_next(request)
+
+    # Calculate latency
+    duration = time.time() - start_time
+    status_code = response.status_code
+
+    # Record metrics
+    REQUESTS_TOTAL.labels(
+        method=method,
+        endpoint=path,
+        http_status=status_code
+    ).inc()
+    REQUEST_LATENCY.labels(
+        method=method,
+        endpoint=path
+    ).observe(duration)
+
+    return response
 
 
 Base.metadata.create_all(bind=engine)

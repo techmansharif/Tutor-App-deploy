@@ -1,22 +1,29 @@
-Okay! We're still learning about "Gender" with our superhero dance party, like before!
+Okay! Let's explain geometric proportions in a fun way. Remember our recipe idea from before? We'll use that again!
 
-The new text gives us the *names* of the boy/man superheroes (masculine forms) that need dance partners! It's like a list of superheroes waiting to be matched up with their female counterparts!
+Imagine triangles are like slices of pizza.
 
-**Think of it like this:**
+**1. Equal Heights (Same Height Pizza)**
 
-Each word in this list is a boy/man superhero. We need to find the matching girl/woman superhero from another list (which we don't have yet!). It's like a puzzle. We know the boy/man and need to find the correct girl/woman!
+*   Think of two pizza slices. They are cut from pizzas that are the same height. That means the height of each slice is the same.
 
-Here's what the text is telling us:
+*   The rule says: The bigger the base (crust length), the bigger the slice! The **area** (size of the slice) is **proportional** (related) to the base.
 
-"Masculine" - This is just a title. It means these are *all* the boy/man superheroes we need to find partners for.
-"Form"- this refers to the type of superhero we are talking about. Example- Lion
+*   **Area of** means how big the pizza slice is. **Proportional** means they change together. If the base doubles, the slice doubles!
 
-**Story Time!**
+*   **Example**: Let's say pizza slice $ABC$ has a base of 2 inches and pizza slice $DEF$ has a base of 4 inches. Slice $DEF$ is twice as big!
 
-Imagine a big superhero ball (party)!
+    *   $$ \text{Area of } \triangle ABC : \text{Area of } \triangle DEF = BC : EF $$
 
-All the boy/man superheroes are standing on one side of the room. They're waiting for their partners to come. Our job is to know *who* they are so we can find their dance partners!
+**2. Equal Bases (Same Crust Pizza)**
 
-So, the text is just listing the boy/man superheroes that need to be matched!
+*   Now, imagine two pizza slices that have the same crust length.
 
-Remember, this activity is focused on boy/man and girl/woman pairs. As we have talked before, gender is more than just boy and girl. But this is a fun way to learn about pairs!
+*   The rule says: The taller the slice (height), the bigger it is! The area (size of the slice) is proportional to the height.
+
+*   **Example**: Imagine that the height of Pizza $ABC$ is 3 inches and the height of Pizza $DEF$ is 6 inches. Then pizza $DEF$ is twice as big.
+
+    *   $$ \text{Area of } \triangle ABC : \text{Area of } \triangle DEF = AP : DQ $$
+
+So, if pizzas have the same height, the bigger the base, the bigger the slice. If they have the same base, the taller the pizza, the bigger the slice!
+
+Let me know if you want another slice of explanation!
