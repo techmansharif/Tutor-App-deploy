@@ -663,7 +663,7 @@ Instructions:
     return ExplainResponse(answer=answer,image=image_data)
 
 
-@app.on_event("startup")
-async def startup_event():
-    Base.metadata.create_all(bind=engine)
+# @app.on_event("startup")
+# async def startup_event():
+#     Base.metadata.create_all(bind=engine)
     
