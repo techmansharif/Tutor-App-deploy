@@ -1,12 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+from dotenv import load_dotenv
 import os
 
-# You can use environment variables or hardcode this (not recommended)
-#DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:iamgreat@localhost:5432/AITutor")
+DATABASE_URL = os.getenv("DATABASE_URL")  # For production (Cloud Run)
 
-#DATABASE_URL = "postgresql://postgres:abcd1234@localhost/AITutor"
-DATABASE_URL = "postgresql://postgres:DEz(*5uf5\PaGGjl@34.47.195.36/AITutor"
+# Fallback for local development
+if DATABASE_URL is None:
+    from dotenv import load_dotenv
+    load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
+    DATABASE_URL = os.getenv("DATABASE_URL")
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
