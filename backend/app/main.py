@@ -21,7 +21,7 @@ import os
 from dotenv import load_dotenv
 from fastapi.responses import RedirectResponse
 
-
+import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -666,4 +666,9 @@ Instructions:
 # @app.on_event("startup")
 # async def startup_event():
 #     Base.metadata.create_all(bind=engine)
-    
+
+
+if __name__ == "__main__":
+    # Use the PORT environment variable provided by Cloud Run, default to 8000
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
