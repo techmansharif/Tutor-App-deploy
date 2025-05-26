@@ -4,7 +4,7 @@
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
@@ -180,4 +180,5 @@
 /* Hide the quiz1-container content when modal is active */
 .quiz1-container:has(.modal-overlay) > *:not(.modal-overlay) {
   visibility: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Increased blur radius for more visibility */
 }
