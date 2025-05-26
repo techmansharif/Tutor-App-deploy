@@ -26,14 +26,17 @@ jobs:
 
     - name: Set up gcloud
       uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: tutor-app-460518
 
     - name: Configure Docker for Artifact Registry
       run: gcloud auth configure-docker asia-south1-docker.pkg.dev
 
     - name: Build and Push Docker image
       run: |
-        cd backend
-        docker build -t asia-south1-docker.pkg.dev/tutor-app-460518/tutor-app-dibbo/backend-api:$GITHUB_SHA .
+        docker build backend/ \
+          -f backend/Dockerfile \
+          -t asia-south1-docker.pkg.dev/tutor-app-460518/tutor-app-dibbo/backend-api:$GITHUB_SHA
         docker push asia-south1-docker.pkg.dev/tutor-app-460518/tutor-app-dibbo/backend-api:$GITHUB_SHA
 
     - name: Deploy to Cloud Run
