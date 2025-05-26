@@ -1,0 +1,50 @@
+name: Deploy Backend to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "backend/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: CLIENT_ID  # Reference the "CLIENT_ID" environment for secrets
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
+          create_credentials_file: true
+          export_environment_variables: true
+          universe: googleapis.com
+          cleanup_credentials: true
+          access_token_lifetime: 3600s
+          access_token_scopes: https://www.googleapis.com/auth/cloud-platform
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy fastapi-tutor-app-backend \
+            --source . \
+            --region asia-south1 \
+            --platform managed \
+            --allow-unauthenticated \
+            --port 8000 \
+            --timeout 600 \
+            --project ${{ secrets.GCLOUD_PROJECT_ID }} \
+            --set-env-vars "CLIENT_ID=${{ secrets.CLIENT_ID }},CLIENT_SECRET=${{ secrets.CLIENT_SECRET }},DATABASE_URL=${{ secrets.DATABASE_URL }},GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" \
+            --verbosity=debug
