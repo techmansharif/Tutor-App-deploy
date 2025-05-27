@@ -18,7 +18,7 @@ function App() {
   const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
 
   useEffect(() => {
-    alert("inside use effect")
+    //alert("inside use effect")
     fetch(`${API_BASE_URL}/api/user`, {
       credentials: 'include',
        mode: 'cors',
@@ -188,7 +188,8 @@ function App() {
   return (
     <div className="App min-h-screen flex flex-col">
       <header className="App-header bg-gray-800 text-white p-4 text-center">
-        <h1 className="text-3xl">AI Tutor Quiz Application</h1>
+        <h1 className="text-3xl">BRIM AI TUTOR</h1>
+        <h5> Limited testing version</h5>
         {user && (
     <UserInfo
       user={user}
