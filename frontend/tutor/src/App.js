@@ -188,10 +188,15 @@ function App() {
   return (
     <div className="App min-h-screen flex flex-col">
       <header className="App-header bg-gray-800 text-white p-4 text-center">
-        <div>
-    <h1 className="text-3xl">BRIM AI TUTOR</h1>
-    <p className="text-xs text-gray-300 ">Limited Test Edition</p>
-  </div>
+       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <h1 className="text-3xl">BRIM AI TUTOR</h1>
+        <p
+          style={{ marginTop: '5px', color: 'rgb(15, 15, 15)' }}
+          className="text-xs"
+        >
+          Limited Test Edition
+        </p>
+      </div>
         {user && (
     <UserInfo
       user={user}
