@@ -666,7 +666,9 @@ Instructions:
 # @app.on_event("startup")
 # async def startup_event():
 #     Base.metadata.create_all(bind=engine)
-
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
 
 # if __name__ == "__main__":
 # Use the PORT environment variable provided by Cloud Run, default to 8000
