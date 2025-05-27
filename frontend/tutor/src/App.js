@@ -18,6 +18,7 @@ function App() {
   const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
 
   useEffect(() => {
+    alert("inside use effect")
     fetch(`${API_BASE_URL}/api/user`, {
       credentials: 'include',
        mode: 'cors',
@@ -41,6 +42,7 @@ function App() {
         setLoading(false);
       })
       .catch(error => {
+        console.log("not seeing user")
         console.error('Error fetching user:', error);
         setLoading(false);
       });
