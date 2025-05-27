@@ -281,7 +281,7 @@ async def auth_callback(request: Request):
         
         request.session.pop("oauth_state", None)
         
-        return RedirectResponse(url="http://localhost:3000")
+        return RedirectResponse(url="https://test-deployment-e19fb.web.app/")
     finally:
         db.close()
 
