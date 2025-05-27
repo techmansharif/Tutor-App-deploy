@@ -19,7 +19,11 @@ function App() {
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/user`, {
-      credentials: 'include'
+      credentials: 'include',
+       mode: 'cors',
+  headers: {
+    'Content-Type': 'application/json',
+  }
     })
       .then(response => response.json())
       .then(data => {
