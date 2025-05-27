@@ -1,266 +1,291 @@
 
-
-from fastapi import FastAPI, Depends, HTTPException, Header, Query,status
-from sqlalchemy.orm import Session
-from typing import List,Optional
-from datetime import datetime
-from .database.session import SessionLocal, Base, engine
-from .database.models import  Subject, Topic, Subtopic, MCQ, User, UserSelection, QuizAttempt, QuizAnswer, QuizScore,UserProgress,Diagram,Quiz1,Quiz1Attempt,Quiz1Score,PractiseAnswer,PractiseAttempt,FacialExpression
-from .schemas.models import SubjectBase, TopicBase, SubtopicBase,UserModel
-from .schemas.quizzes import QuizAnswerSubmission, QuizQuestionResponse, PracticeQuizAnswerSubmission, PracticeQuizQuestionResponse,MCQResponse
-from .schemas.explains import ExplainQuery,ExplainResponse
-from .schemas.selections import SelectionRequest
-from prometheus_client import Counter, Histogram, make_asgi_app
-from sqlalchemy.sql import func
-from pydantic import BaseModel
-from .router.quizzes import router as quizzes_router
-from fastapi import Request
-from starlette.middleware.sessions import SessionMiddleware
-
-import os
-from dotenv import load_dotenv
-from fastapi.responses import RedirectResponse
-
-import uvicorn
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.router import quizzes
+from pydantic import BaseModel
+import uvicorn
+import os 
 
 
-from .database.models import Subject, Topic, Subtopic, User, Explain
+app = FastAPI()
+
+# Allow frontend (React) running on localhost:3000 to talk to backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000",
+                   "https://test-deployment-e19fb.web.app",
+                   "https://test-deployment-e19fb.firebaseapp.com"],  
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+
+app.include_router(quizzes.router)
+
+
+if __name__ == "__main__":
+    # Use the PORT environment variable provided by Cloud Run, default to 8000
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
+
+
+
+#####################################
+
+# from fastapi import FastAPI, Depends, HTTPException, Header, Query,status
+# from sqlalchemy.orm import Session
+# from typing import List,Optional
+# from datetime import datetime
+# from .database.session import SessionLocal, Base, engine
+# from .database.models import  Subject, Topic, Subtopic, MCQ, User, UserSelection, QuizAttempt, QuizAnswer, QuizScore,UserProgress,Diagram,Quiz1,Quiz1Attempt,Quiz1Score,PractiseAnswer,PractiseAttempt,FacialExpression
+# from .schemas.models import SubjectBase, TopicBase, SubtopicBase,UserModel
+# from .schemas.quizzes import QuizAnswerSubmission, QuizQuestionResponse, PracticeQuizAnswerSubmission, PracticeQuizQuestionResponse,MCQResponse
+# from .schemas.explains import ExplainQuery,ExplainResponse
+# from .schemas.selections import SelectionRequest
+# from prometheus_client import Counter, Histogram, make_asgi_app
+# from sqlalchemy.sql import func
+# from pydantic import BaseModel
+# from .router.quizzes import router as quizzes_router
+# from fastapi import Request
+# from starlette.middleware.sessions import SessionMiddleware
+
+# import os
+# from dotenv import load_dotenv
+# from fastapi.responses import RedirectResponse
+
+# import uvicorn
+# from fastapi.middleware.cors import CORSMiddleware
+
+
+# from .database.models import Subject, Topic, Subtopic, User, Explain
 # import faiss
 # from sentence_transformers import SentenceTransformer
 # from pylatexenc.latex2text import LatexNodes2Text
 
 
-import secrets
-from urllib.parse import urlencode
-import requests
+# import secrets
+# from urllib.parse import urlencode
+# import requests
 
 
-import base64  # Add this import for base64 encoding
-import json 
-import time 
+# import base64  # Add this import for base64 encoding
+# import json 
+# import time 
 
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
+# load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
-import logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-
-# Prometheus metrics
-REQUESTS_TOTAL = Counter(
-    "http_requests_total",
-    "Total HTTP Requests",
-    ["method", "endpoint", "http_status"]
-)
-REQUEST_LATENCY = Histogram(
-    "http_request_latency_seconds",
-    "HTTP Request Latency",
-    ["method", "endpoint"],
-    buckets=[0.01, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0]
-)
-
-app = FastAPI(title="AITutor Quiz Webapp")
+# import logging
+# logging.basicConfig(level=logging.INFO)
+# logger = logging.getLogger(__name__)
 
 
-# Mount Prometheus metrics endpoint
-prometheus_app = make_asgi_app()
-app.mount("/metrics", prometheus_app)
+# # Prometheus metrics
+# REQUESTS_TOTAL = Counter(
+#     "http_requests_total",
+#     "Total HTTP Requests",
+#     ["method", "endpoint", "http_status"]
+# )
+# REQUEST_LATENCY = Histogram(
+#     "http_request_latency_seconds",
+#     "HTTP Request Latency",
+#     ["method", "endpoint"],
+#     buckets=[0.01, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0]
+# )
 
-# Middleware to track metrics for all requests
-@app.middleware("http")
-async def add_prometheus_metrics(request: Request, call_next):
-    start_time = time.time()
-    method = request.method
-    path = request.url.path
-
-    # Process the request
-    response = await call_next(request)
-
-    # Calculate latency
-    duration = time.time() - start_time
-    status_code = response.status_code
-
-    # Record metrics
-    REQUESTS_TOTAL.labels(
-        method=method,
-        endpoint=path,
-        http_status=status_code
-    ).inc()
-    REQUEST_LATENCY.labels(
-        method=method,
-        endpoint=path
-    ).observe(duration)
-
-    return response
+# app = FastAPI(title="AITutor Quiz Webapp")
 
 
-#Base.metadata.create_all(bind=engine)
+# # Mount Prometheus metrics endpoint
+# prometheus_app = make_asgi_app()
+# app.mount("/metrics", prometheus_app)
 
-# Dependency to get DB session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# # Middleware to track metrics for all requests
+# @app.middleware("http")
+# async def add_prometheus_metrics(request: Request, call_next):
+#     start_time = time.time()
+#     method = request.method
+#     path = request.url.path
 
-##########################login stuff 
+#     # Process the request
+#     response = await call_next(request)
+
+#     # Calculate latency
+#     duration = time.time() - start_time
+#     status_code = response.status_code
+
+#     # Record metrics
+#     REQUESTS_TOTAL.labels(
+#         method=method,
+#         endpoint=path,
+#         http_status=status_code
+#     ).inc()
+#     REQUEST_LATENCY.labels(
+#         method=method,
+#         endpoint=path
+#     ).observe(duration)
+
+#     return response
 
 
+# Base.metadata.create_all(bind=engine)
 
+# # Dependency to get DB session
+# def get_db():
+#     db = SessionLocal()
+#     try:
+#         yield db
+#     finally:
+#         db.close()
 
-
-
-from pydantic import BaseModel
+# ##########################login stuff 
 
 
 
 
 
 
-# Load environment variables from .env file
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
-
-# Configuration
-CLIENT_ID = os.getenv("CLIENT_ID")
-CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-REDIRECT_URI = "http://localhost:8000/auth/google/callback"
-GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth"
-GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
-GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
-SECRET_KEY = secrets.token_hex(32)
+# from pydantic import BaseModel
 
 
-# Add CORS middleware for React frontend
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Add session middleware
-app.add_middleware(
-    SessionMiddleware,
-    secret_key=SECRET_KEY,
-    max_age=60*60,
-    same_site="lax",
-    https_only=False
-)
 
 
-# Routes
-@app.get("/api/user")
-async def get_user(request: Request):
-    user = request.session.get("user")
-    return {"user": user}
 
-@app.get("/login")
-async def login(request: Request):
-    state = secrets.token_hex(16)
-    request.session["oauth_state"] = state
+
+# # Load environment variables from .env file
+# load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
+
+# # Configuration
+# CLIENT_ID = os.getenv("CLIENT_ID")
+# CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+# REDIRECT_URI = "http://localhost:8000/auth/google/callback"
+# GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth"
+# GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
+# GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
+# SECRET_KEY = secrets.token_hex(32)
+
+
+# # Add CORS middleware for React frontend
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["http://localhost:3000"],
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
+
+# # Add session middleware
+# app.add_middleware(
+#     SessionMiddleware,
+#     secret_key=SECRET_KEY,
+#     max_age=60*60,
+#     same_site="lax",
+#     https_only=False
+# )
+
+
+# # Routes
+# @app.get("/api/user")
+# async def get_user(request: Request):
+#     user = request.session.get("user")
+#     return {"user": user}
+
+# @app.get("/login")
+# async def login(request: Request):
+#     state = secrets.token_hex(16)
+#     request.session["oauth_state"] = state
     
-    params = {
-        "client_id": CLIENT_ID,
-        "redirect_uri": REDIRECT_URI,
-        "response_type": "code",
-        "scope": "openid email profile",
-        "state": state
-    }
+#     params = {
+#         "client_id": CLIENT_ID,
+#         "redirect_uri": REDIRECT_URI,
+#         "response_type": "code",
+#         "scope": "openid email profile",
+#         "state": state
+#     }
     
-    auth_url = f"{GOOGLE_AUTH_URL}?{urlencode(params)}"
-    return RedirectResponse(auth_url)
+#     auth_url = f"{GOOGLE_AUTH_URL}?{urlencode(params)}"
+#     return RedirectResponse(auth_url)
 
-@app.get("/auth/google/callback")
-async def auth_callback(request: Request):
-    code = request.query_params.get("code")
-    if not code:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Authorization code not provided"
-        )
+# @app.get("/auth/google/callback")
+# async def auth_callback(request: Request):
+#     code = request.query_params.get("code")
+#     if not code:
+#         raise HTTPException(
+#             status_code=status.HTTP_400_BAD_REQUEST,
+#             detail="Authorization code not provided"
+#         )
     
-    state = request.session.get("oauth_state")
-    state_param = request.query_params.get("state")
-    if state and state_param and state != state_param:
-        print(f"Warning: State mismatch. Expected {state}, got {state_param}")
+#     state = request.session.get("oauth_state")
+#     state_param = request.query_params.get("state")
+#     if state and state_param and state != state_param:
+#         print(f"Warning: State mismatch. Expected {state}, got {state_param}")
     
-    token_data = {
-        "client_id": CLIENT_ID,
-        "client_secret": CLIENT_SECRET,
-        "code": code,
-        "grant_type": "authorization_code",
-        "redirect_uri": REDIRECT_URI
-    }
+#     token_data = {
+#         "client_id": CLIENT_ID,
+#         "client_secret": CLIENT_SECRET,
+#         "code": code,
+#         "grant_type": "authorization_code",
+#         "redirect_uri": REDIRECT_URI
+#     }
     
-    token_response = requests.post(GOOGLE_TOKEN_URL, data=token_data)
-    if not token_response.ok:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Failed to retrieve access token"
-        )
+#     token_response = requests.post(GOOGLE_TOKEN_URL, data=token_data)
+#     if not token_response.ok:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="Failed to retrieve access token"
+#         )
     
-    token_json = token_response.json()
-    access_token = token_json.get("access_token")
+#     token_json = token_response.json()
+#     access_token = token_json.get("access_token")
     
-    user_response = requests.get(
-        GOOGLE_USERINFO_URL,
-        headers={"Authorization": f"Bearer {access_token}"}
-    )
+#     user_response = requests.get(
+#         GOOGLE_USERINFO_URL,
+#         headers={"Authorization": f"Bearer {access_token}"}
+#     )
     
-    if not user_response.ok:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Failed to retrieve user information"
-        )
+#     if not user_response.ok:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="Failed to retrieve user information"
+#         )
     
-    user_info = user_response.json()
+#     user_info = user_response.json()
     
-    # Database session
-    db: Session = SessionLocal()
-    try:
-        # Check if user exists, if not create new user
-        db_user = db.query(User).filter(User.email == user_info.get("email")).first()
-        if not db_user:
-            db_user = User(email=user_info.get("email"))
-            db.add(db_user)
-            db.commit()
-            db.refresh(db_user)
+#     # Database session
+#     db: Session = SessionLocal()
+#     try:
+#         # Check if user exists, if not create new user
+#         db_user = db.query(User).filter(User.email == user_info.get("email")).first()
+#         if not db_user:
+#             db_user = User(email=user_info.get("email"))
+#             db.add(db_user)
+#             db.commit()
+#             db.refresh(db_user)
         
-        user = UserModel(
-            id=db_user.id,
-            email=user_info.get("email", ""),
-            name=user_info.get("name", ""),
-            picture=user_info.get("picture", "")
-        )
+#         user = UserModel(
+#             id=db_user.id,
+#             email=user_info.get("email", ""),
+#             name=user_info.get("name", ""),
+#             picture=user_info.get("picture", "")
+#         )
         
-        request.session["user"] = {
-            "id": user.id,
-            "email": user.email,
-            "name": user.name,
-            "picture": user.picture
-        }
+#         request.session["user"] = {
+#             "id": user.id,
+#             "email": user.email,
+#             "name": user.name,
+#             "picture": user.picture
+#         }
         
-        request.session.pop("oauth_state", None)
+#         request.session.pop("oauth_state", None)
         
-        return RedirectResponse(url="http://localhost:3000")
-    finally:
-        db.close()
+#         return RedirectResponse(url="http://localhost:3000")
+#     finally:
+#         db.close()
 
-@app.get("/logout")
-async def logout(request: Request):
-    request.session.pop("user", None)
-    return {"message": "Logged out successfully"}
-
-
-
-
-
-
-
-#######################
+# @app.get("/logout")
+# async def logout(request: Request):
+#     request.session.pop("user", None)
+#     return {"message": "Logged out successfully"}
 
 
 
@@ -268,96 +293,104 @@ async def logout(request: Request):
 
 
 
-# Root endpoint
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the API!"}
-
-# Endpoint to fetch all subjects
-@app.get("/subjects/", response_model=List[SubjectBase])
-async def get_subjects(db: Session = Depends(get_db)):
-    subjects = db.query(Subject).all()
-    if not subjects:
-        raise HTTPException(status_code=404, detail="No subjects found")
-    return subjects
-
-# Endpoint to fetch topics for a subject
-@app.get("/{subject}/topics/", response_model=List[TopicBase])
-async def get_topics(subject: str, db: Session = Depends(get_db)):
-    subject_obj = db.query(Subject).filter(Subject.name == subject).first()
-    if not subject_obj:
-        raise HTTPException(status_code=404, detail=f"Subject {subject} not found")
-    topics = db.query(Topic).filter(Topic.subject_id == subject_obj.id).all()
-    if not topics:
-        raise HTTPException(status_code=404, detail=f"No topics found for subject {subject}")
-    return topics
-
-# Endpoint to fetch subtopics for a topic under a subject
-@app.get("/{subject}/{topic}/subtopics/", response_model=List[SubtopicBase])
-async def get_subtopics(subject: str, topic: str, db: Session = Depends(get_db)):
-    subject_obj = db.query(Subject).filter(Subject.name == subject).first()
-    if not subject_obj:
-        raise HTTPException(status_code=404, detail=f"Subject {subject} not found")
-    topic_obj = db.query(Topic).filter(
-        Topic.name == topic,
-        Topic.subject_id == subject_obj.id
-    ).first()
-    if not topic_obj:
-        raise HTTPException(status_code=404, detail=f"Topic {topic} not found in subject {subject}")
-    subtopics = db.query(Subtopic).filter(Subtopic.topic_id == topic_obj.id).all()
-    if not subtopics:
-        raise HTTPException(status_code=404, detail=f"No subtopics found for topic {topic}")
-    return subtopics
+# #######################
 
 
-# Endpoint to select subject, topic, and subtopic in one request
-@app.post("/select/")
-async def select_subject_topic_subtopic(
-    selection: SelectionRequest,
-    user_id: int = Header(...),
-    db: Session = Depends(get_db),
-    request:Request=None
-):
-    session_user = request.session.get("user")
-    if not session_user or session_user.get("id") != user_id:
-        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
-    user = db.query(User).filter(User.id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
 
-    # Fetch the subject
-    subject = db.query(Subject).filter(Subject.name == selection.subject).first()
-    if not subject:
-        raise HTTPException(status_code=404, detail=f"Subject {selection.subject} not found")
 
-    # Fetch the topic related to the subject
-    topic = db.query(Topic).filter(Topic.name == selection.topic, Topic.subject_id == subject.id).first()
-    if not topic:
-        raise HTTPException(status_code=404, detail=f"Topic {selection.topic} not found under subject {selection.subject}")
 
-    # Check if subtopic is provided
-    subtopic_id = None
-    if selection.subtopic:
-        # Fetch the subtopic related to the topic
-        subtopic = db.query(Subtopic).filter(Subtopic.name == selection.subtopic, Subtopic.topic_id == topic.id).first()
-        if not subtopic:
-            raise HTTPException(status_code=404, detail=f"Subtopic {selection.subtopic} not found under topic {selection.topic}")
-        subtopic_id = subtopic.id
 
-    # Always create a new entry in the UserSelection table
-    user_selection = UserSelection(
-        user_id=user_id,
-        subject_id=subject.id,
-        topic_id=topic.id,
-        subtopic_id=subtopic_id  # subtopic_id can be None if no subtopic was provided
-    )
-    db.add(user_selection)
-    db.commit()
-    db.refresh(user_selection)
+
+# # Root endpoint
+# @app.get("/")
+# def read_root():
+#     return {"message": "Welcome to the API!"}
+
+# # Endpoint to fetch all subjects
+# @app.get("/subjects/", response_model=List[SubjectBase])
+# async def get_subjects(db: Session = Depends(get_db)):
+#     subjects = db.query(Subject).all()
+#     if not subjects:
+#         raise HTTPException(status_code=404, detail="No subjects found")
+#     return subjects
+
+# # Endpoint to fetch topics for a subject
+# @app.get("/{subject}/topics/", response_model=List[TopicBase])
+# async def get_topics(subject: str, db: Session = Depends(get_db)):
+#     subject_obj = db.query(Subject).filter(Subject.name == subject).first()
+#     if not subject_obj:
+#         raise HTTPException(status_code=404, detail=f"Subject {subject} not found")
+#     topics = db.query(Topic).filter(Topic.subject_id == subject_obj.id).all()
+#     if not topics:
+#         raise HTTPException(status_code=404, detail=f"No topics found for subject {subject}")
+#     return topics
+
+# # Endpoint to fetch subtopics for a topic under a subject
+# @app.get("/{subject}/{topic}/subtopics/", response_model=List[SubtopicBase])
+# async def get_subtopics(subject: str, topic: str, db: Session = Depends(get_db)):
+#     subject_obj = db.query(Subject).filter(Subject.name == subject).first()
+#     if not subject_obj:
+#         raise HTTPException(status_code=404, detail=f"Subject {subject} not found")
+#     topic_obj = db.query(Topic).filter(
+#         Topic.name == topic,
+#         Topic.subject_id == subject_obj.id
+#     ).first()
+#     if not topic_obj:
+#         raise HTTPException(status_code=404, detail=f"Topic {topic} not found in subject {subject}")
+#     subtopics = db.query(Subtopic).filter(Subtopic.topic_id == topic_obj.id).all()
+#     if not subtopics:
+#         raise HTTPException(status_code=404, detail=f"No subtopics found for topic {topic}")
+#     return subtopics
+
+
+# # Endpoint to select subject, topic, and subtopic in one request
+# @app.post("/select/")
+# async def select_subject_topic_subtopic(
+#     selection: SelectionRequest,
+#     user_id: int = Header(...),
+#     db: Session = Depends(get_db),
+#     request:Request=None
+# ):
+#     session_user = request.session.get("user")
+#     if not session_user or session_user.get("id") != user_id:
+#         raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
+#     user = db.query(User).filter(User.id == user_id).first()
+#     if not user:
+#         raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
+
+#     # Fetch the subject
+#     subject = db.query(Subject).filter(Subject.name == selection.subject).first()
+#     if not subject:
+#         raise HTTPException(status_code=404, detail=f"Subject {selection.subject} not found")
+
+#     # Fetch the topic related to the subject
+#     topic = db.query(Topic).filter(Topic.name == selection.topic, Topic.subject_id == subject.id).first()
+#     if not topic:
+#         raise HTTPException(status_code=404, detail=f"Topic {selection.topic} not found under subject {selection.subject}")
+
+#     # Check if subtopic is provided
+#     subtopic_id = None
+#     if selection.subtopic:
+#         # Fetch the subtopic related to the topic
+#         subtopic = db.query(Subtopic).filter(Subtopic.name == selection.subtopic, Subtopic.topic_id == topic.id).first()
+#         if not subtopic:
+#             raise HTTPException(status_code=404, detail=f"Subtopic {selection.subtopic} not found under topic {selection.topic}")
+#         subtopic_id = subtopic.id
+
+#     # Always create a new entry in the UserSelection table
+#     user_selection = UserSelection(
+#         user_id=user_id,
+#         subject_id=subject.id,
+#         topic_id=topic.id,
+#         subtopic_id=subtopic_id  # subtopic_id can be None if no subtopic was provided
+#     )
+#     db.add(user_selection)
+#     db.commit()
+#     db.refresh(user_selection)
     
-    return {"message": f"Selected subject: {selection.subject}, topic: {selection.topic}, subtopic: {selection.subtopic if selection.subtopic else 'None'}", "selection_id": user_selection.id}
+#     return {"message": f"Selected subject: {selection.subject}, topic: {selection.topic}, subtopic: {selection.subtopic if selection.subtopic else 'None'}", "selection_id": user_selection.id}
 
-app.include_router(quizzes_router)
+# app.include_router(quizzes_router)
 
 
 # # Updated function to handle various LaTeX commands in the first line
@@ -663,14 +696,14 @@ app.include_router(quizzes_router)
 #     return ExplainResponse(answer=answer,image=image_data)
 
 
-# @app.on_event("startup")
-# async def startup_event():
-#     Base.metadata.create_all(bind=engine)
-@app.get("/health")
-def health_check():
-    return {"status": "healthy"}
+# # @app.on_event("startup")
+# # async def startup_event():
+# #     Base.metadata.create_all(bind=engine)
+# @app.get("/health")
+# def health_check():
+#     return {"status": "healthy"}
 
-# if __name__ == "__main__":
-# Use the PORT environment variable provided by Cloud Run, default to 8000
-port = int(os.getenv("PORT", 8000))
-uvicorn.run(app, host="0.0.0.0", port=port)
+# # if __name__ == "__main__":
+# # Use the PORT environment variable provided by Cloud Run, default to 8000
+# port = int(os.getenv("PORT", 8000))
+# uvicorn.run(app, host="0.0.0.0", port=port)
