@@ -47,5 +47,6 @@ jobs:
             --timeout 600 \
             --memory 2Gi \
             --project ${{ secrets.GCLOUD_PROJECT_ID }} \
+            --add-cloudsql-instances tutor-app-460518:asia-south1:postgres-bd \
             --set-env-vars "CLIENT_ID=${{ secrets.CLIENT_ID }},CLIENT_SECRET=${{ secrets.CLIENT_SECRET }},DATABASE_URL=${{ secrets.DATABASE_URL }},GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" \
             --verbosity=debug
