@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "test-deployment-e19fb"
-  }
+    "default": "brimai-test-v1"
+  },
+  "targets": {},
+  "etags": {}
 }
