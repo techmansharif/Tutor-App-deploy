@@ -171,7 +171,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000",
         "https://test-deployment-e19fb.web.app",
-    "https://test-deployment-e19fb.firebaseapp.com"],
+    "https://test-deployment-e19fb.firebaseapp.com",
+    "https://brimai-test-v1.web.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -281,7 +282,7 @@ async def auth_callback(request: Request):
         
         request.session.pop("oauth_state", None)
         
-        return RedirectResponse(url="https://test-deployment-e19fb.web.app")
+        return RedirectResponse(url="https://brimai-test-v1.web.app")
     finally:
         db.close()
 
