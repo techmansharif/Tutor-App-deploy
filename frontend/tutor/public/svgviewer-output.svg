@@ -1,0 +1,6 @@
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="32" height="32" fill="#ffab0c"/>
+  <!-- BRIM text, rotated 90 degrees clockwise -->
+  <text x="16" y="16" transform="rotate(90 16 16)" text-anchor="middle" fill="#0065cc" font-family="Arial, sans-serif" font-size="11" font-weight="bold">BRIM</text>
+</svg>
