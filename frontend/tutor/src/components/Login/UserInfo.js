@@ -10,7 +10,7 @@ const UserInfo = ({ user, setUser, setQuizStage, setSelectedValues, API_BASE_URL
     })
       .then(() => {
         setUser(null);
-        setQuizStage('quiz1');
+        setQuizStage('welcome');
         setSelectedValues({ selectedSubject: '', selectedTopic: '', selectedSubtopic: '' });
       })
       .catch(error => console.error('Error logging out:', error));
