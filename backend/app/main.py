@@ -1,37 +1,4 @@
 
-# from fastapi import FastAPI
-# from fastapi.middleware.cors import CORSMiddleware
-# from app.router import quizzes
-# from pydantic import BaseModel
-# import uvicorn
-# import os 
-
-
-# app = FastAPI()
-
-# # Allow frontend (React) running on localhost:3000 to talk to backend
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["http://localhost:3000",
-#                    "https://test-deployment-e19fb.web.app",
-#                    "https://test-deployment-e19fb.firebaseapp.com"],  
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-
-
-
-# app.include_router(quizzes.router)
-
-
-# if __name__ == "__main__":
-#     # Use the PORT environment variable provided by Cloud Run, default to 8000
-#     port = int(os.getenv("PORT", 8000))
-#     uvicorn.run(app, host="0.0.0.0", port=port)
-
-
-
-#####################################
 
 from fastapi import FastAPI, Depends, HTTPException, Header, Query,status
 from sqlalchemy.orm import Session
@@ -47,6 +14,7 @@ from prometheus_client import Counter, Histogram, make_asgi_app
 from sqlalchemy.sql import func
 from pydantic import BaseModel
 from .router.quizzes import router as quizzes_router
+from .router.dashboard import router as dashboard_router
 from fastapi import Request
 from starlette.middleware.sessions import SessionMiddleware
 
@@ -396,6 +364,7 @@ async def select_subject_topic_subtopic(
 
 app.include_router(quizzes_router)
 
+app.include_router(dashboard_router)
 
 # Updated function to handle various LaTeX commands in the first line
 def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Optional[str]:
