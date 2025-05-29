@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Stopwatch.css';
 
-const Stopwatch = ({ reset, onTimeExpired, pause }) => {
-  const [time, setTime] = useState(60); // Start at 60s
+const Stopwatch = ({ reset, onTimeExpired, pause,  initialTime = 60 }) => {
+  const [time, setTime] = useState(initialTime); // Start at initialTime
 
   useEffect(() => {
     setTime(60); // Reset time when reset prop changes
