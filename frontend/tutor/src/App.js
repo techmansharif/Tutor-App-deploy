@@ -7,6 +7,7 @@ import Quiz from './components/Quiz/quiz';
 import Login from './components/Login/Login';
 import UserInfo from './components/Login/UserInfo'; // Added import
 import Welcome from './components/Welcome/Welcome';
+import Dashboard from './components/Dashboard/Dashboard';
 import axios from 'axios';
 import './App.css';
 
@@ -137,7 +138,16 @@ function App() {
             subtopic={selectedValues.selectedSubtopic}
             onCompleteQuiz={onCompleteQuiz}
           />
+          
         );
+        case 'dashboard':
+  return (
+    <Dashboard 
+      user={user} 
+      API_BASE_URL={API_BASE_URL} 
+      onGoToSelection={() => setQuizStage('selection')}
+    />
+  );
       default:
         return <Quiz1 user={user} API_BASE_URL={API_BASE_URL} onCompleteQuiz={onQuiz1Complete} />;
     }
@@ -179,6 +189,13 @@ function App() {
         >
           Quiz
         </button>
+
+        <button
+  onClick={() => handleStageChange('dashboard')}
+  className="nav-button"
+>
+  Dashboard
+</button>
       </div>
       </div>
     );

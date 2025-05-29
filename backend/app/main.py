@@ -17,6 +17,7 @@ from prometheus_client import Counter, Histogram, make_asgi_app
 from sqlalchemy.sql import func
 from pydantic import BaseModel
 from .router.quizzes import router as quizzes_router
+from .router.dashboard import router as dashboard_router
 from fastapi import Request
 from starlette.middleware.sessions import SessionMiddleware
 
@@ -366,7 +367,7 @@ async def select_subject_topic_subtopic(
 
 app.include_router(quizzes_router)
 
-
+app.include_router(dashboard_router)
 # Updated function to handle various LaTeX commands in the first line
 def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Optional[str]:
     """
@@ -676,6 +677,9 @@ Instructions:
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+
+
 
 if __name__ == "__main__":
 # Use the PORT environment variable provided by Cloud Run, default to 8000
