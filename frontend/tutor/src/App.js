@@ -6,15 +6,15 @@ import PracticeQuiz from './components/Practise/Practise';
 import Quiz from './components/Quiz/quiz';
 import Login from './components/Login/Login';
 import UserInfo from './components/Login/UserInfo'; // Added import
+import Welcome from './components/Welcome/Welcome';
 import axios from 'axios';
 import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [quizStage, setQuizStage] = useState('quiz1');
+  const [quizStage, setQuizStage] = useState('welcome');
   const [selectedValues, setSelectedValues] = useState({selectedSubject: '',selectedTopic: '', selectedSubtopic: '' });
- // const API_BASE_URL = 'http://localhost:8000';
   const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
 
   useEffect(() => {
@@ -96,6 +96,8 @@ function App() {
     }
 
     switch (quizStage) {
+       case 'welcome':
+        return <Welcome user={user} API_BASE_URL={API_BASE_URL} onStartQuiz={() => setQuizStage('quiz1')} />;
       case 'quiz1':
         return <Quiz1 user={user} API_BASE_URL={API_BASE_URL} onCompleteQuiz={onQuiz1Complete} />;
       case 'selection':
