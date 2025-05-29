@@ -4,6 +4,8 @@ import './Stopwatch.css';
 const Stopwatch = ({ reset, onTimeExpired, pause, initialTime = 60 }) => {
   const [time, setTime] = useState(initialTime); // Start at initialTime
 
+  console.log(time)
+
   useEffect(() => {
     setTime(initialTime); // Reset time when reset prop changes
   }, [reset, initialTime]);
