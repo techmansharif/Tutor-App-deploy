@@ -128,8 +128,8 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 # Configuration
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-#REDIRECT_URI = "http://localhost:8000/auth/google/callback"
-REDIRECT_URI = "https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app/auth/google/callback"
+REDIRECT_URI = "http://localhost:8000/auth/google/callback"
+#REDIRECT_URI = "https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app/auth/google/callback"
 GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth"
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
@@ -153,7 +153,7 @@ app.add_middleware(
     SessionMiddleware,
     secret_key=SECRET_KEY,
     max_age=60*60,
-    same_site="none",
+    same_site="lax",
     https_only=False
 )
 
