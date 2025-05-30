@@ -86,7 +86,6 @@ const Selection = ({ user, API_BASE_URL, onSelectionSubmit }) => {
 
       // Notify App.js of the confirmed selection
       onSelectionSubmit({ selectedSubject, selectedTopic, selectedSubtopic });
-      alert('Selection confirmed! Use the navigation buttons to proceed.');
     } catch (error) {
       console.error('Error during selection:', error);
       alert('Error during selection. Please try again.');
@@ -154,12 +153,15 @@ const Selection = ({ user, API_BASE_URL, onSelectionSubmit }) => {
           </select>
         </div>
 
-        <button
-          type="submit"
-          disabled={!selectedSubject || !selectedTopic || !selectedSubtopic}
-        >
-          Confirm Selection
-        </button>
+       <button
+  type="button"
+  onClick={handleConfirmSelection}
+  disabled={!selectedSubject || !selectedTopic || !selectedSubtopic}
+  className="explain-button"
+>
+  EXPLAIN
+  <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div>
+</button>
       </form>
     </div>
   );

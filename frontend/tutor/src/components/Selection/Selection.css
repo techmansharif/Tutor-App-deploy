@@ -38,3 +38,23 @@
   background-color: #cccccc;
   cursor: not-allowed;
 }
+.explain-button {
+  background-color: #28a745;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 20px;
+  font-size: 1em;
+}
+
+.explain-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.explain-button:hover:not(:disabled) {
+  background-color: #218838;
+}
