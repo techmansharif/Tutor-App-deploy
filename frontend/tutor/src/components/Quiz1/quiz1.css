@@ -66,10 +66,14 @@
 
 .feedback.correct {
   border: 2px solid #28a745;
+  background-color: #ffeb3b; /* Bright yellow */
 }
 
 .feedback.incorrect {
-  border: 2px solid #dc3545;
+    border: 2px solid #dc3545;
+    background-color: #ffeb3b; /* Bright yellow */
+
+
 }
 
 .feedback h3 {
@@ -98,7 +102,7 @@
 .action-buttons {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   margin-top: 15px;
 }
@@ -181,4 +185,41 @@
 .quiz1-container:has(.modal-overlay) > *:not(.modal-overlay) {
   visibility: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Increased blur radius for more visibility */
+}
+
+.indented-text {
+  margin-left: 20px; /* Adjust the value as needed */
+  padding-left: 10px;
+}
+.study-guide-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  line-height: 1.6;
+}
+
+.study-guide-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.study-guide-text {
+  font-size: 0.95em;
+  color: #495057;
+  margin: 10px 0 0 0;
+  text-align: justify;
+}
+
+.study-guide-text:first-of-type {
+  margin-top: 0;
+}
+
+.highlight-keyword {
+  font-weight: bold;
+  color: #007bff;
 }

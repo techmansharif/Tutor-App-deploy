@@ -16,6 +16,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [quizStage, setQuizStage] = useState('welcome');
   const [selectedValues, setSelectedValues] = useState({selectedSubject: '',selectedTopic: '', selectedSubtopic: '' });
+ // const API_BASE_URL = 'http://localhost:8000';
   const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
 
   useEffect(() => {
@@ -57,7 +58,7 @@ function App() {
 
   const onSelectionSubmit = (values) => {
     setSelectedValues(values);
-    // Stay in selection stage, do not auto-advance to explains
+    setQuizStage('explains');  // Add this line
   };
 
   const onProceedToPractice = () => {
@@ -97,7 +98,7 @@ function App() {
     }
 
     switch (quizStage) {
-       case 'welcome':
+      case 'welcome':
         return <Welcome user={user} API_BASE_URL={API_BASE_URL} onStartQuiz={() => setQuizStage('quiz1')} />;
       case 'quiz1':
         return <Quiz1 user={user} API_BASE_URL={API_BASE_URL} onCompleteQuiz={onQuiz1Complete} />;
@@ -137,11 +138,15 @@ function App() {
             subtopic={selectedValues.selectedSubtopic}
             onCompleteQuiz={onCompleteQuiz}
           />
+          
         );
-
-      case 'dashboard':
-          return (<Dashboard user={user} API_BASE_URL={API_BASE_URL} onGoToSelection={() => setQuizStage('selection')}/>
-
+        case 'dashboard':
+  return (
+    <Dashboard 
+      user={user} 
+      API_BASE_URL={API_BASE_URL} 
+      onGoToSelection={() => setQuizStage('selection')}
+    />
   );
       default:
         return <Quiz1 user={user} API_BASE_URL={API_BASE_URL} onCompleteQuiz={onQuiz1Complete} />;
@@ -153,39 +158,13 @@ function App() {
 
     return (
       <div className='navigation-button-container'>
-       <div className="navigation-buttons">
-        <button
-          onClick={() => handleStageChange('quiz1')}
-          className="nav-button"
-        >
-          Quiz 1
-        </button>
-        <button
-          onClick={() => handleStageChange('selection')}
-          className="nav-button"
-        >
-          Selection
-        </button>
-        <button
-          onClick={() => handleStageChange('explains')}
-         className="nav-button"
-        >
-          Explains
-        </button>
-        <button
-          onClick={() => handleStageChange('practice')}
-        className="nav-button"
-        >
-          Practice
-        </button>
-        <button onClick={() => handleStageChange('quiz')} className="nav-button">
-          Quiz
-        </button>
-
-        
-
-        <button onClick={() => handleStageChange('dashboard')} className="nav-button"> Dashboard</button>
-      </div>
+        <div className="navigation-buttons">
+          <button onClick={() => handleStageChange('selection')} className="nav-button">SUBJECT<div style={{ fontSize: '0.8em' }}>Select a subject</div></button>
+          <button onClick={() => handleStageChange('explains')}  className="nav-button"> EXPLAIN  <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div></button>
+          <button onClick={() => handleStageChange('practice')} className="nav-button">PRACTISE  <div style={{ fontSize: '0.8em' }}>Helps you practise the subject</div> </button>
+          <button onClick={() => handleStageChange('quiz')} className="nav-button"> Quiz  <div style={{ fontSize: '0.8em' }}>Check your progress with a quiz!</div></button>
+          <button onClick={() => handleStageChange('dashboard')} className="nav-button">PROGRESS <div style={{ fontSize: '0.8em' }}>Your scoreboard</div></button>
+        </div>
       </div>
     );
   };
@@ -217,11 +196,13 @@ function App() {
   )}
       </header>
       <main className="flex-grow p-4">
-        {renderCurrentStage()}
-        <div className="status-bar">
-    <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
-  </div>
-        {renderNavigationButtons()}
+        
+            {renderCurrentStage()}
+              {renderNavigationButtons()}
+            <div className="status-bar">
+                    <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
+            </div>
+          
       </main>
       <footer className="bg-gray-200 p-2 text-center">
         

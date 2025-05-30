@@ -351,13 +351,13 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
           </select>
         </div>
         
-        <button
+        {/* <button
           className="dashboard-button"
           onClick={handleStartLearning}
           disabled={!selectedSubject || !selectedTopic}
         >
           Submit
-        </button>
+        </button> */}
       </div>
 
       {loading && (
