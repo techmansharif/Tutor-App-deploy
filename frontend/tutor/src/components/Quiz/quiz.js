@@ -210,17 +210,32 @@ const fetchQuizQuestion = async (submission = null) => {
 
   return (
   <div className="practice-quiz-container">
-    <h2>Quiz: {subject} - {topic} - {subtopic}</h2>
-    <div className="quiz-header">
-      <p>Question {questionsTried + 1} | Difficulty Level: {hardnessLevel}</p>
-      <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} pause={isTimerPaused} />
-      <p>Score: {score} / {questionsTried}</p>
+ <div className="quiz-header">
+      <h2>Quiz: {subject} - {topic} - {subtopic}</h2>
     </div>
-    <div className="integrity-score">
-      <span>Integrity Score</span>
-      <span>{integrityScore}%</span>
+    <div className="quiz-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+      <div className="left-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <p style={{ margin: '5px 0', fontWeight: 'normal' }}>
+          Question {questionsTried + 1}/10 |{' '}
+          <span style={{ color: 'rgb(128, 128, 128)' }}>
+            Difficulty Level: {hardnessLevel}
+          </span>
+        </p>
+        <p style={{ margin: '5px 0', fontWeight: 'normal' }}>Score: {score} / {questionsTried}</p>
+      </div>
+      <div className="right-section">
+        <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} pause={isTimerPaused} />
+      </div>
     </div>
-    <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '10px' }}>
+      <div style={{ width: '100%' }}>
+        <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: '2px' }}>
+        <span style={{ fontWeight: 'normal', fontSize: '0.7em' }}>Integrity mode (helps you answer faster)</span>
+        <span style={{ fontWeight: 'normal', fontSize: '0.7em' }}>{integrityScore}%</span>
+      </div>
+    </div>
     <div className="question-container">
       <h4>{currentQuestion.question}</h4>
       <div className="options">
@@ -271,35 +286,34 @@ const fetchQuizQuestion = async (submission = null) => {
     {isAnswerSubmitted && isAnswerIncorrect && (
       <div className="modal-overlay">
         <div className="modal-content">
-          <div className="feedback incorrect">
-            <h3>Incorrect</h3>
-            <p>Your answer was incorrect.</p>
-
-             {image2 && (
-                <img
-                  src={`data:image/png;base64,${image2}`}
-                  alt="Incorrect feedback"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '200px',
-                    margin: '10px 0',
-                    borderRadius: '5px',
-                    objectFit: 'contain'
-                  }}
-                />
-              )}
-            <p>
-              <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: {currentQuestion[`option_${currentQuestion.correct_option}`]}
-            </p>
-            <p className="explanation">
-              <strong>Explanation:</strong> {currentQuestion.explanation}
-            </p>
-          </div>
-          <div className="action-buttons">
-            <button onClick={handleNextQuestion} className="next-button">
-              Next Question
-            </button>
-          </div>
+         <div className="feedback incorrect">
+  <h3>Incorrect</h3>
+  <p>Your answer was incorrect.</p>
+  {image2 && (
+    <img
+      src={`data:image/png;base64,${image2}`}
+      alt="Incorrect feedback"
+      style={{
+        maxWidth: '70%',
+        maxHeight: '150px',
+        margin: '10px 0',
+        borderRadius: '5px',
+        objectFit: 'contain'
+      }}
+    />
+  )}
+  <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
+    <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: {currentQuestion[`option_${currentQuestion.correct_option}`]}
+  </p>
+  <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
+    <strong>Explanation:</strong> {currentQuestion.explanation}
+  </p>
+</div>
+<div className="action-buttons">
+  <button onClick={handleNextQuestion} className="next-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+    Next Question
+  </button>
+</div>
         </div>
       </div>
     )}

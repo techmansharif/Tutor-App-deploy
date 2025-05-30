@@ -206,12 +206,7 @@ code {
   background-color: #5a6268;
 }
 
-/* Custom query input and button styling */
-.custom-query-container {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
+
 
 .custom-query-input {
   padding: 10px;
@@ -259,4 +254,76 @@ code {
 /* Emphasis */
 .explanation-content-component em {
   font-style: italic;
+}
+
+/* Alternative styling - choose one */
+.explanation-entry {
+  margin-bottom: 25px;
+  padding: 20px;
+  border-left: 4px solid #007bff;
+  background-color: #f8f9fa;
+  border-radius: 0 8px 8px 0;
+}
+
+.explanation-entry:last-child {
+  margin-bottom: 0;
+}
+
+.explain-controls-component {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+}
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.custom-query-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.custom-query-input {
+  flex: 1;
+  min-height: 40px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: none;
+  overflow: hidden;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+.custom-query-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.custom-query-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  white-space: nowrap;
+  height: fit-content;
+}
+
+.custom-query-button:hover {
+  background-color: #218838;
 }

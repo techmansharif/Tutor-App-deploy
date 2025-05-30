@@ -202,17 +202,33 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
 
   return (
     <div className="quiz1-container">
-      <h2>Assessment</h2>
       <div className="quiz-header">
-        <p>Question {questionsTried + 1} | Difficulty Level: {hardnessLevel}</p>
-        <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} pause={isTimerPaused} />
-        <p>Score: {score} / {questionsTried}</p>
-      </div>
-      <div className="integrity-score">
-        <span>Integrity Score</span>
-        <span>{integrityScore}%</span>
-      </div>
-      <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
+  <h2>Assessment</h2>
+</div>
+<div className="quiz-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+  <div className="left-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <p style={{ margin: '5px 0', fontWeight: 'normal' }}>
+      Question {questionsTried + 1} |{' '}
+      <span style={{ color: 'rgb(128, 128, 128)' }}>
+        Difficulty Level: {hardnessLevel}
+      </span>
+    </p>
+    <p style={{ margin: '5px 0', fontWeight: 'normal' }}>Score: {score} / {questionsTried}</p>
+  </div>
+  <div className="right-section">
+    <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} pause={isTimerPaused} />
+  </div>
+</div>
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '10px' }}>
+  <div style={{ width: '100%' }}>
+    <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
+  </div>
+  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: '2px' }}>
+    <span style={{ fontWeight: 'normal', fontSize: '0.7em' }}>Integrity mode (helps you answer faster)</span>
+    <span style={{ fontWeight: 'normal', fontSize: '0.7em' }}>{integrityScore}%</span>
+  </div>
+</div>
+
       <div className="question-container">
         <h4>{currentQuestion.question}</h4>
         <div className="options">

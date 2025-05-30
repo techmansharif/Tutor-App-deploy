@@ -163,7 +163,7 @@ function App() {
           <button onClick={() => handleStageChange('explains')}  className="nav-button"> EXPLAIN  <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div></button>
           <button onClick={() => handleStageChange('practice')} className="nav-button">PRACTISE  <div style={{ fontSize: '0.8em' }}>Helps you practise the subject</div> </button>
           <button onClick={() => handleStageChange('quiz')} className="nav-button"> Quiz  <div style={{ fontSize: '0.8em' }}>Check your progress with a quiz!</div></button>
-          <button onClick={() => handleStageChange('dashboard')} className="nav-button">progress <div style={{ fontSize: '0.8em' }}>Your scoreboard</div></button>
+          <button onClick={() => handleStageChange('dashboard')} className="nav-button">PROGRESS <div style={{ fontSize: '0.8em' }}>Your scoreboard</div></button>
         </div>
       </div>
     );
@@ -196,11 +196,13 @@ function App() {
   )}
       </header>
       <main className="flex-grow p-4">
+        
             {renderCurrentStage()}
+              {renderNavigationButtons()}
             <div className="status-bar">
                     <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
             </div>
-            {renderNavigationButtons()}
+          
       </main>
       <footer className="bg-gray-200 p-2 text-center">
         

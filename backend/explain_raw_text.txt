@@ -1,29 +1,51 @@
-Okay! Let's explain geometric proportions in a fun way. Remember our recipe idea from before? We'll use that again!
+Okay! We've learned about all kinds of nouns, from your *own special name* (proper noun) to things you can't even *see* (abstract noun)! Now, it's time to become a noun *detective* with **Activity 4**!
 
-Imagine triangles are like slices of pizza.
+**Step 1: The Noun Mission!**
 
-**1. Equal Heights (Same Height Pizza)**
+We're going to read a story about Hasan, the farmer. Our mission is to find all the nouns in the story. Remember, nouns are names for *people, places, things, and ideas*.
 
-*   Think of two pizza slices. They are cut from pizzas that are the same height. That means the height of each slice is the same.
+**Step 2: Detective Tools Ready!**
 
-*   The rule says: The bigger the base (crust length), the bigger the slice! The **area** (size of the slice) is **proportional** (related) to the base.
+As you read, think about what kind of noun each one is:
 
-*   **Area of** means how big the pizza slice is. **Proportional** means they change together. If the base doubles, the slice doubles!
+*   **Proper Noun:** A special name, like "Hasan" or "Sirajganj." Start with a capital letter!
+*   **Common Noun:** A general name, like "farmer" or "village."
+*   **Collective Noun:** A name for a group, like "herd."
+*   **Material Noun:** A name for something you can't easily count, like "rice" or "milk."
+*   **Abstract Noun:** A name for something you can't see or touch, like "love" or "sympathy."
 
-*   **Example**: Let's say pizza slice $ABC$ has a base of 2 inches and pizza slice $DEF$ has a base of 4 inches. Slice $DEF$ is twice as big!
+**Step 3: The Story of Hasan!**
 
-    *   $$ \text{Area of } \triangle ABC : \text{Area of } \triangle DEF = BC : EF $$
+Here's the story:
 
-**2. Equal Bases (Same Crust Pizza)**
+"Hasan is a rich farmer who lives in a village in the district of Sirajganj. He has a lot of cultivable land. He grows rice, wheat, and other crops. He has a herd of cattle and other domestic animals. They provide him with milk and meat. Hasan is a kind man. He has love and sympathy for the poor class of people."
 
-*   Now, imagine two pizza slices that have the same crust length.
+**Step 4: Clue by Clue! (Examples)**
 
-*   The rule says: The taller the slice (height), the bigger it is! The area (size of the slice) is proportional to the height.
+Let's start with the first sentence:
 
-*   **Example**: Imagine that the height of Pizza $ABC$ is 3 inches and the height of Pizza $DEF$ is 6 inches. Then pizza $DEF$ is twice as big.
+*   "Hasan": This is the *special* name of a person. So, it's a **Proper Noun**!
+*   "farmer": This is a *general* name for someone who grows food. So, it's a **Common Noun**!
+*   "village": This is a *general* name for a place. So, it's a **Common Noun**!
+*   "Sirajganj": This is the *special* name of a district (like a big town). So, it's a **Proper Noun**!
 
-    *   $$ \text{Area of } \triangle ABC : \text{Area of } \triangle DEF = AP : DQ $$
+**Step 5: You're the Detective Now!**
 
-So, if pizzas have the same height, the bigger the base, the bigger the slice. If they have the same base, the taller the pizza, the bigger the slice!
+Now it's your turn! Go through the rest of the story and find all the nouns. Write down each noun and say what kind it is (Proper, Common, Collective, Material, or Abstract). You can ask for help anytime.
 
-Let me know if you want another slice of explanation!
+For example:
+
+*Land: Common Noun
+*Rice: Material Noun
+*Wheat: Material Noun
+*Herd: Collective Noun
+*Milk: Material Noun
+*Meat: Material Noun
+*Cattle: Collective Noun
+*People: Common Noun
+*Love: Abstract Noun
+*Sympathy: Abstract Noun
+
+**In Simple Words:**
+
+Read the story about Hasan. Find all the names in the story. Then, tell me if each name is a special name (Proper), a general name (Common), a group name (Collective), a "stuff" name (Material), or a "feeling" name (Abstract). You're a noun detective!

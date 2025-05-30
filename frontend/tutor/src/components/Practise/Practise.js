@@ -294,36 +294,37 @@ const fetchPracticeQuestion = async (submission = null) => {
       {isAnswerSubmitted && isAnswerIncorrect && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <div className="feedback incorrect">
-              <h3>Incorrect</h3>
-              <p>You answered in {(Date.now() - questionStartTime) / 1000} seconds, but incorrectly.</p>
-              {image2 && (
-                <img
-                  src={`data:image/png;base64,${image2}`}
-                  alt="Incorrect feedback"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '200px',
-                    margin: '10px 0',
-                    borderRadius: '5px',
-                    objectFit: 'contain'
-                  }}
-                />
-              )}
-              <p className="explanation">
-                <strong>Explanation:</strong> {currentQuestion.explanation}
-              </p>
-              <p>You can retry this question or move to an easier question.</p>
-              <p>Questions completed in this batch: {score}/{questionsTried}</p>
-            </div>
+          <div className="feedback incorrect">
+  <h3>Incorrect</h3>
+  <p>Your answer was incorrect.</p>
+  {image2 && (
+    <img
+      src={`data:image/png;base64,${image2}`}
+      alt="Incorrect feedback"
+      style={{
+        maxWidth: '70%',
+        maxHeight: '150px',
+        margin: '10px 0',
+        borderRadius: '5px',
+        objectFit: 'contain'
+      }}
+    />
+  )}
+  <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
+    <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: {currentQuestion[`option_${currentQuestion.correct_option}`]}
+  </p>
+  <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
+    <strong>Explanation:</strong> {currentQuestion.explanation}
+  </p>
+</div>
             <div className="action-buttons">
-              <button onClick={handleRetry} className="retry-button">
-                Retry Question
-              </button>
-              <button onClick={handleNextQuestion} className="next-button">
-                Next Question
-              </button>
-            </div>
+  <button onClick={handleRetry} className="retry-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+    Retry Question
+  </button>
+  <button onClick={handleNextQuestion} className="next-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+    Next Question
+  </button>
+</div>
           </div>
         </div>
       )}

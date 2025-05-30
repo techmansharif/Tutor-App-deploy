@@ -147,9 +147,9 @@ const Explains = ({
                 />
               </div>
             )}
-            {!explainFinished && (
+            {/* {!explainFinished && (
               <AudioPlayer text={processExplanation(entry.text)} />
-            )}
+            )} */}
           </div>
         ))}
         {isExplainLoading && (
@@ -159,38 +159,50 @@ const Explains = ({
           </div>
         )}
       </div>
+
+      {!explainFinished && explanationHistory.length > 0 && (
+  <div className="audio-player-container">
+    <AudioPlayer text={processExplanation(explanationHistory[explanationHistory.length - 1].text)} />
+  </div>
+)}
       
-      <div className="explain-controls-component">
-        {explainFinished ? (
-          <button onClick={onProceedToPractice} className="primary-button-component">
-            Start Practice
-          </button>
-        ) : (
-          <>
-            <button onClick={handleContinueExplain} className="primary-button-component">
-              Let's Move On
-            </button>
-            <button onClick={handleExplainAgain} className="secondary-button-component">
-              Explain Once Again
-            </button>
-            <button onClick={handleRefresh} className="secondary-button-component">
-              Refresh
-            </button>
-            <div className="custom-query-container">
-              <input
-                type="text"
-                value={userQuery}
-                onChange={(e) => setUserQuery(e.target.value)}
-                placeholder="Ask a question..."
-                className="custom-query-input"
-              />
-              <button onClick={handleCustomQuery} className="custom-query-button">
-                Submit
-              </button>
-            </div>
-          </>
-        )}
+    <div className="explain-controls-component">
+  {explainFinished ? (
+    <button onClick={onProceedToPractice} className="primary-button-component">
+      Start Practice
+    </button>
+  ) : (
+    <>
+      <div className="button-row">
+        <button onClick={handleContinueExplain} className="primary-button-component">
+          Let's Move On
+        </button>
+        <button onClick={handleExplainAgain} className="secondary-button-component">
+          Explain Once Again
+        </button>
+        <button onClick={handleRefresh} className="secondary-button-component">
+          Refresh
+        </button>
       </div>
+      <div className="custom-query-container">
+        <textarea
+          value={userQuery}
+          onChange={(e) => setUserQuery(e.target.value)}
+          placeholder="Ask a question..."
+          className="custom-query-input"
+          rows="1"
+          onInput={(e) => {
+            e.target.style.height = 'auto';
+            e.target.style.height = e.target.scrollHeight + 'px';
+          }}
+        />
+        <button onClick={handleCustomQuery} className="custom-query-button">
+          Submit
+        </button>
+      </div>
+    </>
+  )}
+</div>
     </div>
   );
 };
