@@ -25,7 +25,7 @@ const Welcome = ({ user, API_BASE_URL, onStartQuiz }) => {
           reset={false}
           pause={false}
           onTimeExpired={onStartQuiz}
-          initialTime={10}
+          initialTime={30}
         />
       </div>
     </div>

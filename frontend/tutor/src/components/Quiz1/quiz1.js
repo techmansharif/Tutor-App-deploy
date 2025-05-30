@@ -162,13 +162,29 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
       <div className="quiz1-container">
         <h2>Quiz1 Session Complete</h2>
         <p>{completionMessage}</p>
-        <p>Score: {score} / {questionsTried}</p>
-        <p>Total Questions Tried: {questionsTried}</p>
-        <p>Final Difficulty Level: {hardnessLevel}</p>
-        <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
-        <button onClick={handleCompleteQuiz} className="primary-button">
-          Return to Dashboard
-        </button>
+        <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Score: {score} / {questionsTried}</p>
+        <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Total Questions Tried: {questionsTried}</p>
+        <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Final Difficulty Level: {hardnessLevel}</p>
+        <div style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Integrity Level<span style={{ fontSize: '0.9em', color: '#666' }}>(helps you answer faster)</span>: {integrityScore}%</div>
+   <div className="study-guide-container">
+  <p className="study-guide-title">
+    চলুন, এবার আমরা আপনার পড়াশোনা শুরু করি!
+  </p>
+  <p className="study-guide-text">
+    প্রথমে একটি <span className="highlight-keyword">বিষয় (SUBJECT)</span> বেছে নেওয়া হবে। এরপর সহজভাবে সেটি <span className="highlight-keyword">ব্যাখ্যা (EXPLAIN)</span> করা হবে, যাতে আপনি ভালোভাবে বুঝতে পারেন।
+  </p>
+  <p className="study-guide-text">
+    তারপর আপনি কিছু <span className="highlight-keyword">অনুশীলন (PRACTISE)</span> করবেন, আর শেষে থাকবে কিছু <span className="highlight-keyword">কুইজ (QUIZ)</span>—যা দেখে বোঝা যাবে আপনি কতটা শিখেছেন!
+  </p>
+  <p className="study-guide-text">
+    এভাবেই ধাপে ধাপে আপনি হয়ে উঠবেন এসএসসি পরীক্ষার জন্য পুরোপুরি প্রস্তুত!
+  </p>
+</div>
+        
+        
+        
+        <button onClick={handleCompleteQuiz} className="primary-button">SUBJECT<div style={{ fontSize: '0.8em' }}>Tutors you the subject</div></button>
+      
       </div>
     );
   }
@@ -254,23 +270,23 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
                   src={`data:image/png;base64,${image2}`}
                   alt="Incorrect feedback"
                   style={{
-                    maxWidth: '100%',
-                    maxHeight: '200px',
+                    maxWidth: '70%',
+                    maxHeight: '150px',
                     margin: '10px 0',
                     borderRadius: '5px',
                     objectFit: 'contain'
                   }}
                 />
               )}
-              <p>
-                <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: {currentQuestion[`option_${currentQuestion.correct_option}`]}
-              </p>
-              <p className="explanation">
+            <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
+  <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: {currentQuestion[`option_${currentQuestion.correct_option}`]}
+</p>
+              <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
                 <strong>Explanation:</strong> {currentQuestion.explanation}
               </p>
             </div>
-            <div className="action-buttons">
-              <button onClick={handleNextQuestion} className="next-button">
+            <div className="action-buttons" >
+              <button onClick={handleNextQuestion} className="next-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }} >
                 Next Question
               </button>
             </div>

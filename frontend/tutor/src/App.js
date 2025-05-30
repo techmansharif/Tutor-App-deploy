@@ -158,45 +158,13 @@ function App() {
 
     return (
       <div className='navigation-button-container'>
-       <div className="navigation-buttons">
-        <button
-          onClick={() => handleStageChange('quiz1')}
-          className="nav-button"
-        >
-          Quiz 1
-        </button>
-        <button
-          onClick={() => handleStageChange('selection')}
-          className="nav-button"
-        >
-          Selection
-        </button>
-        <button
-          onClick={() => handleStageChange('explains')}
-         className="nav-button"
-        >
-          Explains
-        </button>
-        <button
-          onClick={() => handleStageChange('practice')}
-        className="nav-button"
-        >
-          Practice
-        </button>
-        <button
-          onClick={() => handleStageChange('quiz')}
-          className="nav-button"
-        >
-          Quiz
-        </button>
-
-        <button
-  onClick={() => handleStageChange('dashboard')}
-  className="nav-button"
->
-  Dashboard
-</button>
-      </div>
+        <div className="navigation-buttons">
+          <button onClick={() => handleStageChange('selection')} className="nav-button">SUBJECT<div style={{ fontSize: '0.8em' }}>Select a subject</div></button>
+          <button onClick={() => handleStageChange('explains')}  className="nav-button"> EXPLAIN  <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div></button>
+          <button onClick={() => handleStageChange('practice')} className="nav-button">PRACTISE  <div style={{ fontSize: '0.8em' }}>Helps you practise the subject</div> </button>
+          <button onClick={() => handleStageChange('quiz')} className="nav-button"> Quiz  <div style={{ fontSize: '0.8em' }}>Check your progress with a quiz!</div></button>
+          <button onClick={() => handleStageChange('dashboard')} className="nav-button">progress <div style={{ fontSize: '0.8em' }}>Your scoreboard</div></button>
+        </div>
       </div>
     );
   };
@@ -228,11 +196,11 @@ function App() {
   )}
       </header>
       <main className="flex-grow p-4">
-        {renderCurrentStage()}
-        <div className="status-bar">
-    <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
-  </div>
-        {renderNavigationButtons()}
+            {renderCurrentStage()}
+            <div className="status-bar">
+                    <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
+            </div>
+            {renderNavigationButtons()}
       </main>
       <footer className="bg-gray-200 p-2 text-center">
         
