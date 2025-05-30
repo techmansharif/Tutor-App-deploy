@@ -202,7 +202,7 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
 
   return (
     <div className="quiz1-container">
-      <h2>Quiz1</h2>
+      <h2>Assessment</h2>
       <div className="quiz-header">
         <p>Question {questionsTried + 1} | Difficulty Level: {hardnessLevel}</p>
         <Stopwatch reset={timerReset} onTimeExpired={handleTimeExpired} pause={isTimerPaused} />

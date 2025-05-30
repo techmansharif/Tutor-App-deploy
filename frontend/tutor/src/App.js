@@ -58,7 +58,7 @@ function App() {
 
   const onSelectionSubmit = (values) => {
     setSelectedValues(values);
-    // Stay in selection stage, do not auto-advance to explains
+    setQuizStage('explains');  // Add this line
   };
 
   const onProceedToPractice = () => {
