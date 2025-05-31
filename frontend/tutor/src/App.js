@@ -16,8 +16,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [quizStage, setQuizStage] = useState('welcome');
   const [selectedValues, setSelectedValues] = useState({selectedSubject: '',selectedTopic: '', selectedSubtopic: '' });
-  const API_BASE_URL = 'http://localhost:8000';
-  //const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
+  //const API_BASE_URL = 'http://localhost:8000';
+  const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
 
   useEffect(() => {
     //alert("inside use effect")
