@@ -389,9 +389,10 @@ code {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 15px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   width: 100%;
   padding: 0 10px;
+    gap: 5px; /* Add small gap between elements */
 }
 
 .button-with-text {
@@ -417,4 +418,81 @@ code {
   line-height: 1.2;
   font-weight: 900;
     margin-left: 5px; /* Add left indent */
+}
+
+
+/* Responsive button sizes */
+@media (max-width: 768px) {
+  .primary-button-component,
+  .secondary-button-component {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+  
+  .primary-button-component::before,
+  .secondary-button-component::before {
+    font-size: 20px;
+  }
+  
+  .restart-button-component {
+    min-width: 120px;
+    height: 40px;
+    padding: 8px 12px;
+  }
+  
+  .restart-button-component svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .button-text {
+    font-size: 12px;
+  }
+  
+  .button-label-1,
+  .button-label-2 {
+    font-size: 12px;
+    margin-left: 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .primary-button-component,
+  .secondary-button-component {
+    width: 35px;
+    height: 35px;
+    padding: 6px;
+  }
+  
+  .primary-button-component::before,
+  .secondary-button-component::before {
+    font-size: 18px;
+  }
+  
+  .restart-button-component {
+    min-width: 100px;
+    height: 35px;
+    padding: 6px 10px;
+  }
+  
+  .restart-button-component svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .button-text {
+    font-size: 10px;
+  }
+  
+  .button-label-1,
+  .button-label-2 {
+    font-size: 10px;
+    margin-left: 2px;
+  }
+  
+  .button-row {
+    gap: 3px;
+    padding: 0 5px;
+  }
 }

@@ -23,6 +23,7 @@ const Explains = ({
   const [userQuery, setUserQuery] = useState('');
   const initialFetchRef = useRef(false);
   const explanationContainerRef = useRef(null);
+  const [previousHistoryLength, setPreviousHistoryLength] = useState(0); // Add this
 
   useEffect(() => {
     if (!initialFetchRef.current) {
@@ -35,12 +36,27 @@ const Explains = ({
     };
   }, []);
 
-  useEffect(() => {
-    if (explanationContainerRef.current) {
-      explanationContainerRef.current.scrollTop = explanationContainerRef.current.scrollHeight;
+useEffect(() => {
+  if (explanationContainerRef.current && explanationHistory.length > previousHistoryLength) {
+    // Only scroll when new content is added (not during loading)
+    if (!isExplainLoading) {
+      const container = explanationContainerRef.current;
+      const entries = container.querySelectorAll('.explanation-entry');
+      
+      if (entries.length > 0) {
+        // Scroll to the start of the newest entry
+        const newestEntry = entries[entries.length - 1];
+        newestEntry.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+      }
+      
+      setPreviousHistoryLength(explanationHistory.length);
     }
-  }, [explanationHistory, isExplainLoading]);
-
+  }
+}, [explanationHistory, isExplainLoading, previousHistoryLength]);
   const fetchExplain = async (query, isInitial = false) => {
     setIsExplainLoading(true);
     try {
@@ -98,6 +114,7 @@ const Explains = ({
   const handleRefresh = () => {
     setExplanationHistory([]);
     setExplainFinished(false);
+      setPreviousHistoryLength(0); // Add this line
     fetchExplain("refresh");
   };
 
