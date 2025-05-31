@@ -60,7 +60,9 @@ function App() {
     setSelectedValues(values);
     setQuizStage('explains');  // Add this line
   };
-
+const onSelectionChange = (values) => {
+  setSelectedValues(values);
+};
   const onProceedToPractice = () => {
     setQuizStage('practice');
   };
@@ -104,7 +106,7 @@ function App() {
         return <Quiz1 user={user} API_BASE_URL={API_BASE_URL} onCompleteQuiz={onQuiz1Complete} />;
       case 'selection':
         return (
-          <Selection user={user} API_BASE_URL={API_BASE_URL} onSelectionSubmit={onSelectionSubmit} />
+          <Selection user={user} API_BASE_URL={API_BASE_URL} onSelectionSubmit={onSelectionSubmit} onSelectionChange={onSelectionChange} />
         );
       case 'explains':
         return (
@@ -153,21 +155,61 @@ function App() {
     }
   };
 
-  const renderNavigationButtons = () => {
-    if (!user) return null;
+const renderNavigationButtons = () => {
+  if (!user) return null;
 
-    return (
-      <div className='navigation-button-container'>
-        <div className="navigation-buttons">
-          <button onClick={() => handleStageChange('selection')} className="nav-button">SUBJECT<div style={{ fontSize: '0.8em' }}>Select a subject</div></button>
-          <button onClick={() => handleStageChange('explains')}  className="nav-button"> EXPLAIN  <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div></button>
-          <button onClick={() => handleStageChange('practice')} className="nav-button">PRACTISE  <div style={{ fontSize: '0.8em' }}>Helps you practise the subject</div> </button>
-          <button onClick={() => handleStageChange('quiz')} className="nav-button"> Quiz  <div style={{ fontSize: '0.8em' }}>Check your progress with a quiz!</div></button>
-          <button onClick={() => handleStageChange('dashboard')} className="nav-button">PROGRESS <div style={{ fontSize: '0.8em' }}>Your scoreboard</div></button>
-        </div>
+  const selectionsComplete = areSelectionsComplete();
+  const shouldDisableButtons = quizStage === 'selection' && !selectionsComplete;
+
+  return (
+    <div className='navigation-button-container'>
+      <div className="navigation-buttons">
+        <button 
+          onClick={() => handleStageChange('selection')} 
+          className="nav-button"
+        >
+          SUBJECT
+          <div style={{ fontSize: '0.8em' }}>Select a subject</div>
+        </button>
+        
+        <button 
+          onClick={() => handleStageChange('explains')}  
+          className={`nav-button ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+          disabled={shouldDisableButtons}
+        > 
+          EXPLAIN  
+          <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div>
+        </button>
+        
+        <button 
+          onClick={() => handleStageChange('practice')} 
+          className={`nav-button ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+          disabled={shouldDisableButtons}
+        >
+          PRACTISE  
+          <div style={{ fontSize: '0.8em' }}>Helps you practise the subject</div> 
+        </button>
+        
+        <button 
+          onClick={() => handleStageChange('quiz')} 
+          className={`nav-button ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+          disabled={shouldDisableButtons}
+        > 
+          Quiz  
+          <div style={{ fontSize: '0.8em' }}>Check your progress with a quiz!</div>
+        </button>
+        
+        <button 
+          onClick={() => handleStageChange('dashboard')} 
+          className="nav-button"
+        >
+          PROGRESS 
+          <div style={{ fontSize: '0.8em' }}>Your scoreboard</div>
+        </button>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
   if (loading) {
     return <div className="text-center mt-10">Loading...</div>;

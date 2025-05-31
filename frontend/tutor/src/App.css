@@ -44,22 +44,21 @@ footer {
   background-color: #f1f1f1;
 }
 
-
 .navigation-button-container {
-  padding: 10px 15px; /* Add horizontal padding to the container itself */
-  margin-top: 0;
+  padding: 20px; /* Match selection container padding */
+  margin: 20px auto 0 auto;
   display: flex;
-  justify-content: flex-start; /* Align to start instead of center */
+  justify-content: flex-start;
   width: 100%;
-  max-width: 600px; /* Constrain the width to make scrolling more likely */
-  background-color: #f9f9f9; /* Light gray background for the box */
-  border: 1px solid #ddd; /* Border to define the box */
-  border-radius: 5px; /* Rounded corners */
-  overflow-x: auto; /* Enables horizontal scrolling */
+  max-width: 800px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px; /* Match selection container border-radius */
+  overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-padding-left: 15px; /* Match the container padding */
+  scroll-padding-left: 15px;
   scroll-behavior: smooth;
-   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
 .navigation-buttons {
@@ -89,4 +88,15 @@ footer {
 .nav-button:hover {
   background-color: #f0f0f0; /* Light gray on hover */
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+.nav-button.nav-button-disabled {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
+.nav-button.nav-button-disabled:hover {
+  background-color: #cccccc !important;
+  color: #666666 !important;
 }
