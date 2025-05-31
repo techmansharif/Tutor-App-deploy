@@ -109,6 +109,26 @@ const AudioPlayer = ({ text }) => {
   return (
    <div className="audio-player-container">
     <div className="audio-controls">
+
+      
+<div className="explain-box">
+  I can <br /> verbally <br/>explain!
+</div>
+
+      <div className="waveform-container">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 80 40"
+    fill="none"
+    stroke="white"
+    strokeWidth="2"
+    width="80px"
+    height="120px"
+  >
+    <path d="M2 20 L6 12 L10 25 L14 8 L18 30 L22 15 L26 35 L30 5 L34 28 L38 18 L42 32 L46 10 L50 22 L54 6 L58 29 L62 16 L66 33 L70 11 L74 24 L78 20" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+</div>
+
     <button
       onClick={handlePlay}
       disabled={isPlaying && !isPaused}
@@ -152,23 +172,7 @@ const AudioPlayer = ({ text }) => {
   className="audio-button speak-again-button"
 >
 </button>
-<div className="waveform-container">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 80 40"
-    fill="none"
-    stroke="white"
-    strokeWidth="2"
-    width="80px"
-    height="40px"
-  >
-    <path d="M2 20 L6 12 L10 25 L14 8 L18 30 L22 15 L26 35 L30 5 L34 28 L38 18 L42 32 L46 10 L50 22 L54 6 L58 29 L62 16 L66 33 L70 11 L74 24 L78 20" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-</div>
 
-<div className="explain-box">
-  I can <br /> verbally <br/>explain!
-</div>
   </div>
 
   <div className="audio-settings">
