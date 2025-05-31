@@ -179,33 +179,59 @@ code {
 }
 
 .primary-button-component {
-  background-color: #007bff;
+  background-color: #28a745;
   color: white;
-  padding: 10px 20px;
+  padding: 12px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
 }
 
 .primary-button-component:hover {
-  background-color: #0056b3;
+  background-color: #218838;
 }
 
+/* Fast forward icon */
+.primary-button-component::before {
+  content: '⏭';
+  font-size: 30px;
+}
+
+
 .secondary-button-component {
-  background-color: #6c757d;
+  background-color: blue;
   color: white;
-  padding: 10px 20px;
+  padding: 12px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
 }
 
 .secondary-button-component:hover {
-  background-color: #5a6268;
+  background-color: darkblue;
 }
 
+/* Single arc refresh icon */
+.secondary-button-component::before {
+  content: '↻';
+  font-size: 30px;
+}
 
 
 .custom-query-input {
@@ -323,7 +349,72 @@ code {
   white-space: nowrap;
   height: fit-content;
 }
+.restart-button-component {
+  background-color: white;
+  color: red;
+  padding: 12px 16px; /* Added horizontal padding */
+  border: 2px solid red;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: auto; /* Changed from 50px to auto */
+  min-width: 160px; /* Minimum width to accommodate text */
+  height: 50px;
+  box-sizing: border-box;
+}
 
+.restart-button-component:hover {
+  background-color: #ffebee;
+}
+
+/* Spacing for the text */
+.restart-button-component .button-text {
+  margin-left: 10px;
+}
 .custom-query-button:hover {
   background-color: #218838;
+}
+/* .audio-player-container {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+} */
+ .button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.button-with-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.refresh-button-group {
+  margin-left: auto; /* This pushes the refresh button to the right */
+}
+
+.button-label-1{
+  font-size: 14px;
+  color: green;
+  line-height: 1.2;
+  font-weight: 900;
+    margin-left: 5px; /* Add left indent */
+}
+.button-label-2{
+  font-size: 14px;
+  color: blue;
+  line-height: 1.2;
+  font-weight: 900;
+    margin-left: 5px; /* Add left indent */
 }

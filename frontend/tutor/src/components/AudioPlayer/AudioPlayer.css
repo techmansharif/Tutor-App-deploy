@@ -34,10 +34,10 @@
 }
 
 .play-button {
-  background-color: #ffc107; /* Changed to yellow */
+  background-color: green; 
   color: white;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   padding: 0;
   min-width: unset;
@@ -50,13 +50,12 @@
 
 /* Circular animation with bouncing bars when playing */
 .play-button.playing {
-  background-color: #dc3545; /* Changed to red */
+  background-color: blue; /* Changed to red */
   position: relative;
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  box-shadow: 0 0 15px rgba(220, 53, 69, 0.5); /* Updated shadow to match red */
-  animation: pulse 2s infinite;
+
 }
 
 @keyframes pulse {
@@ -65,25 +64,7 @@
   100% { transform: scale(1); box-shadow: 0 0 15px rgba(220, 53, 69, 0.5); } /* Updated shadow to match red */
 }
 
-.play-button.playing::before {
-  content: '';
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: 2px solid white;
-  border-radius: 50%;
-}
 
-.play-button.playing::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M6 4h2v16H6zm6-2h2v18h-2zm6 4h2v14h-2z"/></svg>') no-repeat center;
-  background-size: contain;
-  animation: bounceBars 1s infinite;
-}
 
 @keyframes bounceBars {
   0% { transform: scale(1); }
@@ -98,8 +79,25 @@
 }
 
 .pause-button {
-  background-color: #ffc107;
-  color: black;
+  background-color: orange;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  padding: 0;
+  min-width: unset;
+  position: relative;
+}
+
+.pause-button::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .pause-button:disabled {
@@ -116,12 +114,37 @@
   background-color: #6c757d;
   cursor: not-allowed;
 }
-
 .speak-again-button {
-  background-color: #007bff;
+  background-color: grey;
   color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  padding: 0;
+  min-width: unset;
+  position: relative;
 }
 
+.speak-again-button:not(:disabled) {
+  background-color: #003366;
+}
+
+.speak-again-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.speak-again-button::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg>') no-repeat center;
+  background-size: contain;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .voice-select,
 .speed-select {
   padding: 8px;
@@ -129,4 +152,48 @@
   border: 1px solid #ccc;
   background-color: white;
   font-size: 14px;
+}
+
+.waveform-container {
+  background-color: #6c757d;
+  width: 50px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+.explain-box {
+  background-color: white;
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  padding: 5px 20px 8px 12px;
+  font-size: 13px;
+  color: #28a745;
+  text-align: left;
+  width: 35px;
+  height: 50px;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.restart-button-component {
+  background-color: #28a745;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+.restart-button-component:hover {
+  background-color: red;
 }
