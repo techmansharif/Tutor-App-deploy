@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Selection.css';
 
-const Selection = ({ user, API_BASE_URL, onSelectionSubmit }) => {
+const Selection = ({ user, API_BASE_URL, onSelectionSubmit,  onSelectionChange }) => {
   const [subjects, setSubjects] = useState([]);
   const [topics, setTopics] = useState([]);
   const [subtopics, setSubtopics] = useState([]);
@@ -64,7 +64,16 @@ const Selection = ({ user, API_BASE_URL, onSelectionSubmit }) => {
       fetchSubtopics();
     }
   }, [selectedTopic, selectedSubject, API_BASE_URL, user.user_id]);
-
+// Update App.js whenever selections change
+useEffect(() => {
+  if (onSelectionChange) {
+    onSelectionChange({
+      selectedSubject,
+      selectedTopic,
+      selectedSubtopic
+    });
+  }
+}, [selectedSubject, selectedTopic, selectedSubtopic, onSelectionChange]);
   // Handle form submission for confirmation
   const handleConfirmSelection = async (e) => {
     e.preventDefault();
@@ -94,7 +103,7 @@ const Selection = ({ user, API_BASE_URL, onSelectionSubmit }) => {
 
   return (
     <div className="selection-component-container">
-      <h2>Select Subject, Topic, and Subtopic</h2>
+      <h2>Please Select</h2>
       <form onSubmit={handleConfirmSelection}>
         <div className="selection-group-component">
           <label>Subject:</label>
