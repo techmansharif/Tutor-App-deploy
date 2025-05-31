@@ -23,6 +23,7 @@ const Explains = ({
   const [userQuery, setUserQuery] = useState('');
   const initialFetchRef = useRef(false);
   const explanationContainerRef = useRef(null);
+  const [previousHistoryLength, setPreviousHistoryLength] = useState(0); // Add this
 
   useEffect(() => {
     if (!initialFetchRef.current) {
@@ -35,12 +36,27 @@ const Explains = ({
     };
   }, []);
 
-  useEffect(() => {
-    if (explanationContainerRef.current) {
-      explanationContainerRef.current.scrollTop = explanationContainerRef.current.scrollHeight;
+useEffect(() => {
+  if (explanationContainerRef.current && explanationHistory.length > previousHistoryLength) {
+    // Only scroll when new content is added (not during loading)
+    if (!isExplainLoading) {
+      const container = explanationContainerRef.current;
+      const entries = container.querySelectorAll('.explanation-entry');
+      
+      if (entries.length > 0) {
+        // Scroll to the start of the newest entry
+        const newestEntry = entries[entries.length - 1];
+        newestEntry.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+      }
+      
+      setPreviousHistoryLength(explanationHistory.length);
     }
-  }, [explanationHistory, isExplainLoading]);
-
+  }
+}, [explanationHistory, isExplainLoading, previousHistoryLength]);
   const fetchExplain = async (query, isInitial = false) => {
     setIsExplainLoading(true);
     try {
@@ -98,19 +114,45 @@ const Explains = ({
   const handleRefresh = () => {
     setExplanationHistory([]);
     setExplainFinished(false);
+      setPreviousHistoryLength(0); // Add this line
     fetchExplain("refresh");
   };
 
   return (
     <div className="explains-component-container">
       <h2>Learning: {selectedSubject} - {selectedTopic} - {selectedSubtopic}</h2>
-      
+
+
+<div className="button-row">
+  <div className="button-with-text">
+    <button onClick={handleContinueExplain} className="primary-button-component">
+    </button>
+    <span className="button-label-1">Go To<br/>Next Topic</span>
+  </div>
+
+  <div className="button-with-text">
+    <button onClick={handleExplainAgain} className="secondary-button-component">
+    </button>
+    <span className="button-label-2">Explain again but<br/>differently (AI)</span>
+  </div>
+
+  <div className="refresh-button-group">
+    <button onClick={handleRefresh} className="restart-button-component">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18A2 2 0 0 0 3.54 21H20.46A2 2 0 0 0 22.18 18L13.71 3.86A2 2 0 0 0 10.29 3.86Z" stroke="#FF0000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+      <span className="button-text">Refresh <br/>Screen</span>
+    </button>
+  </div>
+</div>
+
       <div
         className="explanation-content-component chat-container"
         ref={explanationContainerRef}
       >
         {explanationHistory.map((entry, index) => (
           <div key={index} className="explanation-entry">
+               <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>
             <ReactMarkdown
               children={processExplanation(entry.text)}
               remarkPlugins={[remarkGfm, remarkMath]}
@@ -147,9 +189,6 @@ const Explains = ({
                 />
               </div>
             )}
-            {/* {!explainFinished && (
-              <AudioPlayer text={processExplanation(entry.text)} />
-            )} */}
           </div>
         ))}
         {isExplainLoading && (
@@ -159,12 +198,6 @@ const Explains = ({
           </div>
         )}
       </div>
-
-      {!explainFinished && explanationHistory.length > 0 && (
-  <div className="audio-player-container">
-    <AudioPlayer text={processExplanation(explanationHistory[explanationHistory.length - 1].text)} />
-  </div>
-)}
       
     <div className="explain-controls-component">
   {explainFinished ? (
@@ -173,17 +206,6 @@ const Explains = ({
     </button>
   ) : (
     <>
-      <div className="button-row">
-        <button onClick={handleContinueExplain} className="primary-button-component">
-          Let's Move On
-        </button>
-        <button onClick={handleExplainAgain} className="secondary-button-component">
-          Explain Once Again
-        </button>
-        <button onClick={handleRefresh} className="secondary-button-component">
-          Refresh
-        </button>
-      </div>
       <div className="custom-query-container">
         <textarea
           value={userQuery}

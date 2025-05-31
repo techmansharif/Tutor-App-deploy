@@ -108,23 +108,54 @@ const AudioPlayer = ({ text }) => {
 
   return (
    <div className="audio-player-container">
-  <div className="audio-controls">
+    <div className="audio-controls">
+
+      
+<div className="explain-box">
+  I can <br /> verbally <br/>explain!
+</div>
+
+      <div className="waveform-container">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 80 40"
+    fill="none"
+    stroke="white"
+    strokeWidth="2"
+    width="80px"
+    height="120px"
+  >
+    <path d="M2 20 L6 12 L10 25 L14 8 L18 30 L22 15 L26 35 L30 5 L34 28 L38 18 L42 32 L46 10 L50 22 L54 6 L58 29 L62 16 L66 33 L70 11 L74 24 L78 20" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+</div>
+
     <button
       onClick={handlePlay}
       disabled={isPlaying && !isPaused}
       className={`audio-button play-button ${isPlaying && !isPaused ? 'playing' : ''}`}
     >
-      {isPlaying && !isPaused ? '' : (
+      {isPlaying && !isPaused ?(   <span className="pause-icon">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="white"
+      width="30px"
+      height="30px"
+    >
+      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+    </svg>
+  </span>
+) : (
         <span className="speaker-icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="white"
-            width="20px"
-            height="20px"
-          >
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-          </svg>
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="white"
+  width="30px"
+  height="30px"
+>
+  <path d="M8 5v14l11-7z"/>
+</svg>
         </span>
       )}
     </button>
@@ -133,22 +164,17 @@ const AudioPlayer = ({ text }) => {
       disabled={!isPlaying || isPaused}
       className="audio-button pause-button"
     >
-      Pause
+      
     </button>
     <button
-      onClick={handleStop}
-      disabled={!isPlaying}
-      className="audio-button stop-button"
-    >
-      Stop
-    </button>
-    <button
-      onClick={handleSpeakAgain}
-      className="audio-button speak-again-button"
-    >
-      Speak Again
-    </button>
+  onClick={handleSpeakAgain}
+  disabled={!isPlaying|| isPaused}
+  className="audio-button speak-again-button"
+>
+</button>
+
   </div>
+
   <div className="audio-settings">
     <select
       value={selectedVoice ? selectedVoice.name : ''}
