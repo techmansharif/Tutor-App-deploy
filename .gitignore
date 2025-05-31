@@ -21,6 +21,10 @@ dist/
 build/
 *.log
 
+__pycache__/
+*.pyc
+
+
 
 # React/Node.js-specific ignores for frontend/tutor/
 frontend/tutor/node_modules/
