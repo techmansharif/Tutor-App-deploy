@@ -137,7 +137,7 @@ useEffect(() => {
 
 <div className="button-with-text">
   <button onClick={handleExplainAgain} className="secondary-button-component">
-    Explain Again <br></br>AI
+    Explain Again <br></br>but differently (AI)
   </button>
  
 </div>

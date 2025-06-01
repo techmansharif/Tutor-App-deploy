@@ -53,14 +53,19 @@ const AudioPlayer = ({ text }) => {
   };
 
   // Handle play
-  const handlePlay = () => {
-    if (!isPlaying) {
-      speakText();
-    } else if (isPaused) {
-      window.speechSynthesis.resume();
-      setIsPaused(false);
-    }
-  };
+// To this:
+const handlePlay = () => {
+  if (!isPlaying) {
+    speakText();
+  } else if (isPaused) {
+    window.speechSynthesis.resume();
+    setIsPaused(false);
+  } else {
+    // If playing and not paused, then pause
+    window.speechSynthesis.pause();
+    setIsPaused(true);
+  }
+};
 
   // Handle pause
   const handlePause = () => {
@@ -110,101 +115,64 @@ const AudioPlayer = ({ text }) => {
    <div className="audio-player-container">
     <div className="audio-controls">
 
-{/*       
-<div className="explain-box">
-  I can <br /> verbally <br/>explain!
-</div>
 
-      <div className="waveform-container">
+<button
+  onClick={handlePlay}
+  disabled={false}
+  className={`audio-button play-button ${isPlaying && !isPaused ? 'playing' : ''}`}
+>
+  {isPlaying && !isPaused ? (
+    <span className="pause-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="white"
+        width="30px"
+        height="30px"
+      >
+        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+      </svg>
+    </span>
+  ) : (
+    <span className="speaker-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="white"
+        width="30px"
+        height="30px"
+      >
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+  )}
+</button>
+       <button
+  onClick={handleStop}
+  disabled={!isPlaying}
+  className="audio-button stop-button"
+>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 80 40"
-    fill="none"
-    stroke="white"
-    strokeWidth="2"
-    width="80px"
-    height="120px"
+    viewBox="0 0 24 24"
+    fill="white"
+    width="30px"
+    height="30px"
   >
-    <path d="M2 20 L6 12 L10 25 L14 8 L18 30 L22 15 L26 35 L30 5 L34 28 L38 18 L42 32 L46 10 L50 22 L54 6 L58 29 L62 16 L66 33 L70 11 L74 24 L78 20" strokeLinecap="round" strokeLinejoin="round"/>
+    <rect x="6" y="6" width="12" height="12"/>
   </svg>
-</div> */}
+</button>
 
-    <button
-      onClick={handlePlay}
-      disabled={isPlaying && !isPaused}
-      className={`audio-button play-button ${isPlaying && !isPaused ? 'playing' : ''}`}
-    >
-      {isPlaying && !isPaused ?(   <span className="pause-icon">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="white"
-      width="30px"
-      height="30px"
-    >
-      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-    </svg>
-  </span>
-) : (
-        <span className="speaker-icon">
-        <svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 24 24"
-  fill="white"
-  width="30px"
-  height="30px"
->
-  <path d="M8 5v14l11-7z"/>
-</svg>
-        </span>
-      )}
-    </button>
-    <button
-      onClick={handlePause}
-      disabled={!isPlaying || isPaused}
-      className="audio-button pause-button"
-    >
-      
-    </button>
-    <button
+       <button
   onClick={handleSpeakAgain}
-  disabled={!isPlaying|| isPaused}
+  disabled={!isPlaying}
   className="audio-button speak-again-button"
 >
 </button>
 
+
   </div>
-{/* 
-  <div className="audio-settings">
-    <select
-      value={selectedVoice ? selectedVoice.name : ''}
-      onChange={(e) => {
-        const voice = voices.find((v) => v.name === e.target.value);
-        setSelectedVoice(voice);
-      }}
-      className="voice-select"
-    >
-      <option value="">Select Voice</option>
-      {voices.map((voice) => (
-        <option key={voice.name} value={voice.name}>
-          {voice.name} ({voice.lang})
-        </option>
-      ))}
-    </select>
-    <select
-      value={speechRate}
-      onChange={(e) => setSpeechRate(parseFloat(e.target.value))}
-      className="speed-select"
-    >
-      <option value={0.5}>0.5x</option>
-      <option value={0.75}>0.75x</option>
-      <option value={1}>1x</option>
-      <option value={1.25}>1.25x</option>
-      <option value={1.5}>1.5x</option>
-      <option value={1.75}>1.75x</option>
-      <option value={2}>2x</option>
-    </select>
-  </div> */}
+
 </div>
 
   )
