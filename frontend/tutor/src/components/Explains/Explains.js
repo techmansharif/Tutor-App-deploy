@@ -46,10 +46,14 @@ useEffect(() => {
       if (entries.length > 0) {
         // Scroll to the start of the newest entry
         const newestEntry = entries[entries.length - 1];
-        newestEntry.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start',
-          inline: 'nearest'
+        const container = explanationContainerRef.current;
+        const containerRect = container.getBoundingClientRect();
+        const entryRect = newestEntry.getBoundingClientRect();
+        const scrollOffset = entryRect.top - containerRect.top;
+
+        container.scrollTo({
+          top: container.scrollTop + scrollOffset,
+          behavior: 'smooth'
         });
       }
       
@@ -124,17 +128,19 @@ useEffect(() => {
 
 
 <div className="button-row">
-  <div className="button-with-text">
-    <button onClick={handleContinueExplain} className="primary-button-component">
-    </button>
-    <span className="button-label-1">Go To<br/>Next Topic</span>
-  </div>
+<div className="button-with-text">
+  <button onClick={handleContinueExplain} className="primary-button-component">
+   Go to Next Topic
+  </button>
 
-  <div className="button-with-text">
-    <button onClick={handleExplainAgain} className="secondary-button-component">
-    </button>
-    <span className="button-label-2">Explain again but<br/>differently (AI)</span>
-  </div>
+</div>
+
+<div className="button-with-text">
+  <button onClick={handleExplainAgain} className="secondary-button-component">
+    Explain Again <br></br>AI
+  </button>
+ 
+</div>
 
   <div className="refresh-button-group">
     <button onClick={handleRefresh} className="restart-button-component">
@@ -146,10 +152,10 @@ useEffect(() => {
   </div>
 </div>
 
-      <div
-        className="explanation-content-component chat-container"
-        ref={explanationContainerRef}
-      >
+    <div
+  className={`explanation-content-component chat-container ${selectedSubject.toLowerCase() === 'english' ? 'english-subject' : ''}`}
+  ref={explanationContainerRef}
+>
         {explanationHistory.map((entry, index) => (
           <div key={index} className="explanation-entry">
                <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>

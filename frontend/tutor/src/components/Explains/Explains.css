@@ -181,57 +181,50 @@ code {
 .primary-button-component {
   background-color: #28a745;
   color: white;
-  padding: 12px;
+  padding: 8px 16px; /* Changed from 12px to accommodate text */
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px; /* Reduced from 16px */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  width: 50px;
+  width: auto; /* Changed from 50px */
+  min-width: 120px; /* Added minimum width */
   height: 50px;
   box-sizing: border-box;
 }
+
 
 .primary-button-component:hover {
   background-color: #218838;
 }
 
-/* Fast forward icon */
-.primary-button-component::before {
-  content: '⏭';
-  font-size: 30px;
-}
-
 
 .secondary-button-component {
-  background-color: blue;
+  background-color: #007bff; /* Changed from blue to a nicer shade */
   color: white;
-  padding: 12px;
+  padding: 8px 16px; /* Changed from 12px */
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px; /* Reduced from 16px */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  width: 50px;
+  width: auto; /* Changed from 50px */
+  min-width: 120px; /* Added minimum width */
   height: 50px;
   box-sizing: border-box;
 }
 
+
 .secondary-button-component:hover {
-  background-color: darkblue;
+  background-color: #0056b3; /* Updated hover color */
 }
 
-/* Single arc refresh icon */
-.secondary-button-component::before {
-  content: '↻';
-  font-size: 30px;
-}
 
 
 .custom-query-input {
@@ -419,7 +412,20 @@ code {
   font-weight: 900;
     margin-left: 5px; /* Add left indent */
 }
-
+/* Left align text for English subject */
+.explanation-content-component.english-subject,
+.explanation-content-component.english-subject .explanation-entry,
+.explanation-content-component.english-subject p,
+.explanation-content-component.english-subject h1,
+.explanation-content-component.english-subject h2,
+.explanation-content-component.english-subject h3,
+.explanation-content-component.english-subject li,
+.explanation-content-component.english-subject blockquote,
+.explanation-content-component.english-subject .markdown-table,
+.explanation-content-component.english-subject .markdown-table th,
+.explanation-content-component.english-subject .markdown-table td {
+  text-align: left !important;
+}
 
 /* Responsive button sizes */
 @media (max-width: 768px) {
