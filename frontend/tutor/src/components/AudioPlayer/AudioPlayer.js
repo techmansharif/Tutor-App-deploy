@@ -10,22 +10,111 @@ const AudioPlayer = ({ text }) => {
   const [selectedVoice, setSelectedVoice] = useState(null);
   const [speechRate, setSpeechRate] = useState(1);
   
-  // For tracking position in speech
+  // Enhanced tracking system
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [speechText, setSpeechText] = useState('');
+  const [wordTimings, setWordTimings] = useState([]);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  
+  // Timing references
   const speechStartTime = useRef(null);
-  const pausedTime = useRef(0);
+  const pausedAt = useRef(null);
+  const totalPausedTime = useRef(0);
+  const progressInterval = useRef(null);
+  const lastKnownPosition = useRef(0);
 
   // Detect if we're on a mobile device
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-  // Calculate approximate character position based on time and speech rate
-  const calculateCharPosition = (elapsedTime, text, rate) => {
-    // Average speaking rate is about 4-5 characters per second at normal speed
+  // Pre-process text and create word timing map
+  const createWordTimings = (text, rate) => {
+    const words = text.split(/(\s+)/);
+    const timings = [];
+    let charIndex = 0;
+    let timeOffset = 0;
+    
+    // Average characters per second at normal speed
     const baseCharsPerSecond = 4.5;
     const adjustedCharsPerSecond = baseCharsPerSecond * rate;
+    
+    words.forEach((word, index) => {
+      if (word.trim()) {
+        // Calculate estimated duration for this word
+        const wordDuration = word.length / adjustedCharsPerSecond;
+        
+        timings.push({
+          word: word,
+          startChar: charIndex,
+          endChar: charIndex + word.length,
+          startTime: timeOffset,
+          endTime: timeOffset + wordDuration,
+          index: index
+        });
+        
+        timeOffset += wordDuration;
+      }
+      charIndex += word.length;
+    });
+    
+    return timings;
+  };
+
+  // Get current position based on elapsed time
+  const getCurrentPosition = () => {
+    if (!speechStartTime.current) return lastKnownPosition.current;
+    
+    const now = Date.now();
+    const elapsedTime = (now - speechStartTime.current - totalPausedTime.current) / 1000;
+    
+    // Find current word based on timing
+    const currentTiming = wordTimings.find(timing => 
+      elapsedTime >= timing.startTime && elapsedTime <= timing.endTime
+    );
+    
+    if (currentTiming) {
+      // Interpolate character position within the word
+      const wordProgress = (elapsedTime - currentTiming.startTime) / (currentTiming.endTime - currentTiming.startTime);
+      const charPosition = Math.floor(currentTiming.startChar + (currentTiming.word.length * wordProgress));
+      lastKnownPosition.current = Math.min(charPosition, speechText.length);
+      return lastKnownPosition.current;
+    }
+    
+    // Fallback: estimate based on total elapsed time
+    const baseCharsPerSecond = 4.5;
+    const adjustedCharsPerSecond = baseCharsPerSecond * speechRate;
     const estimatedPosition = Math.floor(elapsedTime * adjustedCharsPerSecond);
-    return Math.min(estimatedPosition, text.length);
+    lastKnownPosition.current = Math.min(estimatedPosition, speechText.length);
+    return lastKnownPosition.current;
+  };
+
+  // Start progress tracking
+  const startProgressTracking = () => {
+    if (progressInterval.current) {
+      clearInterval(progressInterval.current);
+    }
+    
+    progressInterval.current = setInterval(() => {
+      if (isPlaying && !isPaused) {
+        const position = getCurrentPosition();
+        setCurrentCharIndex(position);
+        
+        // Update current word index
+        const currentTiming = wordTimings.find(timing => 
+          position >= timing.startChar && position <= timing.endChar
+        );
+        if (currentTiming) {
+          setCurrentWordIndex(currentTiming.index);
+        }
+      }
+    }, 100); // Update every 100ms for smooth progress
+  };
+
+  // Stop progress tracking
+  const stopProgressTracking = () => {
+    if (progressInterval.current) {
+      clearInterval(progressInterval.current);
+      progressInterval.current = null;
+    }
   };
 
   // Get text from current position
@@ -33,14 +122,19 @@ const AudioPlayer = ({ text }) => {
     return text.substring(startIndex);
   };
 
-  // Handle text-to-speech
+  // Handle text-to-speech with enhanced tracking
   const speakText = (startFromIndex = 0) => {
     if ('speechSynthesis' in window) {
       // Stop any ongoing speech
       window.speechSynthesis.cancel();
+      stopProgressTracking();
 
       const processedText = preprocessText(text);
       setSpeechText(processedText);
+      
+      // Create word timings for the full text
+      const timings = createWordTimings(processedText, speechRate);
+      setWordTimings(timings);
       
       // Get text from the specified starting position
       const textToSpeak = getTextFromPosition(processedText, startFromIndex);
@@ -77,6 +171,8 @@ const AudioPlayer = ({ text }) => {
         setIsPaused(false);
         speechStartTime.current = Date.now();
         setCurrentCharIndex(startFromIndex);
+        lastKnownPosition.current = startFromIndex;
+        startProgressTracking();
       };
 
       utterance.onend = () => {
@@ -84,8 +180,11 @@ const AudioPlayer = ({ text }) => {
         setIsPaused(false);
         setSpeechInstance(null);
         setCurrentCharIndex(0);
+        setCurrentWordIndex(0);
         speechStartTime.current = null;
-        pausedTime.current = 0;
+        totalPausedTime.current = 0;
+        lastKnownPosition.current = 0;
+        stopProgressTracking();
       };
 
       utterance.onerror = (event) => {
@@ -94,14 +193,27 @@ const AudioPlayer = ({ text }) => {
         setIsPaused(false);
         setSpeechInstance(null);
         setCurrentCharIndex(0);
+        setCurrentWordIndex(0);
         speechStartTime.current = null;
-        pausedTime.current = 0;
+        totalPausedTime.current = 0;
+        lastKnownPosition.current = 0;
+        stopProgressTracking();
       };
 
-      // Track progress during speech (works better on some browsers)
+      // Enhanced boundary tracking
       utterance.onboundary = (event) => {
         if (event.name === 'word' || event.name === 'sentence') {
-          setCurrentCharIndex(startFromIndex + event.charIndex);
+          const actualPosition = startFromIndex + event.charIndex;
+          setCurrentCharIndex(actualPosition);
+          lastKnownPosition.current = actualPosition;
+          
+          // Update word index
+          const currentTiming = wordTimings.find(timing => 
+            actualPosition >= timing.startChar && actualPosition <= timing.endChar
+          );
+          if (currentTiming) {
+            setCurrentWordIndex(currentTiming.index);
+          }
         }
       };
 
@@ -112,57 +224,46 @@ const AudioPlayer = ({ text }) => {
     }
   };
 
-  // Handle play/pause - unified behavior for all devices
+  // Universal pause/resume with custom tracking
   const handlePlay = () => {
     if (!isPlaying) {
       // Start new speech or resume from position
+      if (isPaused) {
+        // Reset timing for resume
+        totalPausedTime.current = totalPausedTime.current + (Date.now() - pausedAt.current);
+      }
       speakText(currentCharIndex);
     } else {
-      // Try pause/resume first (works on most browsers)
-      if (isPaused) {
-        try {
-          window.speechSynthesis.resume();
-          setIsPaused(false);
-          speechStartTime.current = Date.now() - pausedTime.current;
-        } catch (error) {
-          console.log('Resume failed, restarting from position');
-          // Fallback: restart from current position if resume fails
-          handleStop();
-          setTimeout(() => speakText(currentCharIndex), 100);
-        }
-      } else {
-        try {
-          window.speechSynthesis.pause();
-          setIsPaused(true);
-          if (speechStartTime.current) {
-            pausedTime.current = Date.now() - speechStartTime.current;
-          }
-        } catch (error) {
-          console.log('Pause failed, stopping speech');
-          // Fallback: stop if pause fails
-          if (speechStartTime.current) {
-            const elapsedTime = (Date.now() - speechStartTime.current) / 1000;
-            const estimatedPosition = calculateCharPosition(elapsedTime, speechText, speechRate);
-            setCurrentCharIndex(prev => Math.min(prev + estimatedPosition, speechText.length));
-          }
-          handleStop();
-          setIsPaused(true);
-        }
-      }
+      // Pause functionality
+      const currentPosition = getCurrentPosition();
+      setCurrentCharIndex(currentPosition);
+      lastKnownPosition.current = currentPosition;
+      
+      // Stop speech and tracking
+      window.speechSynthesis.cancel();
+      stopProgressTracking();
+      
+      // Set paused state
+      setIsPlaying(false);
+      setIsPaused(true);
+      setSpeechInstance(null);
+      pausedAt.current = Date.now();
     }
   };
 
   // Handle stop
   const handleStop = () => {
-    if (isPlaying) {
-      window.speechSynthesis.cancel();
-      setIsPlaying(false);
-      setIsPaused(false);
-      setSpeechInstance(null);
-      setCurrentCharIndex(0);
-      speechStartTime.current = null;
-      pausedTime.current = 0;
-    }
+    window.speechSynthesis.cancel();
+    stopProgressTracking();
+    setIsPlaying(false);
+    setIsPaused(false);
+    setSpeechInstance(null);
+    setCurrentCharIndex(0);
+    setCurrentWordIndex(0);
+    speechStartTime.current = null;
+    totalPausedTime.current = 0;
+    pausedAt.current = null;
+    lastKnownPosition.current = 0;
   };
 
   // Handle speak again (restart from beginning)
@@ -186,37 +287,21 @@ const AudioPlayer = ({ text }) => {
     loadVoices();
     window.speechSynthesis.onvoiceschanged = loadVoices;
 
-    // Reset position when text changes
-    setCurrentCharIndex(0);
-    speechStartTime.current = null;
-    pausedTime.current = 0;
+    // Reset everything when text changes
+    handleStop();
 
     return () => {
       window.speechSynthesis.cancel();
+      stopProgressTracking();
     };
   }, [text]);
 
-  // Handle page visibility changes (important for mobile)
+  // Handle page visibility changes
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.hidden && isPlaying && !isPaused) {
-        // Page is hidden, try to pause speech
-        try {
-          window.speechSynthesis.pause();
-          setIsPaused(true);
-          if (speechStartTime.current) {
-            pausedTime.current = Date.now() - speechStartTime.current;
-          }
-        } catch (error) {
-          // If pause fails, calculate position and stop
-          if (speechStartTime.current) {
-            const elapsedTime = (Date.now() - speechStartTime.current) / 1000;
-            const estimatedPosition = calculateCharPosition(elapsedTime, speechText, speechRate);
-            setCurrentCharIndex(prev => Math.min(prev + estimatedPosition, speechText.length));
-          }
-          handleStop();
-          setIsPaused(true);
-        }
+        // Save current position and pause
+        handlePlay(); // This will pause
       }
     };
 
@@ -225,10 +310,29 @@ const AudioPlayer = ({ text }) => {
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [isPlaying, isPaused, speechText, speechRate]);
+  }, [isPlaying, isPaused]);
+
+  // Cleanup intervals on unmount
+  useEffect(() => {
+    return () => {
+      stopProgressTracking();
+    };
+  }, []);
 
   // Calculate progress percentage for visual feedback
   const progressPercentage = speechText ? (currentCharIndex / speechText.length) * 100 : 0;
+
+  // Debug info for development
+  const debugInfo = {
+    isPlaying,
+    isPaused,
+    currentCharIndex,
+    textLength: speechText.length,
+    progress: Math.round(progressPercentage),
+    isMobile,
+    currentWordIndex,
+    totalWords: wordTimings.length
+  };
 
   return (
    <div className="audio-player-container">
@@ -269,7 +373,7 @@ const AudioPlayer = ({ text }) => {
 
        <button
   onClick={handleStop}
-  disabled={!isPlaying}
+  disabled={!isPlaying && !isPaused}
   className="audio-button stop-button"
   title="Stop and reset to beginning"
 >
@@ -286,7 +390,7 @@ const AudioPlayer = ({ text }) => {
 
        <button
   onClick={handleSpeakAgain}
-  disabled={!isPlaying}
+  disabled={!isPlaying && !isPaused}
   className="audio-button speak-again-button"
   title="Restart from beginning"
 >
@@ -294,23 +398,61 @@ const AudioPlayer = ({ text }) => {
 
   </div>
   
-  {/* Progress indicator */}
+  {/* Enhanced Progress indicator */}
   {speechText && (isPlaying || isPaused || currentCharIndex > 0) && (
     <div style={{
       width: '100%',
-      height: '4px',
+      height: '6px',
       backgroundColor: '#ddd',
-      borderRadius: '2px',
+      borderRadius: '3px',
       marginTop: '10px',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      position: 'relative'
     }}>
       <div style={{
         width: `${progressPercentage}%`,
         height: '100%',
-        backgroundColor: isPlaying ? '#007bff' : '#28a745',
-        borderRadius: '2px',
-        transition: 'width 0.3s ease'
+        backgroundColor: isPlaying ? '#007bff' : (isPaused ? '#ffc107' : '#28a745'),
+        borderRadius: '3px',
+        transition: 'width 0.1s ease'
       }} />
+      
+      {/* Current word indicator */}
+      {wordTimings.length > 0 && currentWordIndex < wordTimings.length && (
+        <div style={{
+          position: 'absolute',
+          top: '-2px',
+          left: `${(wordTimings[currentWordIndex].startChar / speechText.length) * 100}%`,
+          width: '2px',
+          height: '10px',
+          backgroundColor: '#dc3545',
+          borderRadius: '1px'
+        }} />
+      )}
+    </div>
+  )}
+
+  {/* Status indicator */}
+  {(isPlaying || isPaused) && (
+    <div style={{
+      marginTop: '5px',
+      fontSize: '12px',
+      color: '#666',
+      textAlign: 'center'
+    }}>
+      {isPlaying ? '🔊 Playing' : isPaused ? '⏸️ Paused' : '⏹️ Stopped'} 
+      {speechText && ` • ${Math.round(progressPercentage)}% complete`}
+    </div>
+  )}
+
+  {/* Debug info - remove in production */}
+  {process.env.NODE_ENV === 'development' && (
+    <div style={{ fontSize: '10px', color: '#666', marginTop: '5px', fontFamily: 'monospace' }}>
+      Playing: {debugInfo.isPlaying ? 'Yes' : 'No'} | 
+      Paused: {debugInfo.isPaused ? 'Yes' : 'No'} | 
+      Char: {debugInfo.currentCharIndex}/{debugInfo.textLength} | 
+      Word: {debugInfo.currentWordIndex}/{debugInfo.totalWords} |
+      Mobile: {debugInfo.isMobile ? 'Yes' : 'No'}
     </div>
   )}
 
