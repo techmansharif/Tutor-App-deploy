@@ -57,13 +57,6 @@ const AudioPlayer = ({ text }) => {
 const handlePlay = () => {
   if (!isPlaying) {
     speakText();
-  } else if (isPaused) {
-    window.speechSynthesis.resume();
-    setIsPaused(false);
-  } else {
-    // If playing and not paused, then pause
-    window.speechSynthesis.pause();
-    setIsPaused(true);
   }
 };
 
@@ -118,34 +111,20 @@ const handlePlay = () => {
 
 <button
   onClick={handlePlay}
-  disabled={false}
-  className={`audio-button play-button ${isPlaying && !isPaused ? 'playing' : ''}`}
+  disabled={isPlaying}
+  className={`audio-button play-button ${isPlaying ? 'playing' : ''}`}
 >
-  {isPlaying && !isPaused ? (
-    <span className="pause-icon">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="white"
-        width="30px"
-        height="30px"
-      >
-        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-      </svg>
-    </span>
-  ) : (
-    <span className="speaker-icon">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="white"
-        width="30px"
-        height="30px"
-      >
-        <path d="M8 5v14l11-7z"/>
-      </svg>
-    </span>
-  )}
+  <span className="speaker-icon">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="white"
+      width="30px"
+      height="30px"
+    >
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+  </span>
 </button>
        <button
   onClick={handleStop}
