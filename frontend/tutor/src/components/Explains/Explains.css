@@ -215,9 +215,12 @@ code {
   justify-content: center;
   font-weight: 600;
   width: auto; /* Changed from 50px */
-  min-width: 120px; /* Added minimum width */
+  min-width: 140px; /* Added minimum width */
   height: 50px;
   box-sizing: border-box;
+     text-align: center;
+    line-height: 1.2;
+    white-space: nowrap; /* Prevent wrapping on larger screens */
 }
 
 
@@ -432,6 +435,7 @@ code {
   .primary-button-component,
   .secondary-button-component {
     width: 40px;
+
     height: 40px;
     padding: 8px;
   }
