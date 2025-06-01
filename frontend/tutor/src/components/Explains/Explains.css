@@ -430,6 +430,32 @@ code {
   text-align: left !important;
 }
 
+
+/* Compact 3-line header styling */
+.explains-header-compact {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.explains-header-compact h2 {
+  margin: 2px 0; /* Much smaller margins instead of default 20px+ */
+  padding: 0;
+  font-size: 16px; /* Smaller than default h2 size */
+  font-weight: 600;
+  line-height: 1.2; /* Tighter line spacing */
+}
+
+.explains-header-compact .subject {
+  color: black;
+}
+
+.explains-header-compact .topic {
+  color: black;
+}
+
+.explains-header-compact .subtopic {
+  color: black;
+}
 /* Responsive button sizes */
 @media (max-width: 768px) {
   .primary-button-component,
