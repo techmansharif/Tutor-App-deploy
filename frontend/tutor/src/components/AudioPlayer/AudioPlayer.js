@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AudioPlayer.css';
 import { numberToWords, preprocessText, detectLanguage } from './PreprocessAudio';
 
@@ -9,51 +9,16 @@ const AudioPlayer = ({ text }) => {
   const [voices, setVoices] = useState([]);
   const [selectedVoice, setSelectedVoice] = useState(null);
   const [speechRate, setSpeechRate] = useState(1);
-  
-  // For tracking position in speech
-  const [currentCharIndex, setCurrentCharIndex] = useState(0);
-  const [speechText, setSpeechText] = useState('');
-  const speechStartTime = useRef(null);
-  const pausedTime = useRef(0);
 
-  // Detect if we're on a mobile device
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-  // Calculate approximate character position based on time and speech rate
-  const calculateCharPosition = (elapsedTime, text, rate) => {
-    // Average speaking rate is about 4-5 characters per second at normal speed
-    const baseCharsPerSecond = 4.5;
-    const adjustedCharsPerSecond = baseCharsPerSecond * rate;
-    const estimatedPosition = Math.floor(elapsedTime * adjustedCharsPerSecond);
-    return Math.min(estimatedPosition, text.length);
-  };
-
-  // Get text from current position
-  const getTextFromPosition = (text, startIndex) => {
-    return text.substring(startIndex);
-  };
 
   // Handle text-to-speech
-  const speakText = (startFromIndex = 0) => {
+  const speakText = () => {
     if ('speechSynthesis' in window) {
       // Stop any ongoing speech
       window.speechSynthesis.cancel();
 
       const processedText = preprocessText(text);
-      setSpeechText(processedText);
-      
-      // Get text from the specified starting position
-      const textToSpeak = getTextFromPosition(processedText, startFromIndex);
-      
-      if (textToSpeak.trim().length === 0) {
-        // Nothing left to speak
-        setIsPlaying(false);
-        setIsPaused(false);
-        setCurrentCharIndex(0);
-        return;
-      }
-
-      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      const utterance = new SpeechSynthesisUtterance(processedText);
       const lang = detectLanguage(text);
       utterance.lang = lang;
 
@@ -72,76 +37,41 @@ const AudioPlayer = ({ text }) => {
       utterance.rate = speechRate;
       utterance.volume = 1;
 
-      utterance.onstart = () => {
-        setIsPlaying(true);
-        setIsPaused(false);
-        speechStartTime.current = Date.now();
-        setCurrentCharIndex(startFromIndex);
-      };
-
       utterance.onend = () => {
         setIsPlaying(false);
         setIsPaused(false);
         setSpeechInstance(null);
-        setCurrentCharIndex(0);
-        speechStartTime.current = null;
-        pausedTime.current = 0;
-      };
-
-      utterance.onerror = (event) => {
-        console.error('Speech synthesis error:', event);
-        setIsPlaying(false);
-        setIsPaused(false);
-        setSpeechInstance(null);
-        setCurrentCharIndex(0);
-        speechStartTime.current = null;
-        pausedTime.current = 0;
-      };
-
-      // Track progress during speech (works better on some browsers)
-      utterance.onboundary = (event) => {
-        if (event.name === 'word' || event.name === 'sentence') {
-          setCurrentCharIndex(startFromIndex + event.charIndex);
-        }
       };
 
       setSpeechInstance(utterance);
       window.speechSynthesis.speak(utterance);
+      setIsPlaying(true);
+      setIsPaused(false);
     } else {
       alert('Text-to-speech is not supported in this browser.');
     }
   };
 
-  // Handle play/pause
-  const handlePlay = () => {
-    if (!isPlaying) {
-      // Start new speech or resume from position
-      speakText(currentCharIndex);
-    } else if (isMobile) {
-      // On mobile, calculate position and restart from there
-      if (speechStartTime.current) {
-        const elapsedTime = (Date.now() - speechStartTime.current) / 1000;
-        const estimatedPosition = calculateCharPosition(elapsedTime, speechText, speechRate);
-        const newPosition = currentCharIndex + estimatedPosition;
-        
-        handleStop();
-        setTimeout(() => {
-          speakText(Math.min(newPosition, speechText.length));
-        }, 100);
-      }
-    } else {
-      // Desktop behavior - use pause/resume
-      if (isPaused) {
-        window.speechSynthesis.resume();
-        setIsPaused(false);
-        speechStartTime.current = Date.now() - pausedTime.current;
-      } else {
-        window.speechSynthesis.pause();
-        setIsPaused(true);
-        if (speechStartTime.current) {
-          pausedTime.current = Date.now() - speechStartTime.current;
-        }
-      }
+  // Handle play
+// To this:
+const handlePlay = () => {
+  if (!isPlaying) {
+    speakText();
+  } else if (isPaused) {
+    window.speechSynthesis.resume();
+    setIsPaused(false);
+  } else {
+    // If playing and not paused, then pause
+    window.speechSynthesis.pause();
+    setIsPaused(true);
+  }
+};
+
+  // Handle pause
+  const handlePause = () => {
+    if (isPlaying && !isPaused) {
+      window.speechSynthesis.pause();
+      setIsPaused(true);
     }
   };
 
@@ -152,16 +82,13 @@ const AudioPlayer = ({ text }) => {
       setIsPlaying(false);
       setIsPaused(false);
       setSpeechInstance(null);
-      setCurrentCharIndex(0);
-      speechStartTime.current = null;
-      pausedTime.current = 0;
     }
   };
 
-  // Handle speak again (restart from beginning)
+  // Handle speak again
   const handleSpeakAgain = () => {
     handleStop();
-    setTimeout(() => speakText(0), 100);
+    speakText();
   };
 
   // Load voices when component mounts
@@ -179,81 +106,33 @@ const AudioPlayer = ({ text }) => {
     loadVoices();
     window.speechSynthesis.onvoiceschanged = loadVoices;
 
-    // Reset position when text changes
-    setCurrentCharIndex(0);
-    speechStartTime.current = null;
-    pausedTime.current = 0;
-
     return () => {
       window.speechSynthesis.cancel();
     };
   }, [text]);
 
-  // Handle page visibility changes (important for mobile)
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.hidden && isPlaying && !isPaused) {
-        // Page is hidden, pause/stop speech
-        if (isMobile) {
-          // On mobile, we'll calculate position when user returns
-          if (speechStartTime.current) {
-            const elapsedTime = (Date.now() - speechStartTime.current) / 1000;
-            const estimatedPosition = calculateCharPosition(elapsedTime, speechText, speechRate);
-            setCurrentCharIndex(prev => prev + estimatedPosition);
-          }
-          handleStop();
-        } else {
-          handlePlay(); // This will pause on desktop
-        }
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, [isPlaying, isPaused, isMobile, speechText, speechRate]);
-
-  // Calculate progress percentage for visual feedback
-  const progressPercentage = speechText ? (currentCharIndex / speechText.length) * 100 : 0;
-
   return (
    <div className="audio-player-container">
     <div className="audio-controls">
+
 
 <button
   onClick={handlePlay}
   disabled={false}
   className={`audio-button play-button ${isPlaying && !isPaused ? 'playing' : ''}`}
-  title={isMobile && isPlaying ? 'Restart from current position' : (isPlaying && !isPaused ? 'Pause' : 'Play')}
 >
   {isPlaying && !isPaused ? (
-    isMobile ? (
-      <span className="restart-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="white"
-          width="30px"
-          height="30px"
-        >
-          <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
-        </svg>
-      </span>
-    ) : (
-      <span className="pause-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="white"
-          width="30px"
-          height="30px"
-        >
-          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-        </svg>
-      </span>
-    )
+    <span className="pause-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="white"
+        width="30px"
+        height="30px"
+      >
+        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+      </svg>
+    </span>
   ) : (
     <span className="speaker-icon">
       <svg
@@ -268,12 +147,10 @@ const AudioPlayer = ({ text }) => {
     </span>
   )}
 </button>
-
        <button
   onClick={handleStop}
   disabled={!isPlaying}
   className="audio-button stop-button"
-  title="Stop and reset to beginning"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -290,31 +167,11 @@ const AudioPlayer = ({ text }) => {
   onClick={handleSpeakAgain}
   disabled={!isPlaying}
   className="audio-button speak-again-button"
-  title="Restart from beginning"
 >
 </button>
 
+
   </div>
-  
-  {/* Progress indicator */}
-  {speechText && (isPlaying || isPaused || currentCharIndex > 0) && (
-    <div style={{
-      width: '100%',
-      height: '4px',
-      backgroundColor: '#ddd',
-      borderRadius: '2px',
-      marginTop: '10px',
-      overflow: 'hidden'
-    }}>
-      <div style={{
-        width: `${progressPercentage}%`,
-        height: '100%',
-        backgroundColor: isPlaying ? '#007bff' : '#28a745',
-        borderRadius: '2px',
-        transition: 'width 0.3s ease'
-      }} />
-    </div>
-  )}
 
 </div>
 
