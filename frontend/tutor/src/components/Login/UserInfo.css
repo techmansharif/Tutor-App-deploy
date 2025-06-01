@@ -1,6 +1,6 @@
 .user-info {
-  padding: 10px;
-  margin-top: 8px;
+  padding: 5px;
+  margin-top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,8 +9,8 @@
 .user-box {
   display: flex;
   align-items: center;
-  background-color: #fff; /* White background for the box */
-  border: 1px solid #ddd; /* Light border to define the box */
+  background-color: #FFD966; /* White background for the box */
+  border: 1px solid #e6bf5c; /* Slightly darker shade *//* Light border to define the box */
   border-radius: 5px; /* Rounded corners for the box */
   padding: 2px 5px; /* Small padding inside the box */
   position: relative
