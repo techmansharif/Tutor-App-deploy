@@ -172,10 +172,10 @@ async def quiz1(
     attempt_count = 0
 
     while not next_question and attempt_count < max_attempts:
-        # Randomly select subject
-        subject = db.query(Subject).order_by(func.random()).first()
+        # Select only the "quiz1" subject
+        subject = db.query(Subject).filter(Subject.name == "quiz1").first()
         if not subject:
-            raise HTTPException(status_code=404, detail="No subjects available")
+            raise HTTPException(status_code=404, detail="Subject 'quiz1' not found")
 
         # Randomly select topic under the subject
         topic = db.query(Topic).filter(Topic.subject_id == subject.id).order_by(func.random()).first()

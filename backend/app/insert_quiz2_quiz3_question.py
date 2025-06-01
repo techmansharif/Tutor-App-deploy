@@ -7,7 +7,8 @@ print("Current working directory:", os.getcwd())
 
 # Function to read data from the JSON file
 def read_data_from_json():
-    with open("app/question_bank.json", "r") as file:
+    # Add encoding='utf-8' to handle Unicode characters (Bengali text)
+    with open("app/question_bank.json", "r", encoding='utf-8') as file:
         return json.load(file)
 
 # Function to insert data into the database
@@ -62,11 +63,7 @@ def insert_data(db, data):
                     # Check if the MCQ already exists in the database
                     existing_mcq = db.query(MCQ).filter(
                         MCQ.question == mcq["question"],
-                        MCQ.option_a == mcq["option_a"],
-                        MCQ.option_b == mcq["option_b"],
-                        MCQ.option_c == mcq["option_c"],
-                        MCQ.option_d == mcq["option_d"],
-                        MCQ.correct_option == mcq["correct_option"]
+                        MCQ.subtopic_id == subtopic.id  # Also check subtopic to avoid cross-subtopic duplicates
                     ).first()
 
                     if not existing_mcq:
@@ -78,28 +75,37 @@ def insert_data(db, data):
                             "option_c": mcq["option_c"],
                             "option_d": mcq["option_d"],
                             "correct_option": mcq["correct_option"],
-                            "explanation": mcq["explanation"],
-                            "hardness_level": mcq["hardness_level"],
+                            "explanation": mcq.get("explanation", ""),  # Use .get() for safer access
+                            "hardness_level": mcq.get("hardness_level", 5),  # Default to 5 if not provided
                             "subtopic_id": subtopic.id
                         }
                         db.add(MCQ(**mcq_data))
                         db.commit()
-                        print(f"Inserted new MCQ: {mcq['question']}")
+                        print(f"Inserted new MCQ: {mcq['question'][:50]}...")  # Truncate long questions in log
                     else:
-                        print(f"MCQ already exists: {mcq['question']}")
+                        print(f"MCQ already exists: {mcq['question'][:50]}...")
 
 # Main function to execute data insertion
 def main():
     db = SessionLocal()  # Get database session
     try:
+        print("Reading data from JSON file...")
         data = read_data_from_json()  # Read data from the JSON file
+        print(f"Found {len(data['subjects'])} subjects in JSON")
+        
+        print("Starting data insertion...")
         insert_data(db, data)  # Insert data into the database
         print("✅ Data inserted successfully!")
+        
+    except FileNotFoundError:
+        print("❌ Error: question_bank.json file not found. Make sure the file exists in the app/ directory.")
+    except json.JSONDecodeError as e:
+        print(f"❌ Error: Invalid JSON format - {e}")
+    except Exception as e:
+        print(f"❌ Error occurred: {e}")
+        db.rollback()  # Rollback any pending transaction
     finally:
         db.close()
 
 if __name__ == "__main__":
     main()
-
-
-
