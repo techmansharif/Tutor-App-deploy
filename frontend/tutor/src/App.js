@@ -49,8 +49,36 @@ function App() {
         setLoading(false);
       });
   }, []);
-
+// Add this after your existing useEffect that fetches user
+useEffect(() => {
+  const savedStage = localStorage.getItem('quizStage');
+  const savedValues = localStorage.getItem('selectedValues');
+  console.log('Restored stage:', savedStage);
+  console.log('Restored values:', savedValues);
   
+  if (savedStage && user) setQuizStage(savedStage);
+  if (savedValues) {
+    try {
+      const parsed = JSON.parse(savedValues);
+      console.log('Parsed values:', parsed);
+      setSelectedValues(parsed);
+    } catch (error) {
+      console.error('Error parsing saved values:', error);
+    }
+  }
+}, [user]);
+useEffect(() => {
+  if (user) localStorage.setItem('quizStage', quizStage);
+}, [quizStage, user]);
+
+useEffect(() => {
+  // Only save if values are not empty
+  if (selectedValues.selectedSubject && selectedValues.selectedTopic && selectedValues.selectedSubtopic) {
+    localStorage.setItem('selectedValues', JSON.stringify(selectedValues));
+  }
+}, [selectedValues]);
+
+
 
   const onQuiz1Complete = () => {
     setQuizStage('selection');
@@ -106,7 +134,7 @@ const onSelectionChange = (values) => {
         return <Quiz1 user={user} API_BASE_URL={API_BASE_URL} onCompleteQuiz={onQuiz1Complete} />;
       case 'selection':
         return (
-          <Selection user={user} API_BASE_URL={API_BASE_URL} onSelectionSubmit={onSelectionSubmit} onSelectionChange={onSelectionChange} />
+          <Selection user={user} API_BASE_URL={API_BASE_URL} onSelectionSubmit={onSelectionSubmit} onSelectionChange={onSelectionChange}  initialValues={selectedValues} />
         );
       case 'explains':
         return (

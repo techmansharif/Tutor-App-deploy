@@ -2,13 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Selection.css';
 
-const Selection = ({ user, API_BASE_URL, onSelectionSubmit,  onSelectionChange }) => {
+const Selection = ({ user, API_BASE_URL, onSelectionSubmit,  onSelectionChange, initialValues }) => {
   const [subjects, setSubjects] = useState([]);
   const [topics, setTopics] = useState([]);
   const [subtopics, setSubtopics] = useState([]);
-  const [selectedSubject, setSelectedSubject] = useState('');
-  const [selectedTopic, setSelectedTopic] = useState('');
-  const [selectedSubtopic, setSelectedSubtopic] = useState('');
+  // const [selectedSubject, setSelectedSubject] = useState('');
+  // const [selectedTopic, setSelectedTopic] = useState('');
+  // const [selectedSubtopic, setSelectedSubtopic] = useState('');
+  // Replace the useState declarations in Selection.js with:
+const [selectedSubject, setSelectedSubject] = useState(initialValues?.selectedSubject || '');
+const [selectedTopic, setSelectedTopic] = useState(initialValues?.selectedTopic || '');
+const [selectedSubtopic, setSelectedSubtopic] = useState(initialValues?.selectedSubtopic || '');
+
 
   // Fetch subjects when the component mounts
   useEffect(() => {
@@ -74,6 +79,8 @@ useEffect(() => {
     });
   }
 }, [selectedSubject, selectedTopic, selectedSubtopic, onSelectionChange]);
+
+
   // Handle form submission for confirmation
   const handleConfirmSelection = async (e) => {
     e.preventDefault();
