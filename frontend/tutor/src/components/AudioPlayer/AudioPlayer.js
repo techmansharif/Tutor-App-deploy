@@ -110,7 +110,7 @@ const AudioPlayer = ({ text }) => {
    <div className="audio-player-container">
     <div className="audio-controls">
 
-      
+{/*       
 <div className="explain-box">
   I can <br /> verbally <br/>explain!
 </div>
@@ -127,7 +127,7 @@ const AudioPlayer = ({ text }) => {
   >
     <path d="M2 20 L6 12 L10 25 L14 8 L18 30 L22 15 L26 35 L30 5 L34 28 L38 18 L42 32 L46 10 L50 22 L54 6 L58 29 L62 16 L66 33 L70 11 L74 24 L78 20" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
-</div>
+</div> */}
 
     <button
       onClick={handlePlay}
@@ -174,7 +174,7 @@ const AudioPlayer = ({ text }) => {
 </button>
 
   </div>
-
+{/* 
   <div className="audio-settings">
     <select
       value={selectedVoice ? selectedVoice.name : ''}
@@ -204,7 +204,7 @@ const AudioPlayer = ({ text }) => {
       <option value={1.75}>1.75x</option>
       <option value={2}>2x</option>
     </select>
-  </div>
+  </div> */}
 </div>
 
   )
