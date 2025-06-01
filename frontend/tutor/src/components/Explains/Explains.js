@@ -124,7 +124,11 @@ useEffect(() => {
 
   return (
     <div className="explains-component-container">
-      <h2>Learning: {selectedSubject} - {selectedTopic} - {selectedSubtopic}</h2>
+ <div className="explains-header-compact">
+  <h2 className="subject">{selectedSubject}</h2>
+  <h2 className="topic">{selectedTopic}</h2>
+  <h2 className="subtopic">{selectedSubtopic}</h2>
+</div>
 
 
 <div className="button-row">
