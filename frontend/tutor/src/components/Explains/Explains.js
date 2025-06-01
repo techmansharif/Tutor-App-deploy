@@ -146,10 +146,10 @@ useEffect(() => {
   </div>
 </div>
 
-      <div
-        className="explanation-content-component chat-container"
-        ref={explanationContainerRef}
-      >
+    <div
+  className={`explanation-content-component chat-container ${selectedSubject.toLowerCase() === 'english' ? 'english-subject' : ''}`}
+  ref={explanationContainerRef}
+>
         {explanationHistory.map((entry, index) => (
           <div key={index} className="explanation-entry">
                <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>

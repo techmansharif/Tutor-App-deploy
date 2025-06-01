@@ -419,7 +419,20 @@ code {
   font-weight: 900;
     margin-left: 5px; /* Add left indent */
 }
-
+/* Left align text for English subject */
+.explanation-content-component.english-subject,
+.explanation-content-component.english-subject .explanation-entry,
+.explanation-content-component.english-subject p,
+.explanation-content-component.english-subject h1,
+.explanation-content-component.english-subject h2,
+.explanation-content-component.english-subject h3,
+.explanation-content-component.english-subject li,
+.explanation-content-component.english-subject blockquote,
+.explanation-content-component.english-subject .markdown-table,
+.explanation-content-component.english-subject .markdown-table th,
+.explanation-content-component.english-subject .markdown-table td {
+  text-align: left !important;
+}
 
 /* Responsive button sizes */
 @media (max-width: 768px) {
