@@ -125,23 +125,23 @@ useEffect(() => {
   return (
     <div className="explains-component-container">
  <div className="explains-header-compact">
-  <h2 className="subject">{selectedSubject}</h2>
-  <h2 className="topic">{selectedTopic}</h2>
-  <h2 className="subtopic">{selectedSubtopic}</h2>
+  <h1 className="subject">{selectedSubject}</h1>
+  <h1 className="topic">{selectedTopic}</h1>
+  <h1 className="subtopic">{selectedSubtopic}</h1>
 </div>
 
 
 <div className="button-row">
 <div className="button-with-text">
   <button onClick={handleContinueExplain} className="primary-button-component">
-   Go to Next Topic
+   Next Topic
   </button>
 
 </div>
 
 <div className="button-with-text">
   <button onClick={handleExplainAgain} className="secondary-button-component">
-    Explain Again <br></br>but differently (AI)
+    Say it <br></br> differently (AI)
   </button>
  
 </div>
@@ -229,7 +229,7 @@ useEffect(() => {
           }}
         />
         <button onClick={handleCustomQuery} className="custom-query-button">
-          Submit
+          Ask AI
         </button>
       </div>
     </>

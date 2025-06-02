@@ -194,7 +194,7 @@ const renderNavigationButtons = () => {
       <div className="navigation-buttons">
         <button 
           onClick={() => handleStageChange('selection')} 
-          className="nav-button"
+          className={`nav-button ${quizStage === 'selection' ? 'nav-button-active' : ''}`}
         >
           SUBJECT
           <div style={{ fontSize: '0.8em' }}>Select a subject</div>
@@ -202,7 +202,7 @@ const renderNavigationButtons = () => {
         
         <button 
           onClick={() => handleStageChange('explains')}  
-          className={`nav-button ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+          className={`nav-button ${quizStage === 'explains' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
         > 
           EXPLAIN  
@@ -211,25 +211,25 @@ const renderNavigationButtons = () => {
         
         <button 
           onClick={() => handleStageChange('practice')} 
-          className={`nav-button ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+          className={`nav-button ${quizStage === 'practice' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
         >
           PRACTISE  
-          <div style={{ fontSize: '0.8em' }}>Helps you practise the subject</div> 
+          <div style={{ fontSize: '0.8em' }}>Practise the subject</div> 
         </button>
         
         <button 
           onClick={() => handleStageChange('quiz')} 
-          className={`nav-button ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+          className={`nav-button ${quizStage === 'quiz' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
         > 
           Quiz  
-          <div style={{ fontSize: '0.8em' }}>Check your progress with a quiz!</div>
+          <div style={{ fontSize: '0.8em' }}>Check your progress </div>
         </button>
         
         <button 
           onClick={() => handleStageChange('dashboard')} 
-          className="nav-button"
+          className={`nav-button ${quizStage === 'dashboard' ? 'nav-button-active' : ''}`}
         >
           PROGRESS 
           <div style={{ fontSize: '0.8em' }}>Your scoreboard</div>
@@ -252,7 +252,7 @@ const renderNavigationButtons = () => {
           style={{ marginTop: '5px', color: 'rgb(15, 15, 15)' }}
           className="text-xs"
         >
-          Limited Test Edition
+          SSC Exam, <span style={{ fontStyle: 'italic' }}>Limited Test Edition</span>
         </p>
       </div>
         {user && (
@@ -265,7 +265,7 @@ const renderNavigationButtons = () => {
     />
   )}
       </header>
-      <main className="flex-grow p-4">
+      <main className={`flex-grow p-4 main-content-${quizStage}`}>
         
             {renderCurrentStage()}
               {renderNavigationButtons()}

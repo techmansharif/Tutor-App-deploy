@@ -1,5 +1,6 @@
 import MarkdownIt from 'markdown-it';
 
+// English number to words conversion
 export const numberToWords = (num) => {
   const units = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
   const teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
@@ -52,6 +53,70 @@ export const numberToWords = (num) => {
   return num.toString();
 };
 
+// Bengali number to words conversion
+const convertEnglishNumberToBanglaWords = (num) => {
+  const units = ['', 'এক', 'দুই', 'তিন', 'চার', 'পাঁচ', 'ছয়', 'সাত', 'আট', 'নয়'];
+  const teens = ['দশ', 'এগারো', 'বারো', 'তেরো', 'চৌদ্দ', 'পনেরো', 'ষোলো', 'সতেরো', 'আঠারো', 'উনিশ'];
+  const tens = ['', 'দশ', 'বিশ', 'ত্রিশ', 'চল্লিশ', 'পঞ্চাশ', 'ষাট', 'সত্তর', 'আশি', 'নব্বই'];
+  const hundreds = ['', 'এক শত', 'দুই শত', 'তিন শত', 'চার শত', 'পাঁচ শত', 'ছয় শত', 'সাত শত', 'আট শত', 'নয় শত'];
+
+  if (num === 0) return 'শূন্য';
+
+  const isNegative = num < 0;
+  let absNum = Math.abs(num);
+
+  if (String(num).includes('.')) {
+    const parts = String(absNum).split('.');
+    const integerPart = parseInt(parts[0]);
+    const decimalPart = parts[1];
+
+    let result = '';
+    if (integerPart > 0) {
+      result += convertEnglishNumberToBanglaWords(integerPart) + ' দশমিক';
+    } else {
+      result += 'শূন্য দশমিক';
+    }
+
+    for (let i = 0; i < decimalPart.length; i++) {
+      result += ' ' + convertEnglishNumberToBanglaWords(parseInt(decimalPart[i]));
+    }
+
+    return isNegative ? 'মাইনাস ' + result : result;
+  }
+
+  if (absNum < 10) {
+    return isNegative ? `মাইনাস ${units[absNum]}` : units[absNum];
+  }
+  if (absNum < 20) {
+    return isNegative ? `মাইনাস ${teens[absNum - 10]}` : teens[absNum - 10];
+  }
+  if (absNum < 100) {
+    const ten = Math.floor(absNum / 10);
+    const unit = absNum % 10;
+    const base = unit === 0 ? tens[ten] : `${tens[ten]} ${units[unit]}`;
+    return isNegative ? `মাইনাস ${base}` : base;
+  }
+  if (absNum < 1000) {
+    const hundred = Math.floor(absNum / 100);
+    const remainder = absNum % 100;
+    const base = remainder === 0
+      ? hundreds[hundred]
+      : `${hundreds[hundred]} ${convertEnglishNumberToBanglaWords(remainder)}`;
+    return isNegative ? `মাইনাস ${base}` : base;
+  }
+  if (absNum < 100000) {
+    const thousand = Math.floor(absNum / 1000);
+    const remainder = absNum % 1000;
+    const base = remainder === 0
+      ? `${convertEnglishNumberToBanglaWords(thousand)} হাজার`
+      : `${convertEnglishNumberToBanglaWords(thousand)} হাজার ${convertEnglishNumberToBanglaWords(remainder)}`;
+    return isNegative ? `মাইনাস ${base}` : base;
+  }
+  
+  return num.toString(); // Fallback for larger numbers
+};
+
+// English math symbols
 const mathSymbols = {
   '\\+': 'plus',
   '-': 'minus',
@@ -74,38 +139,156 @@ const mathSymbols = {
   '\\.\\.\\.': 'and so on',
 };
 
-const processMathExpression = (expr) => {
-  // Handle LaTeX superscripts
-  expr = expr.replace(/\$([a-zA-Z])\^2\$/g, '$1 squared');
-  expr = expr.replace(/\$([a-zA-Z])\^3\$/g, '$1 cubed');
-  expr = expr.replace(/\$([a-zA-Z])\^(\d+)\$/g, (match, varName, exp) => {
-    if (exp === '2') return `${varName} squared`;
-    if (exp === '3') return `${varName} cubed`;
-    return `${varName} to the power of ${numberToWords(parseInt(exp))}`;
-  });
+// Bengali math symbols
+const banglaMathSymbols = {
+  '+': 'যোগ',
+  '\\+': 'যোগ',
+  '-': 'বিয়োগ',
+  '×': 'গুণ',
+  '\\*': 'গুণ',
+  '÷': 'ভাগ',
+  '/': 'ভাগ',
+  '=': 'সমান',
+  '>': 'বড়',
+  '<': 'ছোট',
+  '≥': 'বড় বা সমান',
+  '≤': 'ছোট বা সমান',
+  '≠': 'সমান নয়',
+  '√': 'বর্গমূল',
+  '%': 'শতাংশ',
+  '\\^': 'এর ঘাত',
+  '∈': 'এর উপাদান',
+  '\\{': 'সেট',
+  '\\}': 'সেট শেষ',
+  '\\$': '',
+  '\\|': '',
+  ':-+': '',
+  '-{2,}': '',
+  '\\.\\.\\.': 'ইত্যাদি',
+};
 
-  // Handle non-LaTeX superscripts
-  expr = expr.replace(/([a-zA-Z])\^2/g, '$1 squared');
-  expr = expr.replace(/([a-zA-Z])\^3/g, '$1 cubed');
-  expr = expr.replace(/([a-zA-Z])\^(\d+)/g, (match, varName, exp) => {
-    if (exp === '2') return `${varName} squared`;
-    if (exp === '3') return `${varName} cubed`;
-    return `${varName} to the power of ${numberToWords(parseInt(exp))}`;
+// Clean text from unwanted punctuation sounds
+const cleanPunctuation = (text, language = 'en-US') => {
+  let cleaned = text;
+  
+  // Remove or replace problematic punctuation
+  const punctuationRules = {
+    // Asterisks - remove completely for formatting
+    '\\*+': '',
+    
+    // Hyphens in compound words - remove hyphen but keep words together
+    '([a-zA-Z]+)-([a-zA-Z]+)': '$1$2', // home-made → homemade
+    
+    // Multiple hyphens (formatting) - remove completely
+    '--+': ' ',
+    
+    // Bullet points and list markers
+    '^\\s*[•·▪▫‣⁃]\\s*': '', // Remove bullet points at start of lines
+    '^\\s*[-*+]\\s+': '',     // Remove dash/asterisk bullets at start
+    
+    // Parentheses content (often formatting notes) - make it more natural
+    '\\(([^)]+)\\)': ', $1,', // (example) → , example,
+    
+    // Multiple dots/periods
+    '\\.{3,}': ' and so on', // ... → and so on
+    
+    // Underscores (often formatting)
+    '_+': ' ',
+    
+    // Multiple spaces
+    '\\s{2,}': ' ',
+    
+    // Clean up commas
+    ',\\s*,': ',', // Remove duplicate commas
+    
+    // Clean up periods
+    '\\.\\s*\\.': '.', // Remove duplicate periods
+  };
+  
+  // Apply cleaning rules
+  Object.keys(punctuationRules).forEach(pattern => {
+    const regex = new RegExp(pattern, 'g');
+    cleaned = cleaned.replace(regex, punctuationRules[pattern]);
   });
+  
+  // Language-specific cleaning
+  if (language === 'bn-BD') {
+    // Bengali-specific punctuation cleaning
+    cleaned = cleaned.replace(/[•·▪▫‣⁃]/g, ''); // Remove bullets
+    cleaned = cleaned.replace(/\*+/g, ''); // Remove asterisks
+    cleaned = cleaned.replace(/_{2,}/g, ' '); // Remove multiple underscores
+  }
+  
+  return cleaned.trim();
+};
+
+const processMathExpression = (expr, language = 'en-US') => {
+  const isEnglish = language === 'en-US';
+  const symbols = isEnglish ? mathSymbols : banglaMathSymbols;
+
+  // Handle LaTeX superscripts
+  if (isEnglish) {
+    expr = expr.replace(/\$([a-zA-Z])\^2\$/g, '$1 squared');
+    expr = expr.replace(/\$([a-zA-Z])\^3\$/g, '$1 cubed');
+    expr = expr.replace(/\$([a-zA-Z])\^(\d+)\$/g, (match, varName, exp) => {
+      if (exp === '2') return `${varName} squared`;
+      if (exp === '3') return `${varName} cubed`;
+      return `${varName} to the power of ${numberToWords(parseInt(exp))}`;
+    });
+
+    // Handle non-LaTeX superscripts
+    expr = expr.replace(/([a-zA-Z])\^2/g, '$1 squared');
+    expr = expr.replace(/([a-zA-Z])\^3/g, '$1 cubed');
+    expr = expr.replace(/([a-zA-Z])\^(\d+)/g, (match, varName, exp) => {
+      if (exp === '2') return `${varName} squared`;
+      if (exp === '3') return `${varName} cubed`;
+      return `${varName} to the power of ${numberToWords(parseInt(exp))}`;
+    });
+  } else {
+    // Bengali superscripts
+    expr = expr.replace(/\$([a-zA-Z])\^2\$/g, '$1 এর বর্গ');
+    expr = expr.replace(/\$([a-zA-Z])\^3\$/g, '$1 এর ঘন');
+    expr = expr.replace(/\$([a-zA-Z])\^(\d+)\$/g, (match, varName, exp) => {
+      if (exp === '2') return `${varName} এর বর্গ`;
+      if (exp === '3') return `${varName} এর ঘন`;
+      return `${varName} এর ঘাত ${convertEnglishNumberToBanglaWords(parseInt(exp))}`;
+    });
+
+    expr = expr.replace(/([a-zA-Z])\^2/g, '$1 এর বর্গ');
+    expr = expr.replace(/([a-zA-Z])\^3/g, '$1 এর ঘন');
+    expr = expr.replace(/([a-zA-Z])\^(\d+)/g, (match, varName, exp) => {
+      if (exp === '2') return `${varName} এর বর্গ`;
+      if (exp === '3') return `${varName} এর ঘন`;
+      return `${varName} এর ঘাত ${convertEnglishNumberToBanglaWords(parseInt(exp))}`;
+    });
+  }
 
   // Remove LaTeX markers
   expr = expr.replace(/\$/g, '');
 
   // Handle range notation
-  expr = expr.replace(/(\d+)\s*≤\s*([a-zA-Z])\s*≤\s*(\d+)/g, '$1 and $3 inclusive');
+  if (isEnglish) {
+    expr = expr.replace(/(\d+)\s*≤\s*([a-zA-Z])\s*≤\s*(\d+)/g, '$1 and $3 inclusive');
+    expr = expr.replace(/\{([^:]+):([^}]+)\}/g, 'the set $1 such that $2');
+  } else {
+    expr = expr.replace(/(\d+)\s*≤\s*([a-zA-Z])\s*≤\s*(\d+)/g, '$1 থেকে $3 পর্যন্ত');
+    expr = expr.replace(/\{([^:]+):([^}]+)\}/g, 'সেট $1 যেখানে $2');
+  }
 
-  // Handle set notation
-  expr = expr.replace(/\{([^:]+):([^}]+)\}/g, 'the set $1 such that $2');
-
-  // Replace math symbols
-  Object.keys(mathSymbols).forEach((symbol) => {
-    const escapedSymbol = symbol.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-    expr = expr.replace(new RegExp(escapedSymbol, 'g'), ` ${mathSymbols[symbol]} `);
+  // Replace math symbols - but be more selective
+  Object.keys(symbols).forEach((symbol) => {
+    if (symbol === '-' && isEnglish) {
+      // Only replace minus signs in clear mathematical contexts
+      expr = expr.replace(/(\d+)\s*-\s*(\d+)/g, '$1 minus $2'); // 5 - 3
+      expr = expr.replace(/([=<>])\s*-\s*(\d+)/g, '$1 minus $2'); // = -5
+    } else if (symbol === '\\+') {
+      // Handle plus signs in mathematical contexts
+      expr = expr.replace(/(\d+)\s*\+\s*(\d+)/g, '$1 plus $2'); // 5 + 3
+    } else if (symbol !== '-') {
+      // Handle other math symbols normally
+      const escapedSymbol = symbol.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+      expr = expr.replace(new RegExp(escapedSymbol, 'g'), ` ${symbols[symbol]} `);
+    }
   });
 
   // Handle standalone colons
@@ -114,32 +297,64 @@ const processMathExpression = (expr) => {
   return expr.replace(/\s+/g, ' ').trim();
 };
 
+// Enhanced Bengali text preprocessing
+const preprocessBanglaText = (text) => {
+  let processed = text;
+  
+  // Clean punctuation first
+  processed = cleanPunctuation(processed, 'bn-BD');
+  
+  // Bengali numerals to words
+  const banglaNumbers = {
+    '০': 'শূন্য', '১': 'এক', '২': 'দুই', '৩': 'তিন', '৪': 'চার',
+    '৫': 'পাঁচ', '৬': 'ছয়', '৭': 'সাত', '৮': 'আট', '৯': 'নয়'
+  };
+  
+  // Replace Bengali numerals with words
+  Object.keys(banglaNumbers).forEach(num => {
+    processed = processed.replace(new RegExp(num, 'g'), banglaNumbers[num]);
+  });
+  
+  // Handle English numbers in Bengali text
+  processed = processed.replace(/\b(\d+\.?\d*)\b/g, (match) => {
+    return convertEnglishNumberToBanglaWords(parseFloat(match));
+  });
+  
+  // Process math expressions with Bengali context
+  processed = processMathExpression(processed, 'bn-BD');
+  
+  // Handle set notation
+  processed = processed.replace(/\{([^}]+)\}/g, (match, content) => {
+    return `সেট ${processMathExpression(content, 'bn-BD')}`;
+  });
+  
+  return processed.replace(/\s+/g, ' ').trim();
+};
+
 const md = new MarkdownIt();
 
-const processMarkdown = (text) => {
-  // First, let's parse the text directly to detect tables
+const processMarkdown = (text, language = 'en-US') => {
+  const isEnglish = language === 'en-US';
+  
+  // Table processing
   const tableRegex = /\|\s*(.+?)\s*\|\s*\n\|\s*[-:]+\s*\|\s*[-:]+\s*\|\s*[-:]+\s*\|\s*[-:]+\s*\|\s*\n((?:\|\s*.+?\s*\|\s*\n)+)/g;
   const rowRegex = /\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*/;
   
   let processed = text;
   let match;
   
-  // Process tables manually
   while ((match = tableRegex.exec(text)) !== null) {
     const headerLine = match[1];
     const rowsContent = match[2];
     
-    // Parse headers
     const headerMatch = rowRegex.exec('|' + headerLine + '|');
     let headers = [];
     if (headerMatch) {
-      // Skip the first item as it's the full match
       for (let i = 1; i < headerMatch.length; i++) {
-        headers.push(processMathExpression(headerMatch[i].trim()));
+        headers.push(processMathExpression(headerMatch[i].trim(), language));
       }
     }
     
-    // Parse rows
     const rowLines = rowsContent.trim().split('\n');
     let rows = [];
     
@@ -147,42 +362,39 @@ const processMarkdown = (text) => {
       const rowMatch = rowRegex.exec(rowLine);
       if (rowMatch) {
         let row = [];
-        // Skip the first item as it's the full match
         for (let i = 1; i < rowMatch.length; i++) {
-          row.push(processMathExpression(rowMatch[i].trim()));
+          row.push(processMathExpression(rowMatch[i].trim(), language));
         }
         rows.push(row);
       }
     });
     
     // Create speech-friendly table output
-    let tableOutput = `Table titled "${processMathExpression(text.match(/\*\*([^*]+)\*\*/)?.[1] || "Summary Table")}". `;
-    tableOutput += `Columns are: ${headers.join(', ')}. `;
+    const tableTitle = text.match(/\*\*([^*]+)\*\*/)?.[1] || (isEnglish ? "Summary Table" : "সারণী");
+    let tableOutput = isEnglish 
+      ? `Table titled "${processMathExpression(tableTitle, language)}". Columns are: ${headers.join(', ')}. `
+      : `সারণী "${processMathExpression(tableTitle, language)}"। কলাম সমূহ: ${headers.join(', ')}। `;
     
-    // Process each row
     rows.forEach((row, index) => {
-      tableOutput += `Row ${index + 1}: `;
+      tableOutput += isEnglish ? `Row ${index + 1}: ` : `সারি ${convertEnglishNumberToBanglaWords(index + 1)}: `;
       row.forEach((cell, i) => {
-        // Use the header as a label for each cell value
         if (i < headers.length) {
-          tableOutput += `${headers[i]} is ${cell}`;
-          // Add proper separation between cells
+          tableOutput += isEnglish 
+            ? `${headers[i]} is ${cell}`
+            : `${headers[i]} হলো ${cell}`;
           if (i < row.length - 1) {
-            tableOutput += '; ';
+            tableOutput += isEnglish ? '; ' : '; ';
           }
         }
       });
-      tableOutput += '. ';
+      tableOutput += '। ';
     });
     
-    // Replace the table in the original text with our processed version
     processed = processed.replace(match[0], tableOutput);
   }
   
-  // Now continue with the regular markdown parser for non-table content
   const tokens = md.parse(processed, {});
   let output = '';
-
   let inTable = false;
   
   for (const token of tokens) {
@@ -191,45 +403,58 @@ const processMarkdown = (text) => {
     } else if (token.type === 'table_close') {
       inTable = false;
     } else if (token.type === 'inline' && !inTable) {
-      // Handle non-table content (e.g., bullet points, text)
       let content = token.content;
-      // Process bullet points
       content = content.replace(/^\*\s+/gm, ', ');
-      // Process math expressions
-      content = processMathExpression(content);
+      content = processMathExpression(content, language);
       output += content + ' ';
     }
   }
 
-  // Make sure we return the output
   return output.trim();
 };
 
-export const preprocessText = (text) => {
-  // Process Markdown first
-  let processed = processMarkdown(text);
-
-  // Process numbers
-  processed = processed.replace(/\b(-?\d+\.?\d*)\b/g, (match) => {
-    return numberToWords(parseFloat(match));
-  });
-
-  // Handle variables/constants
-  const isTeachingContext = /(variable|constant)\s+[a-z]/i.test(processed);
-  if (!isTeachingContext) {
-    processed = processed.replace(/(^|\s)([xyz])(\s|$)/gi, '$1$2$3');
-    processed = processed.replace(/(^|\s)([abc])(\s|$)/gi, '$1$2$3');
-  }
-
-  // Handle set notation
-  processed = processed.replace(/\{([^}]+)\}/g, (match, content) => {
-    return `the set ${processMathExpression(content)}`;
-  });
-
-  return processed.replace(/\s+/g, ' ').trim();
-};
-
+// Enhanced language detection
 export const detectLanguage = (text) => {
   const banglaRegex = /[\u0980-\u09FF]/;
-  return banglaRegex.test(text) ? 'bn-BD' : 'en-US';
+  const banglaWords = /(এক|দুই|তিন|চার|পাঁচ|ছয়|সাত|আট|নয়|দশ|গণিত|বিজ্ঞান|ইতিহাস|বাংলা|অধ্যায়|পাঠ|সমস্যা|সমাধান|উত্তর|প্রশ্ন)/;
+  const banglaCommonWords = /(হলো|হবে|আছে|করে|করা|এর|তার|সেই|এই|যে|কি|কেন|কিভাবে|যেমন|তেমন|অথবা|এবং|কিন্তু|তবে|যদি|তাহলে)/;
+  
+  return (banglaRegex.test(text) || banglaWords.test(text) || banglaCommonWords.test(text)) ? 'bn-BD' : 'en-US';
+};
+
+// Main preprocessing function
+export const preprocessText = (text) => {
+  const language = detectLanguage(text);
+  
+  if (language === 'bn-BD') {
+    return preprocessBanglaText(text);
+  } else {
+    // English preprocessing
+    let processed = text;
+    
+    // Clean punctuation first (before other processing)
+    processed = cleanPunctuation(processed, language);
+    
+    // Process markdown
+    processed = processMarkdown(processed, language);
+
+    // Process numbers
+    processed = processed.replace(/\b(-?\d+\.?\d*)\b/g, (match) => {
+      return numberToWords(parseFloat(match));
+    });
+
+    // Handle variables/constants
+    const isTeachingContext = /(variable|constant)\s+[a-z]/i.test(processed);
+    if (!isTeachingContext) {
+      processed = processed.replace(/(^|\s)([xyz])(\s|$)/gi, '$1$2$3');
+      processed = processed.replace(/(^|\s)([abc])(\s|$)/gi, '$1$2$3');
+    }
+
+    // Handle set notation
+    processed = processed.replace(/\{([^}]+)\}/g, (match, content) => {
+      return `the set ${processMathExpression(content, language)}`;
+    });
+
+    return processed.replace(/\s+/g, ' ').trim();
+  }
 };
