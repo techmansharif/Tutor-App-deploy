@@ -69,6 +69,16 @@ useEffect(() => {
 
   const fetchExplain = async (query, isInitial = false, isExplainAgain = false) => {
     setIsExplainLoading(true);
+     // Add this scroll logic right after setting loading to true
+  if (!isInitial && explanationContainerRef.current) {
+    setTimeout(() => {
+      const container = explanationContainerRef.current;
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 100); // Small delay to ensure loading component is rendered
+  }
     try {
       const response = await axios.post(
         `${API_BASE_URL}/${selectedSubject}/${selectedTopic}/${selectedSubtopic}/explains/`,
