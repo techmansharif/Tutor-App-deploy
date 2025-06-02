@@ -24,6 +24,8 @@ const Explains = ({
   const initialFetchRef = useRef(false);
   const explanationContainerRef = useRef(null);
   const [previousHistoryLength, setPreviousHistoryLength] = useState(0); // Add this
+  const [newlyAddedIndices, setNewlyAddedIndices] = useState(new Set());
+
 
   useEffect(() => {
     if (!initialFetchRef.current) {
@@ -61,7 +63,11 @@ useEffect(() => {
     }
   }
 }, [explanationHistory, isExplainLoading, previousHistoryLength]);
-  const fetchExplain = async (query, isInitial = false) => {
+
+
+
+
+  const fetchExplain = async (query, isInitial = false, isExplainAgain = false) => {
     setIsExplainLoading(true);
     try {
       const response = await axios.post(
@@ -75,10 +81,14 @@ useEffect(() => {
       
       if (response.data.answer === "Congratulations, you have mastered the topic!") {
         setExplainFinished(true);
-        setExplanationHistory((prev) => [
-          ...prev,
-          { text: response.data.answer, image: null }
-        ]);
+        setExplanationHistory((prev) => {
+  const newHistory = [...prev, { text: response.data.answer, image: null }];
+  if (!isExplainAgain) { // CHANGED - only mark as newest if not "explain again"
+    setNewlyAddedIndices(new Set([newHistory.length - 1]));
+  }
+  return newHistory;
+});
+          
       } else if (response.data.initial_response && isInitial) {
         // Handle initial response with previous answers from chat_memory
         const answers = response.data.initial_response.map(answer => ({
@@ -87,10 +97,13 @@ useEffect(() => {
         }));
         setExplanationHistory((prev) => [...prev, ...answers]);
       } else {
-        setExplanationHistory((prev) => [
-          ...prev,
-          { text: response.data.answer, image: response.data.image }
-        ]);
+        setExplanationHistory((prev) => {
+  const newHistory = [...prev, { text: response.data.answer, image: null }];
+  if (!isExplainAgain) { // CHANGED - only mark as newest if not "explain again"
+    setNewlyAddedIndices(new Set([newHistory.length - 1]));
+  }
+  return newHistory;
+});
       }
     } catch (error) {
       console.error('Error fetching explanation:', error);
@@ -105,7 +118,7 @@ useEffect(() => {
   };
 
   const handleExplainAgain = () => {
-    fetchExplain("explain");
+    fetchExplain("explain",false,true);
   };
 
   const handleCustomQuery = () => {
@@ -125,9 +138,9 @@ useEffect(() => {
   return (
     <div className="explains-component-container">
  <div className="explains-header-compact">
-  <h1 className="subject">{selectedSubject}</h1>
-  <h1 className="topic">{selectedTopic}</h1>
-  <h1 className="subtopic">{selectedSubtopic}</h1>
+  <h2 className="subject">{selectedSubject}</h2>
+  <h2 className="topic">{selectedTopic}</h2>
+  <h2 className="subtopic">{selectedSubtopic}</h2>
 </div>
 
 
@@ -161,7 +174,7 @@ useEffect(() => {
   ref={explanationContainerRef}
 >
         {explanationHistory.map((entry, index) => (
-          <div key={index} className="explanation-entry">
+       <div key={index} className={`explanation-entry ${newlyAddedIndices.has(index) ? 'newest-entry' : ''}`}> {/* CHANGED - add conditional class for green styling */}
                <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>
             <ReactMarkdown
               children={processExplanation(entry.text)}
