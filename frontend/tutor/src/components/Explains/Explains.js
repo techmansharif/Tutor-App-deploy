@@ -25,7 +25,7 @@ const Explains = ({
   const explanationContainerRef = useRef(null);
   const [previousHistoryLength, setPreviousHistoryLength] = useState(0); // Add this
   const [newlyAddedIndices, setNewlyAddedIndices] = useState(new Set());
-
+ const [explainAgainIndices, setExplainAgainIndices] = useState(new Set());
 
   useEffect(() => {
     if (!initialFetchRef.current) {
@@ -97,14 +97,18 @@ useEffect(() => {
         }));
         setExplanationHistory((prev) => [...prev, ...answers]);
       } else {
-        setExplanationHistory((prev) => {
-  const newHistory = [...prev, { text: response.data.answer, image: null }];
-  if (!isExplainAgain) { // CHANGED - only mark as newest if not "explain again"
-    setNewlyAddedIndices(new Set([newHistory.length - 1]));
-  }
-  return newHistory;
-});
-      }
+  setExplanationHistory((prev) => {
+    const newHistory = [...prev, { text: response.data.answer, image: null }];
+    if (isExplainAgain) {
+      setExplainAgainIndices(new Set([newHistory.length - 1]));
+      setNewlyAddedIndices(new Set()); // Clear previous newest entries
+    } else if (!isExplainAgain) {
+      setNewlyAddedIndices(new Set([newHistory.length - 1]));
+      setExplainAgainIndices(new Set()); // Clear previous explain-again entries
+    }
+    return newHistory;
+  });
+}
     } catch (error) {
       console.error('Error fetching explanation:', error);
       alert('Error fetching explanation. Please try again.');
@@ -132,6 +136,8 @@ useEffect(() => {
     setExplanationHistory([]);
     setExplainFinished(false);
       setPreviousHistoryLength(0); // Add this line
+        setNewlyAddedIndices(new Set()); // Add this
+  setExplainAgainIndices(new Set()); // Add this
     fetchExplain("refresh");
   };
 
@@ -174,7 +180,7 @@ useEffect(() => {
   ref={explanationContainerRef}
 >
         {explanationHistory.map((entry, index) => (
-       <div key={index} className={`explanation-entry ${newlyAddedIndices.has(index) ? 'newest-entry' : ''}`}> {/* CHANGED - add conditional class for green styling */}
+      <div key={index} className={`explanation-entry ${newlyAddedIndices.has(index) ? 'newest-entry' : ''} ${explainAgainIndices.has(index) ? 'explain-again-entry' : ''}`}>
                <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>
             <ReactMarkdown
               children={processExplanation(entry.text)}

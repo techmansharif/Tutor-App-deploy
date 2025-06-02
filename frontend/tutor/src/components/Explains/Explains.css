@@ -287,6 +287,12 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
   border-left: 4px solid #28a745; /* Green border matching button */
   background-color: #FFD966; /* Light green background */
 }
+
+/* Add this after the existing .newest-entry class */
+.explanation-entry.explain-again-entry {
+  border-left: 4px solid #00bcd4; /* Cyan border matching the button theme */
+  background-color: #E0F7FF; /* Light cyan background */
+}
 .explain-controls-component {
   margin-top: 5px;
   margin-bottom: 8px;
