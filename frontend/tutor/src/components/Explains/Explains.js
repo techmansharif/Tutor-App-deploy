@@ -134,7 +134,7 @@ useEffect(() => {
 <div className="button-row">
 <div className="button-with-text">
   <button onClick={handleContinueExplain} className="primary-button-component">
-   Next Topic
+   Next Section
   </button>
 
 </div>

@@ -214,7 +214,7 @@ const renderNavigationButtons = () => {
           className={`nav-button ${quizStage === 'practice' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
         >
-          PRACTISE  
+          PRACTICE  
           <div style={{ fontSize: '0.8em' }}>Practise the subject</div> 
         </button>
         
@@ -223,7 +223,7 @@ const renderNavigationButtons = () => {
           className={`nav-button ${quizStage === 'quiz' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
         > 
-          Quiz  
+          QUIZ  
           <div style={{ fontSize: '0.8em' }}>Check your progress </div>
         </button>
         

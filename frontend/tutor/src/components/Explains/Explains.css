@@ -173,18 +173,18 @@ code {
 .primary-button-component {
   background-color: #28a745;
   color: white;
-  padding: 8px 16px; /* Changed from 12px to accommodate text */
+  padding: 10px 18px; /* Changed from 12px to accommodate text */
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px; /* Reduced from 16px */
+  font-size: 15px; /* Reduced from 16px */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   width: auto; /* Changed from 50px */
   min-width: 120px; /* Added minimum width */
-  height: 50px;
+  height: 53px;
   box-sizing: border-box;
 }
 
@@ -197,18 +197,18 @@ code {
 .secondary-button-component {
   background-color: #007bff; /* Changed from blue to a nicer shade */
   color: white;
-  padding: 8px 16px; /* Changed from 12px */
+  padding: 10px 18px;/* Changed from 12px */
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px; /* Reduced from 16px */
+  font-size: 15px; /* Reduced from 16px */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   width: auto; /* Changed from 50px */
-  min-width: 140px; /* Added minimum width */
-  height: 50px;
+  min-width: 120px; /* Added minimum width */
+  height: 53px;
   box-sizing: border-box;
      text-align: center;
     line-height: 1.2;

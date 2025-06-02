@@ -170,7 +170,7 @@ useEffect(() => {
         </div>
         
        <div style={{ marginTop: '20px', fontSize: '1.1em', fontWeight: 'bold', alignItems: 'center' }}>
-  Please Select any one of the following to proceed
+  Please select an item below
 </div>
 
       </form>
