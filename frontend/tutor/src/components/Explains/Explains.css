@@ -171,44 +171,44 @@ code {
 
 
 .primary-button-component {
-  background-color: #28a745;
-  color: white;
-  padding: 8px 16px; /* Changed from 12px to accommodate text */
+  background-color:#FFE49F;
+  color: blue;
+  padding: 10px 18px; /* Changed from 12px to accommodate text */
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px; /* Reduced from 16px */
+  font-size: 15px; /* Reduced from 16px */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   width: auto; /* Changed from 50px */
   min-width: 120px; /* Added minimum width */
-  height: 50px;
+  height: 53px;
   box-sizing: border-box;
 }
 
 
 .primary-button-component:hover {
-  background-color: #218838;
+  background-color: #FFC934;;
 }
 
 
 .secondary-button-component {
-  background-color: #007bff; /* Changed from blue to a nicer shade */
-  color: white;
-  padding: 8px 16px; /* Changed from 12px */
+  background-color: #BDFFFA; /* Changed from blue to a nicer shade */
+  color: blue;
+  padding: 10px 18px;/* Changed from 12px */
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px; /* Reduced from 16px */
+  font-size: 15px; /* Reduced from 16px */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   width: auto; /* Changed from 50px */
-  min-width: 140px; /* Added minimum width */
-  height: 50px;
+  min-width: 120px; /* Added minimum width */
+  height: 53px;
   box-sizing: border-box;
      text-align: center;
     line-height: 1.2;
@@ -217,7 +217,7 @@ code {
 
 
 .secondary-button-component:hover {
-  background-color: #0056b3; /* Updated hover color */
+  background-color: #9DEFEA; /* Updated hover color */
 }
 
 
@@ -275,14 +275,18 @@ code {
   margin-bottom: 25px;
   padding: 20px;
   border-left: 4px solid #007bff;
-  background-color: #f8f9fa;
+background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa */
   border-radius: 0 8px 8px 0;
 }
 
 .explanation-entry:last-child {
   margin-bottom: 0;
 }
-
+/* NEWLY ADDED - Green styling for newly added entries */
+.explanation-entry.newest-entry {
+  border-left: 4px solid #28a745; /* Green border matching button */
+  background-color: #FFD966; /* Light green background */
+}
 .explain-controls-component {
   margin-top: 5px;
   margin-bottom: 8px;
