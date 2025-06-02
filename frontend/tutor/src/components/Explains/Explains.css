@@ -287,6 +287,12 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
   border-left: 4px solid #28a745; /* Green border matching button */
   background-color: #FFD966; /* Light green background */
 }
+
+/* Add this after the existing .newest-entry class */
+.explanation-entry.explain-again-entry {
+  border-left: 4px solid #00bcd4; /* Cyan border matching the button theme */
+  background-color: #E0F7FF; /* Light cyan background */
+}
 .explain-controls-component {
   margin-top: 5px;
   margin-bottom: 8px;
@@ -351,18 +357,18 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
 .restart-button-component {
   background-color: white;
   color: red;
-  padding: 12px 16px; /* Added horizontal padding */
-  border: 2px solid red;
+  padding: 10px 18px; /* CHANGED - Match other buttons' padding */
+  border: 1px solid red;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px; /* CHANGED - Match other buttons' font size */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  width: auto; /* Changed from 50px to auto */
-  min-width: 160px; /* Minimum width to accommodate text */
-  height: 50px;
+  width: auto;
+  min-width: 140px; /* CHANGED - Match other buttons' min-width */
+  height: 53px; /* CHANGED - Match other buttons' exact height */
   box-sizing: border-box;
 }
 
@@ -487,14 +493,14 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
   }
   
   .restart-button-component {
-    min-width: 120px;
-    height: 40px;
+    min-width: 100px;
+    height: 45px;
     padding: 8px 12px;
   }
   
   .restart-button-component svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
   
   .button-text {
@@ -526,13 +532,13 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
   
   .restart-button-component {
     min-width: 100px;
-    height: 35px;
+    height: 45px;
     padding: 6px 10px;
   }
   
   .restart-button-component svg {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
   }
   
   .button-text {
