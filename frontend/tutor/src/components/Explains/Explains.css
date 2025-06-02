@@ -474,10 +474,11 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
 @media (max-width: 768px) {
   .primary-button-component,
   .secondary-button-component {
-    width: 40px;
-
-    height: 40px;
-    padding: 8px;
+      width: auto; /* CHANGED - Keep auto width instead of 40px */
+    min-width: 100px; /* CHANGED - Maintain minimum width */
+    height: 40px; /* CHANGED - Keep reasonable height instead of 40px */
+    padding: 8px 12px; /* CHANGED - Keep horizontal padding for text */
+    font-size: 13px; /* CHANGED - Slightly smaller font but still readable */
   }
   
   .primary-button-component::before,
@@ -508,13 +509,14 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
 }
 
 
-
 @media (max-width: 480px) {
   .primary-button-component,
   .secondary-button-component {
-    width: 35px;
-    height: 35px;
-    padding: 6px;
+    width: auto; /* CHANGED - Keep auto width instead of 35px */
+    min-width: 90px; /* CHANGED - Maintain minimum width for small screens */
+    height: 45px; /* CHANGED - Keep reasonable height instead of 35px */
+    padding: 6px 10px; /* CHANGED - Keep horizontal padding for text */
+    font-size: 13px; /* CHANGED - Smaller font but still readable */
   }
   
   .primary-button-component::before,
