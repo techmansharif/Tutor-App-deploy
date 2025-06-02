@@ -459,6 +459,17 @@ code {
 .explains-header-compact .subtopic {
   color: black;
 }
+
+.subject{
+  font-size: 1.6rem; /* Between h1 (2rem) and h2 (1.5rem) */
+}
+.topic{
+  font-size: 1.6em;
+}
+.subtopic{
+  font-size: 1.6rem;
+}
+
 /* Responsive button sizes */
 @media (max-width: 768px) {
   .primary-button-component,
@@ -495,6 +506,8 @@ code {
     margin-left: 3px;
   }
 }
+
+
 
 @media (max-width: 480px) {
   .primary-button-component,

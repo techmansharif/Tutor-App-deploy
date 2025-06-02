@@ -168,16 +168,11 @@ useEffect(() => {
             ))}
           </select>
         </div>
+        
+       <div style={{ marginTop: '20px', fontSize: '1.1em', fontWeight: 'bold', alignItems: 'center' }}>
+  Please Select any one of the following to proceed
+</div>
 
-       <button
-  type="button"
-  onClick={handleConfirmSelection}
-  disabled={!selectedSubject || !selectedTopic || !selectedSubtopic}
-  className="explain-button"
->
-  EXPLAIN
-  <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div>
-</button>
       </form>
     </div>
   );
