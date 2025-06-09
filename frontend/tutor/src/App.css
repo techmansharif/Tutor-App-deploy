@@ -109,48 +109,59 @@ footer {
 }
 
 /* Individual button colors with light RGB backgrounds */
+/* Assessment button (new first button) */
 .nav-button:nth-child(1) {
+  background-color: rgb(255, 220, 180); /* Light orange */
+}
+
+.nav-button:nth-child(1):hover {
+  background-color: rgb(255, 205, 160); /* Slightly deeper orange on hover */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.nav-button:nth-child(2) {
   background-color: rgb(255, 200, 200); /* Light red */
 }
 
-.nav-button:nth-child(2) {
+.nav-button:nth-child(3) {
   background-color: rgb(200, 255, 200); /* Light green */
 }
 
-.nav-button:nth-child(3) {
+.nav-button:nth-child(4) {
   background-color: rgb(200, 220, 255); /* Light blue */
 }
 
-.nav-button:nth-child(4) {
+.nav-button:nth-child(5) {
   background-color: rgb(255, 255, 200); /* Light yellow */
 }
 
-.nav-button:nth-child(5) {
+.nav-button:nth-child(6) {
   background-color: rgb(240, 200, 255); /* Light purple */
 }
 
 /* Hover effects for each button */
-.nav-button:nth-child(1):hover {
+.nav-button:nth-child(2):hover {
   background-color: rgb(255, 180, 180); /* Slightly more red on hover */
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
-.nav-button:nth-child(2):hover {
+.nav-button:nth-child(3):hover {
   background-color: rgb(180, 255, 180); /* Slightly more green on hover */
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
-.nav-button:nth-child(3):hover {
+.nav-button:nth-child(4):hover {
   background-color: rgb(180, 200, 255); /* Slightly more blue on hover */
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
-.nav-button:nth-child(4):hover {
+.nav-button:nth-child(5):hover {
   background-color: rgb(255, 255, 180); /* Slightly more yellow on hover */
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
-.nav-button:nth-child(5):hover {
+.nav-button:nth-child(6):hover {
   background-color: rgb(230, 180, 255); /* Slightly more purple on hover */
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }

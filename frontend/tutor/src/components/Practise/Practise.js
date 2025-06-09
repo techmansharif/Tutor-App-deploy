@@ -217,7 +217,12 @@ const fetchPracticeQuestion = async (submission = null) => {
   return (
     <div className="practice-quiz-container">
       <div className="quiz-header">
-        <h2>Practice Quiz: {subject} - {topic} - {subtopic}</h2>
+         <div className="quiz-title-section">
+                  <h2>Practice</h2>
+                  <h3>{subject}</h3>
+                  <h3>{topic}</h3>
+                  <h3>{subtopic}</h3>
+         </div>
         <button onClick={handleRestart} className="restart-button">
           Restart Practice
         </button>
@@ -240,9 +245,9 @@ const fetchPracticeQuestion = async (submission = null) => {
         <div style={{ width: '100%' }}>
           <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: '2px' }}>
-          <span style={{ fontWeight: 'normal' , fontSize: '0.7em'}}>Integrity mode (helps you answer faster)</span>
-          <span style={{ fontWeight: 'normal', fontSize: '0.7em' }}>{integrityScore}%</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: '1px' }}>
+          <span style={{ fontWeight: 'normal' , fontSize: '0.7em',color:'blue'}}>Integrity mode (helps you answer faster)</span>
+          <span style={{ fontWeight: 'normal', fontSize: '0.7em' ,color:'blue'}}>{integrityScore}%</span>
         </div>
       </div>
       <div className="question-container"  >

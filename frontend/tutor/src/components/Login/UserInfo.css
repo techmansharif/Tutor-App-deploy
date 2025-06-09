@@ -10,9 +10,10 @@
   display: flex;
   align-items: center;
   background-color: #FFD966; /* White background for the box */
-  border: 1px solid #e6bf5c; /* Slightly darker shade *//* Light border to define the box */
+  border: none; /* Slightly darker shade *//* Light border to define the box */
   border-radius: 5px; /* Rounded corners for the box */
   padding: 2px 5px; /* Small padding inside the box */
+  margin-top:10px;
   position: relative
 }
 
@@ -21,9 +22,12 @@
   height: 40px;
   border-radius: 50%; /* Already applied via rounded-full, but for clarity */
   object-fit: cover;
-  border: 2px solid #fff; /* White border to enhance circular look */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
-}
+    
+  border: none; /* White border to enhance circular look */
+
+  /* border: 2px solid #fff; /* White border to enhance circular look */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); Slight shadow for depth */
+} 
 
 .dropdown-toggle {
   background: none;

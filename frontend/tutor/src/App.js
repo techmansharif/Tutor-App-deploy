@@ -193,6 +193,13 @@ const renderNavigationButtons = () => {
     <div className='navigation-button-container'>
       <div className="navigation-buttons">
         <button 
+              onClick={() => handleStageChange('quiz1')} 
+              className={`nav-button ${quizStage === 'quiz1' ? 'nav-button-active' : ''}`}
+            >
+              ASSESSMENT
+              <div style={{ fontSize: '0.8em' }}>Initial skill check</div>
+        </button>
+        <button 
           onClick={() => handleStageChange('selection')} 
           className={`nav-button ${quizStage === 'selection' ? 'nav-button-active' : ''}`}
         >
@@ -246,7 +253,7 @@ const renderNavigationButtons = () => {
   return (
     <div className="App min-h-screen flex flex-col">
       <header className="App-header bg-gray-800 text-white p-4 text-center">
-       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop:'10px' }}>
         <h1 className="text-3xl">BRIM AI TUTOR</h1>
         <p
           style={{ marginTop: '5px', color: 'rgb(15, 15, 15)' }}

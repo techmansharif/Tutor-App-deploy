@@ -18,17 +18,23 @@ const [selectedSubtopic, setSelectedSubtopic] = useState(initialValues?.selected
   // Fetch subjects when the component mounts
   useEffect(() => {
     const fetchSubjects = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/subjects/`, {
-          headers: { 'user-id': user.user_id },
-          withCredentials: true
-        });
-        setSubjects(response.data);
-      } catch (error) {
-        console.error('Error fetching subjects:', error);
-        alert('Error fetching subjects. Please try again.');
-      }
-    };
+     try {
+    const response = await axios.get(`${API_BASE_URL}/subjects/`, {
+      headers: { 'user-id': user.user_id },
+      withCredentials: true
+    });
+    
+    // Filter out unwanted subjects
+    const filteredSubjects = response.data.filter(subject => 
+      !['Higher Math', 'General Math', 'quiz1'].includes(subject.name)
+    );
+    
+    setSubjects(filteredSubjects);
+  } catch (error) {
+    console.error('Error fetching subjects:', error);
+    alert('Error fetching subjects. Please try again.');
+  }
+};
     fetchSubjects();
   }, [API_BASE_URL, user.user_id]);
 
@@ -113,7 +119,7 @@ useEffect(() => {
       <h2>Please Select</h2>
       <form onSubmit={handleConfirmSelection}>
         <div className="selection-group-component">
-          <label>Subject:</label>
+          <label>Subject</label>
           <select
             value={selectedSubject}
             onChange={(e) => {
@@ -133,7 +139,7 @@ useEffect(() => {
         </div>
 
         <div className="selection-group-component">
-          <label>Topic:</label>
+          <label>Topic</label>
           <select
             value={selectedTopic}
             onChange={(e) => {
@@ -153,7 +159,7 @@ useEffect(() => {
         </div>
 
         <div className="selection-group-component">
-          <label>Subtopic:</label>
+          <label>Subtopic</label>
           <select
             value={selectedSubtopic}
             onChange={(e) => setSelectedSubtopic(e.target.value)}
@@ -169,7 +175,10 @@ useEffect(() => {
           </select>
         </div>
         
-       <div style={{ marginTop: '20px', fontSize: '1.1em', fontWeight: 'bold', alignItems: 'center' }}>
+       {/* <div style={{ marginTop: '20px', fontSize: '1.1em', fontWeight: 'normal', alignItems: 'center', textAlign:'center' }}>
+  Please select an item below
+</div> */}
+       <div class="select-item-text">
   Please select an item below
 </div>
 

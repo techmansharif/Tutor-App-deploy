@@ -24,6 +24,10 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
     const [image2, setImage2] = useState(null); // State for incorrect answer image
   
 
+// 1. Add this new state variable with your other useState declarations:
+const [completionDate, setCompletionDate] = useState('');
+
+
   // Integrity score hook
   const {
     questionStartTime,
@@ -83,6 +87,16 @@ const fetchQuizQuestion = async (submission = null) => {
       } else if (message) {
         setIsComplete(true);
         setCompletionMessage(message);
+
+                // Add this line to capture completion date:
+        const now = new Date();
+        const formattedDate = now.toLocaleDateString('en-GB', { 
+          day: '2-digit', 
+          month: 'short', 
+          year: 'numeric' 
+        }).replace(/ /g, '-').toUpperCase();
+        setCompletionDate(formattedDate);
+
         setAttemptId(attempt_id);
         // Set questions tried and score if provided
         if (questions_tried !== undefined && questions_tried !== null) {
@@ -184,14 +198,18 @@ const fetchQuizQuestion = async (submission = null) => {
   if (isComplete) {
     return (
       <div className="practice-quiz-container">
-        <h2>Quiz Session Complete</h2>
-        <p>{completionMessage}</p>
-        <p>Score: {score} / {questionsTried}</p>
-        <p>Total Questions Tried: {questionsTried}</p>
-        <p>Final Difficulty Level: {hardnessLevel}</p>
-        <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
+        <h2>Assessment Complete</h2>
+       
+          <p style={{ textAlign: 'center'}}>
+        {completionDate}
+      </p>
+      <p> {completionMessage}</p>
+    <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Score: {score} / {questionsTried}</p>
+        <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Total Questions Tried: {questionsTried}</p>
+        <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Final Difficulty Level: {hardnessLevel}</p>
+        <div style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Integrity Level<span style={{ fontSize: '0.9em', color: '#666' }}>(helps you answer faster)</span>: {integrityScore}%</div>
         <button onClick={handleCompleteQuiz} className="primary-button">
-          Return to Dashboard
+          Return to Selection
         </button>
       </div>
     );
@@ -211,7 +229,12 @@ const fetchQuizQuestion = async (submission = null) => {
   return (
   <div className="practice-quiz-container">
  <div className="quiz-header">
-      <h2>Quiz: {subject} - {topic} - {subtopic}</h2>
+         <div className="quiz-title-section">
+                  <h2>Quiz</h2>
+                  <h3>{subject}</h3>
+                  <h3>{topic}</h3>
+                  <h3>{subtopic}</h3>
+         </div>
     </div>
     <div className="quiz-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
       <div className="left-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
@@ -232,8 +255,8 @@ const fetchQuizQuestion = async (submission = null) => {
         <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: '2px' }}>
-        <span style={{ fontWeight: 'normal', fontSize: '0.7em' }}>Integrity mode (helps you answer faster)</span>
-        <span style={{ fontWeight: 'normal', fontSize: '0.7em' }}>{integrityScore}%</span>
+        <span style={{ fontWeight: 'normal', fontSize: '0.7em', color:'blue'}}>Integrity mode (helps you answer faster)</span>
+        <span style={{ fontWeight: 'normal', fontSize: '0.7em' ,color:'blue'}}>{integrityScore}%</span>
       </div>
     </div>
     <div className="question-container">
