@@ -630,7 +630,7 @@ Instructions:
     else:
         prompt=prompt+"\n"+"4. Reply in very simpler English and write meaning around difficult word if necessary"
 
-
+    print(f'\n\n {query}\n\n')
     # Generate response
     response = gemini_model.generate_content(prompt)
 
