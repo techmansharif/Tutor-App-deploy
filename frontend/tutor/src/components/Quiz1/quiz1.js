@@ -160,8 +160,8 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
   if (isComplete) {
     return (
       <div className="quiz1-container">
-        <h2>Quiz1 Session Complete</h2>
-        <p>{completionMessage}</p>
+        <h2>Assessment Complete</h2>
+        <p>You have completed the Assesment! Check your scores.</p>
         <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Score: {score} / {questionsTried}</p>
         <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Total Questions Tried: {questionsTried}</p>
         <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Final Difficulty Level: {hardnessLevel}</p>

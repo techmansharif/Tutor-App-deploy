@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+
 .explains-component-container {
   max-width: 800px;
   margin: 0 auto;
@@ -186,6 +188,7 @@ code {
   min-width: 120px; /* Added minimum width */
   height: 53px;
   box-sizing: border-box;
+  margin-right:6px
 }
 
 
@@ -454,26 +457,28 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
   line-height: 1.2; /* Tighter line spacing */
 }
 
+.explains-header-compact .subject,
+.explains-header-compact .topic,
+.explains-header-compact .subtopic 
+ {
+  color: #1a6c7b;
+}
+
+
 .explains-header-compact .subject {
-  color: black;
+  font-size: 2rem; /* Between h1 (2rem) and h2 (1.5rem) */
+    font-family: 'Lato', sans-serif;
+  font-weight: 700; /* or font-weight: bold; */
 }
-
-.explains-header-compact .topic {
-  color: black;
-}
-
-.explains-header-compact .subtopic {
-  color: black;
-}
-
-.subject{
-  font-size: 1.6rem; /* Between h1 (2rem) and h2 (1.5rem) */
-}
-.topic{
+.explains-header-compact .topic{
   font-size: 1.6em;
+    font-family: 'Lato', sans-serif;
+  font-weight: 700; /* or font-weight: bold; */
 }
-.subtopic{
-  font-size: 1.6rem;
+.explains-header-compact .subtopic{
+  font-size: 1.3rem;
+    font-family: 'Lato', sans-serif;
+  font-weight: 700; /* or font-weight: bold; */
 }
 
 /* Responsive button sizes */
@@ -493,18 +498,18 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
   }
   
   .restart-button-component {
-    min-width: 100px;
+    min-width: 110px;
     height: 45px;
     padding: 8px 12px;
   }
   
   .restart-button-component svg {
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
   }
   
   .button-text {
-    font-size: 12px;
+    font-size: 13px;
   }
   
   .button-label-1,
@@ -531,18 +536,18 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
   }
   
   .restart-button-component {
-    min-width: 100px;
+    min-width: 110px;
     height: 45px;
     padding: 6px 10px;
   }
   
   .restart-button-component svg {
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
   }
   
   .button-text {
-    font-size: 10px;
+    font-size: 13px;
   }
   
   .button-label-1,

@@ -113,7 +113,7 @@ useEffect(() => {
       <h2>Please Select</h2>
       <form onSubmit={handleConfirmSelection}>
         <div className="selection-group-component">
-          <label>Subject:</label>
+          <label>Subject</label>
           <select
             value={selectedSubject}
             onChange={(e) => {
@@ -133,7 +133,7 @@ useEffect(() => {
         </div>
 
         <div className="selection-group-component">
-          <label>Topic:</label>
+          <label>Topic</label>
           <select
             value={selectedTopic}
             onChange={(e) => {
@@ -153,7 +153,7 @@ useEffect(() => {
         </div>
 
         <div className="selection-group-component">
-          <label>Subtopic:</label>
+          <label>Subtopic</label>
           <select
             value={selectedSubtopic}
             onChange={(e) => setSelectedSubtopic(e.target.value)}
@@ -169,7 +169,10 @@ useEffect(() => {
           </select>
         </div>
         
-       <div style={{ marginTop: '20px', fontSize: '1.1em', fontWeight: 'bold', alignItems: 'center' }}>
+       {/* <div style={{ marginTop: '20px', fontSize: '1.1em', fontWeight: 'normal', alignItems: 'center', textAlign:'center' }}>
+  Please select an item below
+</div> */}
+       <div class="select-item-text">
   Please select an item below
 </div>
 

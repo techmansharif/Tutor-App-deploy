@@ -1,5 +1,5 @@
 .cheating-detection {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .progress-bar-container {
@@ -7,7 +7,7 @@
   height: 10px;
   background-color: #cefad0;
   border-radius: 5px;
-  margin: 10px 0;
+  margin: 2px 0;
 }
 
 .progress-bar {

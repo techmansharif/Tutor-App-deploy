@@ -6,22 +6,40 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.selection-component-container h2 {
+  color: #1a6c7b;
+  font-size: 2rem;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
 
 .selection-group-component {
   margin: 15px 0;
-  text-align: center;
+  text-align: center; /* Keep center for the container */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the elements */
 }
 
 .selection-group-component label {
-  display: inline-block;
-  width: 100px;
+  display: block;
+  width: 300px; /* Match the select width */
+  text-align: left; /* Left-align the text within the label */
+  margin-bottom: 8px;
+  font-weight:bold;
 }
 
 .selection-group-component select {
   padding: 8px;
-  width: 300px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  width: 300px; /* Fixed width to match label */
+  border: 1.5px solid #1a6c7b;
+  border-radius: 10px;
+    color: #1a6c7b; /* Add this line */
+  font-family: 'Lato', sans-serif; /* Add this line */
+  font-weight: 700; /* Add this line for bold */
+  font-size: 1rem; /* Optional: adjust size if needed */
+  
 }
 
 .selection-component-container button {
@@ -57,4 +75,14 @@
 
 .explain-button:hover:not(:disabled) {
   background-color: #218838;
+}
+
+.select-item-text{
+margin-top:20px;
+text-align:center;
+font-size: 1.1em;
+font-weight:normal;
+color:#1a6c7b;
+font-style:italic;
+font-family:sans-serif
 }
