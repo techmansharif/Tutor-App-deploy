@@ -20,7 +20,8 @@ backend/app/Images/
 dist/
 build/
 *.log
-
+backend/app/router/__pycache__/quizzes.cpython-312.pyc
+backend/app/__pycache__/main.cpython-312.pyc
 
 # React/Node.js-specific ignores for frontend/tutor/
 frontend/tutor/node_modules/
