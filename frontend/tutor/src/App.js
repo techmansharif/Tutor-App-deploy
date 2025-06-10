@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import Quiz1 from './components/Quiz1/quiz1';
-import Selection from './components/Selection/Selection';
-import Explains from './components/Explains/Explains';
-import PracticeQuiz from './components/Practise/Practise';
-import Quiz from './components/Quiz/quiz';
+import React, { useState, useEffect,Suspense,lazy } from 'react';
+
+
 import Login from './components/Login/Login';
 import UserInfo from './components/Login/UserInfo'; // Added import
-import Welcome from './components/Welcome/Welcome';
-import Dashboard from './components/Dashboard/Dashboard';
+
 import axios from 'axios';
 import './App.css';
+// Lazy load the heavy components
+const Quiz1 = lazy(() => import('./components/Quiz1/quiz1'));
+const Selection = lazy(() => import('./components/Selection/Selection'));
+const Explains = lazy(() => import('./components/Explains/Explains'));
+const PracticeQuiz = lazy(() => import('./components/Practise/Practise'));
+const Quiz = lazy(() => import('./components/Quiz/quiz'));
+const Welcome = lazy(() => import('./components/Welcome/Welcome'));
+const Dashboard = lazy(() => import('./components/Dashboard/Dashboard'));
 
 function App() {
   const [user, setUser] = useState(null);
@@ -126,6 +130,9 @@ const onSelectionChange = (values) => {
     <Login API_BASE_URL={API_BASE_URL}/>
   );
     }
+     return (
+    <Suspense fallback={<div className="text-center mt-10">Loading...</div>}>
+      {(() => {
 
     switch (quizStage) {
       case 'welcome':
@@ -180,7 +187,9 @@ const onSelectionChange = (values) => {
   );
       default:
         return <Quiz1 user={user} API_BASE_URL={API_BASE_URL} onCompleteQuiz={onQuiz1Complete} />;
-    }
+    }   })()}
+    </Suspense>
+  );
   };
 
 const renderNavigationButtons = () => {
