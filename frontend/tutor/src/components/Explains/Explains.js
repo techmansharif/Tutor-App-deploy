@@ -163,14 +163,14 @@ useEffect(() => {
 <div className="button-row">
 <div className="button-with-text">
   <button onClick={handleContinueExplain} className="primary-button-component">
-   Next Section
+   পরবর্তী অংশে যান
   </button>
 
 </div>
 
 <div className="button-with-text">
   <button onClick={handleExplainAgain} className="secondary-button-component">
-    Say It <br></br> Differently (AI)
+    নতুনভাবে ও <br/> সহজ করে বলো(AI)
   </button>
  
 </div>

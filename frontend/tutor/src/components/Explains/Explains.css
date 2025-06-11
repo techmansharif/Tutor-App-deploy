@@ -5,12 +5,14 @@
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
+   
 }
 
 .explanation-content-component {
   margin-top: 20px;
   line-height: 1.6;
   overflow-x: auto;
+   min-height: 500px; /* Desktop default */
 }
 
 /* Chat-like container */
