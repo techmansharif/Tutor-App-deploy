@@ -68,32 +68,32 @@ app = FastAPI(title="AITutor Quiz Webapp")
 prometheus_app = make_asgi_app()
 app.mount("/metrics", prometheus_app)
 
-# # Middleware to track metrics for all requests
-# @app.middleware("http")
-# async def add_prometheus_metrics(request: Request, call_next):
-#     start_time = time.time()
-#     method = request.method
-#     path = request.url.path
+# Middleware to track metrics for all requests
+@app.middleware("http")
+async def add_prometheus_metrics(request: Request, call_next):
+    start_time = time.time()
+    method = request.method
+    path = request.url.path
 
-#     # Process the request
-#     response = await call_next(request)
+    # Process the request
+    response = await call_next(request)
 
-#     # Calculate latency
-#     duration = time.time() - start_time
-#     status_code = response.status_code
+    # Calculate latency
+    duration = time.time() - start_time
+    status_code = response.status_code
 
-#     # Record metrics
-#     REQUESTS_TOTAL.labels(
-#         method=method,
-#         endpoint=path,
-#         http_status=status_code
-#     ).inc()
-#     REQUEST_LATENCY.labels(
-#         method=method,
-#         endpoint=path
-#     ).observe(duration)
+    # Record metrics
+    REQUESTS_TOTAL.labels(
+        method=method,
+        endpoint=path,
+        http_status=status_code
+    ).inc()
+    REQUEST_LATENCY.labels(
+        method=method,
+        endpoint=path
+    ).observe(duration)
 
-#     return response
+    return response
 
 
 Base.metadata.create_all(bind=engine)
@@ -134,18 +134,6 @@ GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
 SECRET_KEY = secrets.token_hex(32)
 
 
-
-
-# Add session middleware
-app.add_middleware(
-    SessionMiddleware,
-    secret_key=SECRET_KEY,
-    max_age=60*60*24,
-    same_site="none",
-    https_only=True,
-
-    session_cookie="sessionid"  # More standard name
-)
 # Add CORS middleware for React frontend
 app.add_middleware(
     CORSMiddleware,
@@ -154,10 +142,19 @@ app.add_middleware(
     "https://test-deployment-e19fb.firebaseapp.com",
     "https://brimai-test-v1.web.app"],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["Set-Cookie", "Cookie"]  # Expose cookie headers explicitly
 )
+
+# Add session middleware
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=SECRET_KEY,
+    max_age=60*60,
+    same_site="none",
+    https_only=True
+)
+
 
 # Routes
 @app.get("/api/user")
@@ -181,10 +178,8 @@ async def login(request: Request):
     auth_url = f"{GOOGLE_AUTH_URL}?{urlencode(params)}"
     return RedirectResponse(auth_url)
 
-from fastapi import Response
-
 @app.get("/auth/google/callback")
-async def auth_callback(request: Request):  # Remove response: Response parameter
+async def auth_callback(request: Request):
     code = request.query_params.get("code")
     if not code:
         raise HTTPException(
@@ -246,50 +241,19 @@ async def auth_callback(request: Request):  # Remove response: Response paramete
             picture=user_info.get("picture", "")
         )
         
-        # Create user data dictionary once
-        user_data = {
+        request.session["user"] = {
             "id": user.id,
             "email": user.email,
             "name": user.name,
             "picture": user.picture
         }
         
-        # Set session
-      # Set session
-        request.session["user"] = user_data
-        
-        # Clean up OAuth state
         request.session.pop("oauth_state", None)
         
-        print(f"\n\nhere is user id and mail {user.name}\n{user.email}")
-        
-        # Create response with explicit SameSite=None header manipulation for Firefox
-        response = RedirectResponse(url="https://brimai-test-v1.web.app")
-        
-        # Set manual cookie
-        response.set_cookie(
-            key="user_session",
-            value=base64.b64encode(json.dumps(user_data).encode()).decode(),
-            max_age=60*60*24,
-            secure=True,
-            httponly=False,
-            samesite="none"
-        )
-        
-        # CRITICAL: Manual SameSite=None header fix for Firefox compatibility
-        # This ensures Firefox properly handles the SameSite=None attribute
-        for idx, header in enumerate(response.raw_headers):
-            if header[0].decode("utf-8").lower() == "set-cookie":
-                cookie_value = header[1].decode("utf-8")
-                if "SameSite=None" not in cookie_value and "samesite=none" not in cookie_value.lower():
-                    cookie_value = cookie_value + "; SameSite=None"
-                    response.raw_headers[idx] = (header[0], cookie_value.encode("utf-8"))
-        
-        return response
-        
+        return RedirectResponse(url="https://brimai-test-v1.web.app")
     finally:
         db.close()
-        
+
 @app.get("/logout")
 async def logout(request: Request):
     request.session.pop("user", None)
