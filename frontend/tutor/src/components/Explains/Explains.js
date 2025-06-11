@@ -170,7 +170,7 @@ useEffect(() => {
 
 <div className="button-with-text">
   <button onClick={handleExplainAgain} className="secondary-button-component">
-    নতুনভাবে ও <br/> সহজ করে বলো(AI)
+    নতুনভাবে ও <br/> সহজ করে বলুন(AI)
   </button>
  
 </div>
