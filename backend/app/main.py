@@ -182,8 +182,10 @@ async def login(request: Request):
     auth_url = f"{GOOGLE_AUTH_URL}?{urlencode(params)}"
     return RedirectResponse(auth_url)
 
+from fastapi import Response
+
 @app.get("/auth/google/callback")
-async def auth_callback(request: Request):
+async def auth_callback(request: Request):  # Remove response: Response parameter
     code = request.query_params.get("code")
     if not code:
         raise HTTPException(
@@ -245,19 +247,39 @@ async def auth_callback(request: Request):
             picture=user_info.get("picture", "")
         )
         
-        request.session["user"] = {
+        # Create user data dictionary once
+        user_data = {
             "id": user.id,
             "email": user.email,
             "name": user.name,
             "picture": user.picture
         }
         
+        # Set session
+        request.session["user"] = user_data
+        
+        # Clean up OAuth state
         request.session.pop("oauth_state", None)
         
-        return RedirectResponse(url="https://brimai-test-v1.web.app")
+        print(f"\n\nhere is user id and mail {user.name}\n{user.email}")
+        
+        # Create response with manual cookie for Firefox compatibility
+        response = RedirectResponse(url="https://brimai-test-v1.web.app")
+        response.set_cookie(
+            key="user_session",
+            value=base64.b64encode(json.dumps(user_data).encode()).decode(),
+            max_age=60*60*24,
+            secure=True,
+            httponly=False,  # Allow JS access
+            samesite="none",
+            domain=None
+        )
+        
+        return response
+        
     finally:
         db.close()
-
+        
 @app.get("/logout")
 async def logout(request: Request):
     request.session.pop("user", None)
