@@ -142,17 +142,22 @@ app.add_middleware(
     "https://test-deployment-e19fb.firebaseapp.com",
     "https://brimai-test-v1.web.app"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["Set-Cookie"],  # Add this - KEY for Firefox!
 )
 
 # Add session middleware
 app.add_middleware(
     SessionMiddleware,
     secret_key=SECRET_KEY,
-    max_age=60*60,
+    max_age=60*60*24,
     same_site="none",
-    https_only=True
+    https_only=True,
+    
+    secure=True,      # Add this
+    path="/",         # Add this
+    domain=None       # Add this
 )
 
 
