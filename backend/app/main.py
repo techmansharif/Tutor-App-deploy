@@ -68,32 +68,32 @@ app = FastAPI(title="AITutor Quiz Webapp")
 prometheus_app = make_asgi_app()
 app.mount("/metrics", prometheus_app)
 
-# Middleware to track metrics for all requests
-@app.middleware("http")
-async def add_prometheus_metrics(request: Request, call_next):
-    start_time = time.time()
-    method = request.method
-    path = request.url.path
+# # Middleware to track metrics for all requests
+# @app.middleware("http")
+# async def add_prometheus_metrics(request: Request, call_next):
+#     start_time = time.time()
+#     method = request.method
+#     path = request.url.path
 
-    # Process the request
-    response = await call_next(request)
+#     # Process the request
+#     response = await call_next(request)
 
-    # Calculate latency
-    duration = time.time() - start_time
-    status_code = response.status_code
+#     # Calculate latency
+#     duration = time.time() - start_time
+#     status_code = response.status_code
 
-    # Record metrics
-    REQUESTS_TOTAL.labels(
-        method=method,
-        endpoint=path,
-        http_status=status_code
-    ).inc()
-    REQUEST_LATENCY.labels(
-        method=method,
-        endpoint=path
-    ).observe(duration)
+#     # Record metrics
+#     REQUESTS_TOTAL.labels(
+#         method=method,
+#         endpoint=path,
+#         http_status=status_code
+#     ).inc()
+#     REQUEST_LATENCY.labels(
+#         method=method,
+#         endpoint=path
+#     ).observe(duration)
 
-    return response
+#     return response
 
 
 Base.metadata.create_all(bind=engine)
@@ -134,18 +134,7 @@ GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
 SECRET_KEY = secrets.token_hex(32)
 
 
-# Add CORS middleware for React frontend
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000",
-        "https://test-deployment-e19fb.web.app",
-    "https://test-deployment-e19fb.firebaseapp.com",
-    "https://brimai-test-v1.web.app"],
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["*"],
-    expose_headers=["Set-Cookie", "Cookie"]  # Expose cookie headers explicitly
-)
+
 
 # Add session middleware
 app.add_middleware(
@@ -158,7 +147,18 @@ app.add_middleware(
     domain=None,     # Add this
     session_cookie="sessionid"  # More standard name
 )
-
+# Add CORS middleware for React frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000",
+        "https://test-deployment-e19fb.web.app",
+    "https://test-deployment-e19fb.firebaseapp.com",
+    "https://brimai-test-v1.web.app"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+    expose_headers=["Set-Cookie", "Cookie"]  # Expose cookie headers explicitly
+)
 
 # Routes
 @app.get("/api/user")
