@@ -144,7 +144,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
-    expose_headers=["Set-Cookie"],  # Add this - KEY for Firefox!
+    expose_headers=["Set-Cookie", "Cookie"]  # Expose cookie headers explicitly
 )
 
 # Add session middleware
@@ -155,7 +155,8 @@ app.add_middleware(
     same_site="none",
     https_only=True,
     path="/",         # Add this
-    domain=None       # Add this
+    domain=None,     # Add this
+    session_cookie="sessionid"  # More standard name
 )
 
 
