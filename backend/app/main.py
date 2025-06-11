@@ -143,8 +143,7 @@ app.add_middleware(
     max_age=60*60*24,
     same_site="none",
     https_only=True,
-    path="/",         # Add this
-    domain=None,     # Add this
+
     session_cookie="sessionid"  # More standard name
 )
 # Add CORS middleware for React frontend
@@ -256,6 +255,7 @@ async def auth_callback(request: Request):  # Remove response: Response paramete
         }
         
         # Set session
+      # Set session
         request.session["user"] = user_data
         
         # Clean up OAuth state
@@ -263,17 +263,27 @@ async def auth_callback(request: Request):  # Remove response: Response paramete
         
         print(f"\n\nhere is user id and mail {user.name}\n{user.email}")
         
-        # Create response with manual cookie for Firefox compatibility
+        # Create response with explicit SameSite=None header manipulation for Firefox
         response = RedirectResponse(url="https://brimai-test-v1.web.app")
+        
+        # Set manual cookie
         response.set_cookie(
             key="user_session",
             value=base64.b64encode(json.dumps(user_data).encode()).decode(),
             max_age=60*60*24,
             secure=True,
-            httponly=False,  # Allow JS access
-            samesite="none",
-            domain=None
+            httponly=False,
+            samesite="none"
         )
+        
+        # CRITICAL: Manual SameSite=None header fix for Firefox compatibility
+        # This ensures Firefox properly handles the SameSite=None attribute
+        for idx, header in enumerate(response.raw_headers):
+            if header[0].decode("utf-8").lower() == "set-cookie":
+                cookie_value = header[1].decode("utf-8")
+                if "SameSite=None" not in cookie_value and "samesite=none" not in cookie_value.lower():
+                    cookie_value = cookie_value + "; SameSite=None"
+                    response.raw_headers[idx] = (header[0], cookie_value.encode("utf-8"))
         
         return response
         
