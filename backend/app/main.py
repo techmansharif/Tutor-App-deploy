@@ -154,8 +154,6 @@ app.add_middleware(
     max_age=60*60*24,
     same_site="none",
     https_only=True,
-    
-    secure=True,      # Add this
     path="/",         # Add this
     domain=None       # Add this
 )
