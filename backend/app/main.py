@@ -140,6 +140,15 @@ GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
 SECRET_KEY = secrets.token_hex(32)
 
+# In-memory storage for OAuth states (with expiration)
+oauth_states = {}
+def clean_expired_states():
+    """Remove expired OAuth states"""
+    current_time = time.time()
+    expired_keys = [key for key, (_, timestamp) in oauth_states.items() 
+                   if current_time - timestamp > 300]  # 5 minutes expiry
+    for key in expired_keys:
+        del oauth_states[key]
 
 # Add CORS middleware for React frontend
 app.add_middleware(
@@ -153,14 +162,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Add session middleware
-app.add_middleware(
-    SessionMiddleware,
-    secret_key=SECRET_KEY,
-    max_age=60*60,
-    same_site="lax",
-    https_only=False
-)
+
 
 
 # Routes
@@ -175,11 +177,12 @@ async def get_user(authorization: Optional[str] = Header(None)):
         return {"user": user_data}
     except:
         return {"user": None}
-
+    
 @app.get("/login")
-async def login(request: Request):
+async def login():
+    clean_expired_states()  # Clean up expired states
     state = secrets.token_hex(16)
-    request.session["oauth_state"] = state
+    oauth_states[state] = (state, time.time())  # Store state with timestamp
     
     params = {
         "client_id": CLIENT_ID,
@@ -201,10 +204,13 @@ async def auth_callback(request: Request):
             detail="Authorization code not provided"
         )
     
-    state = request.session.get("oauth_state")
+    # Verify state parameter
     state_param = request.query_params.get("state")
-    if state and state_param and state != state_param:
-        print(f"Warning: State mismatch. Expected {state}, got {state_param}")
+    if state_param and state_param in oauth_states:
+        # Valid state, remove it from storage
+        del oauth_states[state_param]
+    elif state_param:
+        print(f"Warning: Invalid or expired state: {state_param}")
     
     token_data = {
         "client_id": CLIENT_ID,
@@ -268,7 +274,7 @@ async def auth_callback(request: Request):
             expires_delta=timedelta(hours=24)
         )
         
-        request.session.pop("oauth_state", None)
+
         
         # Redirect to frontend with token as query parameter
         frontend_url = f"http://localhost:3000?token={jwt_token}"

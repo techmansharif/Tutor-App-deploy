@@ -5,9 +5,12 @@ from fastapi import HTTPException, status
 from typing import Optional, Dict, Any
 
 # JWT Configuration
-JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "fallback-secret-key")
-JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
-JWT_ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_ACCESS_TOKEN_EXPIRE_MINUTES", "1440"))
+# JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "fallback-secret-key")
+# JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
+# JWT_ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_ACCESS_TOKEN_EXPIRE_MINUTES", "1440"))
+JWT_SECRET_KEY="randomNumber"
+JWT_ALGORITHM="HS256"
+JWT_ACCESS_TOKEN_EXPIRE_MINUTES=1440
 
 def create_access_token(data: Dict[Any, Any], expires_delta: Optional[timedelta] = None) -> str:
     """Create a JWT access token"""
