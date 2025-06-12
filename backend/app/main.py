@@ -44,6 +44,10 @@ import base64  # Add this import for base64 encoding
 import json 
 import time 
 
+# BEFORE - Add these imports
+from .jwt_utils import create_access_token, get_user_from_token
+from datetime import timedelta
+
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
 import logging
@@ -160,10 +164,17 @@ app.add_middleware(
 
 
 # Routes
+# AFTER
 @app.get("/api/user")
-async def get_user(request: Request):
-    user = request.session.get("user")
-    return {"user": user}
+async def get_user(authorization: Optional[str] = Header(None)):
+    if not authorization:
+        return {"user": None}
+    
+    try:
+        user_data = get_user_from_token(authorization)
+        return {"user": user_data}
+    except:
+        return {"user": None}
 
 @app.get("/login")
 async def login(request: Request):
@@ -244,22 +255,30 @@ async def auth_callback(request: Request):
             picture=user_info.get("picture", "")
         )
         
-        request.session["user"] = {
+        # Create JWT token
+        jwt_data = {
             "id": user.id,
             "email": user.email,
             "name": user.name,
             "picture": user.picture
         }
         
+        jwt_token = create_access_token(
+            data=jwt_data,
+            expires_delta=timedelta(hours=24)
+        )
+        
         request.session.pop("oauth_state", None)
         
-        return RedirectResponse(url="http://localhost:3000")
+        # Redirect to frontend with token as query parameter
+        frontend_url = f"http://localhost:3000?token={jwt_token}"
+        return RedirectResponse(url=frontend_url)
     finally:
         db.close()
 
-@app.get("/logout")
-async def logout(request: Request):
-    request.session.pop("user", None)
+# AFTER
+@app.post("/logout")
+async def logout():
     return {"message": "Logged out successfully"}
 
 
@@ -432,6 +451,8 @@ def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Opti
     return image_data
 
 # NEW: Modified /explains/ endpoint to use UserProgress table instead of session
+
+# AFTER
 @app.post("/{subject}/{topic}/{subtopic}/explains/", response_model=ExplainResponse)
 async def post_explain(
     subject: str,
@@ -440,12 +461,14 @@ async def post_explain(
     explain_query: ExplainQuery,
     user_id: int = Header(...),
     db: Session = Depends(get_db),
-    request:Request=None 
+    authorization: Optional[str] = Header(None)
 ):
-    # Check session for authenticated user
-    session_user = request.session.get("user")
-    if not session_user or session_user.get("id") != user_id:
-        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
+    try:
+        user_data = get_user_from_token(authorization)
+        if user_data.get("id") != user_id:
+            raise HTTPException(status_code=401, detail="Unauthorized: Invalid token")
+    except:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
     # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:

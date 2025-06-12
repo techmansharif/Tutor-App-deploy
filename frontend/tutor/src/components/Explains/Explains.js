@@ -79,15 +79,18 @@ useEffect(() => {
       });
     }, 100); // Small delay to ensure loading component is rendered
   }
-    try {
-      const response = await axios.post(
-        `${API_BASE_URL}/${selectedSubject}/${selectedTopic}/${selectedSubtopic}/explains/`,
-        { query, is_initial: isInitial },
-        {
-          headers: { 'user-id': user.user_id },
-          withCredentials: true
+    try  {
+    const token = localStorage.getItem('access_token');
+    const response = await axios.post(
+      `${API_BASE_URL}/${selectedSubject}/${selectedTopic}/${selectedSubtopic}/explains/`,
+      { query, is_initial: isInitial },
+      {
+        headers: { 
+          'user-id': user.user_id,
+          'Authorization': `Bearer ${token}`
         }
-      );
+      }
+    );
       
       if (response.data.answer === "Congratulations, you have mastered the topic!") {
         setExplainFinished(true);

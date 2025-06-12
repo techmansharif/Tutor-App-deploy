@@ -20,39 +20,65 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [quizStage, setQuizStage] = useState('welcome');
   const [selectedValues, setSelectedValues] = useState({selectedSubject: '',selectedTopic: '', selectedSubtopic: '' });
+  // BEFORE - Add this state
+const [token, setToken] = useState(null);
   const API_BASE_URL = 'http://localhost:8000';
+  
   //const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
 
-  useEffect(() => {
-    //alert("inside use effect")
-    fetch(`${API_BASE_URL}/api/user`, {
-      credentials: 'include',
-       mode: 'cors',
-  headers: {
-    'Content-Type': 'application/json',
+// AFTER - useEffect for fetching user
+useEffect(() => {
+  // Check if token is in URL (from OAuth callback)
+  const urlParams = new URLSearchParams(window.location.search);
+  const tokenFromUrl = urlParams.get('token');
+  
+  if (tokenFromUrl) {
+    localStorage.setItem('access_token', tokenFromUrl);
+    setToken(tokenFromUrl);
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } else {
+    const storedToken = localStorage.getItem('access_token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
   }
+}, []);
+
+// Add new useEffect for token changes
+useEffect(() => {
+  if (token) {
+    fetch(`${API_BASE_URL}/api/user`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     })
-      .then(response => response.json())
-      .then(data => {
-        setUser({
-          email: data.user.email,
-          user_id: data.user.id,
-          picture: data.user.picture,
-          name: data.user.name
-        });
-        if (data.user) {
-          console.log('User Email:', data.user.email);
-          console.log('User ID:', data.user.id);
-          console.log('user name', data.user.name);
-        }
-        setLoading(false);
-      })
-      .catch(error => {
-        console.log("not seeing user")
-        console.error('Error fetching user:', error);
-        setLoading(false);
+    .then(response => response.json())
+    .then(data => {
+      setUser({
+        email: data.user.email,
+        user_id: data.user.id,
+        picture: data.user.picture,
+        name: data.user.name
       });
-  }, []);
+      if (data.user) {
+        console.log('User Email:', data.user.email);
+        console.log('User ID:', data.user.id);
+        console.log('user name', data.user.name);
+      }
+      setLoading(false);
+    })
+    .catch(error => {
+      console.log("Error with token")
+      localStorage.removeItem('access_token');
+      setToken(null);
+      setUser(null);
+      setLoading(false);
+    });
+  } else {
+    setLoading(false);
+  }
+}, [token]);
 // Add this after your existing useEffect that fetches user
 useEffect(() => {
   const savedStage = localStorage.getItem('quizStage');
