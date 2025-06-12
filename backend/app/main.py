@@ -292,10 +292,32 @@ async def get_topics(subject: str, db: Session = Depends(get_db)):
     subject_obj = db.query(Subject).filter(Subject.name == subject).first()
     if not subject_obj:
         raise HTTPException(status_code=404, detail=f"Subject {subject} not found")
+     
     topics = db.query(Topic).filter(Topic.subject_id == subject_obj.id).all()
     if not topics:
         raise HTTPException(status_code=404, detail=f"No topics found for subject {subject}")
-    return topics
+    
+    # Check each topic for question availability
+    topics_with_status = []
+    for topic in topics:
+        subtopics = db.query(Subtopic).filter(Subtopic.topic_id == topic.id).all()
+        
+        has_questions = True
+        if subtopics:
+            for subtopic in subtopics:
+                mcq_count = db.query(MCQ).filter(MCQ.subtopic_id == subtopic.id).count()
+                if mcq_count == 0:
+                    has_questions = False
+                    break
+        else:
+            has_questions = False
+        
+        topics_with_status.append({
+            "name": topic.name,
+            "has_questions": has_questions
+        })
+    
+    return topics_with_status
 
 # Endpoint to fetch subtopics for a topic under a subject
 @app.get("/{subject}/{topic}/subtopics/", response_model=List[SubtopicBase])

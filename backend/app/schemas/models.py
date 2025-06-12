@@ -23,6 +23,7 @@ class SubtopicCreate(SubtopicBase):
 
 class TopicBase(BaseModel):
     name: str
+    has_questions: bool = False  # Add this line
 
 class TopicCreate(TopicBase):
     subject_id: int
