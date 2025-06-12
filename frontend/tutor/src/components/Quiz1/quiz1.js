@@ -48,16 +48,19 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
   }, []);
 
   const fetchQuizQuestion = async (submission = null) => {
-    setIsLoading(true);
-    try {
-      const response = await axios.post(
-        `${API_BASE_URL}/quiz1/`,
-        submission,
-        {
-          headers: { 'user-id': user.user_id },
-          withCredentials: true
-        }
-      );
+      setIsLoading(true);
+      try {
+        const token = localStorage.getItem('access_token');
+        const response = await axios.post(
+          `${API_BASE_URL}/quiz1/`,
+          submission,
+          {
+            headers: { 
+              'user-id': user.user_id,
+              'Authorization': `Bearer ${token}`
+            }
+          }
+        );
 
       const { question, hardness_level, message, attempt_id,image1,image2 } = response.data;
       if (question) {

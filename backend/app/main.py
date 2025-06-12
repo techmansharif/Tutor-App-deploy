@@ -41,6 +41,14 @@ import base64  # Add this import for base64 encoding
 import json 
 import time 
 
+
+# BEFORE - Add these imports
+
+from .jwt_utils import create_access_token, get_user_from_token
+
+from datetime import timedelta
+
+
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
 import logging
@@ -134,6 +142,17 @@ GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
 SECRET_KEY = secrets.token_hex(32)
 
 
+# In-memory storage for OAuth states (with expiration)
+
+oauth_states = {}
+def clean_expired_states():
+    """Remove expired OAuth states"""
+    current_time = time.time()
+    expired_keys = [key for key, (_, timestamp) in oauth_states.items() 
+                   if current_time - timestamp > 300]  # 5 minutes expiry
+    for key in expired_keys:
+        del oauth_states[key]
+
 # Add CORS middleware for React frontend
 app.add_middleware(
     CORSMiddleware,
@@ -146,26 +165,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Add session middleware
-app.add_middleware(
-    SessionMiddleware,
-    secret_key=SECRET_KEY,
-    max_age=60*60,
-    same_site="none",
-    https_only=True
-)
-
 
 # Routes
 @app.get("/api/user")
-async def get_user(request: Request):
-    user = request.session.get("user")
-    return {"user": user}
+async def get_user(authorization: Optional[str] = Header(None)):
+    if not authorization:
+        return {"user": None}
+    
+    try:
+        user_data = get_user_from_token(authorization)
+        return {"user": user_data}
+    except:
+        return {"user": None}
+    
+
 
 @app.get("/login")
-async def login(request: Request):
+async def login():
+    clean_expired_states()  # Clean up expired states
     state = secrets.token_hex(16)
-    request.session["oauth_state"] = state
+    oauth_states[state] = (state, time.time())  # Store state with timestamp
     
     params = {
         "client_id": CLIENT_ID,
@@ -178,6 +197,7 @@ async def login(request: Request):
     auth_url = f"{GOOGLE_AUTH_URL}?{urlencode(params)}"
     return RedirectResponse(auth_url)
 
+
 @app.get("/auth/google/callback")
 async def auth_callback(request: Request):
     code = request.query_params.get("code")
@@ -187,10 +207,13 @@ async def auth_callback(request: Request):
             detail="Authorization code not provided"
         )
     
-    state = request.session.get("oauth_state")
+    # Verify state parameter
     state_param = request.query_params.get("state")
-    if state and state_param and state != state_param:
-        print(f"Warning: State mismatch. Expected {state}, got {state_param}")
+    if state_param and state_param in oauth_states:
+        # Valid state, remove it from storage
+        del oauth_states[state_param]
+    elif state_param:
+        print(f"Warning: Invalid or expired state: {state_param}")
     
     token_data = {
         "client_id": CLIENT_ID,
@@ -241,24 +264,30 @@ async def auth_callback(request: Request):
             picture=user_info.get("picture", "")
         )
         
-        request.session["user"] = {
+        # Create JWT token
+        jwt_data = {
             "id": user.id,
             "email": user.email,
             "name": user.name,
             "picture": user.picture
         }
         
-        request.session.pop("oauth_state", None)
+        jwt_token = create_access_token(
+            data=jwt_data,
+            expires_delta=timedelta(hours=24)
+        )
         
-        return RedirectResponse(url="https://brimai-test-v1.web.app")
+
+        frontend_url = f"https://brimai-test-v1.web.app?token={jwt_token}"
+        return RedirectResponse(frontend_url)
     finally:
         db.close()
 
-@app.get("/logout")
-async def logout(request: Request):
-    request.session.pop("user", None)
-    return {"message": "Logged out successfully"}
 
+# AFTER
+@app.post("/logout")
+async def logout():
+    return {"message": "Logged out successfully"}
 
 
 
@@ -285,14 +314,12 @@ async def get_subjects(db: Session = Depends(get_db)):
     if not subjects:
         raise HTTPException(status_code=404, detail="No subjects found")
     return subjects
-
-# Endpoint to fetch topics for a subject
 @app.get("/{subject}/topics/", response_model=List[TopicBase])
 async def get_topics(subject: str, db: Session = Depends(get_db)):
     subject_obj = db.query(Subject).filter(Subject.name == subject).first()
     if not subject_obj:
         raise HTTPException(status_code=404, detail=f"Subject {subject} not found")
-     
+    
     topics = db.query(Topic).filter(Topic.subject_id == subject_obj.id).all()
     if not topics:
         raise HTTPException(status_code=404, detail=f"No topics found for subject {subject}")
@@ -387,7 +414,6 @@ async def select_subject_topic_subtopic(
 app.include_router(quizzes_router)
 
 app.include_router(dashboard_router)
-
 # Updated function to handle various LaTeX commands in the first line
 def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Optional[str]:
     """
@@ -432,6 +458,8 @@ def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Opti
     return image_data
 
 # NEW: Modified /explains/ endpoint to use UserProgress table instead of session
+
+# AFTER
 @app.post("/{subject}/{topic}/{subtopic}/explains/", response_model=ExplainResponse)
 async def post_explain(
     subject: str,
@@ -440,12 +468,14 @@ async def post_explain(
     explain_query: ExplainQuery,
     user_id: int = Header(...),
     db: Session = Depends(get_db),
-    request:Request=None 
+    authorization: Optional[str] = Header(None)
 ):
-    # Check session for authenticated user
-    session_user = request.session.get("user")
-    if not session_user or session_user.get("id") != user_id:
-        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
+    try:
+        user_data = get_user_from_token(authorization)
+        if user_data.get("id") != user_id:
+            raise HTTPException(status_code=401, detail="Unauthorized: Invalid token")
+    except:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
     # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
@@ -615,9 +645,9 @@ Instructions:
         
         
         '''
-    if subject =='গণিত'  or subject == "উচ্চতর গণিত":
+    if subject =='গণিত' or subject == "উচ্চতর গণিত":
         prompt =f"""
-        আপনি একজন শিক্ষাগত সহকারী। আপনার কাজ হল ৯-১০ শ্রেণির শিক্ষার্থীদের জন্য বাংলা ভাষায় সহজ ও ধাপে ধাপে শেখার গাইড তৈরি করা। আপনার বাক্যগুলো সহজ হতে হবে। সাম্প্রতিক কথোপকথনের স্মৃতি ব্যবহার করে উত্তরটি ব্যক্তিগত করুন এবং স্পষ্টতা বাড়াতে প্রাসঙ্গিক তথ্য যোগ করুন।
+        আপনি একজন শিক্ষাগত সহকারী। আপনার কাজ হল ৯-১০ শ্রেণির শিক্ষার্থীদের সহজ ও ধাপে ধাপে শেখানো | আপনার বাক্যগুলো সহজ হতে হবে। সাম্প্রতিক কথোপকথনের স্মৃতি ব্যবহার করে উত্তরটি ব্যক্তিগত করুন এবং স্পষ্টতা বাড়াতে প্রাসঙ্গিক তথ্য যোগ করুন।
 
 ব্যবহারকারীর প্রশ্ন:
 {query}
@@ -650,7 +680,7 @@ Instructions:
     else:
         prompt=prompt+"\n"+"4. Reply in very simpler English and write meaning around difficult word if necessary"
 
-
+    print(f'\n\n {query}\n\n')
     # Generate response
     response = gemini_model.generate_content(prompt)
 
@@ -697,6 +727,9 @@ Instructions:
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+
+
 
 if __name__ == "__main__":
 # Use the PORT environment variable provided by Cloud Run, default to 8000
