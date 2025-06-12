@@ -151,9 +151,17 @@ useEffect(() => {
           >
             <option value="">Select a Topic</option>
             {topics.map((topic) => (
-              <option key={topic.id} value={topic.name}>
-                {topic.name}
-              </option>
+                     <option 
+                        key={topic.id} 
+                        value={topic.name}
+                        disabled={!topic.has_questions}
+                        style={{
+                          color: topic.has_questions ? '#1a6c7b' : '#cccccc',
+                          backgroundColor: topic.has_questions ? 'white' : '#f5f5f5'
+                        }}
+                      >
+                        {topic.name} {!topic.has_questions ? '(No questions available)' : ''}
+                     </option>
             ))}
           </select>
         </div>
