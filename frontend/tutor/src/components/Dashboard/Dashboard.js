@@ -35,10 +35,13 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
   useEffect(() => {
     const checkQuiz1Status = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/quiz1/status/`, {
-          headers: { 'user-id': user.user_id },
-          withCredentials: true,
-        });
+         const token = localStorage.getItem('access_token');
+         const response = await axios.get(`${API_BASE_URL}/quiz1/status/`, {
+        headers: { 
+          'user-id': user.user_id,
+          'Authorization': `Bearer ${token}`
+        }
+    });
         setHasCompletedQuiz1(response.data.completed);
       } catch (err) {
         console.error('Error checking Quiz1 status:', err);
@@ -49,7 +52,7 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
     checkQuiz1Status();
 
     axios
-      .get(`${API_BASE_URL}/subjects/`, { withCredentials: true })
+      .get(`${API_BASE_URL}/subjects/`)
       .then((response) => {
         setSubjects(response.data);
       })
@@ -62,7 +65,7 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
   useEffect(() => {
     if (selectedSubject) {
       axios
-        .get(`${API_BASE_URL}/${selectedSubject}/topics/`, { withCredentials: true })
+        .get(`${API_BASE_URL}/${selectedSubject}/topics/`)
         .then((response) => {
           setTopics(response.data);
           setSelectedTopic('');
@@ -85,11 +88,14 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
     if (selectedSubject && selectedTopic) {
       setLoading(true);
       setShowGraph(false);
-      axios
-        .get(`${API_BASE_URL}/dashboard/${selectedSubject}/${selectedTopic}/`, {
-          headers: { 'user-id': user.user_id },
-          withCredentials: true,
-        })
+      const token = localStorage.getItem('access_token');
+axios
+  .get(`${API_BASE_URL}/dashboard/${selectedSubject}/${selectedTopic}/`, {
+    headers: { 
+      'user-id': user.user_id,
+      'Authorization': `Bearer ${token}`
+    }
+  })
         .then((response) => {
           const transformedData = response.data.subtopics.map(subtopic => ({
             subtopic_name: subtopic.name,

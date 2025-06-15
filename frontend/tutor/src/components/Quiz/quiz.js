@@ -55,14 +55,18 @@ const [completionDate, setCompletionDate] = useState('');
 const fetchQuizQuestion = async (submission = null) => {
     setIsLoading(true);
     try {
+         const token = localStorage.getItem('access_token');
       const response = await axios.post(
         `${API_BASE_URL}/${subject}/${topic}/${subtopic}/quiz/`,
         submission,
         {
-          headers: { 'user-id': user.user_id },
-          withCredentials: true
-        }
-      );
+           headers: { 
+              'user-id': user.user_id,
+              'Authorization': `Bearer ${token}`
+            }
+          }
+        );
+
 
       const { question, hardness_level, message, attempt_id, questions_tried, correct_answers,image1,image2 } = response.data;
       if (question) {

@@ -25,6 +25,8 @@ from ..schemas.quizzes import QuizAnswerSubmission, QuizQuestionResponse, Practi
 from sqlalchemy.sql import func
 import base64
 import random
+# BEFORE - Add these imports
+from ..jwt_utils import create_access_token, get_user_from_token
 
 router = APIRouter(
   
@@ -82,11 +84,14 @@ async def quiz1(
     submission: Optional[QuizAnswerSubmission] = None,
     user_id: int = Header(...),
     db: Session = Depends(get_db),
-    request:Request=None
+     authorization: Optional[str] = Header(None)
 ):
-    session_user = request.session.get("user")
-    if not session_user or session_user.get("id") != user_id:
-        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
+    try:
+        user_data = get_user_from_token(authorization)
+        if user_data.get("id") != user_id:
+            raise HTTPException(status_code=401, detail="Unauthorized: Invalid token")
+    except:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
     # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
@@ -172,10 +177,10 @@ async def quiz1(
     attempt_count = 0
 
     while not next_question and attempt_count < max_attempts:
-        # Randomly select subject
-        subject = db.query(Subject).order_by(func.random()).first()
+        # Select only the "quiz1" subject
+        subject = db.query(Subject).filter(Subject.name == "quiz1").first()
         if not subject:
-            raise HTTPException(status_code=404, detail="No subjects available")
+            raise HTTPException(status_code=404, detail="Subject 'quiz1' not found")
 
         # Randomly select topic under the subject
         topic = db.query(Topic).filter(Topic.subject_id == subject.id).order_by(func.random()).first()
@@ -230,12 +235,14 @@ async def quiz(
     submission: Optional[QuizAnswerSubmission] = None,
     user_id: int = Header(...),
     db: Session = Depends(get_db),
-    request:Request=None
+     authorization: Optional[str] = Header(None)
 ):
-    session_user = request.session.get("user")
-    if not session_user or session_user.get("id") != user_id:
-        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
-    
+    try:
+        user_data = get_user_from_token(authorization)
+        if user_data.get("id") != user_id:
+            raise HTTPException(status_code=401, detail="Unauthorized: Invalid token")
+    except:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
     # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
@@ -434,11 +441,14 @@ async def practice_quiz(
     submission: Optional[PracticeQuizAnswerSubmission] = None,
     user_id: int = Header(...),
     db: Session = Depends(get_db),
-    request:Request=None
+    authorization: Optional[str] = Header(None)
 ):
-    session_user = request.session.get("user")
-    if not session_user or session_user.get("id") != user_id:
-        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
+    try:
+        user_data = get_user_from_token(authorization)
+        if user_data.get("id") != user_id:
+            raise HTTPException(status_code=401, detail="Unauthorized: Invalid token")
+    except:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
     # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:

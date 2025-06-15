@@ -49,14 +49,17 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
 const fetchPracticeQuestion = async (submission = null) => {
     setIsLoading(true);
     try {
+         const token = localStorage.getItem('access_token');
       const response = await axios.post(
         `${API_BASE_URL}/${subject}/${topic}/${subtopic}/practise/`,
         submission,
         {
-          headers: { 'user-id': user.user_id },
-          withCredentials: true
-        }
-      );
+         headers: { 
+              'user-id': user.user_id,
+              'Authorization': `Bearer ${token}`
+            }
+          }
+        );
 
       const { question, hardness_level, message, questions_tried, number_correct,image1,image2 } = response.data;
       if (question) {
