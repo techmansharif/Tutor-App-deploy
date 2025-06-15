@@ -119,22 +119,27 @@ def insert_data_to_database(subject_name, topic_name, questions_data, db):
     # Get or create subject
     subject = db.query(Subject).filter(Subject.name == subject_name).first()
     if not subject:
-        subject = Subject(name=subject_name)
-        db.add(subject)
-        db.commit()
-        db.refresh(subject)
-        print(f"✅ Created new subject: {subject_name}")
+        # subject = Subject(name=subject_name)
+        # db.add(subject)
+        # db.commit()
+        # db.refresh(subject)
+        # print(f"✅ Created new subject: {subject_name}")
+        print("\n\nSubject does not exist in database\n\n")
+        return 
     else:
         print(f"📍 Using existing subject: {subject_name}")
     
     # Get or create topic
     topic = db.query(Topic).filter(Topic.name == topic_name, Topic.subject_id == subject.id).first()
     if not topic:
-        topic = Topic(name=topic_name, subject_id=subject.id)
-        db.add(topic)
-        db.commit()
-        db.refresh(topic)
-        print(f"✅ Created new topic: {topic_name}")
+        # topic = Topic(name=topic_name, subject_id=subject.id)
+        # db.add(topic)
+        # db.commit()
+        # db.refresh(topic)
+        
+        print(f"\n\n{topic_name} topic doesn't exist in database")
+        return 
+      
     else:
         print(f"📍 Using existing topic: {topic_name}")
     
@@ -155,11 +160,13 @@ def insert_data_to_database(subject_name, topic_name, questions_data, db):
         ).first()
         
         if not subtopic:
-            subtopic = Subtopic(name=subtopic_name, topic_id=topic.id)
-            db.add(subtopic)
-            db.commit()
-            db.refresh(subtopic)
-            print(f"✅ Created new subtopic: {subtopic_name}")
+            # subtopic = Subtopic(name=subtopic_name, topic_id=topic.id)
+            # db.add(subtopic)
+            # db.commit()
+            # db.refresh(subtopic)
+            
+            print(f"\n\n{subtopic_name} subtopic doesn't exist in database\n\n")
+            continue
         else:
             print(f"📍 Using existing subtopic: {subtopic_name}")
         
