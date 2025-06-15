@@ -2,7 +2,34 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import Stopwatch from '../Stopwatch/Stopwatch';
+
+import { processQuizText } from '../ProcessText/ProcessQuiz'; // Add this import
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
+import ReactMarkdown from 'react-markdown';
+
+
+
 import './Practise.css';
+const MathText = ({ children }) => {
+  if (!children) return <span></span>;
+  
+  const processedText = processQuizText(children);
+  
+  return (
+    <span style={{ display: 'inline' }}>
+      <ReactMarkdown
+        children={processedText}
+        remarkPlugins={[remarkMath]}
+        rehypePlugins={[rehypeKatex]}
+        components={{
+          p: ({node, ...props}) => <span {...props} />,
+        }}
+      />
+    </span>
+  );
+};
 
 const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompletePractice }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -254,7 +281,7 @@ const fetchPracticeQuestion = async (submission = null) => {
         </div>
       </div>
       <div className="question-container"  >
-        <h4>{currentQuestion.question}</h4>
+        <h4><MathText>{currentQuestion.question}</MathText></h4>
         <div className="options">
           {['a', 'b', 'c', 'd'].map((option) => (
             <div key={option} className="option">
@@ -268,7 +295,7 @@ const fetchPracticeQuestion = async (submission = null) => {
                 disabled={isAnswerSubmitted && isAnswerIncorrect}
               />
               <label htmlFor={`q-${currentQuestion.id}-${option}`}>
-                {option.toUpperCase()}: {currentQuestion[`option_${option}`]}
+                {option.toUpperCase()}:  <MathText>{currentQuestion[`option_${option}`]}</MathText>
               </label>
             </div>
           ))}
@@ -302,37 +329,39 @@ const fetchPracticeQuestion = async (submission = null) => {
       {isAnswerSubmitted && isAnswerIncorrect && (
         <div className="modal-overlay">
           <div className="modal-content">
-          <div className="feedback incorrect">
-  <h3>Incorrect</h3>
-  <p>Your answer was incorrect.</p>
-  {image2 && (
-    <img
-      src={`data:image/png;base64,${image2}`}
-      alt="Incorrect feedback"
-      style={{
-        maxWidth: '70%',
-        maxHeight: '150px',
-        margin: '10px 0',
-        borderRadius: '5px',
-        objectFit: 'contain'
-      }}
-    />
-  )}
-  <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-    <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: {currentQuestion[`option_${currentQuestion.correct_option}`]}
-  </p>
-  <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-    <strong>Explanation:</strong> {currentQuestion.explanation}
-  </p>
-</div>
-            <div className="action-buttons">
-  <button onClick={handleRetry} className="retry-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-    Retry Question
-  </button>
-  <button onClick={handleNextQuestion} className="next-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-    Next Question
-  </button>
-</div>
+              <div className="feedback incorrect">
+                  <h3>Incorrect</h3>
+                  <p>Your answer was incorrect.</p>
+                  {image2 && (
+                    <img
+                      src={`data:image/png;base64,${image2}`}
+                      alt="Incorrect feedback"
+                      style={{
+                        maxWidth: '70%',
+                        maxHeight: '150px',
+                        margin: '10px 0',
+                        borderRadius: '5px',
+                        objectFit: 'contain'
+                      }}
+                    />
+                  )}
+                <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
+                  <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}:  <MathText>  {currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
+                </p>
+                <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
+                  <strong>Explanation:</strong> <MathText> {currentQuestion.explanation}</MathText>
+                </p>
+            </div>
+            
+                <div className="action-buttons">
+                    <button onClick={handleRetry} className="retry-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                      Retry Question
+                    </button>
+                    <button onClick={handleNextQuestion} className="next-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                      Next Question
+                    </button>
+                </div>
+
           </div>
         </div>
       )}

@@ -1,31 +1,21 @@
-Okay! Let's learn about "first conditional sentences" in a fun and easy way!
+আচ্ছা, তাহলে আমরা দুই চলকবিশিষ্ট সরল সহসমীকরণ (Simultaneous Linear Equations in Two Variables) নিয়ে আলোচনা করব, কেমন?
 
-Since we haven't talked before, I'll start from the very beginning. Imagine you're planning a super fun day!
+গণিত ক্লাসে তোমাদের স্বাগত! ভয় নেই, আমরা খুব সহজভাবে এটা শিখব।
 
-**Think of it like a "What if?" game:**
+মনে করো, তুমি আর তোমার বন্ধু মিলে দোকানে গেছ। তুমি ২টি কলম আর ১টি খাতা কিনলে, যার দাম পড়ল ৫০ টাকা। তোমার বন্ধু ৩টি কলম আর ২টি খাতা কিনল, যার দাম হল ৮০ টাকা।
 
-First conditional sentences are like saying "What if... then this will happen!"  They talk about things that *could* happen in the future.
+এখন, তোমরা জানতে চাও প্রতিটি কলম আর খাতার দাম কত? এই সমস্যা সমাধানের জন্য আমাদের দুই চলকবিশিষ্ট সরল সহসমীকরণ ব্যবহার করতে হবে।
 
-**Here's a simple example:**
+**সহজ ভাষায়:**
 
-Let's say you see this sentence:  "If it rains, I will bring my umbrella."
+সহসমীকরণ মানে হলো দুইটা সমীকরণ একসাথে। আর "চলক" মানে হলো অজানা রাশি, যেমন এখানে কলম আর খাতার দাম।
 
-*   **If it rains:** This is the "What if?" part. It's the *condition* or the *possibility.*
-    *   "rains" means water falls from the sky.
-*   **I will bring my umbrella:** This is what *will* happen *if* it rains. It's the *result.*
-    *   "umbrella" is something you use to keep yourself dry in the rain.
+তাহলে, চলো দেখি এই অধ্যায়ে আমরা কী কী শিখব:
 
-**The sentence means:** *If* rain starts to fall (the condition), *then* I will get my umbrella to stay dry (the result).
+*   সহসমীকরণ কখন সঙ্গতিপূর্ণ (consistent) হবে, মানে কখন সমাধান করা যাবে।
+*   দুইটা সমীকরণ একে অপরের উপর নির্ভরশীল (dependent) কিনা, সেটা কিভাবে বুঝব।
+*   আড়গুণন (cross-multiplication) পদ্ধতিতে কিভাবে সমাধান করতে হয়।
+*   বাস্তব জীবনের সমস্যা থেকে সমীকরণ তৈরি করে কিভাবে সমাধান করতে হয়।
+*   লেখচিত্রের (graph) সাহায্যে কিভাবে সমাধান করতে হয়।
 
-**Think of it like a mini-story:**
-
-Imagine you want to go to the park. But there's a chance of rain!
-
-You think: "Hmm... **If it rains**, I **will stay home** and read a book."
-
-See? You're using a first conditional sentence! You are talking about something that *might* happen (rain) and what you *will* do *if* it happens (stay home).
-
-**So, first conditional sentences are all about:**
-
-*   **A *possible* thing happening in the future (the "if" part).**
-*   **The *result* of that thing happening (the "then" part - what *will* happen).**
+এই বিষয়গুলো ধাপে ধাপে শিখলে দেখবে যে গণিতটা আসলে মজার!
