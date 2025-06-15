@@ -14,6 +14,9 @@ from sqlalchemy.sql import func
 import base64
 import random
 
+# BEFORE - Add these imports
+from ..jwt_utils import create_access_token, get_user_from_token
+
 
 # Dependency to get DB session
 def get_db():
@@ -45,11 +48,14 @@ async def get_dashboard_data(
     topic: str,
     user_id: int = Header(...),
     db: Session = Depends(get_db),
-    request: Request = None
+      authorization: Optional[str] = Header(None)
 ):
-    session_user = request.session.get("user")
-    if not session_user or session_user.get("id") != user_id:
-        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing session")
+    try:
+        user_data = get_user_from_token(authorization)
+        if user_data.get("id") != user_id:
+            raise HTTPException(status_code=401, detail="Unauthorized: Invalid token")
+    except:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
     
     # Validate user
     user = db.query(User).filter(User.id == user_id).first()
