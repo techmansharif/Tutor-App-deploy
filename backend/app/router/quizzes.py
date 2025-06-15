@@ -79,6 +79,7 @@ def fetch_random_images(db: Session):
 
 
 
+
 @router.post("/quiz1/", response_model=QuizQuestionResponse)
 async def quiz1(
     submission: Optional[QuizAnswerSubmission] = None,
@@ -177,10 +178,10 @@ async def quiz1(
     attempt_count = 0
 
     while not next_question and attempt_count < max_attempts:
-        # Select only the "quiz1" subject
-        subject = db.query(Subject).filter(Subject.name == "quiz1").first()
+        # Randomly select subject
+        subject = db.query(Subject).order_by(func.random()).first()
         if not subject:
-            raise HTTPException(status_code=404, detail="Subject 'quiz1' not found")
+            raise HTTPException(status_code=404, detail="No subjects available")
 
         # Randomly select topic under the subject
         topic = db.query(Topic).filter(Topic.subject_id == subject.id).order_by(func.random()).first()
