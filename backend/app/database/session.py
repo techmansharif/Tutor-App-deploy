@@ -17,6 +17,7 @@ if DATABASE_URL is None:
     from dotenv import load_dotenv
     load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
     DATABASE_URL = os.getenv("DATABASE_URL")
+    print(DATABASE_URL)
 logger.info(f"Connecting to database with URL: {DATABASE_URL[:20]}...")
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
