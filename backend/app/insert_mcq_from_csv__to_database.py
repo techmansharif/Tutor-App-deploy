@@ -4,6 +4,11 @@ import pandas as pd
 from database.session import SessionLocal
 from database.models import Subject, Topic, Subtopic, MCQ
 
+
+
+topic_not_exist=[]
+subtopic_not_exist=[]
+
 def validate_correct_answer(correct_answer, row_num, file_path):
     """Validate that correct answer is a, b, c, or d (case insensitive)"""
     if not correct_answer:
@@ -138,6 +143,7 @@ def insert_data_to_database(subject_name, topic_name, questions_data, db):
         # db.refresh(topic)
         
         print(f"\n\n{topic_name} topic doesn't exist in database")
+        topic_not_exist.append(topic_name)
         return 
       
     else:
@@ -166,6 +172,7 @@ def insert_data_to_database(subject_name, topic_name, questions_data, db):
             # db.refresh(subtopic)
             
             print(f"\n\n{subtopic_name} subtopic doesn't exist in database\n\n")
+            subtopic_not_exist.append({topic.name:subtopic_name})
             continue
         else:
             print(f"📍 Using existing subtopic: {subtopic_name}")
@@ -269,3 +276,5 @@ if __name__ == "__main__":
         print("\n🎊 All done! Your data has been successfully inserted into the database.")
     else:
         print("\n❌ Process failed. Check the errors above and try again.")
+    print(topic_not_exist)
+    print(subtopic_not_exist)

@@ -8,7 +8,7 @@ print("Current working directory:", os.getcwd())
 # Function to read data from the JSON file
 def read_data_from_json():
     # Add encoding='utf-8' to handle Unicode characters (Bengali text)
-    with open("app/question_bank.json", "r", encoding='utf-8') as file:
+    with open("C:/E backup/tutor app deploy\Tutor-App/backend/app/question_bank.json", "r", encoding='utf-8') as file:
         return json.load(file)
 
 # Function to insert data into the database
