@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import Stopwatch from '../Stopwatch/Stopwatch';
+import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add this import
 import './quiz1.css';
 
 const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
@@ -233,7 +234,7 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
 </div>
 
       <div className="question-container">
-        <h4>{currentQuestion.question}</h4>
+        <h4><MathText>{currentQuestion.question}</MathText></h4>
         <div className="options">
           {['a', 'b', 'c', 'd'].map((option) => (
             <div key={option} className="option">
@@ -247,7 +248,7 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
                 disabled={isAnswerSubmitted}
               />
               <label htmlFor={`q-${currentQuestion.id}-${option}`}>
-                {option.toUpperCase()}: {currentQuestion[`option_${option}`]}
+                {option.toUpperCase()}: <MathText>{currentQuestion[`option_${option}`]}</MathText>
               </label>
             </div>
           ))}
@@ -298,10 +299,10 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
                 />
               )}
             <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-  <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: {currentQuestion[`option_${currentQuestion.correct_option}`]}
+  <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: <MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
 </p>
               <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-                <strong>Explanation:</strong> {currentQuestion.explanation}
+                <strong>Explanation:</strong><MathText> {currentQuestion.explanation}</MathText>
               </p>
             </div>
             <div className="action-buttons" >

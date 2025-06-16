@@ -3,7 +3,7 @@ import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import Stopwatch from '../Stopwatch/Stopwatch';
 
-import { processQuizText } from '../ProcessText/ProcessQuiz'; // Add this import
+import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add this import
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
@@ -12,24 +12,7 @@ import ReactMarkdown from 'react-markdown';
 
 
 import './Practise.css';
-const MathText = ({ children }) => {
-  if (!children) return <span></span>;
-  
-  const processedText = processQuizText(children);
-  
-  return (
-    <span style={{ display: 'inline' }}>
-      <ReactMarkdown
-        children={processedText}
-        remarkPlugins={[remarkMath]}
-        rehypePlugins={[rehypeKatex]}
-        components={{
-          p: ({node, ...props}) => <span {...props} />,
-        }}
-      />
-    </span>
-  );
-};
+
 
 const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompletePractice }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);

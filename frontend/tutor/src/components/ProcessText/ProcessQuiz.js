@@ -1,3 +1,9 @@
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
+
 // ProcessQuiz.js - Mathematical text processor for quiz questions
 export const processQuizText = (text) => {
   if (!text) return "";
@@ -10,7 +16,14 @@ export const processQuizText = (text) => {
     const subscript = number.split('').map(d => subscriptMap[d]).join('');
     return letter + subscript;
   });
+  // Convert Bengali numerals to English
+const bengaliToEnglish = {'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
+processed = processed.replace(/[০-৯]/g, (match) => bengaliToEnglish[match] || match);
+// Wrap mathematical expressions with LaTeX commands
+processed = processed.replace(/([\d.]+\s*\\leq\s*[\d.]+\s*<\s*[\d.]+)/g, '$$$1$$');
   
+  // Wrap LaTeX symbols and expressions in math delimiters
+  processed = processed.replace(/(\\neq|\\times|\\frac\{[^}]+\}\{[^}]+\})/g, '$$$1$$');
   // Convert simple fractions to KaTeX format for better display
   processed = processed.replace(/([a-zA-Z₀-₉]+)\/([a-zA-Z₀-₉]+)/g, (match, num, den) => {
     // Convert back subscripts for KaTeX
@@ -32,3 +45,23 @@ export const processQuizText = (text) => {
   
   return processed;
 };
+
+export const MathText = ({ children }) => {
+  if (!children) return <span></span>;
+  
+  const processedText = processQuizText(children);
+  
+  return (
+    <span style={{ display: 'inline' }}>
+      <ReactMarkdown
+        children={processedText}
+        remarkPlugins={[remarkMath]}
+        rehypePlugins={[rehypeKatex]}
+        components={{
+          p: ({node, ...props}) => <span {...props} />,
+        }}
+      />
+    </span>
+  );
+};
+
