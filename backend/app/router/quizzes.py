@@ -79,7 +79,6 @@ def fetch_random_images(db: Session):
 
 
 
-
 @router.post("/quiz1/", response_model=QuizQuestionResponse)
 async def quiz1(
     submission: Optional[QuizAnswerSubmission] = None,
@@ -178,10 +177,10 @@ async def quiz1(
     attempt_count = 0
 
     while not next_question and attempt_count < max_attempts:
-        # Randomly select subject
-        subject = db.query(Subject).order_by(func.random()).first()
+        # Select only the "quiz1" subject
+        subject = db.query(Subject).filter(Subject.name == "quiz1").first()
         if not subject:
-            raise HTTPException(status_code=404, detail="No subjects available")
+            raise HTTPException(status_code=404, detail="Subject 'quiz1' not found")
 
         # Randomly select topic under the subject
         topic = db.query(Topic).filter(Topic.subject_id == subject.id).order_by(func.random()).first()
@@ -262,7 +261,8 @@ async def quiz(
     if not subtopic_obj:
         raise HTTPException(status_code=404, detail=f"Subtopic {subtopic} not found in topic {topic}")
 
-    hardness_level = db.query(Quiz1Score).filter(Quiz1Score.attempt_id == db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first().id).first().student_level if db.query(Quiz1Score).filter(Quiz1Score.attempt_id == db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first().id).first() else 5
+    latest_quiz1_attempt = db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first()
+    hardness_level = db.query(Quiz1Score).filter(Quiz1Score.attempt_id == latest_quiz1_attempt.id).first().student_level if latest_quiz1_attempt and db.query(Quiz1Score).filter(Quiz1Score.attempt_id == latest_quiz1_attempt.id).first() else 5
     attempt_id = None
     questions_tried=None
     correct_answers= None
@@ -346,7 +346,7 @@ async def quiz(
         correct_answers = 0
         if latest_attempt and db.query(QuizAnswer).filter(QuizAnswer.attempt_id == latest_attempt.id).count() < 10:
             # Reuse existing attempt
-            print("i am here")
+            
             attempt_id = latest_attempt.id
             # Calculate questions tried and correct answers
             quiz_answers = db.query(QuizAnswer).filter(QuizAnswer.attempt_id == attempt_id).all()
@@ -367,7 +367,7 @@ async def quiz(
                 else:
                     hardness_level = max(hardness_level - 1, 1)
         else:
-            print("i am here new quiz attempt")
+            
             # Create new quiz attempt
             quiz_attempt = QuizAttempt(
                 user_id=user_id,
@@ -476,8 +476,8 @@ async def practice_quiz(
         raise HTTPException(status_code=404, detail=f"Subtopic {subtopic} not found in topic {topic}")
 
     # Determine hardness level and questions tried
-    hardness_level = db.query(Quiz1Score).filter(Quiz1Score.attempt_id == db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first().id).first().student_level if db.query(Quiz1Score).filter(Quiz1Score.attempt_id == db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first().id).first() else 5  # Default for first question
- 
+    latest_quiz1_attempt = db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first()
+    hardness_level = db.query(Quiz1Score).filter(Quiz1Score.attempt_id == latest_quiz1_attempt.id).first().student_level if latest_quiz1_attempt and db.query(Quiz1Score).filter(Quiz1Score.attempt_id == latest_quiz1_attempt.id).first() else 5
     # Create or retrieve PractiseAttempt
     practise_attempt = None
     questions_tried = 0
@@ -536,17 +536,10 @@ async def practice_quiz(
             db.refresh(practise_attempt)
             questions_tried = 0
             number_correct = 0
-            hardness_level = db.query(Quiz1Score).filter(
-                Quiz1Score.attempt_id == db.query(Quiz1Attempt)
-                .filter(Quiz1Attempt.user_id == user_id)
-                .order_by(Quiz1Attempt.started_at.desc())
-                .first().id
-            ).first().student_level if db.query(Quiz1Score).filter(
-                Quiz1Score.attempt_id == db.query(Quiz1Attempt)
-                .filter(Quiz1Attempt.user_id == user_id)
-                .order_by(Quiz1Attempt.started_at.desc())
-                .first().id
-            ).first() else 5  # Default for first question
+            # Determine hardness level and questions tried
+            latest_quiz1_attempt = db.query(Quiz1Attempt).filter(Quiz1Attempt.user_id == user_id).order_by(Quiz1Attempt.started_at.desc()).first()
+            hardness_level = db.query(Quiz1Score).filter(Quiz1Score.attempt_id == latest_quiz1_attempt.id).first().student_level if latest_quiz1_attempt and db.query(Quiz1Score).filter(Quiz1Score.attempt_id == latest_quiz1_attempt.id).first() else 5
+   
     else:
         # Retrieve the most recent PractiseAttempt for the user and subtopic
         practise_attempt = (
