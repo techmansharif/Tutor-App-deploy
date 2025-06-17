@@ -166,7 +166,16 @@ class UserProgress(Base):
     subtopic_id = Column(Integer, ForeignKey("subtopics.id"), index=True, nullable=False)
     chunk_index = Column(Integer, default=0, nullable=False)  # Tracks current chunk
     chat_memory = Column(JSONB, default=list, nullable=False)  # Stores question-answer pairs
+    
+    # 🚀 NEW: Pre-generation columns for continue responses
+    next_continue_response = Column(Text, nullable=True)  # Pre-generated AI response
+    next_continue_image = Column(Text, nullable=True)     # Base64 encoded image
+    next_response_chunk_index = Column(Integer, nullable=True)  # Which chunk this response is for
+    
     last_updated = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    
+    
+    
     user = relationship("User", back_populates="progress")
     subtopic = relationship("Subtopic")
 
