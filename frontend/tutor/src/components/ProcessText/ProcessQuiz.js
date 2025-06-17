@@ -19,6 +19,16 @@ export const processQuizText = (text) => {
   // Convert Bengali numerals to English
 const bengaliToEnglish = {'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
 processed = processed.replace(/[০-৯]/g, (match) => bengaliToEnglish[match] || match);
+
+//logarithm 
+// ADD THESE TWO LINES HERE:
+// First convert LaTeX inline delimiters to KaTeX format
+
+// // Then wrap any remaining unwrapped logarithmic expressions
+processed = processed.replace(/(?<!\$)(\\log_[\d\{][^,\s\$]*)(?!\$)/g, '$$$1$$');
+
+
+
 // Wrap mathematical expressions with LaTeX commands
 processed = processed.replace(/([\d.]+\s*\\leq\s*[\d.]+\s*<\s*[\d.]+)/g, '$$$1$$');
   
