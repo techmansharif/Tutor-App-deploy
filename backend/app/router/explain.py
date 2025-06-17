@@ -15,6 +15,15 @@ import google.generativeai as genai
 # Import JWT utils
 from ..jwt_utils import get_user_from_token
 
+
+# Setup Gemini API globally
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    raise RuntimeError("Gemini API key not configured")
+
+genai.configure(api_key=api_key)
+gemini_model = genai.GenerativeModel("gemini-2.0-flash")
+
 # Dependency to get DB session
 def get_db():
     db = SessionLocal()
@@ -23,6 +32,26 @@ def get_db():
     finally:
         db.close()
 
+
+
+def pre_generate_continue_response(progress: UserProgress, chunks: list, subject: str, db: Session):
+    try:
+        next_chunk_index = progress.chunk_index + 1
+        if next_chunk_index >= len(chunks):
+            return  # Don't pre-generate beyond last chunk
+            
+        next_chunk = chunks[next_chunk_index]
+        next_image_data = get_image_data_from_chunk(next_chunk, progress.subtopic_id, db)
+        
+        prompt = build_prompt("Explain the context easy fun way", progress.chat_memory, next_chunk, chunks, subject)
+        response = gemini_model.generate_content(prompt)
+        
+        progress.next_continue_response = response.text.strip()
+        progress.next_continue_image = next_image_data
+        progress.next_response_chunk_index = next_chunk_index
+        
+    except Exception as e:
+        print(f"Pre-generation failed: {e}")
 def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Optional[str]:
     """
     Fetches and encodes image data from the Diagram table if the chunk contains 'image description'.
@@ -88,26 +117,32 @@ def authenticate_and_validate_user(authorization: Optional[str], user_id: int, d
 
 
 def validate_subject_topic_subtopic(db: Session, subject: str, topic: str, subtopic: str) -> tuple:
-        
-    # Validate subject, topic, and subtopic
-    subject_obj = db.query(Subject).filter(Subject.name == subject).first()
-    if not subject_obj:
-        raise HTTPException(status_code=404, detail=f"Subject {subject} not found")
-    
-    topic_obj = db.query(Topic).filter(
+    # Single query with JOINs to get all three objects
+    result = db.query(Subject, Topic, Subtopic).join(
+        Topic, Subject.id == Topic.subject_id
+    ).join(
+        Subtopic, Topic.id == Subtopic.topic_id
+    ).filter(
+        Subject.name == subject,
         Topic.name == topic,
-        Topic.subject_id == subject_obj.id
+        Subtopic.name == subtopic
     ).first()
-    if not topic_obj:
-        raise HTTPException(status_code=404, detail=f"Topic {topic} not found in subject {subject}")
     
-    subtopic_obj = db.query(Subtopic).filter(
-        Subtopic.name == subtopic,
-        Subtopic.topic_id == topic_obj.id
-    ).first()
-    if not subtopic_obj:
+    if not result:
+        # More specific error checking if needed
+        subject_obj = db.query(Subject).filter(Subject.name == subject).first()
+        if not subject_obj:
+            raise HTTPException(status_code=404, detail=f"Subject {subject} not found")
+        
+        topic_obj = db.query(Topic).filter(
+            Topic.name == topic, Topic.subject_id == subject_obj.id
+        ).first()
+        if not topic_obj:
+            raise HTTPException(status_code=404, detail=f"Topic {topic} not found in subject {subject}")
+        
         raise HTTPException(status_code=404, detail=f"Subtopic {subtopic} not found in topic {topic}")
-  
+    
+    subject_obj, topic_obj, subtopic_obj = result
     return subject_obj, topic_obj, subtopic_obj
 
 
@@ -117,18 +152,6 @@ def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int
     query = query.lower()
     context = None
     
-    
-    
-    
-      # NEW: Handle initial "explain" query with non-empty chat_memory
-    if query == "explain" and chat_memory and explain_query.is_initial:
-        # Return all previous answers from chat_memory in initial_response
-        previous_answers = [pair['answer'] for pair in chat_memory]
-        return ExplainResponse(
-            answer="",  # No new answer for initial response
-            image=None,
-            initial_response=previous_answers
-        )
 
     if query == "explain":
         if subject =="English":
@@ -140,12 +163,9 @@ def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int
         selected_chunk =chunks[chunk_index]
                 
     elif query == "continue":
+        
         chunk_index += 1
-        if chunk_index >= len(chunks):
-            #chunk_index = -1
-            #progress.chunk_index = chunk_index
-            #db.commit()
-            return ExplainResponse(answer="Congratulations, you have mastered the topic!")
+
         query = "Explain the context easy fun way"
         context = chunks[chunk_index]
             # After determining context and chunk_index
@@ -261,14 +281,7 @@ Instructions:
 def generate_ai_response_and_update_progress(prompt: str, query: str, answer_text: str, 
                                            progress: UserProgress, chunk_index: int, 
                                            explain_query: ExplainQuery, db: Session) -> str:
-    # Setup Gemini API
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        raise HTTPException(status_code=500, detail="Gemini API key not configured")
 
-    import google.generativeai as genai
-    genai.configure(api_key=api_key)
-    gemini_model = genai.GenerativeModel("gemini-2.0-flash")
     print(f'\n\n {query}\n\n')
     # Generate response
     response = gemini_model.generate_content(prompt)
@@ -331,12 +344,30 @@ async def post_explain(
     chunks = explain.chunks
     if not chunks:
         raise HTTPException(status_code=404, detail="No chunks available for this subtopic")
-
-    # NEW: Fetch or initialize user progress from UserProgress table
-    progress = db.query(UserProgress).filter(
+    
+    
+    # Early check for initial explain with existing chat history
+    temp_progress = db.query(UserProgress).filter(
         UserProgress.user_id == user_id,
         UserProgress.subtopic_id == subtopic_obj.id
     ).first()
+
+    if (explain_query.query.lower() == "explain" and 
+        explain_query.is_initial and 
+        temp_progress and 
+        temp_progress.chat_memory):
+        # Early return - no need for full progress setup
+        previous_answers = [pair['answer'] for pair in temp_progress.chat_memory]
+        return ExplainResponse(answer="", image=None, initial_response=previous_answers)
+
+    # Early check for continue completion
+    if (explain_query.query.lower() == "continue" and 
+        temp_progress and 
+        temp_progress.chunk_index + 1 >= len(chunks)):
+        return ExplainResponse(answer="Congratulations, you have mastered the topic!")
+
+    # ✅ NOW do full progress setup only for cases that need it
+    progress = temp_progress
     if not progress:
         progress = UserProgress(
             user_id=user_id,
@@ -348,10 +379,10 @@ async def post_explain(
         db.commit()
         db.refresh(progress)
 
-    # NEW: Use chunk_index and chat_memory from UserProgress
     chunk_index = progress.chunk_index
+   
     chat_memory = progress.chat_memory
-    # Handle query
+
    
     result = process_query_logic(explain_query.query, subject, chunks, chunk_index, 
                            chat_memory, explain_query, progress, db)
@@ -363,7 +394,7 @@ async def post_explain(
     # Unpack results for further processing
     query, context, selected_chunk, chunk_index = result
 
-
+    print(f"\n\nGemini API get -------this   {chunk_index}")
 
     # Fetch image data using the new function
     image_data = get_image_data_from_chunk(selected_chunk, subtopic_obj.id, db)
