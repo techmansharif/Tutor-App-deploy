@@ -11,6 +11,7 @@ import os
 from sentence_transformers import SentenceTransformer
 import faiss
 import google.generativeai as genai
+import threading 
 
 # Import JWT utils
 from ..jwt_utils import get_user_from_token
@@ -35,23 +36,61 @@ def get_db():
 
 
 def pre_generate_continue_response(progress: UserProgress, chunks: list, subject: str, db: Session):
+    """
+    Pre-generate the next continue response and store it in the database
+    """
     try:
         next_chunk_index = progress.chunk_index + 1
+        
+        # Don't pre-generate beyond last chunk
         if next_chunk_index >= len(chunks):
-            return  # Don't pre-generate beyond last chunk
+            # Clear any existing pre-generated response since we're at the end
+            progress.next_continue_response = None
+            progress.next_continue_image = None
+            progress.next_response_chunk_index = None
+            db.commit()
+            return
             
+        # Get the next chunk and its image
         next_chunk = chunks[next_chunk_index]
         next_image_data = get_image_data_from_chunk(next_chunk, progress.subtopic_id, db)
         
-        prompt = build_prompt("Explain the context easy fun way", progress.chat_memory, next_chunk, chunks, subject)
-        response = gemini_model.generate_content(prompt)
+        # Build prompt for the next chunk
+        continue_query = "Explain the context easy fun way"
+        prompt = build_prompt(continue_query, progress.chat_memory, next_chunk, chunks, subject)
         
-        progress.next_continue_response = response.text.strip()
+        # Generate AI response
+        response = gemini_model.generate_content(prompt)
+        generated_answer = response.text.strip()
+        
+        # # Save to file for debugging (optional)
+        # current_dir = os.getcwd()
+        # filename = os.path.join(current_dir, "pre_generated_response.txt")
+        # with open(filename, 'w', encoding='utf-8') as file:
+        #     file.write(f"Pre-generated for chunk {next_chunk_index}:\n{generated_answer}")
+        
+        # Store pre-generated response in database
+        progress.next_continue_response = generated_answer
         progress.next_continue_image = next_image_data
         progress.next_response_chunk_index = next_chunk_index
         
+        # Commit to database
+        db.commit()
+        
+        print(f"✅ Pre-generated continue response for chunk {next_chunk_index}")
+        
     except Exception as e:
-        print(f"Pre-generation failed: {e}")
+        print(f"❌ Pre-generation failed: {e}")
+        # Clear pre-generated data on failure
+        try:
+            progress.next_continue_response = None
+            progress.next_continue_image = None
+            progress.next_response_chunk_index = None
+            db.commit()
+        except:
+            pass  # If this fails too, just log and continue
+
+
 def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Optional[str]:
     """
     Fetches and encodes image data from the Diagram table if the chunk contains 'image description'.
@@ -378,6 +417,55 @@ async def post_explain(
         db.add(progress)
         db.commit()
         db.refresh(progress)
+    
+    
+    
+    print(f"\n-----------------\nafter updating chunk index now  {progress.chunk_index}\n------------------\n")
+        
+       # 🚀 CHECK FOR PRE-GENERATED CONTINUE RESPONSE
+    if (explain_query.query.lower() == "continue" and 
+        progress.next_continue_response and 
+        progress.next_response_chunk_index == progress.chunk_index + 1):
+        
+        # Use pre-generated response
+        answer = progress.next_continue_response
+        image = progress.next_continue_image
+        
+        # Update progress
+        new_pair = {"question": explain_query.query, "answer": answer}
+        chat_memory_updated = progress.chat_memory + [new_pair]
+        if len(chat_memory_updated) > 30:
+            chat_memory_updated = chat_memory_updated[-30:]
+        
+        progress.chat_memory = chat_memory_updated
+        progress.chunk_index = progress.next_response_chunk_index
+        progress.last_updated = datetime.utcnow()
+        
+        # Clear used response
+        progress.next_continue_response = None
+        progress.next_continue_image = None
+        progress.next_response_chunk_index = None
+        db.commit()
+        
+        # Start background generation for next response
+        def background_generate():
+            new_db = SessionLocal()
+            try:
+                fresh_progress = new_db.query(UserProgress).filter(
+                    UserProgress.user_id == user_id,
+                    UserProgress.subtopic_id == subtopic_obj.id
+                ).first()
+                if fresh_progress:
+                    pre_generate_continue_response(fresh_progress, chunks, subject, new_db)
+                    new_db.commit()
+            except Exception as e:
+                print(f"Background generation failed: {e}")
+            finally:
+                new_db.close()
+        
+        threading.Thread(target=background_generate).start()
+        
+        return ExplainResponse(answer=answer, image=image)
 
     chunk_index = progress.chunk_index
    
@@ -405,5 +493,23 @@ async def post_explain(
     
     answer = generate_ai_response_and_update_progress(prompt, query, explain_query.query, 
                                                 progress, chunk_index, explain_query, db)
+    
+    # Start background generation for next continue
+    def background_generate():
+        new_db = SessionLocal()
+        try:
+            fresh_progress = new_db.query(UserProgress).filter(
+                UserProgress.user_id == user_id,
+                UserProgress.subtopic_id == subtopic_obj.id
+            ).first()
+            if fresh_progress:
+                pre_generate_continue_response(fresh_progress, chunks, subject, new_db)
+                new_db.commit()
+        except Exception as e:
+            print(f"Background generation failed: {e}")
+        finally:
+            new_db.close()
+    
+    threading.Thread(target=background_generate).start()
+    
     return ExplainResponse(answer=answer,image=image_data)
-
