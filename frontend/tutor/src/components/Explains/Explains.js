@@ -66,6 +66,9 @@ useEffect(() => {
 
 
 
+const stopAllAudio = () => {
+  window.speechSynthesis.cancel();
+};
 
   const fetchExplain = async (query, isInitial = false, isExplainAgain = false) => {
     setIsExplainLoading(true);
@@ -131,15 +134,19 @@ useEffect(() => {
   };
 
   const handleContinueExplain = () => {
+      stopAllAudio();
     fetchExplain("continue");
   };
 
   const handleExplainAgain = () => {
+      stopAllAudio();
     fetchExplain("explain",false,true);
   };
 
   const handleCustomQuery = () => {
+  
     if (userQuery.trim()) {
+        stopAllAudio();
       fetchExplain(userQuery);
       setUserQuery('');
     }
