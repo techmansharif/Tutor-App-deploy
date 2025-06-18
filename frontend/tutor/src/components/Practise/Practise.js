@@ -278,7 +278,7 @@ const fetchPracticeQuestion = async (submission = null) => {
                 disabled={isAnswerSubmitted && isAnswerIncorrect}
               />
               <label htmlFor={`q-${currentQuestion.id}-${option}`}>
-                {option.toUpperCase()}:  <MathText>{currentQuestion[`option_${option}`]}</MathText>
+                {option.toUpperCase()}:<MathText>{currentQuestion[`option_${option}`]}</MathText>
               </label>
             </div>
           ))}
@@ -329,10 +329,10 @@ const fetchPracticeQuestion = async (submission = null) => {
                     />
                   )}
                 <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-                  <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}:  <MathText>  {currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
+                  <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}:  <MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
                 </p>
                 <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-                  <strong>Explanation:</strong> <MathText> {currentQuestion.explanation}</MathText>
+                  <strong>Explanation:</strong> <MathText>{currentQuestion.explanation}</MathText>
                 </p>
             </div>
             

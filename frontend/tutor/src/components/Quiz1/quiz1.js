@@ -302,7 +302,7 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
   <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: <MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
 </p>
               <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-                <strong>Explanation:</strong><MathText> {currentQuestion.explanation}</MathText>
+                <strong>Explanation:</strong><MathText>{currentQuestion.explanation}</MathText>
               </p>
             </div>
             <div className="action-buttons" >
