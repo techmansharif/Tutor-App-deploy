@@ -169,15 +169,17 @@ footer {
 .nav-button.nav-button-active {
   background-color: #6c757d !important; /* Grey background */
   color: white !important; /* White text for contrast */
+  cursor:not-allowed !important;
+
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important; /* More prominent shadow */
 
   border: 2px solid #495057 !important; /* Darker border */
 }
 
-.nav-button.nav-button-active:hover {
-  background-color: #5a6268 !important; /* Slightly darker on hover */
-
-}
+/* .nav-button.nav-button-active:hover {
+  background-color: #5a6268 !important; 
+ 
+} */
 .nav-button.nav-button-disabled {
   background-color: #cccccc !important;
   color: #666666 !important;
@@ -185,7 +187,7 @@ footer {
   opacity: 0.6;
 }
 
-.nav-button.nav-button-disabled:hover {
+/* .nav-button.nav-button-disabled:hover {
   background-color: #cccccc !important;
   color: #666666 !important;
-}
+} */

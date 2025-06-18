@@ -22,9 +22,9 @@ function App() {
   const [selectedValues, setSelectedValues] = useState({selectedSubject: '',selectedTopic: '', selectedSubtopic: '' });
   // BEFORE - Add this state
 const [token, setToken] = useState(null);
-  //const API_BASE_URL = 'http://localhost:8000';
+//  const API_BASE_URL = 'http://localhost:8000';
   
-const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
+  const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
 
 // AFTER - useEffect for fetching user
 useEffect(() => {
@@ -222,21 +222,22 @@ const renderNavigationButtons = () => {
   if (!user) return null;
 
   const selectionsComplete = areSelectionsComplete();
-  const shouldDisableButtons = quizStage === 'selection' && !selectionsComplete;
+ const shouldDisableButtons = (quizStage === 'selection' && !selectionsComplete) || quizStage === 'welcome' || quizStage === 'quiz1';
 
   return (
     <div className='navigation-button-container'>
       <div className="navigation-buttons">
-        <button 
+        {/* <button 
               onClick={() => handleStageChange('quiz1')} 
               className={`nav-button ${quizStage === 'quiz1' ? 'nav-button-active' : ''}`}
             >
               ASSESSMENT
               <div style={{ fontSize: '0.8em' }}>Initial skill check</div>
-        </button>
+        </button> */}
         <button 
           onClick={() => handleStageChange('selection')} 
-          className={`nav-button ${quizStage === 'selection' ? 'nav-button-active' : ''}`}
+          className={`nav-button ${quizStage === 'selection' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+          disabled={shouldDisableButtons}
         >
           SUBJECT
           <div style={{ fontSize: '0.8em' }}>Select a subject</div>
@@ -270,12 +271,14 @@ const renderNavigationButtons = () => {
         </button>
         
         <button 
-          onClick={() => handleStageChange('dashboard')} 
-          className={`nav-button ${quizStage === 'dashboard' ? 'nav-button-active' : ''}`}
-        >
-          PROGRESS 
-          <div style={{ fontSize: '0.8em' }}>Your scoreboard</div>
-        </button>
+    onClick={() => handleStageChange('dashboard')} 
+    className={`nav-button ${quizStage === 'dashboard' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
+    disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
+  >
+    PROGRESS 
+    <div style={{ fontSize: '0.8em' }}>Your scoreboard</div>
+</button>
+
       </div>
     </div>
   );
