@@ -222,21 +222,22 @@ const renderNavigationButtons = () => {
   if (!user) return null;
 
   const selectionsComplete = areSelectionsComplete();
-  const shouldDisableButtons = quizStage === 'selection' && !selectionsComplete;
+ const shouldDisableButtons = (quizStage === 'selection' && !selectionsComplete) || quizStage === 'welcome' || quizStage === 'quiz1';
 
   return (
     <div className='navigation-button-container'>
       <div className="navigation-buttons">
-        <button 
+        {/* <button 
               onClick={() => handleStageChange('quiz1')} 
               className={`nav-button ${quizStage === 'quiz1' ? 'nav-button-active' : ''}`}
             >
               ASSESSMENT
               <div style={{ fontSize: '0.8em' }}>Initial skill check</div>
-        </button>
+        </button> */}
         <button 
           onClick={() => handleStageChange('selection')} 
-          className={`nav-button ${quizStage === 'selection' ? 'nav-button-active' : ''}`}
+          className={`nav-button ${quizStage === 'selection' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+          disabled={shouldDisableButtons}
         >
           SUBJECT
           <div style={{ fontSize: '0.8em' }}>Select a subject</div>
@@ -270,12 +271,14 @@ const renderNavigationButtons = () => {
         </button>
         
         <button 
-          onClick={() => handleStageChange('dashboard')} 
-          className={`nav-button ${quizStage === 'dashboard' ? 'nav-button-active' : ''}`}
-        >
-          PROGRESS 
-          <div style={{ fontSize: '0.8em' }}>Your scoreboard</div>
-        </button>
+    onClick={() => handleStageChange('dashboard')} 
+    className={`nav-button ${quizStage === 'dashboard' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
+    disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
+  >
+    PROGRESS 
+    <div style={{ fontSize: '0.8em' }}>Your scoreboard</div>
+</button>
+
       </div>
     </div>
   );

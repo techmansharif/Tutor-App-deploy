@@ -19,6 +19,7 @@ const Welcome = ({ user, API_BASE_URL, onStartQuiz }) => {
         className="start-button"
       >
         Press here to start!
+        <div style={{ fontSize: '0.8em' }}>Assess your initial skill</div>
       </button>
       <div className="stopwatch-wrapper">
         <Stopwatch
