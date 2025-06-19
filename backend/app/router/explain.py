@@ -55,6 +55,10 @@ def pre_generate_continue_response(progress: UserProgress, chunks: list, subject
         next_chunk = chunks[next_chunk_index]
         next_image_data = get_image_data_from_chunk(next_chunk, progress.subtopic_id, db)
         
+        if next_image_data:
+            print("\n image exist")
+        else:
+            print("\n image no exist ")        
         # Build prompt for the next chunk
         continue_query = "Explain the context easy fun way"
         prompt = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject)
@@ -497,6 +501,11 @@ async def post_explain(
 
     # Fetch image data using the new function
     image_data = get_image_data_from_chunk(selected_chunk, subtopic_obj.id, db)
+    
+    if image_data:
+        print("\nimage exist\n")
+    else:
+        print("\n image no exist ") 
 
 
     

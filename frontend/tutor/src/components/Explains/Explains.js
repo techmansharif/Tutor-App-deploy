@@ -98,7 +98,7 @@ const stopAllAudio = () => {
       if (response.data.answer === "Congratulations, you have mastered the topic!") {
         setExplainFinished(true);
         setExplanationHistory((prev) => {
-  const newHistory = [...prev, { text: response.data.answer, image: null }];
+  const newHistory = [...prev, { text: response.data.answer, image: response.data.image }];
   if (!isExplainAgain) { // CHANGED - only mark as newest if not "explain again"
     setNewlyAddedIndices(new Set([newHistory.length - 1]));
   }
@@ -114,7 +114,7 @@ const stopAllAudio = () => {
         setExplanationHistory((prev) => [...prev, ...answers]);
       } else {
   setExplanationHistory((prev) => {
-    const newHistory = [...prev, { text: response.data.answer, image: null }];
+    const newHistory = [...prev, { text: response.data.answer, image: response.data.image}];
     if (isExplainAgain) {
       setExplainAgainIndices(new Set([newHistory.length - 1]));
       setNewlyAddedIndices(new Set()); // Clear previous newest entries
@@ -172,14 +172,14 @@ const stopAllAudio = () => {
 
 <div className="button-row">
 <div className="button-with-text">
-  <button onClick={handleContinueExplain} className="primary-button-component">
+  <button onClick={handleContinueExplain} className="primary-button-component"  disabled={explainFinished}>
    পরবর্তী অংশে যান
   </button>
 
 </div>
 
 <div className="button-with-text">
-  <button onClick={handleExplainAgain} className="secondary-button-component">
+  <button onClick={handleExplainAgain} className="secondary-button-component" disabled={explainFinished}>
     নতুনভাবে ও <br/> সহজ করে বলুন(AI)
   </button>
  

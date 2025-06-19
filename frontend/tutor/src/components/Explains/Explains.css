@@ -225,7 +225,22 @@ code {
   background-color: #9DEFEA; /* Updated hover color */
 }
 
+/* Disabled button styles */
+.primary-button-component:disabled,
+.secondary-button-component:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #e0e0e0;
+  color: #999;
+}
 
+.primary-button-component:disabled:hover {
+  background-color: #e0e0e0; /* Keep same color on hover when disabled */
+}
+
+.secondary-button-component:disabled:hover {
+  background-color: #e0e0e0; /* Keep same color on hover when disabled */
+}
 
 .custom-query-input {
   padding: 10px;
