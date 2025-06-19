@@ -73,7 +73,7 @@ REQUEST_LATENCY = Histogram(
     buckets=[0.01, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0]
 )
 
-app = FastAPI(title="AITutor Quiz Webapp")
+app = FastAPI(title="BRIM AI TUTOR")
 
 
 # Mount Prometheus metrics endpoint
