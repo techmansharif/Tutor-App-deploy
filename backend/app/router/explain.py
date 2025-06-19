@@ -57,8 +57,9 @@ def pre_generate_continue_response(progress: UserProgress, chunks: list, subject
         
         # Build prompt for the next chunk
         continue_query = "Explain the context easy fun way"
-        prompt = build_prompt(continue_query, progress.chat_memory, next_chunk, chunks, subject)
+        prompt = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject)
         
+       # print(f"\nfor pregenration chat memory  {(progress.chat_memory)}\n")
         # Generate AI response
         response = gemini_model.generate_content(prompt)
         generated_answer = response.text.strip()
@@ -197,7 +198,7 @@ def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int
             query="please explain in easier english and easily"
         else:
             query = "please explain more easily and elaborately"
-        context = chunks[chunk_index]
+        context = None
             # After determining context and chunk_index
         selected_chunk =chunks[chunk_index]
                 
@@ -206,17 +207,22 @@ def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int
         chunk_index += 1
 
         query = "Explain the context easy fun way"
-        context = chunks[chunk_index]
+        context = None
             # After determining context and chunk_index
         selected_chunk =chunks[chunk_index]
     elif query == "refresh":
+      #  print("\n\n i am here inside refresh screen \n\n")
         chunk_index = 0 # Start from chunk_index = 1
         progress.chunk_index = chunk_index
         chat_memory=[]
         progress.chat_memory = []  # Clear chat_memory
+        
         db.commit()
+        
+      
         query =  "Explain the context easy fun way"
-        context = chunks[chunk_index]
+        context = None
+        
         selected_chunk = chunks[chunk_index]
     else:
         # Custom query with FAISS
@@ -241,6 +247,9 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
         f"User: {pair['question']}\nAssistant: {pair['answer']}"
         for pair in chat_memory[-30:]
     ]) if chat_memory else "No prior conversation."
+    
+    
+  #  print(f"gemini api will get this \n the chatmemory:{chat_memory}\n\n chunk is {chunks}")
 
     # Prepare prompt (unchanged)
     prompt = f"""
@@ -321,7 +330,7 @@ def generate_ai_response_and_update_progress(prompt: str, query: str, answer_tex
                                            progress: UserProgress, chunk_index: int, 
                                            explain_query: ExplainQuery, db: Session) -> str:
 
-    print(f'\n\n {query}\n\n')
+    
     # Generate response
     response = gemini_model.generate_content(prompt)
 
@@ -420,8 +429,7 @@ async def post_explain(
     
     
     
-    print(f"\n-----------------\nafter updating chunk index now  {progress.chunk_index}\n------------------\n")
-        
+       
        # 🚀 CHECK FOR PRE-GENERATED CONTINUE RESPONSE
     if (explain_query.query.lower() == "continue" and 
         progress.next_continue_response and 
@@ -481,15 +489,18 @@ async def post_explain(
 
     # Unpack results for further processing
     query, context, selected_chunk, chunk_index = result
+    # 🔧 FIX: Clear local chat_memory for refresh operations
+    if explain_query.query.lower() == "refresh":
+        chat_memory = []  # Clear the local variable too!
 
-    print(f"\n\nGemini API get -------this   {chunk_index}")
+   # print(f"\n\nGemini API get -------this   {chunk_index}")
 
     # Fetch image data using the new function
     image_data = get_image_data_from_chunk(selected_chunk, subtopic_obj.id, db)
 
 
     
-    prompt = build_prompt(query, chat_memory, context, chunks, subject)
+    prompt = build_prompt(query, chat_memory, context, selected_chunk, subject)
     
     answer = generate_ai_response_and_update_progress(prompt, query, explain_query.query, 
                                                 progress, chunk_index, explain_query, db)

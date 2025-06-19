@@ -338,7 +338,7 @@ async def get_topics(subject: str, db: Session = Depends(get_db)):
                     break
         else:
             has_questions = False
-        
+                    
         topics_with_status.append({
             "name": topic.name,
             "has_questions": has_questions
