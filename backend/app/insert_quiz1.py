@@ -124,9 +124,11 @@ def insert_data_to_database(subject_name, topic_name, questions_data, db):
     # Get or create subject
     subject = db.query(Subject).filter(Subject.name == subject_name).first()
     if not subject:
-        print(f"\n\n❌ Subject '{subject_name}' does not exist in database")
-        print("⚠️  Please create the subject first before running this script")
-        return 
+        subject = Subject(name=subject_name)
+        db.add(subject)
+        db.commit()
+        db.refresh(subject)
+        print(f"✅ Created new subject: {subject_name}")
     else:
         print(f"📍 Using existing subject: {subject_name}")
     
@@ -213,6 +215,7 @@ def process_folders_and_files(base_directory="data"):
         total_questions_inserted = 0
         total_topics_created = 0
         total_subtopics_created = 0
+        total_subjects_created = 0  # Add this line
         
         # Iterate through subject folders
         for subject_folder in os.listdir(base_directory):
@@ -228,7 +231,13 @@ def process_folders_and_files(base_directory="data"):
             # Check if subject exists before processing any files
             subject = db.query(Subject).filter(Subject.name == subject_name).first()
             if not subject:
-                print(f"⚠️  Subject '{subject_name}' does not exist. Skipping entire folder.")
+                 # Create new subject
+                subject = Subject(name=subject_name)
+                db.add(subject)
+                db.commit()
+                db.refresh(subject)
+                print(f"✅ Created new subject: {subject_name}")
+                total_subjects_created += 1  # Add this counter
                 continue
             
             # Process CSV files in the subject folder
