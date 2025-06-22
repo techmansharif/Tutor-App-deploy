@@ -229,6 +229,15 @@ def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int
         
         selected_chunk = chunks[chunk_index]
     else:
+        
+        if subject == 'গণিত' or subject == "উচ্চতর গণিত":
+            # Return Bengali message for Bengali subjects
+            bengali_message = "দুঃখিত, এই সেবাটি শুধুমাত্র English বিষয়ের জন্য প্রযোজ্য। অনুগ্রহ করে 'নতুনভাবে ও সহজভাবে বলুন(AI)' বা 'পরবর্তী অংশে যান' ব্যবহার করুন।"
+            return ExplainResponse(answer=bengali_message, image=None)
+
+        
+
+        # Only allow custom queries for English subject - but check relevance
         # Custom query with FAISS
         model = SentenceTransformer('all-MiniLM-L6-v2')
         embeddings = model.encode(chunks, convert_to_numpy=True)
@@ -237,7 +246,13 @@ def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int
         index.add(embeddings)
         query_embedding = model.encode([query], convert_to_numpy=True)
         top_k = 3
-        distances, indices = index.search(query_embedding, top_k)
+        distances, indices = index.search(query_embedding, top_k)   
+         # Check relevance - if the closest match has too high distance, it's irrelevant
+        min_distance = distances[0][0]  # Get the smallest distance (closest match)
+        RELEVANCE_THRESHOLD = 1.5  # Adjust this threshold as needed
+        if min_distance > RELEVANCE_THRESHOLD:
+            # Query is not relevant to the content
+            return "IRRELEVANT_ENGLISH_QUERY", None, None, chunk_index
         context = [chunks[idx] for idx in indices[0]]
         selected_chunk=None
     return query, context, selected_chunk, chunk_index
@@ -397,6 +412,30 @@ async def post_explain(
     if not chunks:
         raise HTTPException(status_code=404, detail="No chunks available for this subtopic")
     
+   
+    # print(f"\n this is {explain_query.query} \n\n")
+    # x=explain_query.query
+    # is_query_correct,message=early_return(subject=subject,query=x) 
+    # if not is_query_correct:
+    #     return ExplainResponse(answer=message,image=None)
+        
+
+    # SIMPLE BENGALI DETECTION FOR ENGLISH SUBJECTS - CHECK THIS FIRST
+
+    if subject == "English":
+        bengali_chars = 'অআইঈউঊঋএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহড়ঢ়য়ৎংঃ'
+        has_bengali = any(char in explain_query.query for char in bengali_chars)
+        # Only block Bengali in custom queries, not explain/continue/refresh
+        if has_bengali and explain_query.query.lower() not in ["explain", "continue", "refresh"]:
+            sorry_message = "Sorry, this service is only applicable for English subject in English language. Please ask questions in English related to the English subject matter."
+            return ExplainResponse(answer=sorry_message, image=None)
+    # SIMPLE BENGALI SUBJECT RESTRICTION 
+    if (subject == 'গণিত' or subject == "উচ্চতর গণিত") and explain_query.query.lower() not in ["explain", "continue", "refresh"]:
+        bengali_message = "দুঃখিত, এই সেবাটি শুধুমাত্র English বিষয়ের জন্য প্রযোজ্য। অনুগ্রহ করে 'নতুনভাবে ও সহজভাবে বলুন(AI)' বা 'পরবর্তী অংশে যান' ব্যবহার করুন।"
+        return ExplainResponse(answer=bengali_message, image=None)
+
+
+    
     
     # Early check for initial explain with existing chat history
     temp_progress = db.query(UserProgress).filter(
@@ -496,6 +535,10 @@ async def post_explain(
     # 🔧 FIX: Clear local chat_memory for refresh operations
     if explain_query.query.lower() == "refresh":
         chat_memory = []  # Clear the local variable too!
+    if query == "IRRELEVANT_ENGLISH_QUERY":
+        print("🚫 RETURNING IRRELEVANT ENGLISH QUERY MESSAGE")
+        english_message = "I'm sorry, but your question seems to be out of context for the current English topic we're studying. Please ask questions related to the English subject matter we're covering."
+        return ExplainResponse(answer=english_message, image=None)
 
    # print(f"\n\nGemini API get -------this   {chunk_index}")
 
@@ -533,3 +576,5 @@ async def post_explain(
     threading.Thread(target=background_generate).start()
     
     return ExplainResponse(answer=answer,image=image_data)
+
+

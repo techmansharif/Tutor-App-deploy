@@ -17,7 +17,7 @@ from pydantic import BaseModel
 from .router.quizzes import router as quizzes_router
 from .router.dashboard import router as dashboard_router
 from .router.explain import router as explains_router
-
+from .router.revise import router as revise_router 
 
 from fastapi import Request
 from starlette.middleware.sessions import SessionMiddleware
@@ -421,6 +421,7 @@ app.include_router(dashboard_router)
 # Updated function to handle various LaTeX commands in the first line
 app.include_router(explains_router)
 
+app.include_router(revise_router)
 # @app.on_event("startup")
 # async def startup_event():
 #     Base.metadata.create_all(bind=engine)
