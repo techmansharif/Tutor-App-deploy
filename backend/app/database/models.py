@@ -264,3 +264,33 @@ class FacialExpression(Base):
     name = Column(String, nullable=False)
     facial_expression = Column(String, nullable=False)
     image = Column(LargeBinary, nullable=False)
+    
+    
+# Add this to your models.py file
+
+class ReviseSession(Base):
+    __tablename__ = "revise_sessions"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), index=True, nullable=False)
+    mode = Column(String, nullable=False)  # "subject" or "random"
+    subject = Column(String, nullable=True)
+    topic = Column(String, nullable=True)
+    subtopic = Column(String, nullable=True)
+    started_at = Column(DateTime(timezone=True), server_default=func.now())
+    is_active = Column(Boolean, default=True)
+    
+    user = relationship("User")
+    shown_questions = relationship("ReviseShownQuestion", back_populates="session")
+
+
+class ReviseShownQuestion(Base):
+    __tablename__ = "revise_shown_questions"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    session_id = Column(Integer, ForeignKey("revise_sessions.id"), index=True, nullable=False)
+    question_id = Column(Integer, ForeignKey("mcqs.id"), index=True, nullable=False)
+    shown_at = Column(DateTime(timezone=True), server_default=func.now())
+    
+    session = relationship("ReviseSession", back_populates="shown_questions")
+    question = relationship("MCQ")

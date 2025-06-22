@@ -14,6 +14,8 @@ const PracticeQuiz = lazy(() => import('./components/Practise/Practise'));
 const Quiz = lazy(() => import('./components/Quiz/quiz'));
 const Welcome = lazy(() => import('./components/Welcome/Welcome'));
 const Dashboard = lazy(() => import('./components/Dashboard/Dashboard'));
+// 1. Add this import at the top with other lazy imports
+const Revise = lazy(() => import('./components/Revise/Revise'));
 
 function App() {
   const [user, setUser] = useState(null);
@@ -203,14 +205,18 @@ const onSelectionChange = (values) => {
           />
           
         );
+        // 2. Add 'revise' case to your switch statement in renderCurrentStage():
+      case 'revise':
+        return <Revise user={user} API_BASE_URL={API_BASE_URL} />;
+
         case 'dashboard':
-  return (
-    <Dashboard 
-      user={user} 
-      API_BASE_URL={API_BASE_URL} 
-      onGoToSelection={() => setQuizStage('selection')}
-    />
-  );
+          return (
+            <Dashboard 
+              user={user} 
+              API_BASE_URL={API_BASE_URL} 
+              onGoToSelection={() => setQuizStage('selection')}
+            />
+          );
       default:
         return <Quiz1 user={user} API_BASE_URL={API_BASE_URL} onCompleteQuiz={onQuiz1Complete} />;
     }   })()}
@@ -269,7 +275,15 @@ const renderNavigationButtons = () => {
           QUIZ  
           <div style={{ fontSize: '0.8em' }}>Check your progress </div>
         </button>
-        
+      
+      <button 
+        onClick={() => handleStageChange('revise')} 
+        className={`nav-button ${quizStage === 'revise' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
+        disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
+      >
+        REVISE
+        <div style={{ fontSize: '0.8em' }}>Review failed questions</div>
+      </button>
         <button 
     onClick={() => handleStageChange('dashboard')} 
     className={`nav-button ${quizStage === 'dashboard' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
