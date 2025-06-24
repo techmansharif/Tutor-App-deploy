@@ -12,10 +12,22 @@ from sentence_transformers import SentenceTransformer
 import faiss
 from google import genai
 from google.genai import types
-
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 # Import JWT utils
 from ..jwt_utils import get_user_from_token
+
+
+# Preload SentenceTransformer globally to avoid repeated loading
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+# Get CPU count and set workers accordingly
+cpu_count = os.cpu_count() or 4
+# Use 1.5x CPU cores for mixed I/O and CPU tasks, max 8 to prevent overload
+# For Cloud Run with 1 CPU, override to use more workers
+max_workers = 8 if cpu_count <= 2 else min(int(cpu_count * 1.5), 8)
+executor = ThreadPoolExecutor(max_workers=max_workers)
 
 
 # Setup Gemini API globally
@@ -39,13 +51,17 @@ def generate_gemini_response(prompt: str, temperature: float = 0.2) -> str:
     Returns:
         Generated text response
     """
-    response = client.models.generate_content(
+    # Use executor for controlled concurrency
+    future = executor.submit(
+        client.models.generate_content,
         model=MODEL,
         contents=[prompt],
         config=types.GenerateContentConfig(
+            thinking_config=types.ThinkingConfig(thinking_budget=-1),
             temperature=temperature
         )
     )
+    response = future.result()
     return response.text.strip()
 # Dependency to get DB session
 def get_db():
@@ -278,7 +294,7 @@ def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int
 
         # Only allow custom queries for English subject - but check relevance
         # Custom query with FAISS
-        model = SentenceTransformer('all-MiniLM-L6-v2')
+        # model = SentenceTransformer('all-MiniLM-L6-v2')
         embeddings = model.encode(chunks, convert_to_numpy=True)
         dimension = embeddings.shape[1]
         index = faiss.IndexFlatL2(dimension)
@@ -426,10 +442,13 @@ async def post_explain(
     db: Session = Depends(get_db),
     authorization: Optional[str] = Header(None)
 ):
-    user = authenticate_and_validate_user(authorization, user_id, db)
-    subject_obj, topic_obj, subtopic_obj = validate_subject_topic_subtopic(db, subject, topic, subtopic)
+    user =await asyncio.to_thread(authenticate_and_validate_user, authorization, user_id, db)
+    subject_obj, topic_obj, subtopic_obj =  await asyncio.to_thread(validate_subject_topic_subtopic, db, subject, topic, subtopic )
+  
     # Fetch explain record
-    explain = db.query(Explain).filter(Explain.subtopic_id == subtopic_obj.id).first()
+    explain = await asyncio.to_thread(
+        db.query(Explain).filter(Explain.subtopic_id == subtopic_obj.id).first
+    )
     if not explain:
         raise HTTPException(status_code=404, detail=f"No explanations found for subtopic {subtopic}")
 
@@ -456,10 +475,12 @@ async def post_explain(
     
     
     # Early check for initial explain with existing chat history
-    temp_progress = db.query(UserProgress).filter(
-        UserProgress.user_id == user_id,
-        UserProgress.subtopic_id == subtopic_obj.id
-    ).first()
+    temp_progress = await asyncio.to_thread(
+        db.query(UserProgress).filter(
+            UserProgress.user_id == user_id,
+            UserProgress.subtopic_id == subtopic_obj.id
+        ).first
+    )
 
     if (explain_query.query.lower() == "explain" and 
         explain_query.is_initial and 
@@ -484,10 +505,9 @@ async def post_explain(
             chunk_index=0,
             chat_memory=[]
         )
-        db.add(progress)
-        db.commit()
-        db.refresh(progress)
-    
+        await asyncio.to_thread(db.add, progress)
+        await asyncio.to_thread(db.commit)
+        await asyncio.to_thread(db.refresh, progress)
     
     
        
@@ -514,7 +534,7 @@ async def post_explain(
         progress.next_continue_response = None
         progress.next_continue_image = None
         progress.next_response_chunk_index = None
-        db.commit()
+        await asyncio.to_thread(db.commit)  # <-- Changed this line
         
         # Start background generation for next response
         background_tasks.add_task(
@@ -535,8 +555,10 @@ async def post_explain(
     chat_memory = progress.chat_memory
 
    
-    result = process_query_logic(explain_query.query, subject, chunks, chunk_index, 
-                           chat_memory, explain_query, progress, db)
+    result =  await asyncio.to_thread(
+        process_query_logic, explain_query.query, subject, chunks, chunk_index, 
+        chat_memory, explain_query, progress, db
+    )
     
         # Handle early return cases
     if isinstance(result, ExplainResponse):
@@ -552,7 +574,9 @@ async def post_explain(
    # print(f"\n\nGemini API get -------this   {chunk_index}")
 
     # Fetch image data using the new function
-    image_data = get_image_data_from_chunk(selected_chunk, subtopic_obj.id, db)
+    image_data = await asyncio.to_thread(
+        get_image_data_from_chunk, selected_chunk, subtopic_obj.id, db
+    )
     
     if image_data:
         print("\nimage exist\n")
@@ -561,10 +585,13 @@ async def post_explain(
 
 
     
-    prompt = build_prompt(query, chat_memory, context, selected_chunk, subject)
-    
-    answer = generate_ai_response_and_update_progress(prompt, query, explain_query.query, 
-                                                progress, chunk_index, explain_query, db)
+    prompt = await asyncio.to_thread(
+        build_prompt, query, chat_memory, context, selected_chunk, subject
+    )
+    answer = await asyncio.to_thread(
+        generate_ai_response_and_update_progress, prompt, query, explain_query.query, 
+        progress, chunk_index, explain_query, db
+    )
     
     current_dir = os.getcwd()
     filename = os.path.join(current_dir, "explain_raw_text.txt")
