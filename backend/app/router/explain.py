@@ -27,6 +27,26 @@ if not api_key:
 # Create client
 client = genai.Client(api_key=api_key)
 MODEL="gemini-2.5-flash"
+
+def generate_gemini_response(prompt: str, temperature: float = 0.2) -> str:
+    """
+    Generate response using Gemini API
+    
+    Args:
+        prompt: The prompt to send to Gemini
+        temperature: Temperature setting for generation (default 0.2)
+    
+    Returns:
+        Generated text response
+    """
+    response = client.models.generate_content(
+        model=MODEL,
+        contents=[prompt],
+        config=types.GenerateContentConfig(
+            temperature=temperature
+        )
+    )
+    return response.text.strip()
 # Dependency to get DB session
 def get_db():
     db = SessionLocal()
@@ -79,14 +99,10 @@ def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks: list,
         
     # print(f"\nfor pregenration chat memory  {(progress.chat_memory)}\n")
         # Generate AI response
-        response = client.models.generate_content(
-        model=MODEL,
-        contents=[prompt],
-        config=types.GenerateContentConfig(
-            temperature=0.3 # Adjust as needed
-        )
-    )
-        generated_answer = response.text.strip()
+        generated_answer =generate_gemini_response(prompt, temperature=0.3)
+        
+         
+        
         
         # # Save to file for debugging (optional)
         # current_dir = os.getcwd()
@@ -374,30 +390,10 @@ def generate_ai_response_and_update_progress(prompt: str, query: str, answer_tex
 
     
     # Generate response
-    response = client.models.generate_content(
-    model=MODEL,
-    contents=[prompt],
-    config=types.GenerateContentConfig(
-        temperature=0.7  # Adjust as needed
-    )
-)
+    answer = generate_gemini_response(prompt, temperature=0.3)
+    
 
-    answer = response.text.strip()  
-#     answer= """
-    
-# |   | a   | b   |
-# |---|-----|-----|
-# | a | a^2 | ab  |
-# | b | ab  | b^2 |
-#     """
-   
-    
-    current_dir = os.getcwd()
-    filename = os.path.join(current_dir, "explain_raw_text.txt")
-    with open(filename, 'w', encoding='utf-8') as file:
-        file.write(answer)
-    
-    
+ 
     # NEW: Update UserProgress with new chunk_index and chat_memory
  
 
@@ -476,7 +472,7 @@ async def post_explain(
     # Early check for continue completion
     if (explain_query.query.lower() == "continue" and 
         temp_progress and 
-        temp_progress.chunk_index + 1 >= len(chunks)):
+        temp_progress.chunk_index >= len(chunks)-1):
         return ExplainResponse(answer="Congratulations, you have mastered the topic!")
 
     # ✅ NOW do full progress setup only for cases that need it
@@ -528,6 +524,10 @@ async def post_explain(
     chunks,
     subject
 )
+        current_dir = os.getcwd()
+        filename = os.path.join(current_dir, "explain_raw_text.txt")
+        with open(filename, 'w', encoding='utf-8') as file:
+            file.write(answer)
         return ExplainResponse(answer=answer, image=image)
 
     chunk_index = progress.chunk_index
@@ -566,6 +566,11 @@ async def post_explain(
     answer = generate_ai_response_and_update_progress(prompt, query, explain_query.query, 
                                                 progress, chunk_index, explain_query, db)
     
+    current_dir = os.getcwd()
+    filename = os.path.join(current_dir, "explain_raw_text.txt")
+    with open(filename, 'w', encoding='utf-8') as file:
+        file.write(answer)
+
     # Start background generation for next continue
     background_tasks.add_task(
     pre_generate_continue_response,
