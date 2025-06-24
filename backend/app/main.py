@@ -37,6 +37,7 @@ import faiss
 from sentence_transformers import SentenceTransformer
 from pylatexenc.latex2text import LatexNodes2Text
 
+from jose import jwt
 
 import secrets
 from urllib.parse import urlencode
@@ -48,7 +49,7 @@ import json
 import time 
 
 # BEFORE - Add these imports
-from .jwt_utils import create_access_token, get_user_from_token
+from .jwt_utils import create_access_token, get_user_from_token,JWT_SECRET_KEY
 from datetime import timedelta
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
@@ -141,17 +142,9 @@ REDIRECT_URI = "http://localhost:8000/auth/google/callback"
 GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth"
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
-SECRET_KEY = secrets.token_hex(32)
+SECRET_KEY = JWT_SECRET_KEY
 
-# In-memory storage for OAuth states (with expiration)
-oauth_states = {}
-def clean_expired_states():
-    """Remove expired OAuth states"""
-    current_time = time.time()
-    expired_keys = [key for key, (_, timestamp) in oauth_states.items() 
-                   if current_time - timestamp > 300]  # 5 minutes expiry
-    for key in expired_keys:
-        del oauth_states[key]
+
 
 # Add CORS middleware for React frontend
 app.add_middleware(
@@ -183,10 +176,13 @@ async def get_user(authorization: Optional[str] = Header(None)):
     
 @app.get("/login")
 async def login():
-    clean_expired_states()  # Clean up expired states
-    state = secrets.token_hex(16)
-    oauth_states[state] = (state, time.time())  # Store state with timestamp
+    # Create a signed JWT state token
     
+    state_data = {
+        "exp": datetime.utcnow() + timedelta(minutes=5),
+        "nonce": secrets.token_hex(8)
+    }
+    state = jwt.encode(state_data, SECRET_KEY, algorithm="HS256")
     params = {
         "client_id": CLIENT_ID,
         "redirect_uri": REDIRECT_URI,
@@ -209,11 +205,15 @@ async def auth_callback(request: Request):
     
     # Verify state parameter
     state_param = request.query_params.get("state")
-    if state_param and state_param in oauth_states:
-        # Valid state, remove it from storage
-        del oauth_states[state_param]
-    elif state_param:
-        print(f"Warning: Invalid or expired state: {state_param}")
+       
+    try:
+        # Verify the JWT state token
+       
+        jwt.decode(state_param, SECRET_KEY, algorithms=["HS256"])
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=400, detail="State token expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=400, detail="Invalid state token")
     
     token_data = {
         "client_id": CLIENT_ID,
