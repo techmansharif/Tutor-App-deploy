@@ -1,0 +1,236 @@
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: white;
+  color: #475bfd;
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: linear-gradient(to left, #91e7ee, #475bfd);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  padding-right: 10%;
+}
+
+.navbar .logo {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.navbar .menu {
+  display: flex;
+  align-items: center;
+  margin-right: 10%;
+}
+
+.navbar .menu a {
+  color: #f8fafc;
+  text-decoration: none;
+  margin-left: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.navbar .menu a:hover {
+  color: #91e7ee;
+}
+
+.menu-button {
+  display: none;
+  font-size: 24px;
+  color: #f8fafc;
+  cursor: pointer;
+  padding: 5px 10px;
+  padding-right: 10%;
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 80px;
+  right: 0;
+  width: 220px;
+  height: calc(100vh - 80px);
+  background: #ebf2f6;
+  padding-top: 20px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 900;
+}
+
+.mobile-menu.active {
+  transform: translateX(0);
+}
+
+.mobile-menu a {
+  display: block;
+  padding: 15px 20px;
+  color: #102067;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.mobile-menu a:hover {
+  background: #107ac8;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 100px auto 40px;
+  padding: 0 20px;
+  animation: fadeIn 1s ease-in;
+}
+
+.left {
+  margin-top: 10%;
+  max-width: 600px;
+}
+
+.left h1 {
+  margin-top: 0;
+  padding-top: 5px;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.left a {
+  display: inline-block;
+  background-color: #5475f9;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.left a:hover {
+  transform: translateY(-2px);
+  background: #102067;
+}
+
+.right {
+  background: rgba(145, 231, 238, 0.4);
+  color: #1e293b;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 80%;
+  max-width: 350px;
+  margin: auto;
+}
+
+.right h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.right input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #ffffff;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.right input:focus {
+  outline: none;
+  border-color: #D11149;
+  box-shadow: 0 0 0 3px rgba(209, 17, 73, 0.2);
+}
+
+.right input::placeholder {
+  color: #6b7280;
+}
+
+.right button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  box-sizing: border-box;
+  background-color: #5475f9;
+  color: white;
+}
+
+.right button:hover {
+  background-color: #475bfd;
+  color: white;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px 20px;
+  }
+  .navbar .menu {
+    display: none;
+  }
+  .menu-button {
+    display: flex;
+    font-size: 20px;
+    padding-right: 10%;
+  }
+  .container {
+    grid-template-columns: 1fr;
+    margin: 80px auto 20px;
+    padding: 0 15px;
+  }
+  .left {
+    max-width: none;
+    margin: 10px;
+    margin-top: 100px;
+  }
+  .left h1 {
+    font-size: 27px;
+  }
+  .left a {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+  .right {
+    margin: 15px;
+    padding: 24px;
+    max-width: none;
+  }
+  .right h2 {
+    font-size: 20px;
+  }
+  .right input, .right button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

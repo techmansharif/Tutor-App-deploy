@@ -1,0 +1,199 @@
+/* Reset and base styles for the Assessment component */
+.body{
+  margin:0;
+  background: #f4f4f4;
+}
+.assessment-container {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  color: #002244;
+  /* min-height: 100vh; */
+  overflow-x: hidden;
+}
+
+/* Navbar styles */
+.assessment-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: linear-gradient(to left, #91e7ee, #475bfd);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #f8fafc;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  padding-right: 15%;
+}
+
+.assessment-navbar .logo {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.assessment-navbar .menu-button {
+  font-size: 24px;
+  color: #f8fafc;
+  cursor: pointer;
+  padding: 5px 10px;
+  padding-right: 10%;
+  transition: transform 0.3s;
+  display: flex; /* Ensure visibility on PC */
+}
+
+.assessment-navbar .menu-button:hover {
+  transform: scale(1.1);
+}
+
+/* Sidebar styles */
+.assessment-sidebar {
+  position: fixed;
+  top: 80px;
+  right: 0;
+  width: 220px;
+  height: calc(100vh - 80px);
+  background: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  padding-top: 30px;
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.assessment-sidebar.active {
+  transform: translateX(0);
+}
+
+.assessment-sidebar a {
+  display: block;
+  padding: 15px 20px;
+  color: #002244;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.assessment-sidebar a:hover {
+  background: #91e7ee;
+}
+
+/* Content styles */
+.assessment-content {
+  padding: 120px 30px 30px 30px;
+  max-width: 800px;
+  margin: 0 auto; /* Center the content on PC */
+  text-align: center; /* Center-align text */
+}
+
+.assessment-content h1 {
+  font-size: 45px;
+  color: #475bfd;
+  margin-bottom: 20px;
+}
+
+.assessment-content p {
+  font-size: 16px;
+  color: #002244;
+  margin: 5px 0;
+}
+
+.progress-bar {
+  background: #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 200px;
+  height: 10px;
+  margin: 20px auto; /* Center the progress bar */
+}
+
+.progress {
+  height: 10px;
+  background: #475bfd;
+  transition: width 0.3s;
+}
+
+.question-box {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+.option {
+  background: #fff;
+  border: 3px solid #ddd;
+  border-radius: 25px;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.option:hover {
+  background: rgba(145, 231, 238, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Feedback styles */
+.feedback {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3000;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.feedback img {
+  max-width: 150px;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  .assessment-navbar {
+    padding: 10px 15px;
+    padding-right: 10%;
+  }
+
+  .assessment-navbar .logo {
+    font-size: 20px;
+  }
+
+  .assessment-navbar .menu-button {
+    display: block; /* Ensure visibility on mobile */
+    padding-right: 20px;
+  }
+
+  .assessment-content {
+    padding: 100px 20px 20px 20px; /* Increased top padding to prevent overlap */
+  }
+
+  .assessment-content h1 {
+    font-size: 35px;
+  }
+
+  .options {
+    grid-template-columns: 1fr; /* Stack options vertically on mobile */
+    gap: 5px;
+  }
+
+  .option {
+    margin-bottom: 4px;
+  }
+}
