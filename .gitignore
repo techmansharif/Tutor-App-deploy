@@ -24,6 +24,12 @@ backend/app/router/__pycache__/quizzes.cpython-312.pyc
 backend/app/__pycache__/main.cpython-312.pyc
 backend/app/__pycache__/*.pyc
 backend/app/schemas/__pycache__/explains.cpython-312.pyc
+# Ignore compiled Python files and cache directories
+*.pyc
+__pycache__/
+**/__pycache__/
+
+
 
 # React/Node.js-specific ignores for frontend/tutor/
 frontend/tutor/node_modules/

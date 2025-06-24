@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Header, Request
+from fastapi import APIRouter, Depends, HTTPException, Header, Request,BackgroundTasks
 from sqlalchemy.orm import Session
 from typing import Optional
 from datetime import datetime
@@ -10,8 +10,9 @@ import base64
 import os
 from sentence_transformers import SentenceTransformer
 import faiss
-import google.generativeai as genai
-import threading 
+from google import genai
+from google.genai import types
+
 
 # Import JWT utils
 from ..jwt_utils import get_user_from_token
@@ -22,9 +23,10 @@ api_key = os.getenv("GEMINI_API_KEY")
 if not api_key:
     raise RuntimeError("Gemini API key not configured")
 
-genai.configure(api_key=api_key)
-gemini_model = genai.GenerativeModel("gemini-2.0-flash")
 
+# Create client
+client = genai.Client(api_key=api_key)
+MODEL="gemini-2.5-flash"
 # Dependency to get DB session
 def get_db():
     db = SessionLocal()
@@ -35,11 +37,22 @@ def get_db():
 
 
 
-def pre_generate_continue_response(progress: UserProgress, chunks: list, subject: str, db: Session):
+def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks: list, subject: str):
     """
     Pre-generate the next continue response and store it in the database
     """
+    db = SessionLocal()
     try:
+        # Re-query the progress object
+        progress = db.query(UserProgress).filter(
+            UserProgress.user_id == user_id,
+            UserProgress.subtopic_id == subtopic_id
+        ).first()
+        
+        if not progress:
+            print("❌ UserProgress not found in background task")
+            return
+        
         next_chunk_index = progress.chunk_index + 1
         
         # Don't pre-generate beyond last chunk
@@ -60,12 +73,19 @@ def pre_generate_continue_response(progress: UserProgress, chunks: list, subject
         else:
             print("\n image no exist ")        
         # Build prompt for the next chunk
-        continue_query = "Explain the context easy fun way"
+        # continue_query = "Explain the context easy fun way"
+        continue_query = ""
         prompt = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject)
         
-       # print(f"\nfor pregenration chat memory  {(progress.chat_memory)}\n")
+    # print(f"\nfor pregenration chat memory  {(progress.chat_memory)}\n")
         # Generate AI response
-        response = gemini_model.generate_content(prompt)
+        response = client.models.generate_content(
+        model=MODEL,
+        contents=[prompt],
+        config=types.GenerateContentConfig(
+            temperature=0.3 # Adjust as needed
+        )
+    )
         generated_answer = response.text.strip()
         
         # # Save to file for debugging (optional)
@@ -83,7 +103,7 @@ def pre_generate_continue_response(progress: UserProgress, chunks: list, subject
         db.commit()
         
         print(f"✅ Pre-generated continue response for chunk {next_chunk_index}")
-        
+            
     except Exception as e:
         print(f"❌ Pre-generation failed: {e}")
         # Clear pre-generated data on failure
@@ -94,6 +114,8 @@ def pre_generate_continue_response(progress: UserProgress, chunks: list, subject
             db.commit()
         except:
             pass  # If this fails too, just log and continue
+    finally:
+        db.close()  # Always close the session
 
 
 def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Optional[str]:
@@ -210,7 +232,8 @@ def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int
         
         chunk_index += 1
 
-        query = "Explain the context easy fun way"
+        # query = "Explain the context easy fun way"
+        query = ""
         context = None
             # After determining context and chunk_index
         selected_chunk =chunks[chunk_index]
@@ -218,7 +241,7 @@ def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int
       #  print("\n\n i am here inside refresh screen \n\n")
         chunk_index = 0 # Start from chunk_index = 1
         progress.chunk_index = chunk_index
-        chat_memory=[]
+        del chat_memory[:]
         progress.chat_memory = []  # Clear chat_memory
         
         db.commit()
@@ -351,7 +374,13 @@ def generate_ai_response_and_update_progress(prompt: str, query: str, answer_tex
 
     
     # Generate response
-    response = gemini_model.generate_content(prompt)
+    response = client.models.generate_content(
+    model=MODEL,
+    contents=[prompt],
+    config=types.GenerateContentConfig(
+        temperature=0.7  # Adjust as needed
+    )
+)
 
     answer = response.text.strip()  
 #     answer= """
@@ -396,6 +425,7 @@ async def post_explain(
     topic: str,
     subtopic: str,
     explain_query: ExplainQuery,
+    background_tasks: BackgroundTasks,
     user_id: int = Header(...),
     db: Session = Depends(get_db),
     authorization: Optional[str] = Header(None)
@@ -410,15 +440,7 @@ async def post_explain(
     # Load chunks
     chunks = explain.chunks
     if not chunks:
-        raise HTTPException(status_code=404, detail="No chunks available for this subtopic")
-    
-   
-    # print(f"\n this is {explain_query.query} \n\n")
-    # x=explain_query.query
-    # is_query_correct,message=early_return(subject=subject,query=x) 
-    # if not is_query_correct:
-    #     return ExplainResponse(answer=message,image=None)
-        
+        raise HTTPException(status_code=404, detail="No chunks available for this subtopic") 
 
     # SIMPLE BENGALI DETECTION FOR ENGLISH SUBJECTS - CHECK THIS FIRST
 
@@ -499,23 +521,13 @@ async def post_explain(
         db.commit()
         
         # Start background generation for next response
-        def background_generate():
-            new_db = SessionLocal()
-            try:
-                fresh_progress = new_db.query(UserProgress).filter(
-                    UserProgress.user_id == user_id,
-                    UserProgress.subtopic_id == subtopic_obj.id
-                ).first()
-                if fresh_progress:
-                    pre_generate_continue_response(fresh_progress, chunks, subject, new_db)
-                    new_db.commit()
-            except Exception as e:
-                print(f"Background generation failed: {e}")
-            finally:
-                new_db.close()
-        
-        threading.Thread(target=background_generate).start()
-        
+        background_tasks.add_task(
+    pre_generate_continue_response,
+    user_id,
+    subtopic_obj.id,
+    chunks,
+    subject
+)
         return ExplainResponse(answer=answer, image=image)
 
     chunk_index = progress.chunk_index
@@ -532,9 +544,6 @@ async def post_explain(
 
     # Unpack results for further processing
     query, context, selected_chunk, chunk_index = result
-    # 🔧 FIX: Clear local chat_memory for refresh operations
-    if explain_query.query.lower() == "refresh":
-        chat_memory = []  # Clear the local variable too!
     if query == "IRRELEVANT_ENGLISH_QUERY":
         print("🚫 RETURNING IRRELEVANT ENGLISH QUERY MESSAGE")
         english_message = "I'm sorry, but your question seems to be out of context for the current English topic we're studying. Please ask questions related to the English subject matter we're covering."
@@ -558,22 +567,13 @@ async def post_explain(
                                                 progress, chunk_index, explain_query, db)
     
     # Start background generation for next continue
-    def background_generate():
-        new_db = SessionLocal()
-        try:
-            fresh_progress = new_db.query(UserProgress).filter(
-                UserProgress.user_id == user_id,
-                UserProgress.subtopic_id == subtopic_obj.id
-            ).first()
-            if fresh_progress:
-                pre_generate_continue_response(fresh_progress, chunks, subject, new_db)
-                new_db.commit()
-        except Exception as e:
-            print(f"Background generation failed: {e}")
-        finally:
-            new_db.close()
-    
-    threading.Thread(target=background_generate).start()
+    background_tasks.add_task(
+    pre_generate_continue_response,
+    user_id,
+    subtopic_obj.id,
+    chunks,
+    subject
+)
     
     return ExplainResponse(answer=answer,image=image_data)
 
