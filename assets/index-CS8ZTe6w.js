@@ -107,7 +107,7 @@ Please change the parent <Route path="${U}"> to <Route path="${U==="/"?"*":`${U}
     background: #91e7ee;
     color: #002244;
   }
-`,AM={hidden:{x:"100%"},visible:{x:0}},Jr=({active:n,sidebarRef:i})=>(console.log("Sidebar active:",n),w.jsxs(TM,{ref:i,variants:AM,initial:"hidden",animate:n?"visible":"hidden",transition:{duration:.3},children:[w.jsx(Ta,{href:"/assess",children:"ASSESSMENT"}),w.jsx(Ta,{href:"/subject",children:"SUBJECT"}),w.jsx(Ta,{href:"/explain",children:"EXPLAIN"}),w.jsx(Ta,{href:"/assess",children:"PRACTICE"}),w.jsx(Ta,{href:"/assess",children:"QUIZ"}),w.jsx(Ta,{href:"#",children:"PROGRESS"}),w.jsx(Ta,{href:"/",children:"LOGOUT"})]})),EM=Xt.div`
+`,AM={hidden:{x:"100%"},visible:{x:0}},Jr=({active:n,sidebarRef:i})=>(console.log("Sidebar active:",n),w.jsxs(TM,{ref:i,variants:AM,initial:"hidden",animate:n?"visible":"hidden",transition:{duration:.3},children:[w.jsx(Ta,{href:"#/assess",children:"ASSESSMENT"}),w.jsx(Ta,{href:"#/subject",children:"SUBJECT"}),w.jsx(Ta,{href:"#/explain",children:"EXPLAIN"}),w.jsx(Ta,{href:"#/assess",children:"PRACTICE"}),w.jsx(Ta,{href:"#/assess",children:"QUIZ"}),w.jsx(Ta,{href:"#",children:"PROGRESS"}),w.jsx(Ta,{href:"#/",children:"LOGOUT"})]})),EM=Xt.div`
   text-align: center;
   margin: 80px 16px 24px;
   padding: 16px;
