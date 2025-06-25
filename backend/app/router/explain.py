@@ -73,81 +73,86 @@ def get_db():
 
 
 
-def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks: list, subject: str):
+async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks: list, subject: str):
     """
     Pre-generate the next continue response and store it in the database
     """
-    db = SessionLocal()
-    try:
-        # Re-query the progress object
-        progress = db.query(UserProgress).filter(
-            UserProgress.user_id == user_id,
-            UserProgress.subtopic_id == subtopic_id
-        ).first()
+    def _pre_generate_sync(user_id: int, subtopic_id: int, chunks: list, subject: str):
         
-        if not progress:
-            print("❌ UserProgress not found in background task")
-            return
-        
-        next_chunk_index = progress.chunk_index + 1
-        
-        # Don't pre-generate beyond last chunk
-        if next_chunk_index >= len(chunks):
-            # Clear any existing pre-generated response since we're at the end
-            progress.next_continue_response = None
-            progress.next_continue_image = None
-            progress.next_response_chunk_index = None
-            db.commit()
-            return
-            
-        # Get the next chunk and its image
-        next_chunk = chunks[next_chunk_index]
-        next_image_data = get_image_data_from_chunk(next_chunk, progress.subtopic_id, db)
-        
-        if next_image_data:
-            print("\n image exist")
-        else:
-            print("\n image no exist ")        
-        # Build prompt for the next chunk
-        # continue_query = "Explain the context easy fun way"
-        continue_query = ""
-        prompt = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject)
-        
-    # print(f"\nfor pregenration chat memory  {(progress.chat_memory)}\n")
-        # Generate AI response
-        generated_answer =generate_gemini_response(prompt, temperature=0.3)
-        
-         
-        
-        
-        # # Save to file for debugging (optional)
-        # current_dir = os.getcwd()
-        # filename = os.path.join(current_dir, "pre_generated_response.txt")
-        # with open(filename, 'w', encoding='utf-8') as file:
-        #     file.write(f"Pre-generated for chunk {next_chunk_index}:\n{generated_answer}")
-        
-        # Store pre-generated response in database
-        progress.next_continue_response = generated_answer
-        progress.next_continue_image = next_image_data
-        progress.next_response_chunk_index = next_chunk_index
-        
-        # Commit to database
-        db.commit()
-        
-        print(f"✅ Pre-generated continue response for chunk {next_chunk_index}")
-            
-    except Exception as e:
-        print(f"❌ Pre-generation failed: {e}")
-        # Clear pre-generated data on failure
+        db = SessionLocal()
         try:
-            progress.next_continue_response = None
-            progress.next_continue_image = None
-            progress.next_response_chunk_index = None
+            # Re-query the progress object
+            progress = db.query(UserProgress).filter(
+                UserProgress.user_id == user_id,
+                UserProgress.subtopic_id == subtopic_id
+            ).first()
+            
+            if not progress:
+                print("❌ UserProgress not found in background task")
+                return
+            
+            next_chunk_index = progress.chunk_index + 1
+            
+            # Don't pre-generate beyond last chunk
+            if next_chunk_index >= len(chunks):
+                # Clear any existing pre-generated response since we're at the end
+                progress.next_continue_response = None
+                progress.next_continue_image = None
+                progress.next_response_chunk_index = None
+                db.commit()
+                return
+                
+            # Get the next chunk and its image
+            next_chunk = chunks[next_chunk_index]
+            next_image_data = get_image_data_from_chunk(next_chunk, progress.subtopic_id, db)
+            
+            if next_image_data:
+                print("\n image exist")
+            else:
+                print("\n image no exist ")        
+            # Build prompt for the next chunk
+            # continue_query = "Explain the context easy fun way"
+            continue_query = ""
+            prompt = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject)
+            
+        # print(f"\nfor pregenration chat memory  {(progress.chat_memory)}\n")
+            # Generate AI response
+            generated_answer =generate_gemini_response(prompt, temperature=0.3)
+            
+            
+            
+            
+            # # Save to file for debugging (optional)
+            # current_dir = os.getcwd()
+            # filename = os.path.join(current_dir, "pre_generated_response.txt")
+            # with open(filename, 'w', encoding='utf-8') as file:
+            #     file.write(f"Pre-generated for chunk {next_chunk_index}:\n{generated_answer}")
+            
+            # Store pre-generated response in database
+            progress.next_continue_response = generated_answer
+            progress.next_continue_image = next_image_data
+            progress.next_response_chunk_index = next_chunk_index
+            
+            # Commit to database
             db.commit()
-        except:
-            pass  # If this fails too, just log and continue
-    finally:
-        db.close()  # Always close the session
+            
+            print(f"✅ Pre-generated continue response for chunk {next_chunk_index}")
+                
+        except Exception as e:
+            print(f"❌ Pre-generation failed: {e}")
+            # Clear pre-generated data on failure
+            try:
+                progress.next_continue_response = None
+                progress.next_continue_image = None
+                progress.next_response_chunk_index = None
+                db.commit()
+            except:
+                pass  # If this fails too, just log and continue
+        finally:
+            db.close()  # Always close the session
+        # Run the sync function in thread pool
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(executor, _pre_generate_sync, user_id, subtopic_id, chunks, subject)
 
 
 def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Optional[str]:
@@ -244,7 +249,7 @@ def validate_subject_topic_subtopic(db: Session, subject: str, topic: str, subto
     return subject_obj, topic_obj, subtopic_obj
 
 
-def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int, 
+async def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int, 
                        chat_memory: list, explain_query: ExplainQuery, progress: UserProgress, db: Session):
       # Handle query
     query = query.lower()
@@ -295,13 +300,17 @@ def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int
         # Only allow custom queries for English subject - but check relevance
         # Custom query with FAISS
         # model = SentenceTransformer('all-MiniLM-L6-v2')
-        embeddings = model.encode(chunks, convert_to_numpy=True)
-        dimension = embeddings.shape[1]
-        index = faiss.IndexFlatL2(dimension)
-        index.add(embeddings)
-        query_embedding = model.encode([query], convert_to_numpy=True)
-        top_k = 3
-        distances, indices = index.search(query_embedding, top_k)   
+        def _faiss_search():
+            embeddings = model.encode(chunks, convert_to_numpy=True)
+            dimension = embeddings.shape[1]
+            index = faiss.IndexFlatL2(dimension)
+            index.add(embeddings)
+            query_embedding = model.encode([query], convert_to_numpy=True)
+            top_k = 3
+            distances, indices = index.search(query_embedding, top_k)
+            return distances, indices
+        loop = asyncio.get_event_loop()
+        distances, indices = await loop.run_in_executor(executor, _faiss_search)   
          # Check relevance - if the closest match has too high distance, it's irrelevant
         min_distance = distances[0][0]  # Get the smallest distance (closest match)
         RELEVANCE_THRESHOLD = 1.5  # Adjust this threshold as needed
@@ -400,13 +409,15 @@ Instructions:
 
 
 
-def generate_ai_response_and_update_progress(prompt: str, query: str, answer_text: str, 
+async def generate_ai_response_and_update_progress(prompt: str, query: str, answer_text: str, 
                                            progress: UserProgress, chunk_index: int, 
                                            explain_query: ExplainQuery, db: Session) -> str:
 
     
     # Generate response
-    answer = generate_gemini_response(prompt, temperature=0.3)
+    # Run Gemini API call in threadpool
+    loop = asyncio.get_event_loop()
+    answer = await loop.run_in_executor(executor, generate_gemini_response, prompt, 0.3)
     
 
  
@@ -442,13 +453,12 @@ async def post_explain(
     db: Session = Depends(get_db),
     authorization: Optional[str] = Header(None)
 ):
-    user =await asyncio.to_thread(authenticate_and_validate_user, authorization, user_id, db)
-    subject_obj, topic_obj, subtopic_obj =  await asyncio.to_thread(validate_subject_topic_subtopic, db, subject, topic, subtopic )
+    # Keep these as sync calls - they're fast database queries
+    user = authenticate_and_validate_user(authorization, user_id, db)
+    subject_obj, topic_obj, subtopic_obj = validate_subject_topic_subtopic(db, subject, topic, subtopic)
   
     # Fetch explain record
-    explain = await asyncio.to_thread(
-        db.query(Explain).filter(Explain.subtopic_id == subtopic_obj.id).first
-    )
+    explain = db.query(Explain).filter(Explain.subtopic_id == subtopic_obj.id).first()
     if not explain:
         raise HTTPException(status_code=404, detail=f"No explanations found for subtopic {subtopic}")
 
@@ -475,13 +485,10 @@ async def post_explain(
     
     
     # Early check for initial explain with existing chat history
-    temp_progress = await asyncio.to_thread(
-        db.query(UserProgress).filter(
-            UserProgress.user_id == user_id,
-            UserProgress.subtopic_id == subtopic_obj.id
-        ).first
-    )
-
+    temp_progress = db.query(UserProgress).filter(
+        UserProgress.user_id == user_id,
+        UserProgress.subtopic_id == subtopic_obj.id
+    ).first()
     if (explain_query.query.lower() == "explain" and 
         explain_query.is_initial and 
         temp_progress and 
@@ -505,9 +512,9 @@ async def post_explain(
             chunk_index=0,
             chat_memory=[]
         )
-        await asyncio.to_thread(db.add, progress)
-        await asyncio.to_thread(db.commit)
-        await asyncio.to_thread(db.refresh, progress)
+        db.add(progress)
+        db.commit()
+        db.refresh(progress)
     
     
        
@@ -534,7 +541,7 @@ async def post_explain(
         progress.next_continue_response = None
         progress.next_continue_image = None
         progress.next_response_chunk_index = None
-        await asyncio.to_thread(db.commit)  # <-- Changed this line
+        db.commit()
         
         # Start background generation for next response
         background_tasks.add_task(
@@ -555,10 +562,8 @@ async def post_explain(
     chat_memory = progress.chat_memory
 
    
-    result =  await asyncio.to_thread(
-        process_query_logic, explain_query.query, subject, chunks, chunk_index, 
-        chat_memory, explain_query, progress, db
-    )
+    result =  await process_query_logic(explain_query.query, subject, chunks, chunk_index, 
+                                           chat_memory, explain_query, progress, db)
     
         # Handle early return cases
     if isinstance(result, ExplainResponse):
@@ -574,9 +579,7 @@ async def post_explain(
    # print(f"\n\nGemini API get -------this   {chunk_index}")
 
     # Fetch image data using the new function
-    image_data = await asyncio.to_thread(
-        get_image_data_from_chunk, selected_chunk, subtopic_obj.id, db
-    )
+    image_data = get_image_data_from_chunk(selected_chunk, subtopic_obj.id, db)
     
     if image_data:
         print("\nimage exist\n")
@@ -585,18 +588,10 @@ async def post_explain(
 
 
     
-    prompt = await asyncio.to_thread(
-        build_prompt, query, chat_memory, context, selected_chunk, subject
-    )
-    answer = await asyncio.to_thread(
-        generate_ai_response_and_update_progress, prompt, query, explain_query.query, 
-        progress, chunk_index, explain_query, db
-    )
+    prompt =  build_prompt(query, chat_memory, context, selected_chunk, subject)
+    answer =await generate_ai_response_and_update_progress(prompt, query, explain_query.query, 
+                                                                progress, chunk_index, explain_query, db)
     
-    current_dir = os.getcwd()
-    filename = os.path.join(current_dir, "explain_raw_text.txt")
-    with open(filename, 'w', encoding='utf-8') as file:
-        file.write(answer)
 
     # Start background generation for next continue
     background_tasks.add_task(
