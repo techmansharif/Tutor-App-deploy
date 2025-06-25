@@ -40,7 +40,7 @@ if not api_key:
 client = genai.Client(api_key=api_key)
 MODEL="gemini-2.5-flash"
 
-def generate_gemini_response(prompt: str, temperature: float = 0.2) -> str:
+def generate_gemini_response(prompt: str,system_instruction:str="", temperature: float = 0.2) -> str:
     """
     Generate response using Gemini API
     
@@ -51,18 +51,21 @@ def generate_gemini_response(prompt: str, temperature: float = 0.2) -> str:
     Returns:
         Generated text response
     """
-    # Use executor for controlled concurrency
-    future = executor.submit(
-        client.models.generate_content,
-        model=MODEL,
-        contents=[prompt],
-        config=types.GenerateContentConfig(
-            thinking_config=types.ThinkingConfig(thinking_budget=-1),
-            temperature=temperature
+   
+    response = client.models.generate_content(
+            model=MODEL,
+            contents=[prompt],
+            config=types.GenerateContentConfig(
+                thinking_config=types.ThinkingConfig(thinking_budget=-1),
+                system_instruction=system_instruction,  # Move this OUTSIDE config
+                temperature=temperature
+            )
+            
         )
-    )
-    response = future.result()
+    # response=r"$$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56 $$"
+    
     return response.text.strip()
+
 # Dependency to get DB session
 def get_db():
     db = SessionLocal()
@@ -113,11 +116,11 @@ async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks:
             # Build prompt for the next chunk
             # continue_query = "Explain the context easy fun way"
             continue_query = ""
-            prompt = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject)
+            prompt,system_instruction = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject)
             
         # print(f"\nfor pregenration chat memory  {(progress.chat_memory)}\n")
             # Generate AI response
-            generated_answer =generate_gemini_response(prompt, temperature=0.3)
+            generated_answer =generate_gemini_response(prompt,system_instruction, temperature=0.3)
             
             
             
@@ -324,7 +327,7 @@ async def process_query_logic(query: str, subject: str, chunks: list, chunk_inde
 
 
 
-def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -> str:
+def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) ->  tuple[str, str]:
       # NEW: Prepare memory_text from UserProgress.chat_memory
     memory_text = "\n\n".join([
         f"User: {pair['question']}\nAssistant: {pair['answer']}"
@@ -333,83 +336,89 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
     
     
   #  print(f"gemini api will get this \n the chatmemory:{chat_memory}\n\n chunk is {chunks}")
-
-    # Prepare prompt (unchanged)
-    prompt = f"""
-You are an educational assistant tasked with creating a step-by-step learning guide 
-for a user. 
-your sentences should be simple.
-Use the memory of recent conversations to personalize the response and 
-incorporate any relevant context to enhance clarity.
-
-user_input:
-{query}
-Recent Chat History:
-{memory_text}
-
-Relevant Text:
-{context if context else chunks}
-
-Instructions:
-1. Explain the Relevant Text in fun and interesting ways
-2. Make the Explanation engaging , use story if necessary
-3. if necessary refer to chat history
-
-"""
-    if subject !="English":
-        prompt=prompt+"\n"+'''
-        4. **Text**: Use Markdown for all text, headings, and lists. Use simple sentences for clarity.
-5. **Mathematical Expressions**:
-   - Inline math: Enclose in single dollar signs, e.g., `$x^2$`.
-   - Display equations: Enclose in double dollar signs, e.g., `$$ \frac{{a}}{{b}} $$`.
-   - Ensure valid LaTeX syntax.
-6. **Tables**: Use Markdown table syntax, e.g.:
-
-        
-        
-        
-        '''
     if subject =='গণিত' or subject == "উচ্চতর গণিত":
-        prompt =f"""
-        আপনি একজন শিক্ষাগত সহকারী। আপনার কাজ হল বাংলাদেশের ৯-১০ শ্রেণির শিক্ষার্থীদের সহজ ও ধাপে ধাপে শেখানো | আপনার বাক্যগুলো সহজ হতে হবে। সাম্প্রতিক কথোপকথনের স্মৃতি ব্যবহার করে উত্তরটি ব্যক্তিগত করুন এবং স্পষ্টতা বাড়াতে প্রাসঙ্গিক তথ্য যোগ করুন।
+        system_instruction =r"""
+        আপনি একজন শিক্ষাগত সহকারী। আপনার কাজ হল বাংলাদেশের ৯-১০ শ্রেণির শিক্ষার্থীদের সহজ ও ধাপে ধাপে শেখানো। আপনার বাক্যগুলো সহজ হতে হবে।
 
-ব্যবহারকারীর প্রশ্ন:
+আপনার শিক্ষা পদ্ধতি:
+1. তথ্য মজার এবং আকর্ষণীয় উপায়ে ব্যাখ্যা করুন
+2. ব্যাখ্যাটি আকর্ষণীয় করুন, প্রয়োজনে গল্প ব্যবহার করুন
+3. সাম্প্রতিক কথোপকথনের স্মৃতি ব্যবহার করে উত্তরটি ব্যক্তিগত করুন
+4. সব টেক্সট, শিরোনাম এবং তালিকার জন্য মার্কডাউন ব্যবহার করুন
+5. গাণিতিক প্রকাশ:
+   - ইনলাইন গণিত: একক ডলার চিহ্নে আবদ্ধ করুন
+     উদাহরণ:  $x = 5$  ,  $x^2 = 25$ 
+   - সমীকরণ: Enclose in double dollar signs
+    উদাহরণ:
+   $$ \frac{a}{b} $$
+   $$\frac{a + b}{c - d} = \frac{10}{5}$$, $$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56$$ ,
+     $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+   - সঠিক LaTeX syntax নিশ্চিত করুন
+     $$\sin^2\theta + \cos^2\theta = 1$$
+6. প্রয়োজনে সারসংক্ষেপ বা তুলনামূলক বিশ্লেষণের জন্য Markdown টেবিল ব্যবহার করুন
+Basic Table (বেসিক টেবিল):
+markdown| নাম | বয়স | শ্রেণী |
+|-----|------|--------|
+| রহিম | 14 | নবম |
+| করিম | 15 | দশম |
+| সালমা | 14 | নবম |
+Table with Alignment (সারিবদ্ধ টেবিল):
+markdown| পণ্য | পরিমাণ | মূল্য (টাকা) | মোট |
+|:-----|-------:|:------------:|----:|
+| কলম | 5 | 10 | 50 |
+| খাতা | 3 | 40 | 120 |
+| রাবার | 2 | 5 | 10 |
+| **সর্বমোট** | | | **180** |
+Math in Tables (টেবিলে গণিত):
+markdown| সূত্র | উদাহরণ | ফলাফল |
+|:------|:------:|-------:|
+| বর্গ | $x^2$ যখন $x=5$ | $25$ |
+| বর্গমূল | $\sqrt{16}$ | $4$ |
+| ভগ্নাংশ | $\frac{10}{2}$ | $5$ |
+
+লক্ষ্য: শিক্ষার্থীরা যেন আনন্দের সাথে এবং সহজে বিষয়টি বুঝতে পারে।
+        """
+    elif subject=="English":
+        system_instruction = r"""You are an educational assistant tasked with creating a step-by-step learning guide for a user. Your sentences should be simple.
+
+Your teaching approach:
+1. Explain content in fun and interesting ways
+2. Make explanations engaging, use stories if necessary
+3. Use memory of recent conversations to personalize responses
+4. Reply in very simple English and write meanings around difficult words if necessary
+5. Use Markdown for formatting when appropriate
+"""
+    else:
+        system_instruction="Explain in easy and fun way"
+        
+        
+    if subject == 'গণিত' or subject == "উচ্চতর গণিত":
+        prompt = f"""ব্যবহারকারীর প্রশ্ন:
 {query}
 
 সাম্প্রতিক কথোপকথনের ইতিহাস:
 {memory_text}
 
 প্রাসঙ্গিক তথ্য:
-{context if context else chunks}
-
-নির্দেশনা:
-
-
-
-
-
-1. প্রাসঙ্গিক তথ্য: তথ্য মজার এবং আকর্ষণীয় উপায়ে ব্যাখ্যা করুন।
-2. ব্যাখ্যাটি আকর্ষণীয় করুন, প্রয়োজনে গল্প ব্যবহার করুন।
-3. প্রয়োজনে কথোপকথনের ইতিহাস উল্লেখ করুন।
-4. **টেক্সট**: সব টেক্সট, শিরোনাম এবং তালিকার জন্য মার্কডাউন ব্যবহার করুন। স্পষ্টতার জন্য সহজ বাক্য ব্যবহার করুন।
-5.গাণিতিক প্রকাশ:
-- ইনলাইন(inline) গণিত:  Enclose in single dollar signs, e.g., `$x^2$`.
-- সমীকরণ: Enclose in double dollar signs, e.g., `$$ \frac{{a}}{{b}} $$`.
-- সঠিক ল্যাটেক্স সিনট্যাক্স (latex syntax) নিশ্চিত করুন।
-6. **টেবিল**: 
-    -**Tables**: Use Markdown table syntax
-   -প্রয়োজনে সারসংক্ষেপ বা তুলনামূলক বিশ্লেষণের জন্য টেবিল দিন।
-লক্ষ্য: শিক্ষার্থীরা যেন আনন্দের সাথে এবং সহজে বিষয়টি বুঝতে পারে।
-        """
+{context if context else chunks}"""
     else:
-        prompt=prompt+"\n"+"4. Reply in very simpler English and write meaning around difficult word if necessary"
+        prompt = f"""User Input:
+    {query}
 
-    return prompt
+    Recent Chat History:
+    {memory_text}
+
+    Relevant Text:
+    {context if context else chunks}"""
+    
+    return prompt, system_instruction
+   
+   
 
 
 
 
-async def generate_ai_response_and_update_progress(prompt: str, query: str, answer_text: str, 
+async def generate_ai_response_and_update_progress(prompt: str,system_instruction:str, query: str, answer_text: str, 
                                            progress: UserProgress, chunk_index: int, 
                                            explain_query: ExplainQuery, db: Session) -> str:
 
@@ -417,7 +426,7 @@ async def generate_ai_response_and_update_progress(prompt: str, query: str, answ
     # Generate response
     # Run Gemini API call in threadpool
     loop = asyncio.get_event_loop()
-    answer = await loop.run_in_executor(executor, generate_gemini_response, prompt, 0.3)
+    answer = await loop.run_in_executor(executor, generate_gemini_response, prompt,system_instruction, 0.3)
     
 
  
@@ -494,7 +503,7 @@ async def post_explain(
         temp_progress and 
         temp_progress.chat_memory):
         # Early return - no need for full progress setup
-        previous_answers = [pair['answer'] for pair in temp_progress.chat_memory]
+        previous_answers = [str(pair['answer']) for pair in temp_progress.chat_memory]
         return ExplainResponse(answer="", image=None, initial_response=previous_answers)
 
     # Early check for continue completion
@@ -588,8 +597,8 @@ async def post_explain(
 
 
     
-    prompt =  build_prompt(query, chat_memory, context, selected_chunk, subject)
-    answer =await generate_ai_response_and_update_progress(prompt, query, explain_query.query, 
+    prompt, system_instruction =  build_prompt(query, chat_memory, context, selected_chunk, subject)
+    answer =await generate_ai_response_and_update_progress(prompt,system_instruction, query, explain_query.query, 
                                                                 progress, chunk_index, explain_query, db)
     
 
