@@ -281,7 +281,7 @@ async def process_query_logic(query: str, subject: str, chunks: list, chunk_inde
       #  print("\n\n i am here inside refresh screen \n\n")
         chunk_index = 0 # Start from chunk_index = 1
         progress.chunk_index = chunk_index
-        del chat_memory[:]
+       
         progress.chat_memory = []  # Clear chat_memory
         
         db.commit()
@@ -573,7 +573,10 @@ async def post_explain(
    
     result =  await process_query_logic(explain_query.query, subject, chunks, chunk_index, 
                                            chat_memory, explain_query, progress, db)
-    
+    # ✅ Clear local chat_memory for refresh
+    if explain_query.query.lower() == "refresh":
+        chat_memory = []
+
         # Handle early return cases
     if isinstance(result, ExplainResponse):
         return result
@@ -612,6 +615,5 @@ async def post_explain(
 )
     
     return ExplainResponse(answer=answer,image=image_data)
-
 
 
