@@ -353,8 +353,11 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
    $$ \frac{a}{b} $$
    $$\frac{a + b}{c - d} = \frac{10}{5}$$, $$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56$$ ,
      $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+- Tally mark : 
+        $\cancel{\text{||||}}$ , $\cancel{\text{||||}}\text{||}$ , $\text{|||}$
    - সঠিক LaTeX syntax নিশ্চিত করুন
      $$\sin^2\theta + \cos^2\theta = 1$$
+     
 6. প্রয়োজনে সারসংক্ষেপ বা তুলনামূলক বিশ্লেষণের জন্য Markdown টেবিল ব্যবহার করুন
 Basic Table (বেসিক টেবিল):
 markdown| নাম | বয়স | শ্রেণী |
