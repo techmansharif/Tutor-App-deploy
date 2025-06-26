@@ -20,9 +20,14 @@ backend/app/Images/
 dist/
 build/
 *.log
-
-__pycache__/
+backend/app/router/__pycache__/quizzes.cpython-312.pyc
+backend/app/__pycache__/main.cpython-312.pyc
+backend/app/__pycache__/*.pyc
+backend/app/schemas/__pycache__/explains.cpython-312.pyc
+# Ignore compiled Python files and cache directories
 *.pyc
+__pycache__/
+**/__pycache__/
 
 
 
