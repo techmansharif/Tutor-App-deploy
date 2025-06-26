@@ -1,5 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, Header, Request,BackgroundTasks
 from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
+from sqlalchemy import select, update
+
 from typing import Optional
 from datetime import datetime
 from ..database.session import SessionLocal
@@ -36,6 +39,40 @@ if not api_key:
     raise RuntimeError("Gemini API key not configured")
 
 
+# ADD THIS: Async database engine - loads from env and converts to async
+DATABASE_URL = os.getenv("DATABASE_URL")  # For production (Cloud Run)
+
+# Fallback for local development
+if DATABASE_URL is None:
+    from dotenv import load_dotenv
+    load_dotenv(dotenv_path=r"C:\E backup\tutor app deploy\Tutor-App\backend\app\.env") 
+    DATABASE_URL = os.getenv("DATABASE_URL")
+    print(DATABASE_URL)
+    
+async_database_url = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://")
+# ADD THIS: Async database engine
+async_engine = create_async_engine(
+     async_database_url,  # Replace with your DB URL
+    pool_size=50,
+    max_overflow=100,
+    pool_pre_ping=True,
+    pool_recycle=3600,
+    echo=False
+)
+
+AsyncSessionLocal = async_sessionmaker(
+    async_engine,
+    class_=AsyncSession,
+    expire_on_commit=False
+)
+
+# Async database dependency
+async def get_async_db():
+    async with AsyncSessionLocal() as session:
+        try:
+            yield session
+        finally:
+            await session.close()
 # Create client
 client = genai.Client(api_key=api_key)
 MODEL="gemini-2.5-flash"
@@ -80,15 +117,16 @@ async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks:
     """
     Pre-generate the next continue response and store it in the database
     """
-    def _pre_generate_sync(user_id: int, subtopic_id: int, chunks: list, subject: str):
-        
-        db = SessionLocal()
-        try:
-            # Re-query the progress object
-            progress = db.query(UserProgress).filter(
-                UserProgress.user_id == user_id,
-                UserProgress.subtopic_id == subtopic_id
-            ).first()
+    try:
+        async with AsyncSessionLocal() as db:
+            # Get current progress
+            result = await db.execute(
+                select(UserProgress).filter(
+                    UserProgress.user_id == user_id,
+                    UserProgress.subtopic_id == subtopic_id
+                )
+            )
+            progress = result.scalar_one_or_none()
             
             if not progress:
                 print("❌ UserProgress not found in background task")
@@ -99,66 +137,77 @@ async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks:
             # Don't pre-generate beyond last chunk
             if next_chunk_index >= len(chunks):
                 # Clear any existing pre-generated response since we're at the end
-                progress.next_continue_response = None
-                progress.next_continue_image = None
-                progress.next_response_chunk_index = None
-                db.commit()
+                await db.execute(
+                    update(UserProgress)
+                    .filter(
+                        UserProgress.user_id == user_id,
+                        UserProgress.subtopic_id == subtopic_id
+                    )
+                    .values(
+                        next_continue_response=None,
+                        next_continue_image=None,
+                        next_response_chunk_index=None
+                    )
+                )
+                await db.commit()
                 return
                 
             # Get the next chunk and its image
             next_chunk = chunks[next_chunk_index]
-            next_image_data = get_image_data_from_chunk(next_chunk, progress.subtopic_id, db)
+            next_image_data = await get_image_data_from_chunk(next_chunk, progress.subtopic_id, db)
             
             if next_image_data:
                 print("\n image exist")
             else:
                 print("\n image no exist ")        
+                
             # Build prompt for the next chunk
-            # continue_query = "Explain the context easy fun way"
             continue_query = ""
-            prompt,system_instruction = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject)
+            prompt, system_instruction = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject)
             
-        # print(f"\nfor pregenration chat memory  {(progress.chat_memory)}\n")
-            # Generate AI response
-            generated_answer =generate_gemini_response(prompt,system_instruction, temperature=0.3)
+            # Generate AI response using thread pool (keep this sync call in executor)
+            loop = asyncio.get_event_loop()
+            generated_answer = await loop.run_in_executor(executor, generate_gemini_response, prompt, system_instruction, 0.3)
             
-            
-            
-            
-            # # Save to file for debugging (optional)
-            # current_dir = os.getcwd()
-            # filename = os.path.join(current_dir, "pre_generated_response.txt")
-            # with open(filename, 'w', encoding='utf-8') as file:
-            #     file.write(f"Pre-generated for chunk {next_chunk_index}:\n{generated_answer}")
-            
-            # Store pre-generated response in database
-            progress.next_continue_response = generated_answer
-            progress.next_continue_image = next_image_data
-            progress.next_response_chunk_index = next_chunk_index
-            
-            # Commit to database
-            db.commit()
+            # Store pre-generated response in database using async update
+            await db.execute(
+                update(UserProgress)
+                .filter(
+                    UserProgress.user_id == user_id,
+                    UserProgress.subtopic_id == subtopic_id
+                )
+                .values(
+                    next_continue_response=generated_answer,
+                    next_continue_image=next_image_data,
+                    next_response_chunk_index=next_chunk_index
+                )
+            )
+            await db.commit()
             
             print(f"✅ Pre-generated continue response for chunk {next_chunk_index}")
                 
-        except Exception as e:
-            print(f"❌ Pre-generation failed: {e}")
-            # Clear pre-generated data on failure
-            try:
-                progress.next_continue_response = None
-                progress.next_continue_image = None
-                progress.next_response_chunk_index = None
-                db.commit()
-            except:
-                pass  # If this fails too, just log and continue
-        finally:
-            db.close()  # Always close the session
-        # Run the sync function in thread pool
-    loop = asyncio.get_event_loop()
-    await loop.run_in_executor(executor, _pre_generate_sync, user_id, subtopic_id, chunks, subject)
+    except Exception as e:
+        print(f"❌ Pre-generation failed: {e}")
+        # Clear pre-generated data on failure if possible
+        try:
+            async with AsyncSessionLocal() as db:
+                await db.execute(
+                    update(UserProgress)
+                    .filter(
+                        UserProgress.user_id == user_id,
+                        UserProgress.subtopic_id == subtopic_id
+                    )
+                    .values(
+                        next_continue_response=None,
+                        next_continue_image=None,
+                        next_response_chunk_index=None
+                    )
+                )
+                await db.commit()
+        except:
+            pass  # If this fails too, just log and continue
 
-
-def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Optional[str]:
+async def get_image_data_from_chunk(chunk: str, subtopic_id: int,db: AsyncSession) -> Optional[str]:
     """
     Fetches and encodes image data from the Diagram table if the chunk contains 'image description'.
     Uses the raw first line of the chunk, cleans LaTeX commands (\section, \subsection, \textbf),
@@ -191,10 +240,13 @@ def get_image_data_from_chunk(chunk: str, subtopic_id: int, db: Session) -> Opti
 
         if description:
             # Query the Diagram table for an image where the description contains the cleaned first line (case-insensitive)
-            diagram = db.query(Diagram).filter(
-                Diagram.subtopic_id == subtopic_id,
-                func.lower(Diagram.description).contains(func.lower(description))
-            ).first()
+            result = await db.execute(
+                select(Diagram).filter(
+                    Diagram.subtopic_id == subtopic_id,
+                    func.lower(Diagram.description).contains(func.lower(description))
+                )
+            )
+            diagram = result.scalar_one_or_none()
             if diagram and diagram.image_content:
                 # Encode the image content as base64 for the frontend
                 image_data = base64.b64encode(diagram.image_content).decode('utf-8')
@@ -207,7 +259,7 @@ router = APIRouter(
     tags=["explains"]
 )
 
-def authenticate_and_validate_user(authorization: Optional[str], user_id: int, db: Session) -> User:
+async def authenticate_and_validate_user(authorization: Optional[str], user_id: int, db: AsyncSession) -> User:
     try:
         user_data = get_user_from_token(authorization)
         if user_data.get("id") != user_id:
@@ -215,45 +267,49 @@ def authenticate_and_validate_user(authorization: Optional[str], user_id: int, d
     except:
         raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
     
-    user = db.query(User).filter(User.id == user_id).first()
+    result = await db.execute(select(User).filter(User.id == user_id))
+    user = result.scalar_one_or_none()
     if not user:
         raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
     
     return user
 
-
-def validate_subject_topic_subtopic(db: Session, subject: str, topic: str, subtopic: str) -> tuple:
-    # Single query with JOINs to get all three objects
-    result = db.query(Subject, Topic, Subtopic).join(
-        Topic, Subject.id == Topic.subject_id
-    ).join(
-        Subtopic, Topic.id == Subtopic.topic_id
-    ).filter(
-        Subject.name == subject,
-        Topic.name == topic,
-        Subtopic.name == subtopic
-    ).first()
+async def validate_subject_topic_subtopic(db: AsyncSession, subject: str, topic: str, subtopic: str) -> tuple:
+    result = await db.execute(
+        select(Subject, Topic, Subtopic)
+        .join(Topic, Subject.id == Topic.subject_id)
+        .join(Subtopic, Topic.id == Subtopic.topic_id)
+        .filter(
+            Subject.name == subject,
+            Topic.name == topic,
+            Subtopic.name == subtopic
+        )
+    )
+    row = result.first()
     
-    if not result:
-        # More specific error checking if needed
-        subject_obj = db.query(Subject).filter(Subject.name == subject).first()
+    if not row:
+        # More specific error checking
+        subject_result = await db.execute(select(Subject).filter(Subject.name == subject))
+        subject_obj = subject_result.scalar_one_or_none()
+        
         if not subject_obj:
             raise HTTPException(status_code=404, detail=f"Subject {subject} not found")
         
-        topic_obj = db.query(Topic).filter(
-            Topic.name == topic, Topic.subject_id == subject_obj.id
-        ).first()
+        topic_result = await db.execute(
+            select(Topic).filter(Topic.name == topic, Topic.subject_id == subject_obj.id)
+        )
+        topic_obj = topic_result.scalar_one_or_none()
+        
         if not topic_obj:
             raise HTTPException(status_code=404, detail=f"Topic {topic} not found in subject {subject}")
         
         raise HTTPException(status_code=404, detail=f"Subtopic {subtopic} not found in topic {topic}")
     
-    subject_obj, topic_obj, subtopic_obj = result
-    return subject_obj, topic_obj, subtopic_obj
+    return row
 
 
 async def process_query_logic(query: str, subject: str, chunks: list, chunk_index: int, 
-                       chat_memory: list, explain_query: ExplainQuery, progress: UserProgress, db: Session):
+                       chat_memory: list, explain_query: ExplainQuery, progress: UserProgress,  user_id: int, subtopic_id: int, db: AsyncSession):
       # Handle query
     query = query.lower()
     context = None
@@ -280,11 +336,19 @@ async def process_query_logic(query: str, subject: str, chunks: list, chunk_inde
     elif query == "refresh":
       #  print("\n\n i am here inside refresh screen \n\n")
         chunk_index = 0 # Start from chunk_index = 1
-        progress.chunk_index = chunk_index
-       
-        progress.chat_memory = []  # Clear chat_memory
-        
-        db.commit()
+         # Use async update instead of object modification
+        await db.execute(
+            update(UserProgress)
+            .filter(
+                UserProgress.user_id == user_id,
+                UserProgress.subtopic_id == subtopic_id
+            )
+            .values(
+                chunk_index=0,
+                chat_memory=[]
+            )
+        )
+        await db.commit()
         
       
         query =  "Explain the context easy fun way"
@@ -429,7 +493,7 @@ Your teaching approach:
 
 async def generate_ai_response_and_update_progress(prompt: str,system_instruction:str, query: str, answer_text: str, 
                                            progress: UserProgress, chunk_index: int, 
-                                           explain_query: ExplainQuery, db: Session) -> str:
+                                           explain_query: ExplainQuery,user_id: int, subtopic_id: int,db: AsyncSession) -> str:
 
     
     # Generate response
@@ -449,11 +513,21 @@ async def generate_ai_response_and_update_progress(prompt: str,system_instructio
     if len(chat_memory_updated) > 30:
         chat_memory_updated = chat_memory_updated[-30:]  # Keep only last 30
 
-    # Assign the new list to progress.chat_memory
-    progress.chat_memory = chat_memory_updated
-    progress.chunk_index = chunk_index
-    progress.last_updated = datetime.utcnow()
-    db.commit()
+   
+    # Use async update instead of object modification
+    await db.execute(
+        update(UserProgress)
+        .filter(
+            UserProgress.user_id == user_id,
+            UserProgress.subtopic_id == subtopic_id
+        )
+        .values(
+            chat_memory=chat_memory_updated,
+            chunk_index=chunk_index,
+            last_updated=datetime.utcnow()
+        )
+    )
+    await db.commit()
 
     return answer
 
@@ -468,18 +542,24 @@ async def post_explain(
     explain_query: ExplainQuery,
     background_tasks: BackgroundTasks,
     user_id: int = Header(...),
-    db: Session = Depends(get_db),
+    db: AsyncSession = Depends(get_async_db),
     authorization: Optional[str] = Header(None)
 ):
     # Keep these as sync calls - they're fast database queries
-    user = authenticate_and_validate_user(authorization, user_id, db)
-    subject_obj, topic_obj, subtopic_obj = validate_subject_topic_subtopic(db, subject, topic, subtopic)
+    user = await authenticate_and_validate_user(authorization, user_id, db)
+    subject_obj, topic_obj, subtopic_obj = await validate_subject_topic_subtopic(db, subject, topic, subtopic)
   
     # Fetch explain record
-    explain = db.query(Explain).filter(Explain.subtopic_id == subtopic_obj.id).first()
-    if not explain:
-        raise HTTPException(status_code=404, detail=f"No explanations found for subtopic {subtopic}")
-
+    result = await db.execute(select(Explain).filter(Explain.subtopic_id == subtopic_obj.id))
+    explain = result.scalar_one_or_none()
+    
+    result = await db.execute(
+        select(UserProgress).filter(
+            UserProgress.user_id == user_id,
+            UserProgress.subtopic_id == subtopic_obj.id
+        )
+    )
+    temp_progress = result.scalar_one_or_none()
     # Load chunks
     chunks = explain.chunks
     if not chunks:
@@ -503,10 +583,7 @@ async def post_explain(
     
     
     # Early check for initial explain with existing chat history
-    temp_progress = db.query(UserProgress).filter(
-        UserProgress.user_id == user_id,
-        UserProgress.subtopic_id == subtopic_obj.id
-    ).first()
+ 
     if (explain_query.query.lower() == "explain" and 
         explain_query.is_initial and 
         temp_progress and 
@@ -531,8 +608,8 @@ async def post_explain(
             chat_memory=[]
         )
         db.add(progress)
-        db.commit()
-        db.refresh(progress)
+        await db.commit()
+        await db.refresh(progress)
     
     
        
@@ -551,15 +628,34 @@ async def post_explain(
         if len(chat_memory_updated) > 30:
             chat_memory_updated = chat_memory_updated[-30:]
         
-        progress.chat_memory = chat_memory_updated
-        progress.chunk_index = progress.next_response_chunk_index
-        progress.last_updated = datetime.utcnow()
+        await db.execute(
+            update(UserProgress)
+            .filter(
+                UserProgress.user_id == user_id,
+                UserProgress.subtopic_id == subtopic_obj.id
+            )
+            .values(
+                chat_memory=chat_memory_updated,
+                chunk_index=progress.next_response_chunk_index, 
+                last_updated=datetime.utcnow()
+            )
+         )
+        await db.commit()
         
-        # Clear used response
-        progress.next_continue_response = None
-        progress.next_continue_image = None
-        progress.next_response_chunk_index = None
-        db.commit()
+        # Clear used response with async update
+        await db.execute(
+            update(UserProgress)
+            .filter(
+                UserProgress.user_id == user_id,
+                UserProgress.subtopic_id == subtopic_obj.id
+            )
+            .values(
+                next_continue_response=None,
+                next_continue_image=None,
+                next_response_chunk_index=None
+            )
+        )
+        await db.commit()
         
         # Start background generation for next response
         background_tasks.add_task(
@@ -580,8 +676,8 @@ async def post_explain(
     chat_memory = progress.chat_memory
 
    
-    result =  await process_query_logic(explain_query.query, subject, chunks, chunk_index, 
-                                           chat_memory, explain_query, progress, db)
+    result = await process_query_logic(explain_query.query, subject, chunks, chunk_index, 
+                                   chat_memory, explain_query, progress, user_id, subtopic_obj.id, db)
     # ✅ Clear local chat_memory for refresh
     if explain_query.query.lower() == "refresh":
         chat_memory = []
@@ -600,7 +696,7 @@ async def post_explain(
    # print(f"\n\nGemini API get -------this   {chunk_index}")
 
     # Fetch image data using the new function
-    image_data = get_image_data_from_chunk(selected_chunk, subtopic_obj.id, db)
+    image_data = await get_image_data_from_chunk(selected_chunk, subtopic_obj.id, db)
     
     if image_data:
         print("\nimage exist\n")
@@ -611,7 +707,7 @@ async def post_explain(
     
     prompt, system_instruction =  build_prompt(query, chat_memory, context, selected_chunk, subject)
     answer =await generate_ai_response_and_update_progress(prompt,system_instruction, query, explain_query.query, 
-                                                                progress, chunk_index, explain_query, db)
+                                                                progress, chunk_index, explain_query, user_id, subtopic_obj.id,db)
     
 
     # Start background generation for next continue
