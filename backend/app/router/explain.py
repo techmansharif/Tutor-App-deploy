@@ -354,26 +354,32 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
    $$\frac{a + b}{c - d} = \frac{10}{5}$$, $$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56$$ ,
      $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
 - Tally mark : 
-        $\cancel{\text{||||}}$ , $\cancel{\text{||||}}\text{||}$ , $\text{|||}$
+       - $\text{|||}$ for 3
+      -  $\text{||||}$ for 4
+       - $\cancel{\text{||||}}$ for 5,
+      -  $\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\text{||}$ for 12 
+     -   follow above pattern for tally mark represent 5 by $\cancel{\text{||||}}$ for number below 5 write as   $\text{||}$ for 2 , $\text{||||}$ for 4 etc
+      -  for number above 5 break into group of 5 like 9=5+4 so in tally it is $\cancel{\text{||||}}$   $\text{||||}$ 
+        18 is 5+5+5+3 so write it as  $\cancel{\text{||||}}$  $\cancel{\text{||||}}$  $\cancel{\text{||||}}$ $\text{|||}$ 
    - সঠিক LaTeX syntax নিশ্চিত করুন
      $$\sin^2\theta + \cos^2\theta = 1$$
      
 6. প্রয়োজনে সারসংক্ষেপ বা তুলনামূলক বিশ্লেষণের জন্য Markdown টেবিল ব্যবহার করুন
 Basic Table (বেসিক টেবিল):
-markdown| নাম | বয়স | শ্রেণী |
+|নাম | বয়স | শ্রেণী |
 |-----|------|--------|
 | রহিম | 14 | নবম |
 | করিম | 15 | দশম |
 | সালমা | 14 | নবম |
 Table with Alignment (সারিবদ্ধ টেবিল):
-markdown| পণ্য | পরিমাণ | মূল্য (টাকা) | মোট |
+| পণ্য | পরিমাণ | মূল্য (টাকা) | মোট |
 |:-----|-------:|:------------:|----:|
 | কলম | 5 | 10 | 50 |
 | খাতা | 3 | 40 | 120 |
 | রাবার | 2 | 5 | 10 |
 | **সর্বমোট** | | | **180** |
 Math in Tables (টেবিলে গণিত):
-markdown| সূত্র | উদাহরণ | ফলাফল |
+| সূত্র | উদাহরণ | ফলাফল |
 |:------|:------:|-------:|
 | বর্গ | $x^2$ যখন $x=5$ | $25$ |
 | বর্গমূল | $\sqrt{16}$ | $4$ |

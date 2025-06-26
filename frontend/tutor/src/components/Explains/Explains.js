@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
-import { processExplanation } from '../ProcessText/ProcessExplain'; 
+import { processExplanation, preprocessMath, postprocessMath } from '../ProcessText/ProcessExplain';
 import './Explains.css';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -203,16 +203,34 @@ const stopAllAudio = () => {
       <div key={index} className={`explanation-entry ${newlyAddedIndices.has(index) ? 'newest-entry' : ''} ${explainAgainIndices.has(index) ? 'explain-again-entry' : ''}`}>
                <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>
             <ReactMarkdown
-              children={processExplanation(entry.text)}
+              children={preprocessMath(processExplanation(entry.text))}
               remarkPlugins={[remarkGfm, remarkMath]}
-              rehypePlugins={[rehypeKatex]}
+              rehypePlugins={[
+  // Custom plugin to restore pipes BEFORE KaTeX processing
+  () => (tree) => {
+    const visit = (node) => {
+      if (node.type === 'text' && node.value) {
+        node.value = postprocessMath(node.value);
+      }
+      if (node.children) {
+        node.children.forEach(visit);
+      }
+    };
+    visit(tree);
+  },
+  // Now KaTeX processes the restored content
+  [rehypeKatex, {
+    throwOnError: false,
+    strict: false
+  }]
+]}
               components={{
                 table: ({node, ...props}) => (
                   <div className="table-container">
                     <table {...props} className="markdown-table" />
                   </div>
-                ),
-                code: ({node, inline, className, children, ...props}) => {
+                ), 
+                             code: ({node, inline, className, children, ...props}) => {
                   return inline ? (
                     <code className={className} {...props}>
                       {children}
