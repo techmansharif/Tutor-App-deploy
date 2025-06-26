@@ -24,6 +24,8 @@ backend/app/router/__pycache__/quizzes.cpython-312.pyc
 backend/app/__pycache__/main.cpython-312.pyc
 backend/app/__pycache__/*.pyc
 backend/app/schemas/__pycache__/explains.cpython-312.pyc
+backend/explain_raw_text.txt
+
 # Ignore compiled Python files and cache directories
 *.pyc
 __pycache__/
