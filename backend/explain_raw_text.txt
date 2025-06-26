@@ -27,4 +27,4 @@ Imagine triangles are like slices of pizza.
 So, if pizzas have the same height, the bigger the base, the bigger the slice. If they have the same base, the taller the pizza, the bigger the slice!
 
 Let me know if you want another slice of explanation!
-ddddd ddd dddd ddd d
+ddddd ddd dddd ddd dd
