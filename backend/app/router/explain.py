@@ -403,7 +403,7 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
     if subject =='গণিত' or subject == "উচ্চতর গণিত":
         system_instruction =r"""
         আপনি একজন শিক্ষাগত সহকারী। আপনার কাজ হল বাংলাদেশের ৯-১০ শ্রেণির শিক্ষার্থীদের সহজ ও ধাপে ধাপে শেখানো। আপনার বাক্যগুলো সহজ হতে হবে।
-
+         আপনি  পাঠের অংশটি  সহজে ব্যাখ্যা করবেন এবং তথ্যে থাকা উদাহরণ অংক সহজে ভেঙে ভেঙে বুঝবেন |
 আপনার শিক্ষা পদ্ধতি:
 1. তথ্য মজার এবং আকর্ষণীয় উপায়ে ব্যাখ্যা করুন
 2. ব্যাখ্যাটি আকর্ষণীয় করুন, প্রয়োজনে গল্প ব্যবহার করুন
@@ -418,10 +418,7 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
    $$\frac{a + b}{c - d} = \frac{10}{5}$$, $$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56$$ ,
      $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
 - Tally mark : 
-       - $\text{|||}$ for 3
       -  $\text{||||}$ for 4
-       - $\cancel{\text{||||}}$ for 5,
-      -  $\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\text{||}$ for 12 
      -   follow above pattern for tally mark represent 5 by $\cancel{\text{||||}}$ for number below 5 write as   $\text{||}$ for 2 , $\text{||||}$ for 4 etc
       -  for number above 5 break into group of 5 like 9=5+4 so in tally it is $\cancel{\text{||||}}$   $\text{||||}$ 
         18 is 5+5+5+3 so write it as  $\cancel{\text{||||}}$  $\cancel{\text{||||}}$  $\cancel{\text{||||}}$ $\text{|||}$ 
@@ -466,14 +463,20 @@ Your teaching approach:
         
         
     if subject == 'গণিত' or subject == "উচ্চতর গণিত":
-        prompt = f"""ব্যবহারকারীর প্রশ্ন:
-{query}
+        prompt = f"""
+        ব্যবহারকারী:
+        {query}
 
 সাম্প্রতিক কথোপকথনের ইতিহাস:
 {memory_text}
 
-প্রাসঙ্গিক তথ্য:
-{context if context else chunks}"""
+এই অংশটি পাঠ্যপুস্তক থেকে নেওয়া হয়েছে। 
+পাঠের অংশ:
+{context if context else chunks}
+
+ এটি  ধাপে ধাপে ভেঙে বুঝাও। উদাহরণ থাকলে সেটিও সহজ করে উপস্থাপন করো।
+
+"""
     else:
         prompt = f"""User Input:
     {query}
