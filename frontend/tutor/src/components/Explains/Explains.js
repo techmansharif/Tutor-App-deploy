@@ -8,6 +8,8 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import 'katex/dist/katex.min.css';
+import { trackInteraction, INTERACTION_TYPES } from '../../utils/trackInteractions';
+
 
 const Explains = ({
   selectedSubject,
@@ -30,6 +32,11 @@ const Explains = ({
   useEffect(() => {
     if (!initialFetchRef.current) {
       initialFetchRef.current = true;
+         trackInteraction(INTERACTION_TYPES.EXPLAIN_PAGE_LOADED, {
+      subject: selectedSubject,
+      topic: selectedTopic,
+      subtopic: selectedSubtopic
+    }, user.user_id, API_BASE_URL);
       fetchExplain("explain", true);
     }
     
@@ -135,11 +142,21 @@ const stopAllAudio = () => {
 
   const handleContinueExplain = () => {
       stopAllAudio();
+          trackInteraction(INTERACTION_TYPES.CONTINUE_CLICKED, {
+      subject: selectedSubject,
+      topic: selectedTopic,
+      subtopic: selectedSubtopic
+    }, user.user_id, API_BASE_URL);
     fetchExplain("continue");
   };
 
   const handleExplainAgain = () => {
       stopAllAudio();
+       trackInteraction(INTERACTION_TYPES.EXPLAIN_AGAIN_CLICKED, {
+      subject: selectedSubject,
+      topic: selectedTopic,
+      subtopic: selectedSubtopic
+    }, user.user_id, API_BASE_URL);
     fetchExplain("explain",false,true);
   };
 
@@ -147,12 +164,24 @@ const stopAllAudio = () => {
   
     if (userQuery.trim()) {
         stopAllAudio();
+          trackInteraction(INTERACTION_TYPES.CUSTOM_QUERY_SUBMITTED, {
+        subject: selectedSubject,
+        topic: selectedTopic,
+        subtopic: selectedSubtopic,
+        query: userQuery
+      }, user.user_id, API_BASE_URL);
       fetchExplain(userQuery);
       setUserQuery('');
     }
   };
 
   const handleRefresh = () => {
+    trackInteraction(INTERACTION_TYPES.REFRESH_CLICKED, {
+    subject: selectedSubject,
+    topic: selectedTopic,
+    subtopic: selectedSubtopic,
+    historyLength: explanationHistory.length
+  }, user.user_id, API_BASE_URL);
     setExplanationHistory([]);
     setExplainFinished(false);
       setPreviousHistoryLength(0); // Add this line
