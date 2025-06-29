@@ -1,5 +1,5 @@
 import React, { useState, useEffect,Suspense,lazy } from 'react';
-
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import Login from './components/Login/Login';
 import UserInfo from './components/Login/UserInfo'; // Added import
@@ -228,8 +228,8 @@ const renderNavigationButtons = () => {
   if (!user) return null;
 
   const selectionsComplete = areSelectionsComplete();
- const shouldDisableButtons = (quizStage === 'selection' && !selectionsComplete) || quizStage === 'welcome' || quizStage === 'quiz1';
-
+ //const shouldDisableButtons = (quizStage === 'selection' && !selectionsComplete) || quizStage === 'welcome' || quizStage === 'quiz1';
+  const shouldDisableButtons=false;
   return (
     <div className='navigation-button-container'>
       <div className="navigation-buttons">
@@ -244,7 +244,7 @@ const renderNavigationButtons = () => {
           onClick={() => handleStageChange('selection')} 
           className={`nav-button ${quizStage === 'selection' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
-        >
+        > <i className="bi bi-book-half m-1"></i> 
           SUBJECT
           <div style={{ fontSize: '0.8em' }}>Select a subject</div>
         </button>
@@ -253,7 +253,7 @@ const renderNavigationButtons = () => {
           onClick={() => handleStageChange('explains')}  
           className={`nav-button ${quizStage === 'explains' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
-        > 
+        > <i className="bi bi-file-earmark-richtext m-1"></i> 
           EXPLAIN  
           <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div>
         </button>
@@ -262,16 +262,16 @@ const renderNavigationButtons = () => {
           onClick={() => handleStageChange('practice')} 
           className={`nav-button ${quizStage === 'practice' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
-        >
-          PRACTICE  
-          <div style={{ fontSize: '0.8em' }}>Practise the subject</div> 
+        > <div className="button-left"><i className="bi bi-journal-bookmark-fill m-1"></i></div> 
+          <div className="button-right">PRACTICE  </div>
+          <div style={{ display: 'flex', alignItems: 'center',textAlign:'center', fontSize: '0.8em' }}>Practise the subject</div> 
         </button>
         
         <button 
           onClick={() => handleStageChange('quiz')} 
           className={`nav-button ${quizStage === 'quiz' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
-        > 
+        > <i className="bi bi-pencil-fill m-1"></i> 
           QUIZ  
           <div style={{ fontSize: '0.8em' }}>Check your progress </div>
         </button>
@@ -280,7 +280,7 @@ const renderNavigationButtons = () => {
         onClick={() => handleStageChange('revise')} 
         className={`nav-button ${quizStage === 'revise' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
         disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
-      >
+      > <i className="bi bi-list-task m-1"></i>  
         REVISE
         <div style={{ fontSize: '0.8em' }}>Review failed questions</div>
       </button>
@@ -288,7 +288,7 @@ const renderNavigationButtons = () => {
     onClick={() => handleStageChange('dashboard')} 
     className={`nav-button ${quizStage === 'dashboard' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
     disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
-  >
+  > <i className="bi bi-file-bar-graph-fill m-1"></i>   
     PROGRESS 
     <div style={{ fontSize: '0.8em' }}>Your scoreboard</div>
 </button>

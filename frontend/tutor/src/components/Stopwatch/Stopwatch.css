@@ -3,12 +3,12 @@
   font-weight: bold;
   text-align: center;
   
-  padding: 15px;
+  padding: 30px;
   margin: 10px 0;
   border: None;
   border-radius: 50%; /* Circular shape */
-  width: 60px;
-  height: 60px;
+  width: 85px;
+  height: 85px;
   display: flex;
   align-items: center;
   justify-content: center;

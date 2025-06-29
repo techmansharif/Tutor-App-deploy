@@ -108,6 +108,21 @@ const handlePlay = () => {
    <div className="audio-player-container">
     <div className="audio-controls">
 
+<button
+  onClick={handleStop}
+  disabled={!isPlaying}
+  className="audio-button stop-button"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="white"
+    width="30px"
+    height="30px"
+  >
+    <rect x="6" y="6" width="12" height="12"/>
+  </svg>
+</button>
 
 <button
   onClick={handlePlay}
@@ -126,7 +141,7 @@ const handlePlay = () => {
     </svg>
   </span>
 </button>
-       <button
+{/* <button
   onClick={handleStop}
   disabled={!isPlaying}
   className="audio-button stop-button"
@@ -140,9 +155,9 @@ const handlePlay = () => {
   >
     <rect x="6" y="6" width="12" height="12"/>
   </svg>
-</button>
+</button> */}
 
-       <button
+<button
   onClick={handleSpeakAgain}
   disabled={!isPlaying}
   className="audio-button speak-again-button"

@@ -1,0 +1,391 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{parskip}
+\geometry{a4paper, margin=1in}
+
+% Setting up fonts for compatibility
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\begin{document}
+
+% Defining the title
+\title{Chapter 10: Distance and Elevation}
+\author{}
+\date{}
+\maketitle
+
+% Defining the introduction
+\section*{Introduction}
+From very ancient times, trigonometric ratios have been applied to find the distance and height of any distant object. At present, trigonometric ratios are of boundless importance because of their increasing usage. The heights of hills, mountains, towers, trees, and the widths of rivers that cannot be measured by ordinary methods are measured with the help of trigonometry. It is necessary to know the trigonometric ratio values of acute angles in this regard.
+
+At the end of this chapter, the students will be able to:
+\begin{itemize}
+    \item Explain the geoline, vertical plane, and angles of elevation and depression.
+    \item Solve mathematical problems related to distance and height with the help of trigonometry.
+    \item Measure practically different types of distances and heights with the help of trigonometry.
+\end{itemize}
+
+\part{Horizontal Line, Vertical Line, and Vertical Plane}
+% Defining the section for Horizontal Line, Vertical Line, and Vertical Plane
+\section*{Horizontal Line, Vertical Line, and Vertical Plane}
+
+A horizontal line is a straight line on the horizontal plane. A straight line parallel to the horizon is also called a horizontal line. A vertical line is a line perpendicular to the horizontal plane. It is also called a normal line. A horizontal line and a vertical line intersected at right angles on the plane define a plane. It is known as a vertical plane.
+
+In the figure, a tree with height $AB$ is standing vertically at a distance $CB$ from a point $C$ on the horizontal plane. Here, $CB$ is the horizontal line, $BA$ is the vertical line, and the plane $ABC$ is perpendicular to the horizontal plane, which is a vertical plane.
+
+\part{Angle of Elevation and Angle of Depression}
+% Defining the section for Angle of Elevation and Angle of Depression
+\section*{Angle of Elevation and Angle of Depression}
+
+Observe the figure: $AB$ is a straight line parallel to the horizon. The points $A, O, B, P,$ and $Q$ lie on the same vertical plane. The point $P$ on the straight line $AB$ makes angle $\angle POB$ with the line $AB$. Here, at $O$, the angle of elevation of $P$ is $\angle POB$. So, the angle at any point above the plane with the straight line parallel to the horizon is called the angle of elevation.
+
+The point $Q$ lies on the lower side of the straight line $AB$ parallel to the horizon. Here, the angle of depression at $O$ of $Q$ is $\angle QOB$. So, the angle at any point below the straight line parallel to the plane is called the angle of depression.
+
+\textbf{Work:}
+Point to the figure and indicate the horizontal line, vertical line, vertical plane, angle of elevation, and angle of depression.
+
+\part{Trigonometric Applications}
+% Defining the section for Trigonometric Applications
+\section*{Trigonometric Applications}
+
+\textbf{Note:} For solving the problems in this chapter, an approximately right figure is needed. While drawing the figure, the following techniques are to be applied:
+\begin{enumerate}
+    \item While drawing a $30^\circ$ angle, it is needed that base $>$ perpendicular.
+    \item While drawing a $45^\circ$ angle, it is needed that base $=$ perpendicular.
+    \item While drawing a $60^\circ$ angle, it is needed that base $<$ perpendicular.
+\end{enumerate}
+
+\subsection*{Example 1}
+The angle of elevation at the top of a tower at a point on the ground is $30^\circ$ at a distance of 75 meters from the foot. Find the height of the tower.
+
+\textbf{Solution:}
+Let the height of the tower be $AB = h$ meters. The angle of elevation at $C$ from the foot of the tower, where $BC = 75$ meters, is $\angle ACB = 30^\circ$.
+
+From $\triangle ABC$, we get:
+\[
+\tan \angle ACB = \frac{AB}{BC}
+\]
+\[
+\tan 30^\circ = \frac{h}{75}
+\]
+\[
+\frac{1}{\sqrt{3}} = \frac{h}{75}
+\]
+\[
+\sqrt{3} h = 75
+\]
+\[
+h = \frac{75}{\sqrt{3}} = \frac{75 \sqrt{3}}{3} = 25 \sqrt{3}
+\]
+\[
+h \approx 25 \times 1.732 = 43.301
+\]
+Therefore, the height of the tower is approximately 43.30 meters.
+
+\subsection*{Example 2}
+The height of a tree is 105 meters. If the angle of elevation of the tree at a point from its foot on the ground is $60^\circ$, find the distance of the point on the ground from the foot of the tree.
+
+\textbf{Solution:}
+Let the distance of the point on the ground from the foot of the tree be $BC = x$ meters. The height of the tree is $AB = 105$ meters, and at $C$, the angle of elevation of the vertex of the tree is $\angle ACB = 60^\circ$. From right-angled $\triangle ABC$, we get:
+\[
+\tan \angle ACB = \frac{AB}{BC}
+\]
+\[
+\tan 60^\circ = \frac{105}{x}
+\]
+\[
+\sqrt{3} = \frac{105}{x} \quad [\because \tan 60^\circ = \sqrt{3}]
+\]
+\[
+x = \frac{105}{\sqrt{3}} = \frac{105 \sqrt{3}}{3} = 35 \sqrt{3}
+\]
+\[
+x \approx 35 \times 1.732 = 60.622
+\]
+Therefore, the distance is approximately 60.62 meters.
+
+\subsection*{Example 3}
+From a point on the ground, the angle of elevation of the top of a tree is $45^\circ$. Moving 18 meters towards the foot of the tree, the angle of elevation becomes $60^\circ$. Find the height of the tree.
+
+\textbf{Solution:}
+Let the height of the tree be $AB = h$ meters. Let the initial point on the ground be $C$, where the angle of elevation is $\angle ACB = 45^\circ$, and after moving 18 meters towards the foot $B$, the new point is $D$, where $\angle ADB = 60^\circ$. Let $BC = x$ meters, so $BD = x - 18$ meters.
+
+From $\triangle ABC$:
+\[
+\tan 45^\circ = \frac{h}{x}
+\]
+\[
+1 = \frac{h}{x} \quad [\because \tan 45^\circ = 1]
+\]
+\[
+h = x \quad (1)
+\]
+From $\triangle ABD$:
+\[
+\tan 60^\circ = \frac{h}{x - 18}
+\]
+\[
+\sqrt{3} = \frac{h}{x - 18} \quad [\because \tan 60^\circ = \sqrt{3}]
+\]
+\[
+h = \sqrt{3} (x - 18) \quad (2)
+\]
+Equating (1) and (2):
+\[
+x = \sqrt{3} (x - 18)
+\]
+\[
+x = \sqrt{3} x - 18 \sqrt{3}
+\]
+\[
+\sqrt{3} x - x = 18 \sqrt{3}
+\]
+\[
+x (\sqrt{3} - 1) = 18 \sqrt{3}
+\]
+\[
+x = \frac{18 \sqrt{3}}{\sqrt{3} - 1} \cdot \frac{\sqrt{3} + 1}{\sqrt{3} + 1} = \frac{18 \sqrt{3} (\sqrt{3} + 1)}{3 - 1} = \frac{18 \sqrt{3} (\sqrt{3} + 1)}{2} = 9 \sqrt{3} (\sqrt{3} + 1)
+\]
+\[
+x = 9 (3 + \sqrt{3}) \approx 9 (3 + 1.732) = 9 \times 4.732 \approx 42.588
+\]
+\[
+h = x \approx 42.588
+\]
+Therefore, the height of the tree is approximately 42.59 meters.
+
+\subsection*{Example 4}
+A stick 7 meters long is leaned against a tree such that the top of the stick touches the tree at a point and makes an angle of $30^\circ$ with the ground. Find the height from the foot of the stick to the point it touches the tree.
+
+\textbf{Solution:}
+Let the height of the stick from the foot leaned against the tree be $AB = 7$ meters, and the angle of depression $\angle DBC = 30^\circ$. Therefore:
+\[
+\angle ACB = \angle DBC = 30^\circ \quad [\text{alternate angles}]
+\]
+From right-angled $\triangle ABC$:
+\[
+\sin \angle ACB = \frac{AB}{BC}
+\]
+\[
+\sin 30^\circ = \frac{7}{BC}
+\]
+\[
+\frac{1}{2} = \frac{7}{BC} \quad [\because \sin 30^\circ = \frac{1}{2}]
+\]
+\[
+BC = 14
+\]
+Therefore, the required height of the stick is 14 meters.
+
+\textbf{Work:}
+In the figure, if the depression angle $\angle CAE = 60^\circ$, elevation angle $\angle ADB = 30^\circ$, $AC = 36$ meters, $AB \perp DC$, and $D, C, B$ lie on the same straight line, find the lengths of the sides $AD, AB,$ and $CD$.
+
+\subsection*{Example 5}
+The angle of elevation at a point of the roof of a building is $60^\circ$ at a point on the ground. Moving back 42 meters, the angle of elevation of the point becomes $45^\circ$. Find the height of the building.
+
+\textbf{Solution:}
+Let the height of the building be $AB = h$ meters. The angle of elevation at point $C$ is $\angle ACB = 60^\circ$. Moving back from $C$ by $CD = 42$ meters to point $D$, the angle of elevation becomes $\angle ADB = 45^\circ$. Let $BC = x$ meters, so $BD = BC + CD = (x + 42)$ meters.
+
+From $\triangle ABC$:
+\[
+\tan \angle ACB = \frac{AB}{BC}
+\]
+\[
+\tan 60^\circ = \frac{h}{x}
+\]
+\[
+\sqrt{3} = \frac{h}{x} \quad [\because \tan 60^\circ = \sqrt{3}]
+\]
+\[
+x = \frac{h}{\sqrt{3}} \quad (1)
+\]
+From $\triangle ABD$:
+\[
+\tan \angle ADB = \frac{AB}{BD}
+\]
+\[
+\tan 45^\circ = \frac{h}{x + 42}
+\]
+\[
+1 = \frac{h}{x + 42} \quad [\because \tan 45^\circ = 1]
+\]
+\[
+h = x + 42 \quad (2)
+\]
+Substituting (1) into (2):
+\[
+h = \frac{h}{\sqrt{3}} + 42
+\]
+\[
+\sqrt{3} h = h + 42 \sqrt{3}
+\]
+\[
+\sqrt{3} h - h = 42 \sqrt{3}
+\]
+\[
+h (\sqrt{3} - 1) = 42 \sqrt{3}
+\]
+\[
+h = \frac{42 \sqrt{3}}{\sqrt{3} - 1} \cdot \frac{\sqrt{3} + 1}{\sqrt{3} + 1} = \frac{42 \sqrt{3} (\sqrt{3} + 1)}{3 - 1} = \frac{42 \sqrt{3} (\sqrt{3} + 1)}{2}
+\]
+\[
+h \approx \frac{42 \times 1.732 \times (1.732 + 1)}{2} = \frac{42 \times 1.732 \times 2.732}{2} \approx \frac{198.686}{2} \approx 99.373
+\]
+Therefore, the height of the building is approximately 99.37 meters.
+
+\subsection*{Example 6}
+A pole is broken such that the undetached broken part makes an angle of $30^\circ$ with the other and touches the ground at a distance of 10 meters from its foot. Find the length of the pole.
+
+\textbf{Solution:}
+Let the total height of the pole be $AB = h$ meters. It breaks at the height $BC = x$ meters without separation and makes an angle $\angle BCD = 30^\circ$, touching the ground at $BD = 10$ meters from the foot. Here, $CD = AC = AB - BC = (h - x)$ meters.
+
+From $\triangle BCD$:
+\[
+\tan \angle BCD = \frac{BD}{BC}
+\]
+\[
+\tan 30^\circ = \frac{10}{x}
+\]
+\[
+\frac{1}{\sqrt{3}} = \frac{10}{x}
+\]
+\[
+x = 10 \sqrt{3}
+\]
+Again:
+\[
+\sin \angle BCD = \frac{BD}{CD}
+\]
+\[
+\sin 30^\circ = \frac{10}{h - x}
+\]
+\[
+\frac{1}{2} = \frac{10}{h - x}
+\]
+\[
+h - x = 20
+\]
+\[
+h = 20 + x = 20 + 10 \sqrt{3}
+\]
+\[
+h \approx 20 + 10 \times 1.732 = 20 + 17.32 = 37.321
+\]
+Therefore, the height of the pole is approximately 37.32 meters.
+
+\textbf{Work:}
+A balloon is flying above any point between two kilometer posts. At the point of the balloon, the angles of depression of the two posts are $30^\circ$ and $60^\circ$, respectively. Find the height of the balloon.
+
+\subsection*{Exercises 10}
+\begin{enumerate}
+    \item The square of the length of a stick is one third of its shadow length square. What is the angle of elevation of the sun at the edge of the shadow?
+    \begin{enumerate}
+        \item $15^\circ$
+        \item $30^\circ$
+        \item $45^\circ$
+        \item $60^\circ$
+    \end{enumerate}
+    \item What is the value of $x$ in the picture?
+    \begin{enumerate}
+        \item $\frac{\sqrt{3}}{60}$
+        \item $\frac{60}{\sqrt{3}}$
+        \item $60 \sqrt{2}$
+        \item $60 \sqrt{3}$
+    \end{enumerate}
+    \item What is the elevation angle of point $P$ from the point $O$?
+    \begin{enumerate}
+        \item $\angle QOB$
+        \item $\angle POA$
+        \item $\angle QOA$
+        \item $\angle POB$
+    \end{enumerate}
+    \item For which value of the angle of depression does the length of a stick and the length of its shadow become equal?
+    \begin{enumerate}
+        \item $30^\circ$
+        \item $45^\circ$
+        \item $60^\circ$
+        \item $90^\circ$
+    \end{enumerate}
+    \item According to the figure given, answer questions 5 and 6:
+    \begin{enumerate}
+        \item What is the length of $BC$?
+        \begin{enumerate}
+            \item $\frac{4}{\sqrt{3}}$ meter
+            \item 4 meters
+            \item $4 \sqrt{2}$ meters
+            \item $4 \sqrt{3}$ meters
+        \end{enumerate}
+        \item What is the length of $AB$?
+        \begin{enumerate}
+            \item $\frac{4}{\sqrt{3}}$ meter
+            \item 4 meters
+            \item $4 \sqrt{3}$ meters
+        \end{enumerate}
+    \end{enumerate}
+    \item Angle of elevation:
+    \begin{enumerate}[label=(\roman*)]
+        \item If $30^\circ$, then base $>$ perpendicular.
+        \item If $45^\circ$, then base $=$ perpendicular.
+        \item If $60^\circ$, then base $<$ perpendicular.
+    \end{enumerate}
+    Which one of the following is correct?
+    \begin{enumerate}
+        \item i and ii
+        \item ii and iii
+        \item i and iii
+        \item i, ii, and iii
+    \end{enumerate}
+    \item In the adjacent picture:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\angle DAC$ is an angle of depression
+        \item $\angle ACB$ is an angle of elevation
+        \item $\angle DAC = \angle ACB$
+    \end{enumerate}
+    Which one of the following is correct?
+    \begin{enumerate}
+        \item i and ii
+        \item i and iii
+        \item ii and iii
+        \item i, ii, and iii
+    \end{enumerate}
+    \item What is the other name for geoline?
+    \begin{enumerate}
+        \item Perpendicular line
+        \item Lying line
+        \item Parallel line
+        \item Vertical line
+    \end{enumerate}
+    \item If the angle of elevation of the top of a minaret is $30^\circ$ at a point on the ground and the height is 26 meters, find the distance of the plane from the minaret.
+    \item If the top of a tree is 20 meters distant from the foot on the ground at any point on the ground and the angle of elevation is $60^\circ$, find the height of the tree.
+    \item Forming a $45^\circ$ angle with the ground, an 18-meter-long ladder touches the top of the wall. Find the height of the wall.
+    \item If the angle of depression at a point on the ground 20 meters from the top of a house is $30^\circ$, find the height of the house.
+    \item The angle of elevation of a tower at any point on the ground is $60^\circ$. If moved back 25 meters, the angle of elevation becomes $30^\circ$. Find the height of the tower.
+    \item The angle of elevation of a tower becomes $60^\circ$ from $45^\circ$ by moving 60 meters towards a minaret. Find the height of the minaret.
+    \item A man standing at a place on the bank of a river observed that the angle of elevation of a tower exactly opposite him on the other bank was $60^\circ$. Moving 32 meters back, he observed that the angle of elevation of the tower was $30^\circ$. Find the height of the tower and the width of the river.
+    \item A pole 64 meters long breaks into two parts without complete separation and makes an angle of $60^\circ$ with the ground. Find the length of the broken part of the pole.
+    \item A tree is broken by a storm such that the broken part makes an angle of $30^\circ$ with the other and touches the ground at a distance of 12 meters from it. Find the length of the whole tree.
+    \item Standing anywhere on the bank of a river, a man observed that the angle of elevation of a 150-meter-long tree exactly straight to him on the other bank is $30^\circ$. The man started for the tree by a boat but reached 10 meters away from the tree due to the current.
+    \begin{enumerate}
+        \item According to the stem, show the above description by a figure.
+        \item Find the width of the river.
+        \item Find the distance from the starting point to the destination.
+    \end{enumerate}
+    \item Forming a $60^\circ$ angle with the ground, a 16-meter-long ladder touches the top of a vertical wall.
+    \begin{enumerate}
+        \item According to the stem, show the above description by a figure.
+        \item Find the height of the wall.
+        \item How far does the foot of the ladder need to be moved along the horizontal line so that it still touches the wall and makes an angle of $30^\circ$ with the ground?
+    \end{enumerate}
+    \item In the figure, $CD = 96$ meters.
+    \begin{enumerate}
+        \item Find the measurement of $\angle CAD$ in degrees.
+        \item Find the length of $BC$.
+        \item Find the perimeter of $\triangle ACD$.
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,377 @@
+% Setting up the document class and necessary packages
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{titletoc}
+
+% Configuring page geometry
+\geometry{margin=1in}
+
+% Setting up font encoding
+\usepackage[T1]{fontenc}
+\usepackage{times}
+
+% Customizing section headings
+\title{Chapter 12: Simple Simultaneous Equations in Two Variables}
+\author{}
+\date{}
+
+% Beginning the document
+\begin{document}
+
+% Creating the title
+\maketitle
+\part{Simple Simultaneous Equations}
+% Starting the content
+\section*{Introduction to Simple Simultaneous Equations in Two Variables}
+
+Equations are fundamental in algebra for solving mathematical problems. In Classes VI and VII, students learned simple equations in one variable, and in Class VIII, they explored simultaneous equations using substitution, elimination, and graphical methods, including real-life applications. This chapter expands on these concepts, introducing new solution methods, graphical solutions, and detailed problem-solving from real-life scenarios.
+
+At the end of the chapter, students will be able to:
+\begin{itemize}
+    \item Verify the consistency of simple simultaneous equations in two variables.
+    \item Verify the mutual dependence of two simple simultaneous equations.
+    \item Explain the cross-multiplication method.
+    \item Form and solve simultaneous equations for real-life problems.
+    \item Solve simultaneous equations with two variables graphically.
+\end{itemize}
+
+\section*{Simple Simultaneous Equations}
+
+Simple simultaneous equations are two linear equations in two variables presented together, sharing the same variable characteristics, also known as a system of equations. For example, consider $2x + y = 12$. A table of solutions includes:
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+Value of $x$ & Value of $y$ & L.H.S $(2x + y)$ & R.H.S \\
+\hline
+-2 & 16 & $-4 + 16 = 12$ & 12 \\
+0 & 12 & $0 + 12 = 12$ & 12 \\
+3 & 6 & $6 + 6 = 12$ & 12 \\
+5 & 2 & $10 + 2 = 12$ & 12 \\
+\vdots & \vdots & $\vdots = 12$ & 12 \\
+\hline
+\end{tabular}
+
+This equation has infinite solutions, such as $(-2, 16)$, $(0, 12)$, $(3, 6)$, $(5, 2)$. For $x - y = 3$:
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+Value of $x$ & Value of $y$ & L.H.S $(x - y)$ & R.H.S \\
+\hline
+-2 & -5 & $-2 + 5 = 3$ & 3 \\
+0 & -3 & $0 + 3 = 3$ & 3 \\
+3 & 0 & $3 - 0 = 3$ & 3 \\
+5 & 2 & $5 - 2 = 3$ & 3 \\
+\vdots & \vdots & $\vdots = 3$ & 3 \\
+\hline
+\end{tabular}
+
+Solutions include $(-2, -5)$, $(0, -3)$, $(3, 0)$, $(5, 2)$. Together, $2x + y = 12$ and $x - y = 3$ form a system with a unique solution $(5, 2)$.
+
+\section*{Conformability for Solutions}
+
+Consider the system:
+\[
+\begin{cases}
+2x + y = 12 \\
+x - y = 3
+\end{cases}
+\]
+It has a unique solution, making it consistent and independent, as $\frac{2}{1} \neq \frac{1}{-1}$. For:
+\[
+\begin{cases}
+2x - y = 6 \\
+4x - 2y = 12
+\end{cases}
+\]
+Multiplying the first by 2 yields the second, indicating dependency and infinite solutions (consistent, dependent), with $\frac{2}{4} = \frac{-1}{-2} = \frac{6}{12}$. For:
+\[
+\begin{cases}
+2x + y = 12 \\
+4x + 2y = 5
+\end{cases}
+\]
+Multiplying the first by 2 gives $4x + 2y = 24$, contradicting $4x + 2y = 5$, so it’s inconsistent and independent, with $\frac{2}{4} = \frac{1}{2} \neq \frac{12}{5}$. General conditions for $a_1 x + b_1 y = c_1$, $a_2 x + b_2 y = c_2$ are:
+
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Case & System & Coefficient Ratios & Consistent & Dependent/Independent & Solutions \\
+\hline
+(i) & $a_1 x + b_1 y = c_1$ & $\frac{a_1}{a_2} \neq \frac{b_1}{b_2}$ & Yes & Independent & One \\
+& $a_2 x + b_2 y = c_2$ & & & & \\
+\hline
+(ii) & $a_1 x + b_1 y = c_1$ & $\frac{a_1}{a_2} = \frac{b_1}{b_2} = \frac{c_1}{c_2}$ & Yes & Dependent & Infinite \\
+& $a_2 x + b_2 y = c_2$ & & & & \\
+\hline
+(iii) & $a_1 x + b_1 y = c_1$ & $\frac{a_1}{a_2} = \frac{b_1}{b_2} \neq \frac{c_1}{c_2}$ & No & Independent & None \\
+& $a_2 x + b_2 y = c_2$ & & & & \\
+\hline
+\end{tabular}
+
+For $c_1 = c_2 = 0$, if $\frac{a_1}{a_2} \neq \frac{b_1}{b_2}$, the system is consistent and independent (one solution); if $\frac{a_1}{a_2} = \frac{b_1}{b_2}$, it’s consistent and dependent (infinite solutions).
+
+\textbf{Example 1.} Determine if the following systems are consistent/inconsistent, dependent/independent, and the number of solutions:
+\begin{enumerate}
+    \item $x + 3y = 1$, $2x + 6y = 2$
+    \item $2x - 5y = 3$, $x + 3y = 1$
+    \item $3x - 5y = 7$, $6x - 10y = 15$
+\end{enumerate}
+
+Solution:
+\begin{enumerate}
+    \item Ratios: $\frac{1}{2} = \frac{3}{6} = \frac{1}{2}$. Consistent, dependent, infinite solutions.
+    \item Ratios: $\frac{2}{1} \neq \frac{-5}{3}$. Consistent, independent, one solution.
+    \item Ratios: $\frac{3}{6} = \frac{-5}{-10} \neq \frac{7}{15}$. Inconsistent, independent, no solutions.
+\end{enumerate}
+\part{Solution of Simple Simultaneous Equations }
+\section*{Solution of Simple Simultaneous Equations}
+
+We focus on consistent, independent systems with unique solutions, using four methods: substitution, elimination, cross-multiplication, and graphical.
+
+\subsection*{Substitution Method}
+
+Express one variable in terms of the other from one equation and substitute into the other.
+
+\textbf{Example 2.} Solve by substitution:
+\[
+\begin{cases}
+2x + y = 8 \\
+3x - 2y = 5
+\end{cases}
+\]
+
+Solution: From (1), $y = 8 - 2x$. Substitute into (2):
+\[
+3x - 2(8 - 2x) = 5 \implies 3x - 16 + 4x = 5 \implies 7x = 21 \implies x = 3
+\]
+Then, $y = 8 - 2 \cdot 3 = 2$. Solution: $(x, y) = (3, 2)$.
+
+\subsection*{Elimination Method}
+
+Multiply equations to align coefficients of one variable, then add or subtract to eliminate it.
+
+\textbf{Example 3.} Solve by elimination:
+\[
+\begin{cases}
+2x + y = 8 \\
+3x - 2y = 5
+\end{cases}
+\]
+
+Solution: Multiply (1) by 2: $4x + 2y = 16$. Add to (2):
+\[
+(4x + 2y) + (3x - 2y) = 16 + 5 \implies 7x = 21 \implies x = 3
+\]
+Substitute $x = 3$ into (1): $2 \cdot 3 + y = 8 \implies y = 2$. Solution: $(x, y) = (3, 2)$.
+
+\subsection*{Cross-Multiplication Method}
+
+For $a_1 x + b_1 y + c_1 = 0$, $a_2 x + b_2 y + c_2 = 0$:
+\[
+\frac{x}{b_1 c_2 - b_2 c_1} = \frac{y}{c_1 a_2 - c_2 a_1} = \frac{1}{a_1 b_2 - a_2 b_1}
+\]
+\[
+x = \frac{b_1 c_2 - b_2 c_1}{a_1 b_2 - a_2 b_1}, \quad y = \frac{c_1 a_2 - c_2 a_1}{a_1 b_2 - a_2 b_1}
+\]
+
+Image description: A diagram illustrates the cross-multiplication method with coefficients $a_1, b_1, c_1$ and $a_2, b_2, c_2$ arranged to show the formula for $x$ and $y$.
+
+\textbf{Example 4.} Solve by cross-multiplication:
+\[
+\begin{cases}
+6x - y = 1 \\
+3x + 2y = 13
+\end{cases}
+\]
+
+Solution: Rewrite: $6x - y - 1 = 0$, $3x + 2y - 13 = 0$. Apply cross-multiplication:
+\[
+\frac{x}{(-1) \cdot (-13) - 2 \cdot (-1)} = \frac{y}{(-1) \cdot 3 - (-13) \cdot 6} = \frac{1}{6 \cdot 2 - 3 \cdot (-1)}
+\]
+\[
+\frac{x}{13 + 2} = \frac{y}{-3 + 78} = \frac{1}{12 + 3} \implies \frac{x}{15} = \frac{y}{75} = \frac{1}{15}
+\]
+\[
+x = 1, \quad y = 5
+\]
+Solution: $(x, y) = (1, 5)$.
+
+\textbf{Example 5.} Solve by cross-multiplication:
+\[
+\begin{cases}
+3x - 4y = 0 \\
+2x - 3y = -1
+\end{cases}
+\]
+
+Solution: Rewrite: $3x - 4y + 0 = 0$, $2x - 3y + 1 = 0$. Apply cross-multiplication:
+\[
+\frac{x}{(-4) \cdot 1 - (-3) \cdot 0} = \frac{y}{0 \cdot 2 - 1 \cdot 3} = \frac{1}{3 \cdot (-3) - 2 \cdot (-4)}
+\]
+\[
+\frac{x}{-4} = \frac{y}{-3} = \frac{1}{-9 + 8} \implies \frac{x}{4} = \frac{y}{3} = \frac{1}{1}
+\]
+\[
+x = 4, \quad y = 3
+\]
+Solution: $(x, y) = (4, 3)$.
+
+\textbf{Example 6.} Solve by cross-multiplication:
+\[
+\begin{cases}
+\frac{x}{2} + \frac{y}{3} = 8 \\
+\frac{5x}{4} - 3y = -3
+\end{cases}
+\]
+
+Solution: Rewrite: $3x + 2y - 48 = 0$, $5x - 12y + 12 = 0$. Apply cross-multiplication:
+\[
+\frac{x}{2 \cdot 12 - (-12) \cdot (-48)} = \frac{y}{(-48) \cdot 5 - 12 \cdot 3} = \frac{1}{3 \cdot (-12) - 5 \cdot 2}
+\]
+\[
+\frac{x}{24 - 576} = \frac{y}{-240 - 36} = \frac{1}{-36 - 10} \implies \frac{x}{552} = \frac{y}{276} = \frac{1}{46}
+\]
+\[
+x = 12, \quad y = 6
+\]
+Verify: $\frac{12}{2} + \frac{6}{3} = 8$, $\frac{5 \cdot 12}{4} - 3 \cdot 6 = -3$. Solution: $(x, y) = (12, 6)$.
+
+\textbf{Example 7.} Solve by cross-multiplication: $ax - by = ab$, $bx - ay = ab$.
+
+Solution: Rewrite: $ax - by - ab = 0$, $bx - ay - ab = 0$. Apply cross-multiplication:
+\[
+\frac{x}{(-b) \cdot (-ab) - (-a) \cdot (-ab)} = \frac{y}{(-ab) \cdot b - (-ab) \cdot a} = \frac{1}{a \cdot (-a) - b \cdot (-b)}
+\]
+\[
+\frac{x}{ab^2 - a^2 b} = \frac{y}{-a b^2 + a^2 b} = \frac{1}{-a^2 + b^2} \implies \frac{x}{ab(a - b)} = \frac{y}{-ab(a - b)} = \frac{1}{(a + b)(a - b)}
+\]
+\[
+x = \frac{ab}{a + b}, \quad y = -\frac{ab}{a + b}
+\]
+Solution: $(x, y) = \left( \frac{ab}{a + b}, -\frac{ab}{a + b} \right)$.
+\part{Solving by Using Graphical Method}
+\subsection*{Graphical Method}
+
+Each linear equation’s graph is a straight line with infinite solutions. The intersection of two lines, if it exists, gives the system’s solution. For:
+\[
+\begin{cases}
+2x + y = 3 \\
+4x + 2y = 6
+\end{cases}
+\]
+Equation (1): $y = 3 - 2x$ yields points $(-1, 5)$, $(0, 3)$, $(3, -3)$. Equation (2): $y = \frac{6 - 4x}{2}$ yields $(-2, 7)$, $(0, 3)$, $(6, -9)$. Graphs coincide (dependent, infinite solutions). For:
+\[
+\begin{cases}
+2x - y = 4 \\
+4x - 2y = 12
+\end{cases}
+\]
+Equation (1): $y = 2x - 4$ yields $(-1, -6)$, $(0, -4)$, $(4, 4)$. Equation (2): $y = 2x - 6$ yields $(0, -6)$, $(3, 0)$, $(6, 6)$. Graphs are parallel (inconsistent, no solution).
+
+Image description: A figure shows graphs of $2x + y = 3$ and $4x + 2y = 6$ as a single line, and $2x - y = 4$ and $4x - 2y = 12$ as parallel lines, plotted on a coordinate plane.
+
+\textbf{Example 8.} Solve and graph:
+\[
+\begin{cases}
+2x + y = 8 \\
+3x - 2y = 5
+\end{cases}
+\]
+
+Solution: By cross-multiplication: $x = 3$, $y = 2$. Plot $(3, 2)$ on a graph with two units per square.
+
+\textbf{Example 9.} Solve graphically:
+\[
+\begin{cases}
+3x - y = 3 \\
+5x + y = 21
+\end{cases}
+\]
+
+Solution: Equation (1): $y = 3x - 3$, points: $(-1, -6)$, $(0, -3)$, $(3, 6)$. Equation (2): $y = 21 - 5x$, points: $(3, 6)$, $(4, 1)$, $(5, -4)$. Intersection at $(3, 6)$. Solution: $(x, y) = (3, 6)$.
+
+Image description: A figure shows two straight lines for $3x - y = 3$ and $5x + y = 21$, intersecting at $(3, 6)$ on a coordinate plane.
+
+\textbf{Example 10.} Solve graphically:
+\[
+\begin{cases}
+2x + 5y = -14 \\
+4x - 5y = 17
+\end{cases}
+\]
+
+Solution: Equation (1): $y = \frac{-2x - 14}{5}$, points: $(3, -4)$, $\left(\frac{1}{2}, -3\right)$, $(-2, -2)$. Equation (2): $y = \frac{4x - 17}{5}$, points: $(3, -1)$, $\left(\frac{1}{2}, -3\right)$, $(-2, -5)$. Intersection at $\left(\frac{1}{2}, -3\right)$. Solution: $(x, y) = \left(\frac{1}{2}, -3\right)$.
+
+Image description: A figure shows two straight lines for $2x + 5y = -14$ and $4x - 5y = 17$, intersecting at $\left(\frac{1}{2}, -3\right)$ on a coordinate plane.
+
+\textbf{Example 11.} Solve graphically: $3 - \frac{3}{2}x = 8 - 4x$.
+
+Solution: Let $y = 3 - \frac{3}{2}x = 8 - 4x$. Equation (1): $y = 3 - \frac{3}{2}x$, points: $(-2, 6)$, $(0, 3)$, $(2, 0)$. Equation (2): $y = 8 - 4x$, points: $(1, 4)$, $(2, 0)$, $(3, -4)$. Intersection at $(2, 0)$. Solution: $x = 2$.
+
+Image description: A figure shows two straight lines for $y = 3 - \frac{3}{2}x$ and $y = 8 - 4x$, intersecting at $(2, 0)$ on a coordinate plane.
+
+\part{Formation of Simultaneous Equations from Real Life Problems and Solution}
+\section*{Formation of Simultaneous Equations from Real-Life Problems}
+
+Real-life problems can be solved by forming two equations with variables $x$ and $y$ representing unknowns.
+
+\textbf{Example 12.} Adding 5 to the sum of a two-digit number’s digits yields three times the tens digit. Interchanging digits gives a number 9 less than the original. Find the number.
+
+Solution: Let tens digit be $x$, units digit $y$. Number: $10x + y$. Conditions:
+\[
+x + y + 5 = 3x \implies y = 2x - 5
+\]
+\[
+10y + x = (10x + y) - 9 \implies y - x + 1 = 0 \implies 2x - 5 - x + 1 = 0 \implies x = 4
+\]
+\[
+y = 2 \cdot 4 - 5 = 3
+\]
+Number: $10 \cdot 4 + 3 = 43$.
+
+\textbf{Example 13.} Eight years ago, a father’s age was eight times his son’s. In ten years, it will be twice the son’s. Find their present ages.
+
+Solution: Let father’s age be $x$, son’s $y$. Conditions:
+\[
+x - 8 = 8(y - 8) \implies x = 8y - 56
+\]
+\[
+x + 10 = 2(y + 10) \implies 8y - 56 + 10 = 2y + 20 \implies 6y = 66 \implies y = 11
+\]
+\[
+x = 8 \cdot 11 - 56 = 32
+\]
+Ages: father 32 years, son 11 years.
+
+\textbf{Example 14.} A rectangle’s breadth is half its length plus 5 meters, perimeter is 100 meters. A 2-meter wide path around it costs Tk. 110 per square meter.
+\begin{enumerate}
+    \item Form simultaneous equations with length $x$, breadth $y$.
+    \item Find length and breadth.
+    \item Calculate path cost.
+\end{enumerate}
+
+Solution:
+\begin{enumerate}
+    \item Conditions: $2y = x + 10$, $2(x + y) = 100$.
+    \item From $2(x + y) = 100$, $x + y = 50$. Substitute $2y = x + 10$:
+    \[
+    3x = 90 \implies x = 30, \quad 2y = 30 + 10 \implies y = 20
+    \]
+    Length: 30 meters, breadth: 20 meters.
+    \item Path dimensions: $34 \times 24$ meters. Path area: $816 - 600 = 216$ square meters. Cost: $216 \cdot 110 = 23,760$ Tk.
+\end{enumerate}
+
+\textbf{Example 15.} How many times do a clock’s minute and hour hands coincide? Find the times.
+
+Solution: Let hands coincide at $x:y$ (hours:minutes), $x = 0, 1, \ldots, 11$. Minute hand speed is 12 times the hour hand’s. At time $x$, hour hand at $x$, minute hand at 12. In $y$ minutes:
+\[
+5x + \frac{y}{12} = y \implies \frac{11y}{12} = 5x \implies y = \frac{60}{11}x
+\]
+For $x = 0$ to 11, times are $12:00$, $1:5\frac{5}{11}$, $\ldots$, $11:60$ (12:00). They coincide 11 times.
+
+% Ending the document
+\end{document}

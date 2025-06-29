@@ -1,0 +1,357 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\title{English Grammar and Composition: Kinds of Verbs}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\part{Linking, Transitive, and Intransitive Verbs}
+
+\textbf{A.} Read the following passage and look at the underlined verbs.
+
+Mr. Kamal \underline{\textbf{is}} a big scholar. He \underline{\textbf{is}} our English teacher. He \underline{\textbf{has written}} many books. All his books \underline{\textbf{are}} very good. He \underline{\textbf{has}} a lot of money. He \underline{\textbf{comes}} to school in his own car. He \underline{\textbf{drives}} the car. He \underline{\textbf{drives}} very carefully.
+
+Look at the words/phrases after these verbs. In the first two sentences ‘\textbf{is}’ is followed by a noun phrase and the noun phrase refers to the subject of the sentence. So, ‘\textbf{is}’ here is a linking verb. A linking verb is followed by a noun or adjective which refers to the subject. There is another linking verb in the passage. Find it out. Some verbs are followed by a noun which is different from the subject. For example, “\textbf{has written}”. It is a transitive verb.
+
+A transitive verb is followed by an object (a noun that answers who/what). In the passage, two verbs are followed by an adverbial. They are intransitive verbs. Intransitive verbs do not have any object i.e. intransitive verbs do not answer who/what. Try yourself and find out these verbs.
+
+\textbf{B.} Identify the transitive, intransitive, and linking verbs in the following passage.
+
+Nasima \underline{\textbf{is}} a student. She \underline{\textbf{is}} a student of class VII. She \underline{\textbf{attends}} classes regularly. Today she \underline{\textbf{has worn}} a new dress. She \underline{\textbf{looks}} very smart in this dress. The teacher \underline{\textbf{praised}} her in the class.
+
+\textbf{C.} Look at some more linking verbs in the following sentences:
+
+\begin{enumerate}[label=(\roman*)]
+    \item She \textbf{got} nervous in the class.
+    \item The man \textbf{has gone} mad.
+    \item The food \textbf{tastes} delicious.
+\end{enumerate}
+
+\textbf{D.} See the use of some more transitive verbs in the following sentences:
+
+\begin{enumerate}[label=(\roman*)]
+    \item Who \textbf{has broken} the cup?
+    \item He \textbf{reads} a lot of story books.
+    \item I \textbf{shall take} a cup of tea now.
+\end{enumerate}
+
+Now use the following verbs as transitive in your own sentences: \textit{kill}, \textit{prey}, \textit{sell}, \textit{draw}, \textit{learn}.
+
+\textbf{E.} Here are some more examples of intransitive verbs.
+
+\begin{enumerate}[label=(\roman*)]
+    \item The baby \textbf{is sleeping}.
+    \item Boys \textbf{are playing} in the field.
+    \item He \textbf{was killed} in an accident.
+\end{enumerate}
+
+\textit{Note:} An intransitive verb may be followed by nothing or it may be followed by any number of adverbials.
+
+\textbf{Activity 1}
+
+Now use the following verbs as intransitive in your own sentences: \textit{walk}, \textit{work}, \textit{die}, \textit{laugh}, \textit{open}.
+
+Remember, the same verb may be used as linking, transitive, or intransitive. It depends on how you use it.
+
+For example:
+
+\begin{itemize}
+    \item He \textbf{ran} home. (intransitive)
+    \item The river \textbf{runs} dry in summer. (linking)
+    \item I \textbf{ran} a race. (transitive)
+\end{itemize}
+
+Can you think of any other verb like this? Use it in 3 different ways.
+
+\part{Infinitives}
+
+\subsection*{The to Infinitive}
+
+\textbf{A.} Read the following texts and notice the underlined verbs in them.
+
+\begin{itemize}
+    \item a. Karim \underline{\textbf{wanted to tell}} Bahar the truth. But at the same time he \underline{\textbf{didn’t want to upset}} him. He \underline{\textbf{arranged to meet}} Raju in the afternoon and \underline{\textbf{decided to ask}} for his advice.
+    \item b. If you \underline{\textbf{want to buy}} fresh vegetables, \underline{\textbf{remember to go}} to the farmer’s market early in the morning.
+    \item c. We \underline{\textbf{were going to spend}} the weekend in a resort in Bhawal, Gazipur. On the way, we \underline{\textbf{stopped to buy}} petrol and then we \underline{\textbf{stopped}} again \underline{\textbf{to buy}} some oranges and apples. Still we \underline{\textbf{expected to reach}} the resort in time.
+    \item d. Shihab \underline{\textbf{loves to ride}} his bike for going long distances. But he often \underline{\textbf{forgets to wear}} his helmet. This morning when he was taking his bike out, his mother came out and said to him, “Good to see that you \underline{\textbf{remembered to wear}} your helmet, dear. Be careful on the road and \underline{\textbf{remember not to drive}} too fast.”
+\end{itemize}
+
+\textbf{Grammar Point}
+
+We use the pattern verb + to infinitive with various common verbs such as, \textit{want}, \textit{hope}, \textit{intend}, \textit{expect}, \textit{plan}, \textit{try}, \textit{manage}, \textit{arrange}, \textit{fail}, \textit{wish}, etc.
+
+e.g.
+
+\begin{itemize}
+    \item I \textbf{hope to see} you in office tomorrow.
+    \item Why? Do you \textbf{want to discuss} anything in particular?
+    \item Yes. We’re \textbf{trying to set up} a new office in town.
+    \item We \textbf{intend to make} it bigger than the present one.
+    \item We’ve \textbf{managed to buy} a good plot and \textbf{expect to finish} the legal formalities soon. We’ve already \textbf{arranged to appoint} an internationally reputed architect.
+    \item I \textbf{wish to make} it look unique. I’ve \textbf{failed to make} some of my dreams come true, but this time I \textbf{plan not to fail}.
+\end{itemize}
+
+We also use the to infinitive after some verbs connected with thinking, such as \textit{decide}, \textit{forget}, \textit{remember}, etc.
+
+e.g.
+
+\begin{itemize}
+    \item I’ve \textbf{decided to do} some part-time job during the summer holidays. And although I \textbf{remembered to discuss} it with my best friend in school, I \textbf{forgot to tell} my parents about it.
+\end{itemize}
+
+We use the to infinitive after some verbs connected with saying that we will or will not do something, such as \textit{agree}, \textit{refuse}, \textit{offer}, \textit{promise}, etc.
+
+e.g.
+
+\begin{itemize}
+    \item Rahela \textbf{had agreed to sell} her computer at half price to me, but \textbf{refused to do} so at the last moment. I \textbf{offered to give} a slightly higher price, and she accepted that. I \textbf{promised not to make} any more deals with her.
+\end{itemize}
+
+The negative form is \textit{not} + to infinitive:
+
+e.g.
+
+\begin{itemize}
+    \item \textbf{Remember not to drive} too fast.
+    \item I’ve \textbf{decided not to accept} the offer.
+\end{itemize}
+
+\subsection*{The Infinitive without to}
+
+\textbf{B.} Read the following sentences and notice the use of the infinitive with to and without to.
+
+My friend and I went to watch an English film on DVD at the British Council Library yesterday. It was a very funny film and it \underline{\textbf{made}} us \underline{\textbf{laugh}}. We \underline{\textbf{tried}} hard \underline{\textbf{not to laugh}} out loud and disturb other people but just \underline{\textbf{couldn’t stop}}. It was a story about a family where the parents \underline{\textbf{let}} the children \underline{\textbf{do}} anything they wanted. We were laughing so much that ultimately the assistant librarian came and \underline{\textbf{made}} us \underline{\textbf{leave}}. We \underline{\textbf{’ll remember}} the incident for a long time to come.
+
+\textbf{Grammar Point}
+
+We use the infinitive without to after modal verbs (\textit{will}, \textit{can}, \textit{could}, \textit{may}, \textit{might}, \textit{must}, \textit{should}, etc.)
+
+e.g.
+
+\begin{itemize}
+    \item We \textbf{couldn’t stop}. We \textbf{’ll remember} the incident.
+\end{itemize}
+
+We use the infinitive without to after \textit{make} and \textit{let}:
+
+\textit{make/let} + object + infinitive without to
+
+\textbf{Activity 1}
+
+Put the verbs in brackets into the correct form (the infinitive with/without to).
+
+\begin{itemize}
+    \item a: \_\_ you \_\_ (\textit{remember}, post) the letter?\\
+    \textbf{:} Oh no, I didn’t. You \_\_ (\textit{forget}, remind) me. I \_\_ (\textit{do}) it now.
+    \item b: Don’t \_\_ (\textit{forget}, take) the old prescriptions with you?\\
+    \textbf{:} Why \_\_ I \_\_ (\textit{should, take}) them?\\
+    \textbf{:} Because the doctor \_\_ (\textit{might, want}) \_\_ (\textit{see}) them.
+    \item c: I \_\_ (\textit{can, tell}) you more stories about Nasiruddin Hojja and you \_\_ (\textit{would, laugh}) and \_\_ (\textit{laugh}).\\
+    \textbf{:} I \_\_ (\textit{want, hear}) a sad story now, one that \_\_ (\textit{will, make}) me \_\_ (\textit{cry}).
+\end{itemize}
+
+\textbf{Activity 2}
+
+Fill in the blanks with the right infinitive form of verbs given below the passage.
+
+Lucy lives in Manila. She is planning \_\_ to Dhaka to work with an NGO. She intends \_\_ here for one year. She wishes \_\_ Bangla after she comes to Bangladesh. A Bangladeshi friend in Manila has given Lucy a pictorial album of Bangladesh which she loves \_\_ to her colleagues in office. She tells them that she hopes \_\_ as many places in Bangladesh as she can. The beautiful pictures of the people and the landscape of the country have made her \_\_ in love with Bangladesh.
+
+\begin{tabular}{llll}
+show & come & visit & stay \\
+fall & learn & & \\
+\end{tabular}
+
+\part{Gerunds}
+
+\textbf{A.} Read the story below.
+
+It was a nice day. Anna and her mother wanted to go out and \underline{\textbf{enjoy}} the lovely weather. Anna wanted to go \underline{\textbf{hiking}} in the woods or, she said, they could go \underline{\textbf{swimming}} or \underline{\textbf{fishing}} in the lake. But finally they went \underline{\textbf{sailing}}. They were in the middle of the lake when the wind started to \underline{\textbf{blow}}. The boat rocked from side to side because of the high waves. Anna was happy and started \underline{\textbf{singing}} in a loud and clear voice. But Anna’s mother didn’t want to get wet and turned the boat around.
+
+When they reached the shore, Anna immediately jumped out of the boat and started \underline{\textbf{running}} around on the beach. She suddenly stopped \underline{\textbf{walking}} because she felt something under her feet. She picked up her foot since she wanted to \underline{\textbf{see}} what was there. She was surprised to find a beautiful shell. She took the shell, rubbed off the sand around it and, it started to \underline{\textbf{shimmer}} in the bright sunlight.
+
+\textbf{Grammar Point}
+
+Look at the words in bold in the story above. Notice that when we want to use two verbs together, we use either \textit{to} + infinitive or the -ing form of the main verb in the sentence.
+
+Some verbs can be followed by either form, but some can only be used with the -ing form.
+
+Verbs that can be followed only by \textit{v+ing} form are:
+
+\begin{itemize}
+    \item \textit{finish}: I’ve \textbf{finished writing} the letter. Do you want to read it?
+    \item \textit{deny}: The boy \textbf{denied stealing} the rare coins.
+    \item \textit{risk}: You shouldn’t \textbf{risk going} there at night.
+    \item \textit{delay}: They \textbf{delayed going} to the station and missed the train.
+    \item \textit{avoid}: I always \textbf{avoid eating} rich and oily food.
+    \item \textit{enjoy}: I \textbf{enjoy writing} stories for children.
+    \item \textit{suggest}: Babul \textbf{suggested going} to a Chinese restaurant after the meeting.
+    \item \textit{miss}: I really \textbf{miss talking} and \textbf{laughing} with my sister. She recently migrated to Australia.
+\end{itemize}
+
+Verbs, like \textit{start}, \textit{like}, or \textit{love} can be used with the -ing form as well as with the \textit{to} + infinitive without any change in meaning. For example,
+
+\begin{itemize}
+    \item I \textbf{love to read} poetry.
+    \item I \textbf{like dancing}.
+    \item I \textbf{like to dance}.
+    \item He’s \textbf{started going} to the gym. He’s \textbf{started to go} to the gym.
+\end{itemize}
+
+\textit{Note:} It is important to understand that although some verbs can be used with both the -ing form and the \textit{to} + infinitive, the choice may lead to a change of meaning of the sentence, for example:
+
+\begin{itemize}
+    \item a. \textbf{Do} you \textbf{remember leaving} a message for her? (You already left a message for her.)\\
+    \textbf{Remember to leave} a message for her. (Now or in the future)
+    \item b. Farooq \textbf{forgot paying} the electricity bill. (He forgot that he paid the bill.)\\
+    Farooq \textbf{forgot to pay} the bill. (He didn’t pay the bill.)
+    \item c. Masum \textbf{stopped buying} fruits from the market. (He used to buy fruits from there before but doesn’t buy them from there anymore.)\\
+    Masum \textbf{stopped to buy} fruits from the market. (He wanted to buy fruits from the market and so he stopped.)
+\end{itemize}
+
+\textbf{Activity 1}
+
+Write an appropriate form (infinitive or -ing form) of the verbs in brackets.
+
+\begin{itemize}
+    \item a. If you want to be fit, what do you have to start \_\_? (\textit{do})
+    \item b. If you want to be fit, what do you have to stop \_\_? (\textit{do})
+    \item c. What do you \_\_ (\textit{remember, do}) as a child?
+\end{itemize}
+
+\textbf{Activity 2}
+
+(Now write the answers for the above questions using the same form.)
+
+e.g. I’ve to start \_\_
+
+\textbf{Activity 3}
+
+Fill in the blanks with the right form of infinitive or -ing form of the verbs in the brackets.
+
+\begin{itemize}
+    \item a: Come, let’s do something.\\
+    \textbf{:} I \_\_ (\textit{want, watch}) TV.\\
+    \textbf{:} No, let’s go out instead of \_\_ (\textit{watch}) TV.\\
+    \textbf{:} I \_\_ (\textit{love, dance}). Let’s \_\_ (\textit{go, dance}).\\
+    \textbf{:} Hey, I’ve a good idea. Why don’t we all \_\_ (\textit{go, swim})?
+    \item b: \_\_ you \_\_ (\textit{ever forget, do}) something?\\
+    \textbf{:} Like what?\\
+    \textbf{:} \_\_ you \_\_ (\textit{always remember, send}) birthday greetings to your friends?\\
+    \textbf{:} Of course I do.\\
+    \textbf{:} \_\_ you \_\_ (\textit{remember, send}) one to a friend last week?\\
+    \textbf{:} Oh my God! I’m so sorry! A belated Happy Birthday to you, Sujan!
+\end{itemize}
+
+\textbf{Activity 4}
+
+Correct the mistakes in the use of verbs in the following conversations.
+
+\begin{itemize}
+    \item a: I’m not used to \_\_ (\textit{cook}) meals every day.\\
+    \textbf{:} Why don’t you start \_\_ (\textit{do}) so from today?\\
+    \textbf{:} Well, I don’t really want \_\_ (\textit{do}) that. I’d rather \_\_ (\textit{go out, eat}) at a restaurant.\\
+    \textbf{:} In that case, I \_\_ (\textit{suggest, hire}) a cook.
+    \item b: Let’s \_\_ (\textit{go, watch}) The Titanic today.\\
+    \textbf{:} I’ve already seen it. I really \_\_ (\textit{enjoy, watch}) it.\\
+    \textbf{:} Oh, I was looking forward to \_\_ (\textit{watch}) it with you.\\
+    \textbf{:} I \_\_ (\textit{not mind, watch}) it again with you. It’s a very good movie.\\
+    \textbf{:} Or if you \_\_ (\textit{want, watch}) something on the DVD, we can do that.
+\end{itemize}
+
+\textbf{Activity 5}
+
+Do the sentences in each of the following pairs mean the same? If not, how are the meanings different? Discuss with a partner and explain.
+
+\begin{itemize}
+    \item a. I \textbf{stopped eating} burgers. I \textbf{stopped to eat} burgers.
+    \item b. We \textbf{love playing} football. We \textbf{love to play} football.
+    \item c. \textbf{Do} you \textbf{like travelling}? \textbf{Would} you \textbf{like to travel}?
+    \item d. We \textbf{regret to inform} you that your application has been refused. We \textbf{regret informing} you that your application has been refused.
+\end{itemize}
+
+\part{Participles}
+
+\textbf{A.} Read the following conversations and notice the positions of -ing verbs.
+
+\begin{enumerate}
+    \item \textbf{Sagor:} Do you like cricket, my friend?\\
+    \textbf{Lovelu:} Oh sure! I’m such a big fan of cricket.\\
+    \textbf{Sagor:} Who is your favourite batsman?\\
+    \textbf{Lovelu:} Sachin Tendulkar. What a \underline{\textbf{fighting}} batsman he was!
+    \item \textbf{Mitul:} Hi, ever \underline{\textbf{complaining}} girl! What’s up today?\\
+    \textbf{Kanta:} No kidding please. I’m not in a good mood now.\\
+    \textbf{Mitul:} Okay but why?\\
+    \textbf{Kanta:} I was on my way to school. When I was near the post office, a procession passed me. Suddenly some people splashed some colour on me. They were \underline{\textbf{rejoicing}} world cup cricket. Their team won. I got drenched. The same thing happened with some \underline{\textbf{school going}} boys and girls. I know ours is a \underline{\textbf{cricket playing}} country and any victory is special. But you cannot splash colours to school goers or office goers, can you?
+\end{enumerate}
+
+\textbf{Grammar Focus}
+
+As indicated above, a participle can be made by adding \textit{ing} to a verb. However, it becomes a participle only when adding \textit{ing} to the verb makes it function as an adjective.
+
+\begin{itemize}
+    \item \textbf{Fighting} batsman
+    \item \textbf{School going} boys and girls
+    \item \textbf{Complaining} girl
+    \item \textbf{Cricket playing} country
+\end{itemize}
+
+\begin{itemize}
+    \item What type of batsman? \textbf{fighting} batsman (\textit{fighting} works as an adjective)
+    \item What type of girl? \textbf{complaining} girl (\textit{complaining} works as an adjective)
+    \item What type of boys and girls? \textbf{school going} boys and girls (\textit{school going} works as an adjective)
+    \item What type of country? \textbf{cricket playing} country (\textit{cricket playing} works as an adjective)
+\end{itemize}
+
+\textbf{Activity 1}
+
+Read the following text and fill in the gaps using participle. Pick the suitable words from the box below. The first one is done for you.
+
+Uncle Tom had a printing press. It was the first press in the city. He was very proud of his machines. When he died, his son, Rod, became the owner of the (a) \textbf{running} business. Initially he was doing fine. After few months his university (b) \_\_ brother came home. He was a kind of (c) \_\_ bird and didn’t have any interest in business. Yet one day he came to the press and told Rod to replace the old machines with digital ones. He also expressed his desire to be his (d) \_\_ partner. Tom agreed. Later he took him to London to show modern (e) \_\_ machines with digital technology. But Rod had limited ideas about them. So he took time to think. His (f) \_\_ brother was not happy to see the big brother’s (g) \_\_ mind.
+
+\begin{tabular}{llll}
+run & printing & change & fly \\
+shine & love & go & work \\
+\end{tabular}
+
+\textbf{Activity 2}
+
+Read the following text and fill in the gaps using participles.
+
+It was midnight when I entered the (a) \_\_ town. A (b) \_\_ dog was following me and I found some \_\_ bats over my head. I was scared as the whole situation reminded me of Drakula. I waved at a (c) \_\_ car but it didn’t care at all. After some time I found a (d) \_\_ man at a certain distance. I started (e) \_\_ at him to have direction for my destination. The more I was \_\_ to him, farther was the distance. Even after a twenty minute’s walk, I could not minimize the ever (f) \_\_ distance. I tried to shout but no sound came out. Suddenly the man turned at me and started to \_\_. I could see his (g) \_\_ eyes when he became close to me. I was struggling to control my trembling legs.
+
+\textbf{Grammar Point}
+
+\textbf{Gerund vs Participle}
+
+\textbf{Gerund}
+
+People remain confused between gerund and participle because of their similarities. Both are formed when \textit{ing} is added to a verb. There is another similarity, and that is the fact that both gerund and participle indicate some action or state of being. However, there are differences between them that will be highlighted in this article.
+
+\textbf{Participle}
+
+As indicated above, a participle can be made by adding \textit{ing} to a verb. However, it becomes a participle only when adding \textit{ing} to the verb makes it function as an adjective.
+
+\textbf{What is the difference between Gerund and Participle?}
+
+\begin{itemize}
+    \item A gerund is a verbal noun (verb made noun by adding \textit{ing}) that is derived from a verb but functions as a noun.
+    \item A participle is a verbal that functions as an adjective.
+    \item Both are made by adding \textit{ing} to verbs.
+    \item Verb and noun combined is a gerund whereas verb and adjective combined is a participle.
+\end{itemize}
+
+\end{document}

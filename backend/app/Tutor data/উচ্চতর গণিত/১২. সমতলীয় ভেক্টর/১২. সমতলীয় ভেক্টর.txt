@@ -1,0 +1,495 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\geometry{a4paper, margin=1in}
+\usepackage{polyglossia}
+\setmainlanguage{bengali}
+\setotherlanguage{english}
+\usepackage{fontspec}
+\newfontfamily\bengalifont[Script=Bengali]{Noto Serif Bengali}
+\usepackage{times}
+
+\begin{document}
+
+\section*{১২তম অধ্যায়: সমতলীয় ভেক্টর}
+
+পদার্থ বিজ্ঞানে আমরা দুই প্রকারের রাশি সম্পর্কে জেনেছি। এক প্রকার রাশির বর্ণনায় শুধু পরিমাণ [যোগ (+) বা বিয়োগ (-) চিহ্ন সংযোজন করে পরিমাণ] উল্লেখ করলেই চলে। অন্য প্রকারের রাশির বর্ণনায় পরিমাণ ও দিক উভয়ই উল্লেখ করতে হয়। প্রথম প্রকারের রাশিকে স্কেলার রাশি ও দ্বিতীয় প্রকারের রাশিকে ভেক্টর রাশি বলা হয়। এই অধ্যায়ে আমরা ভেক্টর রাশি সম্পর্কে আলোচনা করব।
+
+এই অধ্যায় শেষে শিক্ষার্থীরা:
+\begin{itemize}
+    \item স্কেলার রাশি ও ভেক্টর রাশি বর্ণনা করতে পারবে।
+    \item স্কেলার রাশি ও ভেক্টর রাশি প্রতীকের সাহায্যে ব্যাখ্যা করতে পারবে।
+    \item সমান ভেক্টর, বিপরীত ভেক্টর ও অবস্থান ভেক্টর ব্যাখ্যা করতে পারবে।
+    \item ভেক্টরের যোগ ও যোগবিধি ব্যাখ্যা করতে পারবে।
+    \item ভেক্টরের বিয়োগবিধি ব্যাখ্যা করতে পারবে।
+    \item ভেক্টরের স্কেলার গুণিতক ও একক ভেক্টর ব্যাখ্যা করতে পারবে।
+    \item ভেক্টরের স্কেলার গুণিতক ও বণ্টনবিধি ব্যাখ্যা করতে পারবে।
+    \item ভেক্টরের সাহায্যে বিভিন্ন জ্যামিতিক সমস্যার সমাধান করতে পারবে।
+\end{itemize}
+
+\part{স্কেলার রাশি ও ভেক্টর রাশি}
+
+\section*{স্কেলার রাশি ও ভেক্টর রাশি}
+
+দৈনন্দিন জীবনে প্রায় সব ক্ষেত্রেই বস্তুর পরিমাপের প্রয়োজন হয়। ৬ সে.মি., ৩ মিনিট, ১২ টাকা, ৫ লিটার, ৬$^\circ$C ইত্যাদি দ্বারা যথাক্রমে বস্তুর দৈর্ঘ্য, সময়ের পরিমাণ, টাকার পরিমাণ, আয়তনের পরিমাণ ও তাপমাত্রার পরিমাণ বুঝানো হয়। এসব পরিমাপের জন্য কেবলমাত্র এককসহ পরিমাণ উল্লেখ করলেই চলে। আবার যদি বলা হয় একটি লোক এক বিন্দু থেকে যাত্রা করে প্রথমে ৪ মি., পরে ৫ মি. গেল, তাহলে যাত্রাবিন্দু থেকে তার দূরত্ব নির্ণয় করতে গেলে প্রথমে জানা দরকার লোকটির গতির দিক কী? গতির সঠিক দিক না জানা পর্যন্ত যাত্রাবিন্দু থেকে লোকটি কতদূর গিয়েছে তা সঠিকভাবে নির্ণয় সম্ভব নয়।
+
+যে রাশি কেবলমাত্র এককসহ পরিমাণ দ্বারা অথবা পরিমাণের পূর্বে + বা - চিহ্ন যুক্ত করে সম্পূর্ণরূপে বুঝানো যায়, তাকে স্কেলার বা অদিক বা নির্দিক রাশি বলা হয়। দৈর্ঘ্য, ভর, আয়তন, দ্রুতি, তাপমাত্রা ইত্যাদি প্রত্যেকেই স্কেলার রাশি।
+
+যে রাশিকে সম্পূর্ণরূপে প্রকাশ করার জন্য তার পরিমাণ ও দিক উভয়ের প্রয়োজন হয়, তাকে ভেক্টর বা সদিক রাশি বলা হয়। সরণ, বেগ, ত্বরণ, ওজন, বল ইত্যাদি প্রত্যেকেই ভেক্টর রাশি।
+
+\subsection*{ভেক্টর রাশির জ্যামিতিক প্রতিরূপ: দিক নির্দেশক রেখাংশ}
+
+কোনো রেখাংশের এক প্রান্তকে আদিবিন্দু এবং অপর প্রান্তকে অন্তবিন্দু হিসেবে চিহ্নিত করলে এ রেখাংশকে একটি দিক নির্দেশক রেখাংশ বা সদিক রেখাংশ বলা হয়। কোনো দিক নির্দেশক রেখাংশের আদিবিন্দু $A$ এবং অন্তবিন্দু $B$ হলে এ দিক নির্দেশক রেখাংশকে $\overrightarrow{AB}$ দ্বারা সূচিত করা হয়। প্রত্যেক দিক নির্দেশক রেখাংশ একটি ভেক্টর রাশি, যার পরিমাণ এ রেখাংশের দৈর্ঘ্য ($|\overrightarrow{AB}|$ বা সংক্ষেপে $AB$ দ্বারা সূচিত) এবং যার দিক $A$ বিন্দু হতে $AB$ রেখা বরাবর $B$ বিন্দু নির্দেশকারী দিক।
+
+বিপরীতক্রমে যেকোনো ভেক্টর রাশিকে একটি দিক নির্দেশক রেখাংশ দ্বারা প্রকাশ করা যায়, যেখানে রেখাংশটির দৈর্ঘ্য রাশিটির পরিমাণ এবং রেখাংশটির আদিবিন্দু হতে অন্তবিন্দু নির্দেশকারী দিক প্রদত্ত ভেক্টর রাশির দিক। তাই, ভেক্টর রাশি ও দিক নির্দেশক রেখাংশ সমার্থক ধারণা। দিক নির্দেশক রেখাংশকে জ্যামিতিক ভেক্টর বলেও উল্লেখ করা হয়। আমাদের আলোচনা একই সমতলে অবস্থিত ভেক্টরের মধ্যে সীমাবদ্ধ থাকবে। আমরা এখানে ভেক্টর বলতে জ্যামিতিক ভেক্টরই বুঝব। এই প্রসঙ্গে স্কেলার রাশির নির্দেশক বাস্তব সংখ্যাকে স্কেলার বলব।
+
+কোনো ভেক্টর (দিক নির্দেশক রেখাংশ) যে অসীম সরলরেখার অংশ বিশেষ, তাকে এ ভেক্টরের ধারক রেখা বা শুধু ধারক বলা হয়।
+
+সচরাচর একটি ভেক্টরকে একটি অক্ষর দিয়ে সূচিত করা হয়; যেমন $\underline{u} = \overrightarrow{AB}$। ভেক্টর বুঝাতে ভেক্টরটির নিচে দাগ দেওয়া হয় এবং এর নির্দেশকারী সদিক রেখাংশের উপরে $\rightarrow$ চিহ্ন দেওয়া হয়। $\underline{u} = \overrightarrow{AB}$ এর অর্থ $\underline{u}$ ভেক্টরের আদিবিন্দু $A$ ও প্রান্তবিন্দু $B$ এবং এর দিক $A$ এর দিক হতে $B$ এর দিকে এবং এর দৈর্ঘ্য $|\underline{u}| = |\overrightarrow{AB}| = AB$ রেখাংশের দৈর্ঘ্য।
+
+\subsection*{ভেক্টরের সমতা ও বিপরীত ভেক্টর}
+
+\subsubsection*{সমান ভেক্টর}
+
+একটি ভেক্টর $\underline{u}$ কে অপর একটি ভেক্টর $\underline{v}$ এর সমান বলা হয় যদি:
+\begin{enumerate}
+    \item $|\underline{u}| = |\underline{v}|$ ($\underline{u}$ এর দৈর্ঘ্য $\underline{v}$ এর দৈর্ঘ্যের সমান)
+    \item $\underline{u}$ এর ধারক, $\underline{v}$ এর ধারকের সঙ্গে অভিন্ন অথবা সমান্তরাল হয়।
+    \item $\underline{u}$ এর দিক $\underline{v}$ এর দিকের সঙ্গে একই মুখী হয়।
+\end{enumerate}
+
+\[
+A \xrightarrow{\underline{u}} B \quad C \xrightarrow{\underline{v}} D
+\]
+
+সমতার এই সংজ্ঞা যে নিচের নিয়মগুলো মেনে চলে, তা সহজেই বুঝা যায়:
+\begin{enumerate}
+    \item $\underline{u} = \underline{u}$
+    \item যদি $\underline{u} = \underline{v}$, তবে $\underline{v} = \underline{u}$
+    \item যদি $\underline{u} = \underline{v}$ এবং $\underline{v} = \underline{w}$, তবে $\underline{u} = \underline{w}$
+\end{enumerate}
+
+$\underline{u}$ এর ধারক এবং $\underline{v}$ এর ধারক রেখাদ্বয় অভিন্ন বা সমান্তরাল হলে, আমরা সংক্ষেপে বলব $\underline{u}$ এবং $\underline{v}$ সমান্তরাল ভেক্টর।
+
+দ্রষ্টব্য: যেকোনো বিন্দু থেকে প্রদত্ত যেকোনো ভেক্টরের সমান করে একটি ভেক্টর টানা যায়। কেননা, বিন্দু $P$ এবং ভেক্টর $\underline{u}$ দেওয়া থাকলে, আমরা $P$ বিন্দু দিয়ে $\underline{u}$ এর ধারকের সমান্তরাল করে একটি সরলরেখা টানি, তারপর $PQ$ বিন্দু থেকে $\underline{u}$ এর দিক বরাবর $|\underline{u}|$ এর সমান করে $PQ$ রেখাংশ কেটে নিই। তাহলে অঙ্কন অনুযায়ী $\overrightarrow{PQ} = \underline{u}$ হয়।
+
+Image description: দুটি সমান্তরাল রেখাংশ $AB$ এবং $CD$ দেখানো একটি চিত্র, যেখানে ভেক্টর $\underline{u} = \overrightarrow{AB}$ এবং $\underline{v} = \overrightarrow{CD}$, একই দৈর্ঘ্য এবং দিক সহ সমান ভেক্টরের ধারণা চিত্রিত করা হয়েছে।
+
+\subsubsection*{বিপরীত ভেক্টর}
+
+$\underline{v}$ কে $\underline{u}$ এর বিপরীত ভেক্টর বলা হয়, যদি:
+\begin{enumerate}
+    \item $|\underline{v}| = |\underline{u}|$
+    \item $\underline{u}$ এর ধারক, $\underline{v}$ এর ধারকের সঙ্গে অভিন্ন বা সমান্তরাল হয়।
+    \item $\underline{v}$ এর দিক $\underline{u}$ এর দিকের বিপরীত হয়।
+\end{enumerate}
+
+যদি $\underline{v}$ এর বিপরীত ভেক্টর হয়, তবে $\underline{u}$ হবে $\underline{v}$ এর বিপরীত ভেক্টর। সমতার সংজ্ঞা থেকে বুঝা যায় যে, $\underline{v}$ এবং $\underline{w}$ প্রত্যেকে $\underline{u}$ এর বিপরীত ভেক্টর হলে $\underline{v} = \underline{w}$ হয়। $\underline{u}$ এর বিপরীত ভেক্টর বুঝাতে $-\underline{u}$ লেখা হয়। $\underline{u} = \overrightarrow{AB}$ হলে $-\underline{u} = \overrightarrow{BA}$।
+
+\part{ভেক্টরের যোগ ও বিয়োগ}
+
+\section*{ভেক্টর যোগ}
+
+কোনো $\underline{u}$ ভেক্টরের প্রান্তবিন্দু থেকে অপর একটি ভেক্টর $\underline{v}$ আঁকা হলে $\underline{u} + \underline{v}$ দ্বারা এরূপ ভেক্টর বুঝায় যার আদিবিন্দু $\underline{u}$ এর আদিবিন্দু এবং যার প্রান্তবিন্দু $\underline{v}$ এর প্রান্তবিন্দু। মনে করি $\overrightarrow{AB} = \underline{u}$, $\overrightarrow{BC} = \underline{v}$ এরূপ দুটি ভেক্টর যে, $\underline{u}$ এর প্রান্তবিন্দু $\underline{v}$ এর আদিবিন্দু। তাহলে $\underline{u}$ এর আদিবিন্দু এবং $\underline{v}$ এর প্রান্তবিন্দু সংযোজক $\overrightarrow{AC}$ ভেক্টরকে $\underline{u}$ ও $\underline{v}$ ভেক্টরদ্বয়ের সমষ্টি বলা হয় এবং $\underline{u} + \underline{v}$ দ্বারা সূচিত হয়।
+
+Image description: একটি ত্রিভুজের চিত্র যার শীর্ষবিন্দু $A$, $B$, এবং $C$, যেখানে ভেক্টর $\underline{u} = \overrightarrow{AB}$ এবং $\underline{v} = \overrightarrow{BC}$ আঁকা হয়েছে, এবং তাদের যোগফল $\underline{u} + \underline{v} = \overrightarrow{AC}$ রেখাংশ $A$ থেকে $C$ দ্বারা প্রকাশিত।
+
+\subsection*{ভেক্টর যোগের ত্রিভুজবিধি}
+
+উপরের চিত্রে $\underline{u}$ ও $\underline{v}$ সমান্তরাল না হলে $\underline{u}$, $\underline{v}$ এবং $\underline{u} + \underline{v}$ ভেক্টরত্রয় দ্বারা ত্রিভুজ উৎপন্ন হয় বলে উপরোক্ত যোগ পদ্ধতিকে ত্রিভুজবিধি বলা হয়।
+
+\subsection*{ভেক্টর যোগের সামান্তরিক বিধি}
+
+কোনো সামান্তরিকের দুটি সন্নিহিত বাহু দ্বারা দুটি ভেক্টর $\underline{u}$ ও $\underline{v}$ এর মান ও দিক সূচিত হলে, এ সামান্তরিকের যে কর্ণ $\underline{u}$ ও $\underline{v}$ ভেক্টরদ্বয়ের ধারক রেখার ছেদবিন্দু গামী তা দ্বারা $\underline{u} + \underline{v}$ ভেক্টরের মান ও দিক সূচিত হয়। নিচে আমরা এটার প্রমাণ দেখব।
+
+প্রমাণ: মনে করি, যেকোনো বিন্দু থেকে অঙ্কিত $\underline{u}$ এবং $\underline{v}$ ভেক্টরদ্বয় $\overrightarrow{OA}$ এবং $\overrightarrow{OB}$ দ্বারা সূচিত হয়েছে। $OACB$ সামান্তরিক ও তার $OC$ কর্ণ অঙ্কন করি। তাহলে এ সামান্তরিকের $OC$ কর্ণ দ্বারা $\underline{u}$ এবং $\underline{v}$ এর যোগফল সূচিত হবে। অর্থাৎ $\overrightarrow{OC} = \underline{u} + \underline{v}$।
+
+$OACB$ সামান্তরিকের $OB$ ও $AC$ সমান ও সমান্তরাল। $\therefore \overrightarrow{AC} = \overrightarrow{OB} = \underline{v}$ [ভেক্টর স্থানান্তর]।
+
+$\therefore$ ত্রিভুজবিধি কাজে লাগিয়ে $\underline{u} + \underline{v} = \overrightarrow{OA} + \overrightarrow{OB} = \overrightarrow{OA} + \overrightarrow{AC} = \overrightarrow{OC}$ [প্রমাণিত]
+
+\textbf{দ্রষ্টব্য:} 
+\begin{enumerate}
+    \item দুই বা ততোধিক ভেক্টরের যোগফলকে তাদের ফলাফলও বলা হয়। বল বা বেগের ফলাফল নির্ণয়ের ক্ষেত্রে ভেক্টর যোগের পদ্ধতি অনুসরণ করতে হয়।
+    \item দুটি ভেক্টর সমান্তরাল হলে তাদের যোগের ক্ষেত্রে সামান্তরিক বিধি প্রযোজ্য নয়, কিন্তু ত্রিভুজবিধি সকল ক্ষেত্রে প্রযোজ্য।
+\end{enumerate}
+
+Image description: সমান্তরাল চতুর্ভুজ $OACB$ এর একটি চিত্র, যেখানে ভেক্টর $\underline{u} = \overrightarrow{OA}$ এবং $\underline{v} = \overrightarrow{OB}$ সন্নিহিত বাহু হিসেবে এবং তির্যক $\overrightarrow{OC}$ যোগফল $\underline{u} + \underline{v}$ প্রকাশ করে, ভেক্টর যোগের সামান্তরিক বিধি চিত্রিত করা হয়েছে।
+
+\section*{ভেক্টরের বিয়োগ}
+
+$\underline{u}$ এবং $\underline{v}$ ভেক্টরদ্বয়ের বিয়োগফল $\underline{u} - \underline{v}$ বলতে $\underline{u}$ এবং $-\underline{v}$ (অর্থাৎ $\underline{v}$ এর বিপরীত ভেক্টর) ভেক্টরদ্বয়ের যোগফল $\underline{u} + (-\underline{v})$ বুঝায়।
+
+\subsection*{ভেক্টর বিয়োগের ত্রিভুজবিধি}
+
+$\underline{u}$ এবং $\underline{v}$ এর আদিবিন্দু একই হলে $\underline{u} - \underline{v}$ সেই ভেক্টর, যার আদিবিন্দু হচ্ছে $\underline{v}$ এর অন্তবিন্দু এবং যার অন্তবিন্দু হচ্ছে $\underline{u}$ এর অন্তবিন্দু। সংক্ষেপে একই বিশিষ্ট দুটি ভেক্টরের বিয়োগফল হচ্ছে অন্তবিন্দুদ্বয় দ্বারা বিপরীতক্রমে গঠিত ভেক্টর। সুতরাং $\underline{u} = \overrightarrow{AB}$, $\underline{v} = \overrightarrow{AC}$ হলে $\underline{u} - \underline{v} = \overrightarrow{CB}$, অর্থাৎ, $\overrightarrow{AB} - \overrightarrow{AC} = \overrightarrow{CB}$। নিচে আমরা এটা প্রমাণ করব।
+
+প্রমাণ: $CA$ রেখাংশকে এমনভাবে বর্ধিত করি যেন $AE = CA$ হয়। $AEFB$ সামান্তরিক গঠন করি। ভেক্টর যোগের সামান্তরিক বিধি অনুযায়ী, $\overrightarrow{AE} + \overrightarrow{AB} = \overrightarrow{AF}$।
+
+আবার $AFBC$ একটি সামান্তরিক, কেননা $BF = AE = CA$ এবং $BF \parallel AE$ বলে $BF \parallel CA$।
+
+$\therefore \overrightarrow{AF} = \overrightarrow{CB}$ (ভেক্টর স্থানান্তর), কিন্তু $\overrightarrow{AE} = -\underline{v}$ এবং $\overrightarrow{AB} = \underline{u}$।
+
+সুতরাং $\underline{u} - \underline{v} = \overrightarrow{CB}$ প্রমাণিত হলো।
+
+Image description: একটি চিত্র যেখানে ভেক্টর $\underline{u} = \overrightarrow{AB}$ এবং $\underline{v} = \overrightarrow{AC}$ একই প্রারম্ভিক বিন্দু $A$ সহ, এবং ভেক্টর $\underline{u} - \underline{v} = \overrightarrow{CB}$ সমান্তরাল চতুর্ভুজ $AEFB$ ব্যবহার করে প্রাপ্ত, ভেক্টর বিয়োগের ত্রিভুজ নিয়ম চিত্রিত করা হয়েছে।
+
+\section*{শূন্য ভেক্টর}
+
+যে ভেক্টরের মান শূন্য এবং যার দিক নির্ণয় করা যায় না তাকে শূন্য ভেক্টর বলে।
+
+$\underline{u}$ যেকোনো ভেক্টর হলে $\underline{u} + (-\underline{u})$ কী হবে?
+
+ধরি, $\underline{u} = \overrightarrow{AB}$ তখন $-\underline{u} = \overrightarrow{BA}$।
+
+ফলে $\underline{u} - \underline{u} = \overrightarrow{AB} + \overrightarrow{BA} = \overrightarrow{AA}$ [ত্রিভুজবিধি অনুযায়ী]
+
+কিন্তু $\overrightarrow{AA}$ কী ধরনের ভেক্টর? এটি একটি বিন্দু ভেক্টর, অর্থাৎ এর আদিবিন্দু ও অন্তবিন্দু একই বিন্দু; সুতরাং দৈর্ঘ্য শূন্য। অর্থাৎ $\overrightarrow{AA}$ দ্বারা $A$ বিন্দুকেই বুঝতে হবে। দৈর্ঘ্য শূন্য এরূপ ভেক্টরকে শূন্য ভেক্টর বলা হয় এবং $0$ দ্বারা সূচিত করা হয়। এটি একমাত্র ভেক্টর যার কোনো নির্দিষ্ট দিক বা ধারক রেখা নেই।
+
+শূন্য ভেক্টরের অবতারণার ফলে আমরা বলতে পারি যে, $\underline{u} + (-\underline{u}) = 0$ এবং $\underline{u} + 0 = 0 + \underline{u} = \underline{u}$।
+
+বস্তুত শূন্য ভেক্টরের সঙ্গে শেষোক্ত অভেদ নিহিত রয়েছে।
+
+\section*{ভেক্টর যোগের বিধিসমূহ}
+
+পাটিগণিতের যোগের মতোই ভেক্টরের যোগে বিনিময়, সংযোগ, ও বর্জন বিধি ব্যবহার করা যায়।
+
+\subsection*{ভেক্টর যোগের বিনিময়বিধি}
+
+যেকোনো $\underline{u}$, $\underline{v}$ ভেক্টরের জন্য $\underline{u} + \underline{v} = \underline{v} + \underline{u}$।
+
+প্রমাণ: মনে করি, $\overrightarrow{OA} = \underline{u}$ এবং $\overrightarrow{OB} = \underline{v}$। $OACB$ সামান্তরিক ও তার কর্ণ $OC$ অঙ্কন করি। $OA$ ও $BC$ সমান ও সমান্তরাল এবং $OB$ ও $AC$ সমান ও সমান্তরাল।
+
+$\therefore \overrightarrow{OC} = \overrightarrow{OA} + \overrightarrow{AC} = \underline{u} + \underline{v}$। আবার, $\overrightarrow{OC} = \overrightarrow{OB} + \overrightarrow{BC} = \overrightarrow{OB} + \overrightarrow{OA} = \underline{v} + \underline{u}$।
+
+$\therefore \underline{u} + \underline{v} = \underline{v} + \underline{u}$। সুতরাং ভেক্টর যোগ বিনিময়বিধি সিদ্ধ করে।
+
+Image description: সমান্তরাল চতুর্ভুজ $OACB$ এর একটি চিত্র, যেখানে ভেক্টর $\underline{u} = \overrightarrow{OA}$ এবং $\underline{v} = \overrightarrow{OB}$, এবং তির্যক $\overrightarrow{OC}$ উভয় $\underline{u} + \underline{v}$ এবং $\underline{v} + \underline{u}$ প্রকাশ করে, ভেক্টর যোগের বিনিময়বিধি চিত্রিত করা হয়েছে।
+
+\subsection*{ভেক্টর যোগের সংযোগবিধি}
+
+যেকোনো $\underline{u}$, $\underline{v}$, $\underline{w}$ ভেক্টরের জন্য $(\underline{u} + \underline{v}) + \underline{w} = \underline{u} + (\underline{v} + \underline{w})$।
+
+প্রমাণ: মনে করি, $\overrightarrow{OA} = \underline{u}$, $\overrightarrow{AB} = \underline{v}$, $\overrightarrow{BC} = \underline{w}$ অর্থাৎ $\underline{u}$ এর প্রান্তবিন্দু থেকে $\underline{v}$ এবং $\underline{v}$ এর প্রান্তবিন্দু থেকে $\underline{w}$ অঙ্কন করা হয়েছে। $O$, $C$, এবং $A$, $C$ যোগ করি।
+
+তাহলে $(\underline{u} + \underline{v}) + \underline{w} = (\overrightarrow{OA} + \overrightarrow{AB}) + \overrightarrow{BC} = \overrightarrow{OB} + \overrightarrow{BC} = \overrightarrow{OC}$।
+
+আবার, $\underline{u} + (\underline{v} + \underline{w}) = \overrightarrow{OA} + (\overrightarrow{AB} + \overrightarrow{BC}) = \overrightarrow{OA} + \overrightarrow{AC} = \overrightarrow{OC}$।
+
+$\therefore (\underline{u} + \underline{v}) + \underline{w} = \underline{u} + (\underline{v} + \underline{w})$। সুতরাং ভেক্টর যোগ সংযোগবিধি সিদ্ধ করে।
+
+Image description: বিন্দু $O$, $A$, $B$, এবং $C$ দেখানো একটি চিত্র, যেখানে ভেক্টর $\underline{u} = \overrightarrow{OA}$, $\underline{v} = \overrightarrow{AB}$, এবং $\underline{w} = \overrightarrow{BC}$, এবং রেখাংশ $\overrightarrow{OC}$ গঠন করে ভেক্টর যোগের সংযোগবিধি চিত্রিত করা হয়েছে।
+
+\subsubsection*{অনুসিদ্ধান্ত ১}
+
+কোনো ত্রিভুজের তিনটি বাহুর একই ক্রম দ্বারা সূচিত ভেক্টরত্রয়ের যোগফল শূন্য ভেক্টর। উপরের চিত্রে, $\overrightarrow{OB} + \overrightarrow{BA} + \overrightarrow{AO} = \overrightarrow{OA} + \overrightarrow{AO} = -\overrightarrow{AO} + \overrightarrow{AO} = 0$।
+
+\subsection*{ভেক্টর যোগের বর্জনবিধি}
+
+যেকোনো $\underline{u}$, $\underline{v}$, $\underline{w}$ ভেক্টরের জন্য $\underline{u} + \underline{v} = \underline{u} + \underline{w}$ হলে $\underline{v} = \underline{w}$ হবে।
+
+প্রমাণ: যেহেতু $\underline{u} + \underline{v} = \underline{u} + \underline{w}$
+
+$\therefore \underline{u} + \underline{v} + (-\underline{u}) = \underline{u} + \underline{w} + (-\underline{u})$ [উভয়পক্ষে $-\underline{u}$ যোগ করে]
+
+অর্থাৎ, $\underline{u} - \underline{u} + \underline{v} = \underline{u} - \underline{u} + \underline{w}$ অর্থাৎ $\underline{v} = \underline{w}$।
+
+\part{স্কেলার গুণন ও একক ভেক্টর}
+\section*{ভেক্টরের সংখ্যা গুণিতক বা স্কেলার গুণিতক}
+
+$\underline{u}$ যেকোনো ভেক্টর এবং $m$ যেকোনো বাস্তব সংখ্যা হলে $m\underline{u}$ দ্বারা কোন ভেক্টর বুঝায়, নিচে তা ব্যাখ্যা করা হলো।
+
+\begin{enumerate}
+    \item $m = 0$ হলে, $m\underline{u} = 0$ বা শূন্য ভেক্টর।
+    \item $m \neq 0$ হলে, $m\underline{u}$ এর দৈর্ঘ্য $\underline{u}$ এর দৈর্ঘ্যের $|m|$ গুণ হবে, $m\underline{u}$ এর ধারক $\underline{u}$ এর ধারকের সাথে অভিন্ন হবে, এবং
+    \begin{enumerate}
+        \item $m > 0$ হলে $m\underline{u}$ এর দিক $\underline{u}$ এর দিকের সঙ্গে একমুখী হবে।
+        \item $m < 0$ হলে, $m\underline{u}$ এর দিক $\underline{u}$ এর দিকের বিপরীত হবে।
+    \end{enumerate}
+\end{enumerate}
+
+দ্রষ্টব্য:
+\begin{enumerate}
+    \item $m = 0$ অথবা $\underline{u} = 0$ হলে $m\underline{u} = 0$।
+    \item $1\underline{u} = \underline{u}$, $(-1)\underline{u} = -\underline{u}$।
+\end{enumerate}
+
+উপরোক্ত সংজ্ঞা হতে দেখা যায়, $m(n\underline{u}) = n(m\underline{u}) = (mn)(\underline{u})$।
+
+$m, n$ উভয়ে $> 0$, উভয়ে $< 0$, একটি $> 0$ এবং অপরটি $< 0$, একটি বা উভয় 0$, এ সকল ক্ষেত্রে পৃথক পৃথকভাবে বিবেচনা করে সহজেই সূত্রটির বাস্তবতা সম্পর্কে নিশ্চিত হওয়া যায়। নিচে এর একটি উদাহরণ দেওয়া হলো:
+
+মনে করি, $\overrightarrow{AB} = \overrightarrow{BC} = \underline{u}$।
+
+$AC$ কে $G$ পর্যন্ত এরূপে বর্ধিত করি যেন $CD = DE = EF = FG = AB$ হয়।
+
+তখন $\overrightarrow{AG} = \overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CD} + \overrightarrow{DE} + \overrightarrow{EF} + \overrightarrow{FG} = \underline{u} + \underline{u} + \underline{u} + \underline{u} + \underline{u} + \underline{u} = 6\underline{u}$।
+
+অন্যদিকে $\overrightarrow{AG} = \overrightarrow{AC} + \overrightarrow{CE} + \overrightarrow{EG} = 2\underline{u} + 2\underline{u} + 2\underline{u} = 3(2\underline{u})$।
+
+এবং $\overrightarrow{AG} = \overrightarrow{AD} + \overrightarrow{DG} = 3\underline{u} + 3\underline{u} = 2(3\underline{u})$।
+
+$\therefore 2(3\underline{u}) = 3(2\underline{u}) = 2 \times 3(\underline{u})$।
+
+দ্রষ্টব্য: দুটি ভেক্টরের ধারক রেখা অভিন্ন বা সমান্তরাল হলে, এদের একটিকে অপরটির সংখ্যা গুণিতক আকারে প্রকাশ করা যায়।
+
+বাস্তবে $AB \parallel CD$ হলে, $\overrightarrow{AB} = m\overrightarrow{CD}$ যেখানে, $|m| = \frac{|\overrightarrow{AB}|}{|\overrightarrow{CD}|} = \frac{AB}{CD}$।
+
+\begin{enumerate}
+    \item $m > 0$ হলে $\overrightarrow{AB}$ ও $\overrightarrow{CD}$ সমমুখী হয়।
+    \item $m < 0$ হলে $\overrightarrow{AB}$ ও $\overrightarrow{CD}$ বিপরীতমুখী হয়।
+\end{enumerate}
+
+Image description: বিন্দু $A$ থেকে $G$ পর্যন্ত একটি সরলরেখার চিত্র, যেখানে প্রতিটি রেখাংশ $AB$, $BC$, $CD$, $DE$, $EF$, $FG$ ভেক্টর $\underline{u}$ এর সমান, স্কেলার গুণন এবং ভেক্টর যোগের বৈশিষ্ট্য চিত্রিত করা হয়েছে।
+
+\section*{ভেক্টরের সাংখ্যগুণিতক সংক্রান্ত বণ্টন সূত্র}
+
+$m, n$ দুটি স্কেলার এবং $\underline{u}$, $\underline{v}$ দুটি ভেক্টর হলে,
+
+\begin{enumerate}
+    \item $(m + n)\underline{u} = m\underline{u} + n\underline{u}$।
+    \item $m(\underline{u} + \underline{v}) = m\underline{u} + m\underline{v}$।
+\end{enumerate}
+
+\subsection*{সূত্র ১}
+
+সূত্র ১: $(m + n)\underline{u} = m\underline{u} + n\underline{u}$
+
+প্রমাণ: $m$ বা $n$ শূন্য হলে সূত্রটি অবশ্যই খাটে।
+
+মনে করি, $m, n$ উভয়ে ধনাত্মক এবং $\overrightarrow{AB} = m\underline{u}$। $\therefore |\overrightarrow{AB}| = m|\underline{u}|$।
+
+$\overrightarrow{AB}$ কে $C$ পর্যন্ত বর্ধিত করি যেন $|\overrightarrow{BC}| = n|\underline{u}|$। $\therefore \overrightarrow{BC} = n\underline{u}$।
+
+$|\overrightarrow{AC}| = |\overrightarrow{AB}| + |\overrightarrow{BC}| = m|\underline{u}| + n|\underline{u}| = (m + n)|\underline{u}|$। $\therefore \overrightarrow{AC} = (m + n)\underline{u}$।
+
+কিন্তু $\overrightarrow{AC} = \overrightarrow{AB} + \overrightarrow{BC}$। $\therefore m\underline{u} + n\underline{u} = (m + n)\underline{u}$।
+
+$m, n$ উভয়ে খণাত্মক হলে $(m + n)\underline{u}$ এর দৈর্ঘ্য হবে $|(m + n)| |\underline{u}|$ এবং দিক হবে $\underline{u}$ এর দিকের বিপরীত দিক। তখন $m\underline{u} + n\underline{u}$ ভেক্টরটির দৈর্ঘ্য হবে $|m| |\underline{u}| + |n| |\underline{u}| = (|m| + |n|) |\underline{u}|$ এবং দিক হবে $\underline{u}$ এর বিপরীত দিক। কিন্তু $m < 0$ এবং $n < 0$ হলে $|m| + |n| = |m + n|$ হয়, সেহেতু এ ক্ষেত্রে $(m + n)\underline{u} = m\underline{u} + n\underline{u}$ পাওয়া গেল।
+
+সর্বশেষে $m$ এবং $n$ এর মধ্যে একটি $> 0$ এবং অপরটি $< 0$ হলে $(m + n)\underline{u}$ এর দৈর্ঘ্য হবে $(|m| - |n|) |\underline{u}|$ এবং দিক হবে $\underline{u}$ এর দিকের সাথে একমুখী যখন $|m| > |n|$ এবং $\underline{u}$ এর বিপরীত দিক যখন $|m| < |n|$। তখন $m\underline{u} + n\underline{u}$ ভেক্টরটিও দৈর্ঘ্যে ও দিকে $(m + n)\underline{u}$ এর সাথে একমুখী হবে।
+
+Image description: রেখাংশ $AC$ এর একটি চিত্র, যেখানে বিন্দু $B$ এমন যে $\overrightarrow{AB} = m\underline{u}$ এবং $\overrightarrow{BC} = n\underline{u}$, এবং $\overrightarrow{AC} = (m + n)\underline{u}$ প্রমাণ করে স্কেলার গুণিতকের বণ্টন সূত্র চিত্রিত করা হয়েছে।
+
+\textbf{দ্রষ্টব্য:} তিনটি বিন্দু $A$, $B$, $C$ সমরেখ হবে যদি এবং কেবল যদি $\overrightarrow{AC}$ এর সাংখ্য গুণিতক হয়।
+
+\textbf{মন্তব্য:} 
+\begin{enumerate}
+    \item দুটি ভেক্টরের ধারক রেখা অভিন্ন অথবা সমান্তরাল হলে এবং তাদের দিক একই হলে, তাদের সদৃশ ভেক্টর বলা হয়।
+    \item যে ভেক্টরের দৈর্ঘ্য ১ একক, তাকে (দিক নির্দেশক) একক ভেক্টর বলে।
+\end{enumerate}
+
+\subsection*{সূত্র ২}
+
+সূত্র ২: $m(\underline{u} + \underline{v}) = m\underline{u} + m\underline{v}$
+
+প্রমাণ: মনে করি, $\overrightarrow{OA} = \underline{u}$, $\overrightarrow{AB} = \underline{v}$। তাহলে $\overrightarrow{OB} = \overrightarrow{OA} + \overrightarrow{AB} = \underline{u} + \underline{v}$।
+
+$\overrightarrow{OA}$ কে $C$ পর্যন্ত বর্ধিত করি যেন $|\overrightarrow{AC}| = m|\overrightarrow{OA}|$। উপরের বামের চিত্রে $m$ ধনাত্মক ও ডানের চিত্রে $m$ খণাত্মক। $B$ বিন্দু দিয়ে অঙ্কিত $\overrightarrow{AB}$ এর সমান্তরাল $\overrightarrow{BD}$ রেখা $\overrightarrow{AC}$ এর বর্ধিতাংশকে $D$ বিন্দুতে ছেদ করে। যেহেতু $\triangle OAC$ এবং $\triangle OBD$ ত্রিভুজদ্বয় সদৃশ,
+
+সেহেতু $\frac{|\overrightarrow{AC}|}{|\overrightarrow{OA}|} = \frac{|\overrightarrow{BD}|}{|\overrightarrow{AB}|}$।
+
+$\therefore \frac{m|\overrightarrow{OA}|}{|\overrightarrow{OA}|} = \frac{|\overrightarrow{BD}|}{|\overrightarrow{AB}|}$।
+
+$\therefore |\overrightarrow{BD}| = m|\overrightarrow{AB}|$।
+
+অর্থাৎ, $\overrightarrow{BD} = m\overrightarrow{AB} = m\underline{v}$।
+
+আবার, $\overrightarrow{AC} = m\overrightarrow{OA} = m\underline{u}$।
+
+সামান্তরিক বিধি অনুসারে, $\overrightarrow{AD} = \overrightarrow{AC} + \overrightarrow{BD} = m\underline{u} + m\underline{v}$।
+
+কিন্তু $\overrightarrow{BD} = m(\overrightarrow{OA} + \overrightarrow{AB}) = m(\underline{u} + \underline{v})$।
+
+$\therefore m(\underline{u} + \underline{v}) = m\underline{u} + m\underline{v}$।
+
+দ্রষ্টব্য: $m$ এর সকল মানের জন্য উপরোক্ত সূত্র সত্য।
+
+Image description: দুটি চিত্র, বামে ধনাত্মক $m$ এবং ডানে খণাত্মক $m$, যেখানে $\triangle OAC$ এবং $\triangle OBD$ সদৃশ ত্রিভুজ দেখায়, $\overrightarrow{AC} = m\underline{u}$, $\overrightarrow{BD} = m\underline{v}$, এবং $\overrightarrow{AD} = m(\underline{u} + \underline{v})$ প্রমাণ করে স্কেলার গুণিতকের বণ্টন সূত্র চিত্রিত করা হয়েছে।
+
+ব্যবহারের সুবিধার্থে ভেক্টর সম্পর্কিত নিয়মগুলো নিচে একত্রে লেখা হলো:
+\begin{enumerate}
+    \item $\underline{u} + \underline{v} = \underline{v} + \underline{u}$
+    \item $(\underline{u} + \underline{v}) + \underline{w} = \underline{u} + (\underline{v} + \underline{w})$
+    \item $\underline{u} + 0 = 0 + \underline{u} = \underline{u}$
+    \item $\underline{u} + (-\underline{u}) = 0$
+    \item $m(n\underline{u}) = n(m\underline{u}) = (mn)(\underline{u})$
+    \item $(m + n)\underline{u} = m\underline{u} + n\underline{u}$
+    \item $m(\underline{u} + \underline{v}) = m\underline{u} + m\underline{v}$
+    \item $1\underline{u} = \underline{u}$
+    \item $(-1)\underline{u} = -\underline{u}$
+\end{enumerate}
+
+\part{জ্যামিতিতে ভেক্টরের প্রয়োগ}
+\section*{অবস্থান ভেক্টর}
+
+সমতলস্থ কোনো নির্দিষ্ট বিন্দু $O$ সাপেক্ষে এ সমতলের যেকোনো $P$ বিন্দুর অবস্থান $\overrightarrow{OP}$ দ্বারা নির্দিষ্ট করা যায়। $O$ কে $O$ বিন্দু সাপেক্ষে $P$ বিন্দুর অবস্থান ভেক্টর বলা হয় এবং $O$ বিন্দুকে ভেক্টর মূলবিন্দু বলা হয়।
+
+মনে করি, কোনো সমতলে $O$ একটি নির্দিষ্ট বিন্দু এবং একই সমতলে $A$ অপর একটি বিন্দু। $O$, $A$ যোগ করলে উৎপন্ন $\overrightarrow{OA}$ ভেক্টর $O$ বিন্দুর পরিপ্রেক্ষিতে $A$ বিন্দুর অবস্থান ভেক্টর বলা হয়। অনুরূপভাবে, একই $O$ বিন্দুর প্রেক্ষিতে একই সমতলে অপর $B$ বিন্দুর অবস্থান ভেক্টর $\overrightarrow{OB}$।
+
+$A$, $B$ যোগ করি। মনে করি, $\overrightarrow{OA} = \underline{u}$, $\overrightarrow{OB} = \underline{v}$।
+
+তাহলে $\overrightarrow{AB} + \overrightarrow{OA} = \overrightarrow{OB}$ অর্থাৎ $\overrightarrow{AB} + \underline{u} = \underline{v}$।
+
+$\therefore \overrightarrow{AB} = \underline{v} - \underline{u}$।
+
+সুতরাং, দুটি বিন্দুর অবস্থান ভেক্টর জানা থাকলে তাদের সংযোজক রেখাংশ দ্বারা সূচিত ভেক্টর এ ভেক্টরদ্বয়ের প্রান্তবিন্দুর অবস্থান ভেক্টর বিয়োগ করে প্রাপ্ত হয়।
+
+\textbf{দ্রষ্টব্য:} মূলবিন্দু ভিন্ন ভিন্ন অবস্থানে থাকলে একই বিন্দুর অবস্থান ভেক্টর ভিন্ন ভিন্ন হতে পারে। কোনো নির্দিষ্ট প্রতিপাদ্য বিষয়ের সমাধানে এ বিষয়ের বিবেচনাধীন সকল বিন্দুর অবস্থান ভেক্টর একই মূলবিন্দুর সাপেক্ষে ধরা হয়।
+
+\section*{কতিপয় উদাহরণ}
+
+\subsection*{উদাহরণ ১}
+
+দেখাও যে:
+\begin{enumerate}
+    \item $(\underline{u} - \underline{v}) - \underline{u} = -\underline{v}$
+    \item $m\underline{u} - m\underline{v} = m(\underline{u} - \underline{v})$ যেখানে $m$ একটি স্কেলার।
+    \item $\frac{\underline{u}}{|\underline{u}|}$ একটি একক ভেক্টর যার দিক ও $\underline{u}$ এর দিক একই।
+\end{enumerate}
+
+সমাধান:
+
+\begin{enumerate}
+    \item বিপরীত ভেক্টরের ধর্ম অনুযায়ী $\underline{u} + (-\underline{u}) = 0$।
+
+    আবার $(\underline{u} - \underline{v}) + (-\underline{u}) = 0$।
+
+    $\therefore (\underline{u} - \underline{v}) + (-\underline{u}) = \underline{u} + (-\underline{u})$।
+
+    $\therefore (\underline{u} - \underline{v}) - \underline{u} = -\underline{v}$ [ভেক্টর যোগের বর্জনবিধি]।
+
+    \item $m\underline{u} + (-m\underline{v}) = m\underline{u} + m(-\underline{v})$ [স্কেলার গুণিতকের বণ্টন সূত্র]।
+
+    $= m(\underline{u} + (-\underline{v})) = m(\underline{u} - \underline{v})$।
+
+    আবার $m\underline{u} - m\underline{v} = m\underline{u} + (-m\underline{v})$।
+
+    $\therefore m\underline{u} - m\underline{v} = m(\underline{u} - \underline{v})$।
+
+    \item $\underline{u} \neq 0$ হওয়ায় $\left| \frac{\underline{u}}{|\underline{u}|} \right| = \frac{|\underline{u}|}{|\underline{u}|} = 1$ এবং এর দিক ও $\underline{u}$ এর দিক একই। সুতরাং $\frac{\underline{u}}{|\underline{u}|}$ একটি একক ভেক্টর যার দিক $\underline{u}$ মুখী।
+\end{enumerate}
+
+\subsection*{উদাহরণ ২}
+
+$ABCD$ একটি সামান্তরিক যার কর্ণদ্বয় $\overrightarrow{AC}$ ও $\overrightarrow{BD}$।
+
+\begin{enumerate}
+    \item $\overrightarrow{AC}$ এবং $\overrightarrow{BD}$ ভেক্টরদ্বয়কে $\overrightarrow{AB}$ এবং $\overrightarrow{AD}$ ভেক্টরদ্বয়ের মাধ্যমে প্রকাশ কর।
+    \item $\overrightarrow{AB}$ এবং $\overrightarrow{AD}$ ভেক্টরদ্বয়কে $\overrightarrow{AC}$ এবং $\overrightarrow{BD}$ ভেক্টরদ্বয়ের মাধ্যমে প্রকাশ কর।
+\end{enumerate}
+
+সমাধান:
+
+\begin{enumerate}
+    \item $\overrightarrow{AC} = \overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AB} + \overrightarrow{AD}$।
+
+    আবার, $\overrightarrow{BD} = \overrightarrow{BC} + \overrightarrow{CD} = \overrightarrow{AD} + (-\overrightarrow{AB}) = \overrightarrow{AD} - \overrightarrow{AB}$।
+
+    \item যেহেতু সামান্তরিকের কর্ণদ্বয় পরস্পর সমদ্বিখণ্ডিত হয়,
+
+    $\overrightarrow{AB} = \frac{1}{2}(\overrightarrow{AC} + \overrightarrow{BD})$।
+
+    এবং $\overrightarrow{AD} = \frac{1}{2}(\overrightarrow{AC} - \overrightarrow{BD})$।
+\end{enumerate}
+
+\subsection*{উদাহরণ ৩}
+
+ভেক্টরের সাহায্যে প্রমাণ কর যে, ত্রিভুজের যেকোনো দুই বাহুর মধ্যবিন্দুদ্বয়ের সংযোজক রেখাংশ এ ত্রিভুজের তৃতীয় বাহুর সমান্তরাল ও তার অর্ধেক।
+
+সমাধান: মনে করি, $ABC$ ত্রিভুজের $AB$ ও $AC$ বাহুদ্বয়ের মধ্যবিন্দু যথাক্রমে $D$ ও $E$। $D$, $E$ যোগ করি। প্রমাণ করতে হবে যে, $\overrightarrow{DE} \parallel \overrightarrow{BC}$ এবং $|\overrightarrow{DE}| = \frac{1}{2}|\overrightarrow{BC}|$।
+
+ভেক্টর বিয়োগের ত্রিভুজবিধি অনুসারে, $\overrightarrow{DE} = \overrightarrow{OE} - \overrightarrow{OD}$।
+
+এবং $\overrightarrow{BC} = \overrightarrow{OC} - \overrightarrow{OB}$।
+
+কিন্তু $\overrightarrow{OD} = \frac{\overrightarrow{OA} + \overrightarrow{OB}}{2}$, $\overrightarrow{OE} = \frac{\overrightarrow{OA} + \overrightarrow{OC}}{2}$ [$D$, $E$ বিন্দু যথাক্রমে $AB$ ও $AC$ এর মধ্যবিন্দু]।
+
+$\therefore \overrightarrow{DE} = \frac{\overrightarrow{OA} + \overrightarrow{OC}}{2} - \frac{\overrightarrow{OA} + \overrightarrow{OB}}{2}$।
+
+$ = \frac{\overrightarrow{OC} - \overrightarrow{OB}}{2} = \frac{1}{2}\overrightarrow{BC}$।
+
+$\therefore \overrightarrow{DE} = \frac{1}{2}\overrightarrow{BC}$।
+
+সুতরাং $\overrightarrow{DE}$ ও $\overrightarrow{BC}$ ভেক্টরদ্বয়ের ধারক রেখা একই বা সমান্তরাল। কিন্তু এখানে ধারক রেখা এক নয়। সুতরাং $\overrightarrow{DE}$ ও $\overrightarrow{BC}$ ভেক্টরদ্বয়ের ধারক রেখাদ্বয় অর্থাৎ $DE$ এবং $BC$ সমান্তরাল।
+
+এবং $|\overrightarrow{DE}| = \left| \frac{1}{2}\overrightarrow{BC} \right| = \frac{1}{2}|\overrightarrow{BC}|$।
+
+\subsection*{উদাহরণ ৪}
+
+ভেক্টর পদ্ধতিতে প্রমাণ কর যে, সামান্তরিকের কর্ণদ্বয় পরস্পরকে সমদ্বিখণ্ডিত করে।
+
+সমাধান: মনে করি, $ABCD$ সামান্তরিকের কর্ণদ্বয় $\overrightarrow{AC}$ ও $\overrightarrow{BD}$ পরস্পর $O$ বিন্দুতে ছেদ করেছে।
+
+মনে করি, $\overrightarrow{OA} = \underline{u}$, $\overrightarrow{OB} = \underline{v}$, $\overrightarrow{OC} = \underline{w}$, $\overrightarrow{OD} = \underline{z}$।
+
+প্রমাণ করতে হবে যে, $|\overrightarrow{AO}| = |\overrightarrow{OC}| = |\overrightarrow{BO}| = |\overrightarrow{OD}|$।
+
+$\overrightarrow{AC} = \overrightarrow{AO} + \overrightarrow{OC} = -\underline{u} + \underline{w}$ এবং $\overrightarrow{BD} = \overrightarrow{BO} + \overrightarrow{OD} = -\underline{v} + \underline{z}$।
+
+যেহেতু সামান্তরিকের বিপরীত বাহুদ্বয় পরস্পর সমান ও সমান্তরাল, $\overrightarrow{AB} = \overrightarrow{DC}$।
+
+অর্থাৎ $\overrightarrow{OB} - \overrightarrow{OA} = \overrightarrow{OC} - \overrightarrow{OD}$।
+
+বা, $\underline{v} - \underline{u} = \underline{w} - \underline{z}$।
+
+বা, $\underline{u} + \underline{z} = \underline{v} + \underline{w}$ [উভয় পক্ষে $-\underline{u} - \underline{w}$ যোগ করে]।
+
+এখানে $\underline{u} + \underline{z}$ এর ধারক $\overrightarrow{AC}$, $\therefore \underline{u} + \underline{z}$ এর ধারক $\overrightarrow{AC}$।
+
+$\underline{v} + \underline{w}$ এর ধারক $\overrightarrow{BD}$, $\therefore \underline{v} + \underline{w}$ এর ধারক $\overrightarrow{BD}$।
+
+$\underline{u} + \underline{z} = \underline{v} + \underline{w}$। এ দুটি সমান অশূন্য ভেক্টর হলে তাদের ধারক রেখা একই অথবা সমান্তরাল হবে।
+
+কিন্তু $\overrightarrow{AC}$, $\overrightarrow{BD}$ দুটি পরস্পরছেদী অসমান্তরাল সরলরেখা। সুতরাং $\underline{u} + \underline{z}$ ও $\underline{v} + \underline{w}$ ভেক্টরদ্বয় অশূন্য হতে পারে না বিধায় এদের মান শূন্য হবে।
+
+$\therefore \underline{u} + \underline{z} = 0$।
+
+অর্থাৎ, $\underline{u} = -\underline{z}$।
+
+অনুরূপভাবে, $\underline{v} = -\underline{w}$।
+
+অর্থাৎ, $\overrightarrow{AO} = -\overrightarrow{OD}$, $\overrightarrow{BO} = -\overrightarrow{OC}$।
+
+$\therefore |\overrightarrow{AO}| = |\overrightarrow{OD}|$, $|\overrightarrow{BO}| = |\overrightarrow{OC}|$।
+
+অর্থাৎ, সামান্তরিকের কর্ণদ্বয় পরস্পরকে সমদ্বিখণ্ডিত করে।
+
+\subsection*{উদাহরণ ৫}
+
+ভেক্টর পদ্ধতিতে প্রমাণ কর যে, কোনো চতুর্ভুজের সন্নিহিত বাহুগুলোর মধ্যবিন্দুর সংযোজক রেখাসমূহ একটি সামান্তরিক উৎপন্ন করে।
+
+সমাধান: মনে করি, $ABCD$ চতুর্ভুজের বাহুগুলোর মধ্যবিন্দু $E$, $F$, $G$, $H$। $E$, $F$, $G$, $H$ যোগ করি। প্রমাণ করতে হবে যে, $EFGH$ একটি সামান্তরিক।
+
+মনে করি, $\overrightarrow{OA} = \underline{u}$, $\overrightarrow{OB} = \underline{v}$, $\overrightarrow{OC} = \underline{w}$, $\overrightarrow{OD} = \underline{z}$।
+
+তাহলে, $\overrightarrow{OE} = \frac{\overrightarrow{OA} + \overrightarrow{OB}}{2} = \frac{\underline{u} + \underline{v}}{2}$।
+
+$\overrightarrow{OF} = \frac{\overrightarrow{OB} + \overrightarrow{OC}}{2} = \frac{\underline{v} + \underline{w}}{2}$।
+
+$\overrightarrow{OG} = \frac{\overrightarrow{OC} + \overrightarrow{OD}}{2} = \frac{\underline{w} + \underline{z}}{2}$।
+
+$\overrightarrow{OH} = \frac{\overrightarrow{OD} + \overrightarrow{OA}}{2} = \frac{\underline{z} + \underline{u}}{2}$।
+
+এখন, $\overrightarrow{EF} = \overrightarrow{OF} - \overrightarrow{OE} = \frac{\underline{v} + \underline{w}}{2} - \frac{\underline{u} + \underline{v}}{2} = \frac{\underline{w} - \underline{u}}{2}$।
+
+অনুরূপভাবে, $\overrightarrow{FG} = \overrightarrow{OG} - \overrightarrow{OF} = \frac{\underline{w} + \underline{z}}{2} - \frac{\underline{v} + \underline{w}}{2} = \frac{\underline{z} - \underline{v}}{2}$।
+
+$\overrightarrow{GH} = \overrightarrow{OH} - \overrightarrow{OG} = \frac{\underline{z} + \underline{u}}{2} - \frac{\underline{w} + \underline{z}}{2} = \frac{\underline{u} - \underline{w}}{2}$।
+
+$\overrightarrow{HE} = \overrightarrow{OE} - \overrightarrow{OH} = \frac{\underline{u} + \underline{v}}{2} - \frac{\underline{z} + \underline{u}}{2} = \frac{\underline{v} - \underline{z}}{2}$।
+
+কারণ $\overrightarrow{EF} = \frac{\underline{w} - \underline{u}}{2} = -\frac{\underline{u} - \underline{w}}{2} = -\overrightarrow{GH}$।
+
+অর্থাৎ $\overrightarrow{EF} = -\overrightarrow{GH}$।
+
+$\therefore \overrightarrow{EF}$ এবং $\overrightarrow{GH}$ সমান ও সমান্তরাল।
+
+অনুরূপভাবে, $\overrightarrow{FG} = \frac{\underline{z} - \underline{v}}{2} = -\frac{\underline{v} - \underline{z}}{2} = -\overrightarrow{HE}$।
+
+$\therefore \overrightarrow{FG}$ এবং $\overrightarrow{HE}$ সমান ও সমান্তরাল।
+
+অতএব, $EFGH$ একটি সামান্তরিক।
+
+\end{document}

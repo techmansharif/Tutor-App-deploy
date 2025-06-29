@@ -315,7 +315,7 @@ axios
 
   return (
     <div className="dashboard-container">
-      <h2>🎓 Your Learning Dashboard</h2>
+      <h2>🎓 Your Progress</h2>
       <div className="welcome-section">
         <p>Welcome back, <strong>{user.name}</strong>! Track your progress and continue your learning journey.</p>
       </div>

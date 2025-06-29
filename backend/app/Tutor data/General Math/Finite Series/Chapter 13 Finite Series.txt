@@ -1,0 +1,853 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{parskip}
+\geometry{a4paper, margin=1in}
+
+% Setting up fonts for compatibility
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\begin{document}
+
+% Defining the title
+\title{Chapter 13: Finite Series}
+\author{}
+\date{}
+\maketitle
+
+% Defining the introduction
+\section*{Introduction}
+The term 'order' is widely used in our day-to-day life. For example, the concept of order is used to arrange commodities in shops, to arrange events of drama and ceremony, to keep commodities in an attractive way in the godown. Again, to make many tasks easier and attractive, we use large to small, child to old, light to heavy, etc., types of order. Mathematical series have originated from these concepts of order. In this chapter, the relation between sequence and series and contents related to them have been presented.
+
+At the end of this chapter, the students will be able to:
+\begin{itemize}
+    \item Describe the sequence and series and determine the differences between them.
+    \item Explain finite series.
+    \item Form formulae for determining the fixed term of the series and the sum of fixed numbers of terms and solve mathematical problems by applying the formulae.
+    \item Determine the sum of squares and cubes of natural numbers.
+    \item Solve mathematical problems by applying different formulae of series.
+    \item Construct formulae to find the fixed term of a geometric progression and sum of fixed numbers of terms and solve mathematical problems by applying the formulae.
+\end{itemize}
+
+\part{Sequence}
+% Defining the section for Sequence
+\section*{Sequence}
+
+Let us note the following relation:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+1 & 2 & 3 & 4 & $\cdots$ & $n$ \\
+\hline
+$\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & & $\downarrow$ \\
+\hline
+2 & 4 & 6 & 8 & $\cdots$ & $2n$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Here, every natural number $n$ is related to twice the number $2n$. That means, the set of positive even numbers $\{2, 4, 6, \cdots\}$ is obtained by a method from the set of natural numbers $\{1, 2, 3, \cdots\}$. This arranged set of even numbers is a sequence.
+
+Hence, some quantities are arranged in a particular way such that the antecedent and subsequent terms become related. The set of quantities arranged in such a way is called a sequence.
+
+The aforesaid relation is called a function and written as $f(n) = 2n$. The general term of this sequence is $2n$. The number of terms of any sequence is infinite. The way of writing the sequence with the help of the general term is:
+\[
+\{2n\}, \quad n = 1, 2, 3, \cdots \quad \text{or} \quad \{2n\}_{n=1}^{+\infty} \quad \text{or} \quad \{2n\}
+\]
+The first quantity of the sequence is called the first term, the second quantity is called the second term, the third quantity is called the third term, etc. The first term of the sequence $1, 3, 5, 7, \cdots$ is 1, the second term is 3, etc. The following are four examples of sequences:
+\[
+1, 2, 3, \cdots, n, \cdots
+\]
+\[
+1, 3, 5, \cdots, 2n-1, \cdots
+\]
+\[
+1, 4, 9, \cdots, n^2, \cdots
+\]
+\[
+\frac{1}{2}, \frac{2}{3}, \frac{3}{4}, \cdots, \frac{n}{n+1}, \cdots
+\]
+
+\textbf{Work:}
+\begin{enumerate}
+    \item The general terms of six sequences are given below. Write down the sequences:
+    \begin{enumerate}
+        \item $\frac{1}{n}$
+        \item $\frac{n-1}{n+1}$
+        \item $\frac{1}{2^n}$
+        \item $\frac{1}{2^{n-1}}$
+        \item $(-1)^{n+1} \frac{n}{n+1}$
+        \item $(-1)^{n-1} \frac{n}{2n+1}$
+    \end{enumerate}
+    \item Each of you write a general term and then write the sequence.
+\end{enumerate}
+
+\section*{Series}
+If the terms of a sequence are connected successively by a $+$ sign, a series is obtained. For example, $1 + 3 + 5 + 7 + \cdots$ is a series. The differences between any two successive terms of the series are equal. Again, $2 + 4 + 8 + 16 + \cdots$ is a series. The ratio of two successive terms is equal. Hence, the characteristic of any series depends upon the relation between its two successive terms. Among the series, two important series are arithmetic series and geometric series.
+
+\part{Arithmetic Series}
+% Defining the section for Arithmetic Series
+\section*{Arithmetic Series}
+
+If the difference between any two adjacent terms of a series is always equal, it is called an arithmetic series.
+
+\subsection*{Example 1}
+$1 + 3 + 5 + 7 + 9 + 11$ is a series. The first term of the series is 1, the second term is 3, the third term is 5, etc.
+
+Here,
+\[
+\text{second term} - \text{first term} = 3 - 1 = 2,
+\]
+\[
+\text{third term} - \text{second term} = 5 - 3 = 2,
+\]
+\[
+\text{fourth term} - \text{third term} = 7 - 5 = 2,
+\]
+\[
+\text{fifth term} - \text{fourth term} = 9 - 7 = 2,
+\]
+\[
+\text{sixth term} - \text{fifth term} = 11 - 9 = 2.
+\]
+Hence, the series is an arithmetic series.
+
+In this series, the difference between two terms is called the common difference. The common difference of the mentioned series is 2. The number of terms of the series is fixed. That is why the series is a finite series. It is to be noted that if the terms of the series are not fixed, the series is called an infinite series, such as $1 + 4 + 7 + 10 + \cdots$ is an infinite series. In an arithmetic series, the first term and the common difference are generally denoted by $a$ and $d$ respectively. Then, by definition, if the first term is $a$, the second term is $a + d$, the third term is $a + 2d$, etc. Hence, the series will be $a + (a + d) + (a + 2d) + \cdots$.
+
+\subsection*{Determining the Common Term of an Arithmetic Series}
+Let the first term of an arithmetic series be $a$ and the common difference be $d$. Then the terms of the series are:
+\[
+\text{First term} = a = a + (1-1)d
+\]
+\[
+\text{Second term} = a + d = a + (2-1)d
+\]
+\[
+\text{Third term} = a + 2d = a + (3-1)d
+\]
+\[
+\text{Fourth term} = a + 3d = a + (4-1)d
+\]
+\[
+\vdots
+\]
+\[
+\therefore n\text{th term} = a + (n-1)d
+\]
+This $n$th term is called the common term of the arithmetic series. If the first term of an arithmetic series $a$ and the common difference $d$ are known, all the terms of the series can be determined successively by putting $n = 1, 2, 3, 4, \cdots$ in the $n$th term.
+
+Let the first term of an arithmetic series be 3 and the common difference be 2. Then the $n$th term of the series is:
+\[
+3 + (n-1) \times 2 = 2n + 1
+\]
+
+\textbf{Work:} If the first term of an arithmetic series is 5 and the common difference is 7, determine the first six terms, the 22nd term, the $r$th term, and the $(2p+1)$th term.
+
+\subsection*{Example 2}
+Of the series $5 + 8 + 11 + 14 + \cdots$, which term is 383?
+
+\textbf{Solution:}
+The first term of the series $a = 5$, common difference $d = 8 - 5 = 11 - 8 = 14 - 11 = 3$. Therefore, it is an arithmetic series.
+
+Let the $n$th term of the series be 383. We know that the $n$th term is:
+\[
+a + (n-1)d = 383
+\]
+\[
+5 + (n-1) \cdot 3 = 383
+\]
+\[
+5 + 3n - 3 = 383
+\]
+\[
+3n = 383 - 5 + 3
+\]
+\[
+3n = 381
+\]
+\[
+n = \frac{381}{3} = 127
+\]
+Therefore, the 127th term of the given series is 383.
+
+\subsection*{Sum of \( n \) Terms of an Arithmetic Series}
+Let the first term of any arithmetic series be $a$, the last term be $p$, the common difference be $d$, the number of terms be $n$, and the sum of $n$ terms be $S_n$.
+
+Writing from the first term to the last and conversely from the last term to the first of the series, we get:
+\[
+S_n = a + (a + d) + (a + 2d) + \cdots + (p - 2d) + (p - d) + p \quad (1)
+\]
+\[
+S_n = p + (p - d) + (p - 2d) + \cdots + (a + 2d) + (a + d) + a \quad (2)
+\]
+Adding:
+\[
+2 S_n = (a + p) + (a + p) + (a + p) + \cdots + (a + p) + (a + p) + (a + p)
+\]
+\[
+2 S_n = n (a + p) \quad [\text{since the number of terms of the series is } n]
+\]
+\[
+\therefore S_n = \frac{n}{2} (a + p) \quad (3)
+\]
+Again, the $n$th term is $p = a + (n-1)d$. Substituting this value of $p$ in (3), we get:
+\[
+S_n = \frac{n}{2} [a + \{a + (n-1)d\}]
+\]
+\[
+S_n = \frac{n}{2} \{2a + (n-1)d\} \quad (4)
+\]
+If the first term $a$, last term $p$, and number of terms $n$ are known, the sum of the series can be determined by formula (3). But if the first term $a$, common difference $d$, and number of terms $n$ are known, the sum of the series is determined by formula (4).
+
+\subsection*{Determination of the Sum of the First \( n \) Natural Numbers}
+Let $S_n$ be the sum of the first $n$ natural numbers, i.e.,
+\[
+S_n = 1 + 2 + 3 + \cdots + (n-1) + n
+\]
+Writing from the first term and conversely from the last term of the series, we get:
+\[
+S_n = 1 + 2 + 3 + \cdots + (n-2) + (n-1) + n \quad (1)
+\]
+\[
+S_n = n + (n-1) + (n-2) + \cdots + 3 + 2 + 1 \quad (2)
+\]
+Adding:
+\[
+2 S_n = (n+1) + (n+1) + (n+1) + \cdots + (n+1) \quad [n \text{ terms}]
+\]
+\[
+2 S_n = n (n+1)
+\]
+\[
+\therefore S_n = \frac{n (n+1)}{2} \quad (3)
+\]
+
+\subsection*{Example 3}
+Find the sum total of the first 50 natural numbers.
+
+\textbf{Solution:}
+Using formula (3), we get:
+\[
+S_{50} = \frac{50 (50+1)}{2} = 25 \times 51 = 1275
+\]
+Therefore, the sum total of the first 50 natural numbers is 1275.
+
+\subsection*{Example 4}
+$1 + 2 + 3 + 4 + \cdots + 99 =$ what?
+
+\textbf{Solution:}
+The first term of the series $a = 1$, common difference $d = 2 - 1 = 1$, and the last term $p = 99$. Therefore, it is an arithmetic series.
+
+Let the $n$th term of the series be 99. We know:
+\[
+n\text{th term} = a + (n-1)d = 99
+\]
+\[
+1 + (n-1) \cdot 1 = 99
+\]
+\[
+n = 99
+\]
+From formula (4), the sum of the first $n$ terms of an arithmetic series is:
+\[
+S_n = \frac{n}{2} \{2a + (n-1)d\}
+\]
+Hence, the sum of the first 99 terms is:
+\[
+S_{99} = \frac{99}{2} \{2 \times 1 + (99-1) \times 1\} = \frac{99}{2} (2 + 98) = \frac{99 \times 100}{2} = 99 \times 50 = 4950
+\]
+\textbf{Alternative method:} From formula (3), $S_n = \frac{n}{2} (a + p)$:
+\[
+S_{99} = \frac{99}{2} (1 + 99) = \frac{99 \times 100}{2} = 4950
+\]
+
+\subsection*{Example 5}
+What is the sum of the first 30 terms of the series $7 + 12 + 17 + \cdots$?
+
+\textbf{Solution:}
+The first term of the series $a = 7$, common difference $d = 12 - 7 = 5$. Therefore, it is an arithmetic series. Here, the number of terms $n = 30$.
+
+We know that the sum of the first $n$ terms of an arithmetic series is:
+\[
+S_n = \frac{n}{2} \{2a + (n-1)d\}
+\]
+So, the sum of 30 terms is:
+\[
+S_{30} = \frac{30}{2} \{2 \cdot 7 + (30-1) \cdot 5\} = 15 (14 + 29 \times 5) = 15 (14 + 145) = 15 \times 159 = 2385
+\]
+
+\subsection*{Example 6}
+Rashid deposits Tk. 1200 from his salary in the first month, and every subsequent month, he deposits Tk. 100 more than the previous month.
+
+\begin{enumerate}
+    \item Express the aforesaid problem as a series up to $n$ terms.
+    \item How much does he deposit in the 18th month, and how much does he deposit in the first 18 months?
+    \item In how many years does he deposit a total of Tk. 106200?
+\end{enumerate}
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item As per the question, the first term of the arithmetic series is $a = 1200$, common difference $d = 100$. Therefore:
+    \[
+    \text{second term} = 1200 + 100 = 1300
+    \]
+    \[
+    \text{third term} = 1300 + 100 = 1400
+    \]
+    \[
+    n\text{th term} = a + (n-1)d = 1200 + (n-1) \cdot 100 = 1100 + 100n
+    \]
+    Therefore, the series is:
+    \[
+    1200 + 1300 + 1400 + \cdots + (1100 + 100n)
+    \]
+    \item We know the $n$th term is:
+    \[
+    a + (n-1)d
+    \]
+    Therefore, the deposit in the 18th month is:
+    \[
+    a + (18-1)d = 1200 + 17 \times 100 = 2900 \, \text{Tk.}
+    \]
+    Again, the sum of the first $n$ terms is:
+    \[
+    \frac{n}{2} \{2a + (n-1)d\}
+    \]
+    Therefore, the deposit in the first 18 months is:
+    \[
+    \frac{18}{2} \{2 \times 1200 + (18-1) \times 100\} = 9 (2400 + 1700) = 9 \times 4100 = 36900 \, \text{Tk.}
+    \]
+    \item Let him deposit 106200 Tk. in $n$ months. According to the question:
+    \[
+    \frac{n}{2} \{2a + (n-1)d\} = 106200
+    \]
+    \[
+    \frac{n}{2} \{2 \times 1200 + (n-1) \times 100\} = 106200
+    \]
+    \[
+    n (2400 + 100n - 100) = 212400
+    \]
+    \[
+    100n^2 + 2300n - 212400 = 0
+    \]
+    \[
+    n^2 + 23n - 2124 = 0
+    \]
+    \[
+    n^2 + 59n - 36n - 2124 = 0
+    \]
+    \[
+    (n + 59)(n - 36) = 0
+    \]
+    So, $n = -59$ or $n = 36$. The number of months cannot be negative, so $n = 36$. Therefore, the required time is 36 months or 3 years.
+\end{enumerate}
+
+\subsection*{Exercise 13.1}
+\begin{enumerate}
+    \item What is the number of terms of the series $13 + 20 + 27 + 34 + \cdots + 111$?
+    \begin{enumerate}
+        \item 10
+        \item 13
+        \item 15
+        \item 20
+    \end{enumerate}
+    \item The series $5 + 8 + 11 + 14 + \cdots + 62$:
+    \begin{enumerate}[label=(\roman*)]
+        \item is a finite series
+        \item is a geometric series
+        \item 19th term of the series is 59
+    \end{enumerate}
+    Which one of the following is correct?
+    \begin{enumerate}
+        \item i and ii
+        \item i and iii
+        \item ii and iii
+        \item i, ii, and iii
+    \end{enumerate}
+    \item Based on the following information, answer questions 3–4: $7 + 13 + 19 + 25 + \cdots$ is a series.
+    \begin{enumerate}
+        \item Which one is the 15th term of the series?
+        \begin{enumerate}
+            \item 85
+            \item 91
+            \item 97
+            \item 104
+        \end{enumerate}
+        \item What is the sum of the first 20 terms of the series?
+        \begin{enumerate}
+            \item 141
+            \item 1210
+            \item 1280
+            \item 2560
+        \end{enumerate}
+    \end{enumerate}
+    \item Find the common difference and the 12th term of the series $2 - 5 - 12 - 19 - \cdots$.
+    \item Which term of the series $8 + 11 + 14 + 17 + \cdots$ is 392?
+    \item Which term of the series $4 + 7 + 10 + 13 + \cdots$ is 301?
+    \item If the $m$th term of an arithmetic series is $n$ and the $n$th term is $m$, what is the $(m+n)$th term of that series?
+    \item What is the sum of the first $n$ terms of the series $1 + 3 + 5 + 7 + \cdots$?
+    \item What is the sum of the first 9 terms of the series $8 + 16 + 24 + \cdots$?
+    \item $5 + 11 + 17 + 23 + \cdots + 59 =$ what?
+    \item $29 + 25 + 21 + \cdots - 23 =$ what?
+    \item If the 12th term of an arithmetic series is 77, what is the sum of the first 23 terms of that series?
+    \item If the 16th term of an arithmetic series is -20, what will be the sum of the first 31 terms?
+    \item The sum of the first $n$ terms of the series $9 + 7 + 5 + \cdots$ is -144. Find the value of $n$.
+    \item The sum of the first $n$ terms of the series $2 + 4 + 6 + 8 + \cdots$ is 2550. Find the value of $n$.
+    \item If the sum of the first $n$ terms of a series is $n(n+1)$, find the series.
+    \item If the sum of the first $n$ terms of a series is $n(n+1)$, what is the sum of the first 10 terms?
+    \item If the sum of 12 terms of an arithmetic series is 144 and the first 20 terms is 560, find the sum of the first 6 terms.
+    \item The sum of the first $m$ terms of an arithmetic series is $n$ and the first $n$ terms is $m$. Find the sum of the first $(m+n)$ terms.
+    \item If the $p$th, $q$th, and $r$th terms of an arithmetic series are $a$, $b$, $c$ respectively, show that $a(q-r) + b(r-p) + c(p-q) = 0$.
+    \item Show that $1 + 3 + 5 + 7 + \cdots + 125 = 169 + 171 + 173 + \cdots + 209$.
+    \item A man agrees to refund a loan of Tk. 2500 in some installments. Each installment is Tk. 2 more than the previous installment. If the first installment is Tk. 1, in how many installments will the man be able to refund that amount?
+    \item The $l$th term of an arithmetic series is $l^2$ and the $k$th term is $k^2$.
+    \begin{enumerate}
+        \item Construct two equations according to the information of the stem considering $a$ as the first term of the series and $d$ as the common difference.
+        \item Find the $(l+k)$th term.
+        \item Prove that the sum of the first $(l+k)$ terms of the series is $\frac{l+k}{2} (l^2 + k^2 + l + k)$.
+    \end{enumerate}
+\end{enumerate}
+
+\part{Formulas of Series}
+% Defining the section for Formulas of Series
+\section*{Formulas of Series}
+
+\subsection*{Determination of the Sum of Squares of the First \( n \) Natural Numbers}
+Let $S_n$ be the sum of the squares of the first $n$ natural numbers, i.e.,
+\[
+S_n = 1^2 + 2^2 + 3^2 + \cdots + n^2
+\]
+We know:
+\[
+r^3 - 3r^2 + 3r - 1 = (r-1)^3
+\]
+\[
+r^3 - (r-1)^3 = 3r^2 - 3r + 1
+\]
+In the above identity, putting $r = 1, 2, 3, \cdots, n$, we get:
+\[
+1^3 - 0^3 = 3 \cdot 1^2 - 3 \cdot 1 + 1
+\]
+\[
+2^3 - 1^3 = 3 \cdot 2^2 - 3 \cdot 2 + 1
+\]
+\[
+3^3 - 2^3 = 3 \cdot 3^2 - 3 \cdot 3 + 1
+\]
+\[
+\vdots
+\]
+\[
+n^3 - (n-1)^3 = 3 \cdot n^2 - 3 \cdot n + 1
+\]
+Adding, we get:
+\[
+n^3 - 0^3 = 3 (1^2 + 2^2 + 3^2 + \cdots + n^2) - 3 (1 + 2 + 3 + \cdots + n) + (1 + 1 + 1 + \cdots + 1)
+\]
+\[
+n^3 = 3 S_n - \frac{3 n (n+1)}{2} + n \quad \left[ \because 1 + 2 + 3 + \cdots + n = \frac{n (n+1)}{2} \right]
+\]
+\[
+3 S_n = n^3 + \frac{3 n (n+1)}{2} - n
+\]
+\[
+= \frac{2 n^3 + 3 n^2 + 3 n - 2 n}{2} = \frac{2 n^3 + 3 n^2 + n}{2} = \frac{n (2 n^2 + 3 n + 1)}{2}
+\]
+\[
+= \frac{n (2 n^2 + 2 n + n + 1)}{2} = \frac{n \{2 n (n+1) + 1 (n+1)\}}{2}
+\]
+\[
+3 S_n = \frac{n (n+1) (2 n + 1)}{2}
+\]
+\[
+\therefore S_n = \frac{n (n+1) (2 n + 1)}{6}
+\]
+
+\subsection*{The Sum of Cubes of the First \( n \) Natural Numbers}
+Let $S_n$ be the sum of the cubes of the first $n$ natural numbers, i.e.,
+\[
+S_n = 1^3 + 2^3 + 3^3 + \cdots + n^3
+\]
+We know that:
+\[
+(r+1)^2 - (r-1)^2 = (r^2 + 2r + 1) - (r^2 - 2r + 1) = 4r
+\]
+\[
+(r+1)^2 r^2 - r^2 (r-1)^2 = 4 r \cdot r^2 = 4 r^3 \quad [\text{Multiplying both sides by } r^2]
+\]
+Putting $r = 1, 2, 3, \cdots, n$ in the above identity, we get:
+\[
+2^2 \cdot 1^2 - 1^2 \cdot 0^2 = 4 \cdot 1^3
+\]
+\[
+3^2 \cdot 2^2 - 2^2 \cdot 1^2 = 4 \cdot 2^3
+\]
+\[
+4^2 \cdot 3^2 - 3^2 \cdot 2^2 = 4 \cdot 3^3
+\]
+\[
+\vdots
+\]
+\[
+(n+1)^2 \cdot n^2 - n^2 \cdot (n-1)^2 = 4 n^3
+\]
+Adding, we get:
+\[
+(n+1)^2 \cdot n^2 - 1^2 \cdot 0^2 = 4 (1^3 + 2^3 + 3^3 + \cdots + n^3)
+\]
+\[
+(n+1)^2 \cdot n^2 = 4 S_n
+\]
+\[
+S_n = \frac{n^2 (n+1)^2}{4}
+\]
+\[
+\therefore S_n = \left\{ \frac{n (n+1)}{2} \right\}^2
+\]
+
+\subsection*{Necessary Formulae}
+\begin{enumerate}
+    \item $1 + 2 + 3 + \cdots + n = \frac{n (n+1)}{2}$
+    \item $1^2 + 2^2 + 3^2 + \cdots + n^2 = \frac{n (n+1) (2 n + 1)}{6}$
+    \item $1^3 + 2^3 + 3^3 + \cdots + n^3 = \left\{ \frac{n (n+1)}{2} \right\}^2$
+\end{enumerate}
+
+\textbf{N.B.:} $1^3 + 2^3 + 3^3 + \cdots + n^3 = (1 + 2 + 3 + \cdots + n)^2$
+
+\textbf{Work:}
+\begin{enumerate}
+    \item Find the sum of the first $n$ natural even numbers.
+    \item Find the sum of the squares of the first $n$ natural odd numbers.
+\end{enumerate}
+
+\part{Geometric Series}
+% Defining the section for Geometric Series
+\section*{Geometric Series}
+
+If the ratio of any term and its antecedent term of any series is always equal, i.e., if any term divided by its antecedent term gives a constant quotient, the series is called a geometric series, and the quotient is called the common ratio. For example, in the series $2 + 4 + 8 + 16 + 32$, the first term is 2, the second term is 4, the third term is 8, the fourth term is 16, and the fifth term is 32. Here:
+\[
+\text{ratio of the second term to the first term} = \frac{4}{2} = 2
+\]
+\[
+\text{ratio of the third term to the second term} = \frac{8}{4} = 2
+\]
+\[
+\text{ratio of the fourth term to the third term} = \frac{16}{8} = 2
+\]
+\[
+\text{ratio of the fifth term to the fourth term} = \frac{32}{16} = 2
+\]
+So, this series is a geometric series. In this series, the ratio of any term to its antecedent term is always equal. The common ratio of the mentioned series is 2. The number of terms of the series is finite, so the series is a finite geometric series.
+
+The geometric series is widely used in different areas of physical and biological science, in organizations like banks and life insurance, and in different branches of technology.
+
+If the number of terms is not fixed in a geometric series, it is called an infinite geometric series. The first term of a geometric series is generally denoted by $a$ and the common ratio by $r$. So, by definition, if the first term is $a$, the second term is $ar$, the third term is $ar^2$, etc. Hence, the series will be $a + ar + ar^2 + ar^3 + \cdots$.
+
+\textbf{Work:} Write down the geometric series in the following cases:
+\begin{enumerate}
+    \item The first term is 4, common ratio 10
+    \item The first term is 4, common ratio $\frac{1}{3}$
+    \item The first term is 7, common ratio $\frac{1}{10}$
+    \item The first term is 3, common ratio 1
+    \item The first term is 1, common ratio $-\frac{1}{2}$
+    \item The first term is 3, common ratio -1
+\end{enumerate}
+
+\subsection*{General Term of a Geometric Series}
+Let the first term of a geometric series be $a$ and the common ratio be $r$. Then, the terms of the series are:
+\[
+\text{First term} = a = a r^{1-1}
+\]
+\[
+\text{Second term} = ar = a r^{2-1}
+\]
+\[
+\text{Third term} = ar^2 = a r^{3-1}
+\]
+\[
+\text{Fourth term} = ar^3 = a r^{4-1}
+\]
+\[
+\vdots
+\]
+\[
+n\text{th term} = a r^{n-1}
+\]
+This $n$th term is called the general term of the geometric series. If the first term $a$ and the common ratio $r$ are known, any term of the series can be determined by putting $n = 1, 2, 3, \cdots$ in the equation of the $n$th term.
+
+\subsection*{Example 7}
+What is the 10th term of the series $2 + 4 + 8 + 16 + \cdots$?
+
+\textbf{Solution:}
+The first term of the series $a = 2$, common ratio $r = \frac{4}{2} = 2$. Therefore, the given series is a geometric series.
+
+We know the $n$th term of a geometric series is:
+\[
+a r^{n-1}
+\]
+Therefore, the 10th term of the series is:
+\[
+2 \times 2^{10-1} = 2 \times 2^9 = 1024
+\]
+
+\subsection*{Example 8}
+What is the general term of the series $128 + 64 + 32 + \cdots$?
+
+\textbf{Solution:}
+The first term of the series $a = 128$, common ratio $r = \frac{64}{128} = \frac{1}{2}$. Therefore, it is a geometric series.
+
+We know the general term of a geometric series is:
+\[
+a r^{n-1}
+\]
+So, the general term of the series is:
+\[
+128 \times \left( \frac{1}{2} \right)^{n-1} = \frac{2^7}{2^{n-1}} = \frac{1}{2^{n-1-7}} = \frac{1}{2^{n-8}}
+\]
+
+\subsection*{Example 9}
+The first and second terms of a geometric series are 27 and 9. Find the 5th and 10th terms of the series.
+
+\textbf{Solution:}
+The first term of the given series $a = 27$, the second term is 9. Therefore, the common ratio is:
+\[
+r = \frac{9}{27} = \frac{1}{3}
+\]
+The fifth term is:
+\[
+a r^{5-1} = 27 \times \left( \frac{1}{3} \right)^4 = \frac{27 \times 1}{27 \times 3} = \frac{1}{3}
+\]
+The tenth term is:
+\[
+a r^{10-1} = 27 \times \left( \frac{1}{3} \right)^9 = \frac{3^3}{3^3 \times 3^6} = \frac{1}{3^6} = \frac{1}{729}
+\]
+
+\subsection*{Determination of the Sum of a Geometric Series}
+Let the first term of the geometric series be $a$, the common ratio $r$, and the number of terms $n$. If $S_n$ is the sum of $n$ terms:
+\[
+S_n = a + ar + ar^2 + \cdots + ar^{n-2} + ar^{n-1} \quad (1)
+\]
+\[
+r \cdot S_n = ar + ar^2 + ar^3 + \cdots + ar^{n-1} + ar^n \quad (2) \quad [\text{multiplying (1) by } r]
+\]
+Subtracting (1) from (2):
+\[
+S_n - r S_n = a - ar^n
+\]
+\[
+S_n (1 - r) = a (1 - r^n)
+\]
+\[
+\therefore S_n = \frac{a (1 - r^n)}{1 - r}, \quad \text{when } r \neq 1
+\]
+Alternatively, subtracting (2) from (1):
+\[
+r S_n - S_n = ar^n - a
+\]
+\[
+S_n (r - 1) = a (r^n - 1)
+\]
+\[
+\therefore S_n = \frac{a (r^n - 1)}{r - 1}, \quad \text{when } r \neq 1
+\]
+Observe: If the common ratio is $r = 1$, each term is $a$. In this case:
+\[
+S_n = a + a + a + \cdots \text{ up to } n = a n
+\]
+
+\textbf{Work:} Mr. Rahim employed a man from the first of April for taking his son to school and bringing him back home for a month. His wages were fixed to be one paisa on the first day, twice the first day on the second day (i.e., two paisa), twice the second day on the third day (i.e., four paisa). If the wages were paid in this way, how much would he get after one month, including holidays of the week?
+
+\subsection*{Example 10}
+What is the sum of the series $12 + 24 + 48 + \cdots + 768$?
+
+\textbf{Solution:}
+The first term of the series is $a = 12$, common ratio $r = \frac{24}{12} = 2 > 1$. Therefore, it is a geometric series.
+
+Let the $n$th term of the series be 768. We know the $n$th term is:
+\[
+a r^{n-1} = 768
+\]
+\[
+12 \times 2^{n-1} = 768
+\]
+\[
+2^{n-1} = \frac{768}{12} = 64
+\]
+\[
+2^{n-1} = 2^6
+\]
+\[
+n - 1 = 6
+\]
+\[
+\therefore n = 7
+\]
+Therefore, the sum of the series is:
+\[
+S_n = \frac{a (r^n - 1)}{r - 1}, \quad \text{when } r > 1
+\]
+\[
+S_7 = \frac{12 (2^7 - 1)}{2 - 1} = 12 \times (128 - 1) = 12 \times 127 = 1524
+\]
+
+\subsection*{Example 11}
+Find the sum of the first eight terms of the series $1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \cdots$.
+
+\textbf{Solution:}
+The first term of the series $a = 1$, common ratio $r = \frac{\frac{1}{2}}{1} = \frac{1}{2} < 1$. Therefore, it is a geometric series. Here, the number of terms is $n = 8$.
+
+We know the sum of $n$ terms of a geometric series is:
+\[
+S_n = \frac{a (1 - r^n)}{1 - r}, \quad \text{when } r < 1
+\]
+Hence, the sum of eight terms of the series is:
+\[
+S_8 = \frac{1 \times \left\{ 1 - \left( \frac{1}{2} \right)^8 \right\}}{1 - \frac{1}{2}} = \frac{1 - \frac{1}{256}}{\frac{1}{2}}
+\]
+\[
+= 2 \left( \frac{256 - 1}{256} \right) = \frac{255}{128} = 1 \frac{127}{128}
+\]
+
+\subsection*{Example 12}
+Palash Sarker joined a job in January 2005 at a yearly salary of Tk. 120000. His yearly increment is Tk. 5000. 10\% of his salary is deducted every year for a provident fund. At the end of the year, he deposits Tk. 12000 in a bank at a compound interest of 12\%. He will retire from the job on December 31, 2030.
+
+\begin{enumerate}
+    \item Which series does the basic salary of Palash Sarker follow? Write down that series.
+    \item How much salary (in Tk.) would he receive in his entire job life, excluding the provident fund money?
+    \item What is the amount of total deposited money with interest in the bank by December 31, 2031?
+\end{enumerate}
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item The basic salary of Palash Sarker follows an arithmetic series. The first term of the series is $a = 120000$, and the common difference is $d = 5000$. Therefore:
+    \[
+    \text{second term} = 120000 + 5000 = 125000
+    \]
+    \[
+    \text{third term} = 125000 + 5000 = 130000
+    \]
+    The series is:
+    \[
+    120000 + 125000 + 130000 + \cdots
+    \]
+    \item The total amount of salary, excluding the provident fund, from January 2005 to December 31, 2030, i.e., $(2030 - 2005 + 1) = 26$ years, is:
+    \[
+    (120000 - 10\% \text{ of } 120000) + (125000 - 10\% \text{ of } 125000) + (130000 - 10\% \text{ of } 130000) + \cdots
+    \]
+    \[
+    = (120000 - 12000) + (125000 - 12500) + (130000 - 13000) + \cdots
+    \]
+    \[
+    = 108000 + 112500 + 117000 + \cdots
+    \]
+    This is an arithmetic series with first term $a = 108000$, common difference $d = 112500 - 108000 = 4500$, and number of terms $n = 26$. Therefore, the total salary he receives in 26 years is:
+    \[
+    \frac{26}{2} \{2 \times 108000 + (26-1) \times 4500\} = 13 (216000 + 112500) = 13 \times 328500 = 4270500 \, \text{Tk.}
+    \]
+    \item The total time from 2005 to 2031 is $(2031 - 2005) = 26$ years. The deposits are:
+    \[
+    \text{Deposit after 1 year} = 12000 \left( 1 + \frac{12}{100} \right) = 12000 \times 1.12 \, \text{Tk.}
+    \]
+    \[
+    \text{Deposit after 2 years} = 12000 \times (1.12)^2 \, \text{Tk.}
+    \]
+    \[
+    \text{Deposit after 3 years} = 12000 \times (1.12)^3 \, \text{Tk.}
+    \]
+    Therefore, the total deposited amount after 26 years is:
+    \[
+    12000 \times 1.12 + 12000 \times (1.12)^2 + \cdots + 12000 \times (1.12)^{26}
+    \]
+    \[
+    = 12000 \left\{ 1.12 + (1.12)^2 + \cdots + (1.12)^{26} \right\}
+    \]
+    \[
+    = 12000 \times 1.12 \times \frac{(1.12)^{26} - 1}{1.12 - 1} = 12000 \times 1.12 \times \frac{18.04}{0.12}
+    \]
+    \[
+    = 2020488 \, \text{Tk. (approx.)}
+    \]
+\end{enumerate}
+
+\subsection*{Exercise 13.2}
+\begin{enumerate}
+    \item $a, b, c,$ and $d$ are four consecutive terms of an arithmetic series. Which one of the following is true?
+    \begin{enumerate}
+        \item $b = \frac{c + d}{2}$
+        \item $a = \frac{b + c}{2}$
+        \item $c = \frac{b + d}{2}$
+        \item $d = \frac{a + c}{2}$
+    \end{enumerate}
+    \item For $n \in \mathbb{N}$:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\sum n = \frac{n^2 + n}{2}$
+        \item $\sum n^2 = \frac{1}{6} n (n+1) (n+2)$
+        \item $\sum n = \frac{n^2 (n^2 + 2 n + 1)}{4}$
+    \end{enumerate}
+    Which one of the following is true?
+    \begin{enumerate}
+        \item i and ii
+        \item i and iii
+        \item ii and iii
+        \item i, ii, and iii
+    \end{enumerate}
+    \item On the basis of the following series, answer questions 3 and 4: $\log 2 + \log 4 + \log 8 + \cdots$.
+    \begin{enumerate}
+        \item What is the common ratio of the series?
+        \begin{enumerate}
+            \item 2
+            \item 4
+            \item $\log 2$
+            \item $2 \log 2$
+        \end{enumerate}
+        \item Which one is the 7th term of the series?
+        \begin{enumerate}
+            \item $\log 32$
+            \item $\log 64$
+            \item $\log 128$
+            \item $\log 256$
+        \end{enumerate}
+    \end{enumerate}
+    \item Find the eighth term of the series $64 + 32 + 16 + 8 + \cdots$.
+    \item Find the sum of the first 14 terms of the series $3 + 9 + 27 + \cdots$.
+    \item Which term of the series $128 + 64 + 32 + \cdots$ is $\frac{1}{2}$?
+    \item If $\frac{2 \sqrt{3}}{9}$ is the fifth and $\frac{8 \sqrt{2}}{81}$ is the tenth term of a geometric series, find its third term.
+    \item Which term of the series $\frac{1}{\sqrt{2}} - 1 + \sqrt{2} - \cdots$ is $8 \sqrt{2}$?
+    \item If $5 + x + y + 135$ is a geometric series, find the values of $x$ and $y$.
+    \item If $3 + x + y + z + 243$ is a geometric series, find the values of $x, y,$ and $z$.
+    \item What is the sum of the first 7 terms of the series $2 - 4 + 8 - 16 + \cdots$?
+    \item Find the sum of $(2n+1)$ terms of the series $1 - 1 + 1 - 1 + \cdots$.
+    \item What is the sum of the first 7 terms of the series $\log 2 + \log 4 + \log 8 + \cdots$?
+    \item What is the sum of the first 12 terms of the series $\log 2 + \log 16 + \log 512 + \cdots$?
+    \item If the sum of $n$ terms of the series $2 + 4 + 8 + 16 + \cdots$ is 254, find the value of $n$.
+    \item What is the sum of $(2n+2)$ terms of the series $2 - 2 + 2 - 2 + \cdots$?
+    \item If the sum of cubes of $n$ natural numbers is 441, find the value of $n$ and find the sum of those $n$ terms.
+    \item If the sum of cubes of $n$ natural numbers is 225, find the value of $n$ and find the sum of squares of those $n$ terms.
+    \item Show that $1^3 + 2^3 + 3^3 + \cdots + 10^3 = (1 + 2 + 3 + \cdots + 10)^2$.
+    \item If $\frac{1^3 + 2^3 + 3^3 + \cdots + n^3}{1 + 2 + 3 + \cdots + n} = 210$, what is the value of $n$?
+    \item An iron bar with a length of one meter is divided into ten pieces such that the lengths of the pieces form a geometric progression. If the largest piece is ten times that of the smallest one, find the length in approximate millimeters of the smallest piece.
+    \item The first term of a geometric series is $a$, common ratio $r$, the fourth term of the series is $-2$, and the ninth term is $8 \sqrt{2}$.
+    \begin{enumerate}
+        \item Express the above information by two equations.
+        \item Find the 12th term of the series.
+        \item Find the series and then determine the sum of the first seven terms of the series.
+    \end{enumerate}
+    \item The $n$th term of a series is $2n - 4$.
+    \begin{enumerate}
+        \item Find the series.
+        \item Find the 10th term of the series and determine the sum of the first 20 terms.
+        \item Considering the first term of the obtained series as the first term and the common difference as the common ratio, construct a new series and find the sum of the first 8 terms of the series by applying the formula.
+    \end{enumerate}
+    \item An S.S.C. examinee gets his result at 1:15 p.m. At 1:20 p.m., 8 students get their results, at 1:25 p.m., 27 students get theirs.
+    \begin{enumerate}
+        \item As per the stem, write down the two patterns.
+        \item How many students will know their results at exactly 2:10 p.m.? How many students would be knowing their results by 2:10 p.m.?
+        \item When will 6175225 students get their results?
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

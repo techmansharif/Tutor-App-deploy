@@ -1,0 +1,297 @@
+% Setting up the document class and necessary packages
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{titletoc}
+
+% Configuring page geometry
+\geometry{margin=1in}
+
+% Setting up font encoding
+\usepackage[T1]{fontenc}
+\usepackage{times}
+
+% Customizing section headings
+\title{Chapter 8: Circles}
+\author{}
+\date{}
+
+% Beginning the document
+\begin{document}
+
+% Creating the title
+\maketitle
+
+% Starting the content
+\section*{Introduction to Circles}
+
+A circle is a plane geometrical figure with all points equidistant from a fixed point. Concepts like center, diameter, radius, and chord were introduced in previous classes. This chapter explores propositions related to arcs and tangents of a circle in a plane.
+
+At the end of the chapter, students will be able to:
+\begin{itemize}
+    \item Explain arcs, central angles, inscribed angles, and cyclic quadrilaterals.
+    \item Prove theorems related to circles.
+    \item Apply theorems to solve circle-related problems.
+    \item Perform circle-related constructions.
+\end{itemize}
+
+\part{Circle}
+% Defining the section for Circle
+\section*{Circle}
+
+A circle is the set of points in a plane equidistant from a fixed point, its center. The constant distance is the radius. If $O$ is the center and $r$ the radius, the circle is the set $\{P : OP = r\}$. Points $A, B, C$ on the circle have $OA = OB = OC = r$. Points are concyclic if a single circle passes through them; e.g., $A, B, C$ are concyclic if they lie on one circle.
+
+Image description: A figure shows a circle with center $O$ and points $A, B, C$ on its circumference, with radii $OA, OB, OC$ marked equal.
+
+\subsection*{Interior and Exterior of a Circle}
+
+For a circle with center $O$ and radius $r$, the interior is $\{P : OP < r\}$, and the exterior is $\{P : OP > r\}$. A line segment from an interior point $P$ to an exterior point $Q$ intersects the circle at exactly one point, say $R$.
+
+Image description: A figure shows a circle with center $O$, interior point $P$, exterior point $Q$, and line segment $PQ$ intersecting the circle at point $R$.
+
+\subsection*{Chord and Diameter of a Circle}
+
+A chord is a line segment joining two points on a circle. A diameter is a chord passing through the center, with length $2r$. In a circle with center $O$, $AB$ and $AC$ are chords; $AC$ is a diameter if it passes through $O$, and $O$ is the midpoint of $AC$.
+
+Image description: A figure shows a circle with center $O$, chords $AB$ and $AC$, where $AC$ passes through $O$, marking it as a diameter, and radii $OA, OC$.
+
+\textbf{Theorem 17.} The line from the center of a circle bisecting a non-diameter chord is perpendicular to the chord.
+
+Solution: In circle $ABC$ with center $O$, let $AB$ be a chord, $M$ its midpoint. Join $O, M, A, B$. In $\triangle OAM \cong \triangle OBM$ (SSS: $AM = BM$, $OA = OB$, $OM$ common), $\angle OMA = \angle OMB$. Since $\angle OMA + \angle OMB = 180^\circ$, each is $90^\circ$. Thus, $OM \perp AB$.
+
+Image description: A figure shows a circle with center $O$, chord $AB$, midpoint $M$, and lines $OM, OA, OB$, with $OM$ perpendicular to $AB$.
+
+\textbf{Corollary 1.} The perpendicular bisector of any chord passes through the center.
+
+\textbf{Corollary 2.} A straight line intersects a circle in at most two points.
+
+\textbf{Theorem 18.} Equal chords are equidistant from the center.
+
+Solution: In a circle with center $O$, let $AB = CD$. Draw $OE \perp AB$, $OF \perp CD$. Since $OE, OF$ bisect $AB, CD$, $AE = \frac{1}{2}AB$, $CF = \frac{1}{2}CD$. Given $AB = CD$, $AE = CF$. In $\triangle OAE \cong \triangle OCF$ (RHS: $OA = OC$, $AE = CF$), $OE = OF$. Thus, $AB$ and $CD$ are equidistant from $O$.
+
+Image description: A figure shows a circle with center $O$, equal chords $AB, CD$, perpendiculars $OE \perp AB$, $OF \perp CD$, and lines $OA, OC$.
+
+\textbf{Theorem 19.} Chords equidistant from the center are equal.
+
+Solution: Let $OE \perp AB$, $OF \perp CD$, with $OE = OF$. In $\triangle OAE \cong \triangle OCF$ (RHS: $OA = OC$, $OE = OF$), $AE = CF$. Since $OE, OF$ bisect $AB, CD$, $AE = \frac{1}{2}AB$, $CF = \frac{1}{2}CD$. Thus, $AB = CD$.
+
+Image description: A figure shows a circle with center $O$, chords $AB, CD$, perpendiculars $OE \perp AB$, $OF \perp CD$ with $OE = OF$, and lines $OA, OC$.
+
+\textbf{Corollary 3.} The diameter is the greatest chord.
+
+\part{The Arc of a Circle}
+% Defining the section for The Arc of a Circle
+\section*{The Arc of a Circle}
+
+An arc is a segment of a circle between two points, $A$ and $B$, forming a major (longer) and minor (shorter) arc. Arc $ARB$ includes internal point $R$. The minor arc may be denoted $AB$. Points $A, B$ divide the circle into two arcs with no common points except $A, B$.
+
+Image description: A figure shows a circle with points $A, B$, highlighting major and minor arcs $ARB$ between $A$ and $B$.
+
+\subsection*{Arc Cut by an Angle}
+
+An angle cuts arc $APB$ if: (1) endpoints $A, B$ lie on the angle’s sides, (2) each side contains at least one endpoint, (3) interior points of $APB$ lie inside the angle.
+
+Image description: A figure shows a circle with center $O$, arc $APB$, and an angle cutting $APB$, with $A, B$ on the angle’s sides and interior points inside the angle.
+
+\subsection*{Angle in a Circle (Inscribed Angle)}
+
+An inscribed angle is formed by two chords meeting at a point on the circle, cutting an arc (major, minor, or semicircle). It stands on the cut arc and is inscribed in the conjugate arc. In $\angle ACB$, it stands on arc $APB$ and is inscribed in arc $ACB$.
+
+Image description: A figure shows a circle with $\angle ACB$ formed by chords $CA, CB$, standing on arc $APB$ and inscribed in conjugate arc $ACB$.
+
+\subsection*{Angle at the Center (Central Angle)}
+
+A central angle has its vertex at the center, cutting a minor arc. In $\angle AOB$, it stands on minor arc $APB$. For a semicircle, $\angle BOC$ is $180^\circ$, and the inscribed angle $\angle BAC$ is $90^\circ$.
+
+Image description: A figure shows a circle with center $O$, central angle $\angle AOB$ standing on minor arc $APB$, and for a semicircle, $\angle BOC = 180^\circ$ with $\angle BAC = 90^\circ$.
+
+\textbf{Theorem 20.} The central angle subtended by an arc is twice the inscribed angle subtended by the same arc.
+
+Solution: For arc $BC$ in circle $ABC$ with center $O$, let $\angle BOC$ be the central angle and $\angle BAC$ the inscribed angle. If $AC$ does not pass through $O$, draw $AD$ through $O$. In $\triangle AOB$, exterior $\angle BOD = \angle BAO + \angle ABO$. Since $OA = OB$, $\angle BAO = \angle ABO$, so $\angle BOD = 2\angle BAO$. Similarly, $\angle COD = 2\angle CAO$. Thus, $\angle BOC = \angle BOD + \angle COD = 2(\angle BAO + \angle CAO) = 2\angle BAC$.
+
+Image description: A figure shows a circle with center $O$, arc $BC$, central angle $\angle BOC$, inscribed angle $\angle BAC$, and line $AD$ through $O$, with triangles $AOB, AOC$.
+
+\textbf{Theorem 21.} Inscribed angles standing on the same arc are equal.
+
+Solution: For arc $BCD$ in circle with center $O$, let $\angle BAD, \angle BED$ be inscribed angles. Arc $BCD$ subtends $\angle BOD$ at $O$. By Theorem 20, $\angle BOD = 2\angle BAD = 2\angle BED$. Thus, $\angle BAD = \angle BED$.
+
+Image description: A figure shows a circle with center $O$, arc $BCD$, inscribed angles $\angle BAD, \angle BED$, and lines $OB, OD$.
+
+\textbf{Theorem 22.} The angle inscribed in a semicircle is a right angle.
+
+Solution: Let $AB$ be a diameter, $\angle ACB$ the inscribed angle. Arc $ADB$ subtends $\angle AOB = 180^\circ$ at $O$. By Theorem 20, $\angle ACB = \frac{1}{2}\angle AOB = 90^\circ$.
+
+Image description: A figure shows a circle with center $O$, diameter $AB$, point $C$ on the circle, and $\angle ACB$ inscribed in semicircle $ADB$, with point $D$ opposite $C$.
+
+\textbf{Corollary 4.} A circle with a right triangle’s hypotenuse as diameter passes through all vertices.
+
+\textbf{Corollary 5.} An angle inscribed in a major arc is acute.
+
+\part{Quadrilateral Inscribed in a Circle}
+% Defining the section for Quadrilateral Inscribed in a Circle
+\section*{Quadrilateral Inscribed in a Circle (Cyclic Quadrilaterals)}
+
+A cyclic quadrilateral has all vertices on a circle. Its opposite angles sum to $180^\circ$.
+
+\textbf{Theorem 23.} The sum of opposite angles of a cyclic quadrilateral is $180^\circ$.
+
+Solution: In cyclic quadrilateral $ABCD$ with center $O$, join $OA, OC$. Arc $ADC$ subtends reflex $\angle AOC = 2\angle ABC$ at $O$ and arc $ABC$ subtends $\angle AOC = 2\angle ADC$. Thus, reflex $\angle AOC + \angle AOC = 2(\angle ABC + \angle ADC) = 360^\circ$, so $\angle ABC + \angle ADC = 180^\circ$. Similarly, $\angle BAD + \angle BCD = 180^\circ$.
+
+Image description: A figure shows cyclic quadrilateral $ABCD$ inscribed in a circle with center $O$, lines $OA, OC$, and arcs $ADC, ABC$.
+
+\textbf{Corollary 6.} Extending a side of a cyclic quadrilateral yields an exterior angle equal to the opposite interior angle.
+
+\textbf{Corollary 7.} A cyclic parallelogram is a rectangle.
+
+\textbf{Theorem 24.} If a quadrilateral’s opposite angles are supplementary, its vertices are concyclic.
+
+Solution: Let $\angle ABC + \angle ADC = 180^\circ$ in quadrilateral $ABCD$. A circle through $A, B, C$ intersects $AD$ at $E$. In cyclic $ABCE$, $\angle ABC + \angle AEC = 180^\circ$. Given $\angle ABC + \angle ADC = 180^\circ$, $\angle AEC = \angle ADC$. In $\triangle CED$, exterior $\angle AEC > \angle ADC$, a contradiction unless $E = D$. Thus, $A, B, C, D$ are concyclic.
+
+Image description: A figure shows quadrilateral $ABCD$, a circle through $A, B, C$ intersecting $AD$ at $E$, line $CE$, and $\triangle CED$ with angles marked.
+
+\part{Secant and Tangent of a Circle}
+% Defining the section for Secant and Tangent of a Circle
+\section*{Secant and Tangent of a Circle}
+
+A straight line and circle in a plane may: (1) not intersect, (2) intersect at two points (secant), or (3) intersect at one point (tangent, with the point as the point of contact). Secant points enclose interior points.
+
+Image description: Three figures show: (i) line $PQ$ with no intersection with a circle, (ii) secant $PQ$ intersecting at $A, B$, (iii) tangent $PQ$ touching at $A$.
+
+\subsection*{Common Tangent}
+
+A common tangent touches two circles. If contact points differ, it’s direct (centers on same side) or transverse (opposite sides). If contact points coincide, circles touch internally (centers on same side) or externally (opposite sides).
+
+Image description: Four figures show: (a) direct common tangent $AB$ with distinct contact points, (b) transverse common tangent $AB$, (c) internal touching at a single point, (d) external touching at a single point, with centers and contact points marked.
+
+\textbf{Theorem 25.} A tangent is perpendicular to the radius at the point of contact.
+
+Solution: Let $PT$ be a tangent at $P$, $OP$ the radius. For any point $Q \neq P$ on $PT$, $Q$ is exterior, so $OQ > OP$. Thus, $OP$ is the shortest distance from $O$ to $PT$, implying $PT \perp OP$.
+
+Image description: A figure shows a circle with center $O$, tangent $PT$ at $P$, radius $OP$, and point $Q$ on $PT$ with line $OQ$.
+
+\textbf{Corollary 8.} Only one tangent exists at a point on a circle.
+
+\textbf{Corollary 9.} The perpendicular to a tangent at its contact point passes through the center.
+
+\textbf{Corollary 10.} The perpendicular to a radius at a point on the circle is a tangent.
+
+\textbf{Theorem 26.} Tangents from an external point to a circle are equal in length.
+
+Solution: From external point $P$, tangents $PA, PB$ touch circle $ABC$ at $A, B$. Join $OA, OB, OP$. Since $PA \perp OA$, $\angle PAO = 90^\circ$; similarly, $\angle PBO = 90^\circ$. In $\triangle PAO \cong \triangle PBO$ (RHS: $PO$ common, $OA = OB$), $PA = PB$.
+
+Image description: A figure shows a circle with center $O$, external point $P$, tangents $PA, PB$ at $A, B$, and lines $OA, OB, OP$.
+
+\textbf{Theorem 27.} If two circles touch externally, the contact point and centers are collinear.
+
+Solution: Let circles with centers $A, B$ touch externally at $O$, with common tangent $POQ$. Since $OA \perp POQ$ and $OB \perp POQ$, $\angle POA = \angle POB = 90^\circ$. Thus, $\angle AOB = 180^\circ$, so $A, O, B$ are collinear.
+
+Image description: A figure shows two circles touching externally at $O$, centers $A, B$, common tangent $POQ$, and lines $OA, OB$.
+
+\textbf{Corollary 11.} For external touching, the center distance equals the sum of radii.
+
+\textbf{Corollary 12.} For internal touching, the center distance equals the difference of radii.
+
+\part{Constructions Related to Circles}
+% Defining the section for Constructions Related to Circles
+\section*{Constructions Related to Circles}
+
+\subsection*{Construction 6: Determine the Center of a Circle or Arc}
+
+Given a circle or arc, find its center.
+
+\textbf{Drawing:}
+\begin{enumerate}
+    \item Select three points $A, B, C$ on the circle or arc.
+    \item Join $A, B$ and $B, C$. Draw perpendicular bisectors $EF$ of $AB$ and $GH$ of $BC$, intersecting at $O$.
+\end{enumerate}
+$O$ is the center.
+
+\textbf{Proof:} Since $EF$ and $GH$ are perpendicular bisectors, they pass through the center. Their intersection $O$ is the center.
+
+Image description: Two figures show: (a) a circle with chords $AB, BC$, and perpendicular bisectors $EF, GH$ intersecting at $O$, (b) an arc with points $A, B, C$, chords $AB, BC$, and bisectors $EF, GH$ intersecting at $O$.
+
+\subsection*{Construction 7: Draw a Tangent at a Point on a Circle}
+
+Given point $A$ on a circle with center $O$, draw a tangent at $A$.
+
+\textbf{Drawing:}
+\begin{enumerate}
+    \item Join $O, A$.
+    \item At $A$, draw $AP \perp OA$.
+\end{enumerate}
+$AP$ is the tangent.
+
+\textbf{Proof:} Since $OA$ is the radius and $AP \perp OA$, $AP$ is the tangent.
+
+Image description: A figure shows a circle with center $O$, point $A$ on the circle, radius $OA$, and tangent $AP$ perpendicular to $OA$ at $A$.
+
+\subsection*{Construction 8: Draw Tangents from an External Point}
+
+Given point $P$ outside a circle with center $O$, draw tangents from $P$.
+
+\textbf{Drawing:}
+\begin{enumerate}
+    \item Join $P, O$. Find midpoint $M$ of $PO$.
+    \item With center $M$ and radius $MO$, draw a circle intersecting the given circle at $A, B$.
+    \item Join $A, P$ and $B, P$.
+\end{enumerate}
+$AP, BP$ are the tangents.
+
+\textbf{Proof:} In circle $APB$, $PO$ is a diameter, so $\angle PAO = 90^\circ$. Thus, $AP \perp OA$, making $AP$ a tangent at $A$. Similarly, $BP$ is a tangent at $B$.
+
+Image description: A figure shows a circle with center $O$, external point $P$, line $PO$, midpoint $M$, a second circle through $A, B$, and tangents $AP, BP$.
+
+\subsection*{Construction 9: Draw a Circumcircle for a Triangle}
+
+Given $\triangle ABC$, draw its circumcircle.
+
+\textbf{Drawing:}
+\begin{enumerate}
+    \item Draw perpendicular bisectors $EM$ of $AB$ and $FN$ of $AC$, intersecting at $O$.
+    \item Join $O, A$. With center $O$ and radius $OA$, draw a circle.
+\end{enumerate}
+The circle passes through $A, B, C$.
+
+\textbf{Proof:} Since $O$ lies on $EM$, $OA = OB$. Since $O$ lies on $FN$, $OA = OC$. Thus, $OA = OB = OC$, so the circle with center $O$ and radius $OA$ passes through $A, B, C$.
+
+Image description: A figure shows $\triangle ABC$, perpendicular bisectors $EM$ of $AB$ and $FN$ of $AC$ intersecting at $O$, and a circle with center $O$ passing through $A, B, C$.
+
+\subsection*{Construction 10: Draw an Incircle for a Triangle}
+
+Given $\triangle ABC$, draw its incircle.
+
+\textbf{Drawing:}
+\begin{enumerate}
+    \item Draw angle bisectors $BL$ of $\angle ABC$ and $CM$ of $\angle ACB$, intersecting at $O$.
+    \item From $O$, draw $OD \perp BC$, intersecting at $D$.
+    \item With center $O$ and radius $OD$, draw a circle.
+\end{enumerate}
+The circle is the incircle.
+
+\textbf{Proof:} From $O$, draw $OE \perp AC$, $OF \perp AB$, intersecting at $E, F$. Since $O$ lies on the bisector of $\angle ABC$, $OF = OD$. Since $O$ lies on the bisector of $\angle ACB$, $OE = OD$. Thus, $OD = OE = OF$. The circle with center $O$ and radius $OD$ touches $BC, AC, AB$ at $D, E, F$, forming the incircle.
+
+Image description: A figure shows $\triangle ABC$, angle bisectors $BL, CM$ intersecting at $O$, perpendiculars $OD \perp BC$, $OE \perp AC$, $OF \perp AB$ at $D, E, F$, and a circle with center $O$ touching sides at $D, E, F$.
+
+\subsection*{Construction 11: Draw an Ex-circle for a Triangle}
+
+Given $\triangle ABC$, draw an ex-circle touching $BC$ and extended $AB, AC$.
+
+\textbf{Drawing:}
+\begin{enumerate}
+    \item Extend $AB$ to $D$, $AC$ to $F$.
+    \item Draw bisectors $BM$ of $\angle DBC$ and $CN$ of $\angle FCB$, intersecting at $E$.
+    \item From $E$, draw $EH \perp BC$, intersecting at $H$.
+    \item With center $E$ and radius $EH$, draw a circle.
+\end{enumerate}
+Circle $HGL$ is the ex-circle.
+
+\textbf{Proof:} From $E$, draw $EG \perp BD$, $EL \perp CF$, intersecting at $G, L$. Since $E$ lies on the bisector of $\angle DBC$, $EH = EG$. Since $E$ lies on the bisector of $\angle FCB$, $EH = EL$. Thus, $EH = EG = EL$. The circle with center $E$ and radius $EH$ touches $BC, BD, CF$ at $H, G, L$, forming the ex-circle.
+
+Image description: A figure shows $\triangle ABC$, extended sides $AB$ to $D$, $AC$ to $F$, bisectors $BM$ of $\angle DBC$, $CN$ of $\angle FCB$ intersecting at $E$, perpendiculars $EH \perp BC$, $EG \perp BD$, $EL \perp CF$ at $H, G, L$, and a circle touching these lines.
+
+% Ending the document
+\end{document}

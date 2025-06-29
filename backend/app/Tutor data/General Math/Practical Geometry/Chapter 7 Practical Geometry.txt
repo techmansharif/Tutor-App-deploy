@@ -1,0 +1,221 @@
+% Setting up the document class and necessary packages
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{titletoc}
+
+% Configuring page geometry
+\geometry{margin=1in}
+
+% Setting up font encoding
+\usepackage[T1]{fontenc}
+\usepackage{times}
+
+% Customizing section headings
+\title{Chapter 7: Practical Geometry}
+\author{}
+\date{}
+
+% Beginning the document
+\begin{document}
+
+% Creating the title
+\maketitle
+
+% Starting the content
+\section*{Introduction to Practical Geometry}
+
+In previous classes, geometrical figures were drawn to prove propositions and solve exercises without requiring precision. However, precise constructions are essential in fields like architecture and engineering, where rulers and compasses are used. Students have learned to construct triangles and quadrilaterals with these tools. This chapter focuses on constructing specific triangles and quadrilaterals with given data.
+
+At the end of the chapter, students will be able to:
+\begin{itemize}
+    \item Explain triangles and quadrilaterals using figures.
+    \item Construct triangles using given data.
+    \item Construct quadrilaterals, parallelograms, and trapeziums using given data.
+\end{itemize}
+
+\part{Construction of Triangles}
+% Defining the section for Construction of Triangles
+\section*{Construction of Triangles}
+
+A triangle is defined by three sides and three angles, but not all need specification due to properties like the sum of angles equaling $180^\circ$ or congruence theorems. The following combinations suffice for a unique triangle, as learned in Class VII:
+\begin{enumerate}
+    \item Three sides.
+    \item Two sides and their included angle.
+    \item Two angles and their adjacent side.
+    \item Two angles and an opposite side.
+    \item Two sides and an opposite angle.
+    \item Hypotenuse and a side of a right-angled triangle.
+\end{enumerate}
+
+Image description: A series of diagrams labeled (a) to (h) illustrate the six combinations for triangle construction, showing sides, angles, and their configurations.
+
+Not all three parts guarantee a unique triangle; for example, three angles allow infinitely many similar triangles. Below are constructions for specific cases.
+
+\subsection*{Construction 1: Base, Base Adjacent Angle, and Sum of Other Two Sides}
+
+Given base $a$, base adjacent angle $\angle x$, and sum $s$ of the other two sides for $\triangle ABC$, construct the triangle.
+
+\textbf{Drawing:}
+\begin{enumerate}
+    \item From ray $BE$, cut $BC = a$. At $B$, construct $\angle CBF = \angle x$.
+    \item From ray $BF$, cut $BD = s$.
+    \item Join $C, D$. At $C$, construct $\angle DCG = \angle BDC$ on the side of $DC$ containing $B$.
+    \item Let ray $CG$ intersect $BD$ at $A$.
+\end{enumerate}
+$\triangle ABC$ is the required triangle.
+
+\textbf{Proof:} In $\triangle ACD$, $\angle ADC = \angle ACD$ (by construction), so $AC = AD$. In $\triangle ABC$, $\angle ABC = \angle x$, $BC = a$, and $BA + AC = BA + AD = BD = s$. Thus, $\triangle ABC$ satisfies the given conditions.
+
+\textbf{Alternate Method:}
+\begin{enumerate}
+    \item From ray $BE$, cut $BC = a$. At $B$, construct $\angle CBF = \angle x$.
+    \item From ray $BF$, cut $BD = s$.
+    \item Join $C, D$. Construct the perpendicular bisector $PQ$ of $CD$.
+    \item Let $PQ$ intersect $BD$ at $A$ and $CD$ at $R$. Join $A, C$.
+\end{enumerate}
+$\triangle ABC$ is the required triangle.
+
+\textbf{Proof:} In $\triangle ACR \cong \triangle ADR$ (SAS: $CR = DR$, $AR = AR$, $\angle ARC = \angle ARD = 90^\circ$), so $AC = AD$. In $\triangle ABC$, $\angle ABC = \angle x$, $BC = a$, $BA + AC = BA + AD = BD = s$. Thus, $\triangle ABC$ is the required triangle.
+
+\subsection*{Construction 2: Base, Acute Base Adjacent Angle, and Difference of Other Two Sides}
+
+Given base $a$, acute base adjacent angle $\angle x$, and difference $d$ of the other two sides for $\triangle ABC$, construct the triangle.
+
+\textbf{Drawing:}
+\begin{enumerate}
+    \item From ray $BF$, cut $BC = a$. At $B$, construct $\angle CBF = \angle x$.
+    \item From ray $BE$, cut $BD = d$.
+    \item Join $C, D$. At $C$, construct $\angle DCA = \angle EDC$ on the side of $DC$ containing $E$.
+    \item Let ray $CA$ intersect $BE$ at $A$.
+\end{enumerate}
+$\triangle ABC$ is the required triangle.
+
+\textbf{Proof:} In $\triangle ACD$, $\angle ACD = \angle ADC$ (by construction), so $AD = AC$. Thus, $AB - AC = AB - AD = BD = d$. In $\triangle ABC$, $BC = a$, $AB - AC = d$, $\angle ABC = \angle x$. Thus, $\triangle ABC$ is the required triangle.
+
+\subsection*{Construction 3: Two Base Adjacent Angles and Perimeter}
+
+Given perimeter $p$ and base adjacent angles $\angle x, \angle y$ for $\triangle ABC$, construct the triangle.
+
+\textbf{Drawing:}
+\begin{enumerate}
+    \item From ray $DF$, cut $DE = p$. Construct $\angle EDL = \angle x$ at $D$ and $\angle DEM = \angle y$ at $E$ on the same side of $DE$.
+    \item Draw angle bisectors $DG$ and $EH$ of $\angle EDL$ and $\angle DEM$.
+    \item Let $DG$ and $EH$ intersect at $A$. At $A$, construct $\angle DAB = \angle ADE$ and $\angle EAC = \angle AED$.
+    \item Let rays $AB$ and $AC$ intersect $DE$ at $B$ and $C$.
+\end{enumerate}
+$\triangle ABC$ is the required triangle.
+
+\textbf{Proof:} In $\triangle ABD$, $\angle ADB = \angle DAB$ (by construction), so $AB = DB$. In $\triangle ACE$, $\angle AEC = \angle EAC$, so $CA = CE$. Thus, $AB + BC + CA = DB + BC + CE = DE = p$. Also, $\angle ABC = \angle ADB + \angle DAB = \angle x$, and $\angle ACB = \angle AEC + \angle EAC = \angle y$. Thus, $\triangle ABC$ is the required triangle.
+
+\textbf{Example 1.} Construct $\triangle ABC$ with $\angle B = 60^\circ$, $\angle C = 45^\circ$, and perimeter $AB + BC + CA = 11$ cm.
+
+Solution:
+\begin{enumerate}
+    \item Draw $PQ = 11$ cm.
+    \item At $P$, construct $\angle QPL = 60^\circ$; at $Q$, construct $\angle PQM = 45^\circ$ on the same side of $PQ$.
+    \item Draw bisectors $PG$ and $QH$ of $\angle QPL$ and $\angle PQM$, intersecting at $A$.
+    \item Draw perpendicular bisectors of $PA$ and $QA$, intersecting $PQ$ at $B$ and $C$.
+    \item Join $A, B$ and $A, C$.
+\end{enumerate}
+$\triangle ABC$ is the required triangle.
+
+\textbf{Example 2.} For $\triangle ABC$, base $a = 3$ cm, base adjacent acute angle $45^\circ$, sum of other sides $s = 6$ cm.
+\begin{enumerate}
+    \item Express the information in a picture.
+    \item Construct the triangle (construction and description required).
+    \item Construct a square with perimeter $2s$ (construction and description required).
+\end{enumerate}
+
+Solution:
+\begin{enumerate}
+    \item 
+    Image description: A diagram shows a ray $AX$ with $AB = 3$ cm, an angle of $45^\circ$ at $A$, and a segment $AD = 6$ cm along the angle’s ray, representing the base, angle, and sum of sides.
+    \item \textbf{Construction:} From ray $AX$, cut $AB = 3$ cm. At $A$, construct $\angle XAE = 45^\circ$. From ray $AE$, cut $AD = 6$ cm. Join $B, D$. At $B$, construct $\angle DBC = \angle ADB$. Ray $BC$ intersects $AD$ at $C$. $\triangle ABC$ is the required triangle.
+    \item \textbf{Construction:} For a square with perimeter $p = 2s = 12$ cm, side length is $\frac{p}{4} = 3$ cm. From ray $AX$, cut $AB = 3$ cm. At $A$, construct $AE \perp AB$. Cut $AD = 3$ cm from $AE$. With centers $B$ and $D$, draw arcs of radius 3 cm inside $\angle BAD$, intersecting at $C$. Join $B, C$ and $C, D$. $ABCD$ is the required square.
+\end{enumerate}
+
+Image description: A figure shows the construction of $\triangle ABC$ with $AB = 3$ cm, $\angle XAE = 45^\circ$, and $AD = 6$ cm, followed by a square $ABCD$ with side 3 cm, constructed using perpendiculars and arcs.
+
+\part{Construction of Quadrilaterals}
+% Defining the section for Construction of Quadrilaterals
+\section*{Construction of Quadrilaterals}
+
+Unlike triangles, constructing a quadrilateral requires five independent data, such as:
+\begin{enumerate}
+    \item Four sides and an angle.
+    \item Four sides and a diagonal.
+    \item Three sides and two diagonals.
+    \item Three sides and two included angles.
+    \item Two sides and three angles.
+\end{enumerate}
+
+Image description: Diagrams illustrate five combinations for quadrilateral construction, showing sides, angles, and diagonals as specified.
+
+In Class VIII, these constructions were discussed, often involving triangle constructions since diagonals divide quadrilaterals into triangles. Special quadrilaterals, like parallelograms (two adjacent sides and included angle) or squares (one side), require fewer data due to their properties.
+
+\subsection*{Construction 4: Two Diagonals and Included Angle of a Parallelogram}
+
+Given diagonals $a, b$ and included angle $\angle x$ for parallelogram $ABCD$, construct it.
+
+\textbf{Drawing:}
+\begin{enumerate}
+    \item From ray $AE$, cut $AC = a$. Bisect $AC$ at $O$.
+    \item At $O$, construct $\angle AOP = \angle x$, extending to ray $OQ$.
+    \item From rays $OP$ and $OQ$, cut $OB = OD = \frac{b}{2}$.
+    \item Join $A, B$; $A, D$; $C, B$; $C, D$.
+\end{enumerate}
+$ABCD$ is the required parallelogram.
+
+\textbf{Proof:} In $\triangle AOB \cong \triangle COD$ (SAS: $OA = OC = \frac{a}{2}$, $OB = OD = \frac{b}{2}$, $\angle AOB = \angle COD$), $AB = CD$, $\angle ABO = \angle CDO$ (alternate angles). Thus, $AB \parallel CD$. Similarly, $AD \parallel BC$. Hence, $ABCD$ is a parallelogram with diagonals $AC = a$, $BD = b$, and $\angle AOB = \angle x$.
+
+\subsection*{Construction 5: Two Diagonals and a Side of a Parallelogram}
+
+Given diagonals $a, b$ and side $c$ for parallelogram $ABCD$, construct it.
+
+\textbf{Drawing:}
+\begin{enumerate}
+    \item Bisect $a$ and $b$. From ray $AX$, cut $AB = c$.
+    \item With centers $A$ and $B$, draw arcs of radii $\frac{a}{2}$ and $\frac{b}{2}$ on the same side of $AB$, intersecting at $O$.
+    \item Join $A, O$; $B, O$. Extend $AO$ to $E$, $BO$ to $F$. Cut $OC = \frac{a}{2}$ from $OE$, $OD = \frac{b}{2}$ from $OF$.
+    \item Join $A, D$; $D, C$; $B, C$.
+\end{enumerate}
+$ABCD$ is the required parallelogram.
+
+\textbf{Proof:} In $\triangle AOB \cong \triangle COD$ (SAS: $OA = OC = \frac{a}{2}$, $OB = OD = \frac{b}{2}$, $\angle AOB = \angle COD$), $AB = CD$, $\angle ABO = \angle ODC$ (alternate angles). Thus, $AB \parallel CD$. Similarly, $AD \parallel BC$. Hence, $ABCD$ is a parallelogram with side $AB = c$ and diagonals $AC = a$, $BD = b$.
+
+\subsection*{Example 3: Parallel Sides and Angles Included with Larger Side of a Trapezium}
+
+Given parallel sides $a, b$ ($a > b$), and angles $\angle x, \angle y$ included with side $a$ for trapezium $ABCD$, construct it.
+
+Solution:
+\begin{enumerate}
+    \item From ray $AX$, cut $AB = a$. At $A$, construct $\angle BAY = \angle x$; at $B$, construct $\angle ABZ = \angle y$.
+    \item From $AB$, cut $AE = b$. At $E$, construct $EC \parallel AY$, intersecting $BZ$ at $C$.
+    \item Construct $CD \parallel BA$, intersecting $AY$ at $D$.
+\end{enumerate}
+$ABCD$ is the required trapezium.
+
+\textbf{Proof:} By construction, $AE \parallel CD$, $AD \parallel EC$, so $AECD$ is a parallelogram, and $CD = AE = b$. In $ABCD$, $AB = a$, $CD = b$, $AB \parallel CD$, $\angle BAD = \angle x$, $\angle ABC = \angle y$. Thus, $ABCD$ is the required trapezium.
+
+\textbf{Example 4.} For $\triangle ABC$, $\angle B = 60^\circ$, $\angle C = 45^\circ$, perimeter $p = 13$ cm.
+\begin{enumerate}
+    \item Construct $\angle B$ and $\angle C$ with scale and compass.
+    \item Construct the triangle (construction and description required).
+    \item Construct a rhombus with side length $\frac{p}{3}$ and angle $\angle B$ (construction and description required).
+\end{enumerate}
+
+Solution:
+\begin{enumerate}
+    \item 
+    Image description: Two diagrams show constructions of $\angle B = 60^\circ$ (equilateral triangle method) and $\angle C = 45^\circ$ (perpendicular bisector method).
+    \item \textbf{Construction:} Draw $PQ = 13$ cm. At $P$, construct $\angle QPL = 60^\circ$; at $Q$, construct $\angle PQM = 45^\circ$ on the same side. Draw bisectors $PG$ and $QH$, intersecting at $A$. Draw perpendicular bisectors of $PA$ and $QA$, intersecting $PQ$ at $B$ and $C$. Join $A, B$; $A, C$. $\triangle ABC$ is the required triangle.
+    \item \textbf{Construction:} For a rhombus with side $\frac{p}{3} = \frac{13}{3}$ cm and angle $60^\circ$, draw $AB = \frac{13}{3}$ cm. At $A$, construct $\angle BAE = 60^\circ$. Cut $AD = \frac{13}{3}$ cm from $AE$. With centers $B$ and $D$, draw arcs of radius $\frac{13}{3}$ cm, intersecting at $C$. Join $B, C$; $C, D$. $ABCD$ is the required rhombus.
+\end{enumerate}
+
+% Ending the document
+\end{document}

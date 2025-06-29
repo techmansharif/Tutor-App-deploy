@@ -230,8 +230,8 @@ const fetchPracticeQuestion = async (submission = null) => {
   return (
     <div className="practice-quiz-container">
       <div className="quiz-header">
-         <div className="quiz-title-section">
-                  <h2>Practice</h2>
+         <div className="quiz-title-section" style={{ color: 'green' }}>
+                  <h2><i className="bi bi-journal-bookmark-fill" ></i> PRACTICE</h2>
                   <h3>{subject}</h3>
                   <h3>{topic}</h3>
                   <h3>{subtopic}</h3>

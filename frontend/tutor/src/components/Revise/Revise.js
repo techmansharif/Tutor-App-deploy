@@ -51,7 +51,7 @@ useEffect(() => {
       
       // Filter out unwanted subjects like in Selection.js
       const filteredSubjects = response.data.filter(subject => 
-        !['Higher Math', 'General Math', 'quiz1'].includes(subject.name)
+        !['Higher Math', 'General Math', 'quiz1', 'data'].includes(subject.name)
       );
       
       setSubjects(filteredSubjects);
@@ -70,7 +70,13 @@ useEffect(() => {
         },
         withCredentials: true
       });
-      setTopics(response.data);
+      let sortedTopics;
+          if  (selectedSubject !== "English") {
+              sortedTopics = response.data.sort((a, b) => a.name.localeCompare(b.name, 'bn', { numeric: true }));
+            } else {
+              sortedTopics=response.data;
+            }
+          setTopics(sortedTopics);
     } catch (error) {
       console.error('Error fetching topics:', error);
     }
@@ -250,7 +256,7 @@ const handleAnswerSelect = (option) => {
     return (
       <div className="revise-container">
         <div className="revise-header">
-          <h2>Revision Mode</h2>
+          <h2>REVISION MODE</h2>
         </div>
         <p className="revise-description">Review questions you answered incorrectly in your recent practice and quiz sessions.</p>
         
@@ -333,7 +339,7 @@ const handleAnswerSelect = (option) => {
               onClick={() => startRevision('random')}
               className="start-button random-button"
             >
-              Start Random Revision
+              Start All Revision
             </button>
           </div>
         </div>
@@ -347,7 +353,13 @@ const handleAnswerSelect = (option) => {
       <div className="revise-container">
         <div className="completion-content">
           <h2>Revision Complete!</h2>
-          <p className="completion-message">You have reviewed all {totalQuestions} failed questions.</p>
+          {totalQuestions === 0 ? (
+          <p className="completion-message">You have no questions to review!</p>
+        ) : (
+          <p className="completion-message">
+            You have reviewed all {totalQuestions} failed questions.
+          </p>
+        )}
           <button onClick={handleRestart} className="restart-button">
             Restart Revise
           </button>
@@ -374,9 +386,11 @@ const handleAnswerSelect = (option) => {
       <div className="revise-header">
         <div className="revise-title-section">
            <button onClick={handleRestart} className="restart-button">
-          Restart Revise
+          Restart Revision
         </button>
-          <h2>Revision Mode</h2>
+          
+          <h2 style={{marginTop: '1em'}}> REVISION</h2>
+
           {mode === 'subject' && selectedSubject && (
             <>
               <h3>{selectedSubject}</h3>
@@ -386,6 +400,7 @@ const handleAnswerSelect = (option) => {
           )}
         </div>
       </div>
+      
       
       <div className="revise-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <p style={{ margin: '5px 0', fontWeight: 'normal' }}>

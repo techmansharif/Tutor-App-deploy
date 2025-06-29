@@ -1,0 +1,262 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\geometry{a4paper, margin=1in}
+
+% Font configuration (loaded last)
+\usepackage{noto}
+
+\begin{document}
+
+% Title and Introduction
+\section*{Chapter 6: Inequality}
+
+We have acquired knowledge about equation and equality. But inequality also has an important and significant role in our practical life.
+
+At the end of this chapter, students will be able to-
+\begin{itemize}
+    \item explain the inequality of one and two variables;
+    \item form and solve simple inequalities of two variables;
+    \item use inequalities to solve practical mathematical problems;
+    \item solve inequalities of one and two variables graphically.
+\end{itemize}
+
+% Part 1: Concepts and Laws of Inequalities
+\part{Concepts and Laws of Inequalities}
+
+% Concept of Inequality
+\subsection*{Concept of Inequality}
+
+Suppose, there are 200 students in a class. Obviously it will be seen that, neither all the students are present in the class, nor all of them are absent always. If the number of present student is $x$ in a particular day we can write $0 < x < 200$. In a similar situation, we see that not all the invited persons are present in a ceremony. Clear conception of inequalities is needed in making dresses and other consumer goods. Essential materials for constructing buildings, printing books and for many other similar works cannot be estimated exactly. So, initially we have to buy or collect those essential materials on the basis of idea. Therefore, it is understood that the knowledge of inequalities is very essential in our everyday life.
+
+In case of real numbers,
+$a > b$ if and only if $(a - b)$ is positive therefore $(a - b) > 0$
+$a < b$ if and only if $(a - b)$ negative therefore $(a - b) < 0$
+
+Some Laws Regarding Inequality:
+\begin{enumerate}
+    \item $a < b \Leftrightarrow b > a$
+    \item If $a > b$, for any $c$
+    \[ a + c > b + c \text{ and } a - c > b - c \]
+    \item If $a > b$, for any $c$
+    \[ \begin{aligned}
+    & a c > b c \text{ and } \frac{a}{c} > \frac{b}{c} \text{ when } c > 0 \\
+    & a c < b c \text{ and } \frac{a}{c} < \frac{b}{c} \text{ when } c < 0
+    \end{aligned} \]
+\end{enumerate}
+
+\textbf{Example 1.} If $x < 2$,
+\begin{enumerate}
+    \item $x + 2 < 4$ [Adding 2 in both sides]
+    \item $x - 2 < 0$ [Subtracting 2 in both sides]
+    \item $2 x < 4$ [Multiplying both sides by 2]
+    \item $-3 x > -6$ [Multiplying both sides by -3]
+\end{enumerate}
+
+Here it should be noted that,
+$a \geq b$ means $a > b$ or $a = b$
+$a \leq b$ means $a < b$ or $a = b$
+$a < b < c$ means $a < b$ and $b < c$ therefore $a < c$
+
+\textbf{Example 2.} As $3 \geq 1$ is true, $3 > 1$
+$2 \leq 4$ is true since $2 < 4$
+$2 < 3 < 4$ is true since $2 < 3$ and $3 < 4$
+
+% Part 2: Solving Linear Inequalities of One Variable
+\part{Solving Linear Inequalities of One Variable}
+
+% Examples of Solving Linear Inequalities
+\subsection*{Solving Linear Inequalities}
+
+\textbf{Example 3.} Solve and show the solution set on a number line: $4 x + 4 > 16$
+
+solution: Given that, $4 x + 4 > 16$
+\[ \text{or, } 4 x + 4 - 4 > 16 - 4 \text{ [Subtracting 4 from both sides]} \]
+\[ \text{or, } 4 x > 12 \]
+\[ \text{or, } \frac{4 x}{4} > \frac{12}{4} \text{ [Dividing both sides by 4]} \]
+\[ \text{or, } x > 3 \]
+$\therefore$ The required solution $x > 3$
+Here the solution set, $S = \{x \in R : x > 3\}$
+
+Image description: A number line with an open circle at $x = 3$ and an arrow extending to the right, indicating all real numbers greater than 3.
+
+\textbf{Example 4.} Solve and show the solution set on a number line: $x - 9 > 3 x + 1$
+
+solution: Given that, $x - 9 > 3 x + 1$
+\[ \text{or, } x - 9 + 9 > 3 x + 1 + 9 \]
+\[ \text{or, } x > 3 x + 10 \]
+\[ \text{or, } x - 3 x > 3 x + 10 - 3 x \]
+\[ \text{or, } -2 x > 10 \]
+\[ \text{or, } \frac{-2 x}{-2} < \frac{10}{-2} \text{ [the direction of inequality is reversed due to dividing both sides by negative integer -2]} \]
+\[ \text{or, } x < -5 \]
+$\therefore$ The required solution $x < -5$
+
+Image description: A number line with an open circle at $x = -5$ and an arrow extending to the left, indicating all real numbers less than -5.
+
+Nota Bene: Just like how the solution of an equation is expressed by an equation (equality), the solution of an inequality are usually expressed by an inequality. The solution set of an inequality is usually an infinite subset of the set of real numbers.
+
+\textbf{Example 5.} Solve: $a(x + b) < c, [a \neq 0]$
+
+solution: If $a$ is positive, $\frac{a(x + b)}{a} < \frac{c}{a}$ [Dividing both sides by $a$]
+\[ \text{or, } x + b < \frac{c}{a} \text{ or, } x < \frac{c}{a} - b \]
+If $a$ is negative then by the same process we get, $\frac{a(x + b)}{a} > \frac{c}{a}$ or, $x + b > \frac{c}{a}$ or, $x > \frac{c}{a} - b$
+$\therefore$ The required solution: (i) $x < \frac{c}{a} - b$ if $a > 0$, (ii) $x > \frac{c}{a} - b$ if $a < 0$.
+
+Nota Bene: If $a$ is zero and $c$ is positive, then the inequality holds for any value of $x$. But if $a$ is zero and $c$ is negative, then the inequality has no solution.
+
+% Part 3: Applications of Inequalities
+\part{Applications of Inequalities}
+
+% Application of Inequalities
+\subsection*{Application of Inequalities}
+
+You have learnt to solve problems using equations. Following the same procedure, you will be able to solve problems regarding inequality.
+
+\textbf{Example 6.} In an examination, Roma obtained $5 x$ and $6 x$ marks and Kumkum obtained $4 x$ and 84 marks in Bangla 1st and 2nd paper respectively. None of them secured less than 40 marks in any paper. Kumkum secured the first position and Roma secured the second position in Bangla. Express the possible values of $x$ using inequality.
+
+solution: The total marks obtained by Roma and Kumkum in Bangla are $5 x + 6 x$ and $4 x + 84$ respectively.
+According to the question, $5 x + 6 x < 4 x + 84$
+\[ \text{or, } 5 x + 6 x - 4 x < 84 \text{ or, } 7 x < 84 \]
+\[ \text{or, } x < \frac{84}{7} \text{ or, } x < 12 \]
+But, $4 x \geq 40$ [obtained minimum mark is 40] or, $x \geq 10$ or, $10 \leq x$
+\[ \therefore 10 \leq x < 12 \]
+
+\textbf{Example 7.} A student has bought $x$ pencils at Tk. 5 each and $(x + 4)$ notebooks at Tk. 8 each. If the total cost does not exceed Tk. 97, what is the maximum number of pencils he has bought?
+
+solution: The price of $x$ pencils is Tk. $5 x$ and that of $(x + 4)$ notebooks is Tk. $8(x + 4)$.
+According to the question, $5 x + 8(x + 4) \leq 97$
+\[ \text{or, } 5 x + 8 x + 32 \leq 97 \]
+\[ \text{or, } 13 x \leq 65 \]
+\[ \text{or, } x \leq \frac{65}{13} \]
+\[ \text{or, } x \leq 5 \]
+$\therefore$ The maximum number of pencils the student has bought is 5.
+
+% Part 4: Linear Inequalities with Two Variables and Graphing
+\part{Linear Inequalities with Two Variables and Graphing}
+
+% Linear Inequality with Two Variables
+\subsection*{Linear Inequality with Two Variables}
+
+We have learned to draw the graph of the linear equations with two variables of the form $y = m x + c$ (whose general form is $a x + b y + c = 0$) (in class 8 and class 9-10). We have seen that the graph of each equation of this type is a straight line. In $X Y$ plane, co-ordinates of any point on the graph of equation $a x + b y + c = 0$ satisfies the equation. That means the left hand side of the equation will be zero if we replace the $x$ and $y$ with the abscissa and ordinate respectively of that point. On the other hand, the co-ordinates of any point outside the graph does not satisfy the equation, in other words for abscissa and ordinate of that point the value of $a x + b y + c$ is greater or less than zero. When $x$ and $y$ of the expression $a x + b y + c$ are replaced respectively by the abscissa and ordinate of any point $P$ on the plane, the value of the expression is called the value of expression at the point $P$ and that value is generally denoted by $f(P)$. If $P$ is on the graph, $f(P) = 0$, if the point lies outside the graph then $f(P) > 0$ or $f(P) < 0$.
+
+As a matter of fact, in reality all points outside the graph is divided into two half-planes by the graph. For each point $P$ of one half plane, $f(P) > 0$; for each point $P$ of other half plane, $f(P) < 0$. In fact, for each point $P$ on the graph, $f(P) = 0$.
+
+\textbf{Example 8.} Considering the equation $x + y - 3 = 0$.
+From the equation we get: $y = 3 - x$
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$x$ & 0 & 3 & 1 \\
+\hline
+$y$ & 3 & 0 & 2 \\
+\hline
+\end{tabular}
+\end{center}
+
+Image description: A graph of the linear equation $x + y - 3 = 0$ (or $y = 3 - x$), plotted using points (0, 3), (3, 0), and (1, 2). The straight line divides the $XY$-plane into two half-planes, labeled (a) above the line and (b) below the line. The line passes through the plotted points, with the plane shaded to indicate regions (a) and (b).
+
+On the $(x, y)$ plane, taking the length of the side of a small square of the graph paper as unit, the graph of the above equation is shown below:
+
+This graph-line divides the plane into three parts. These are:
+\begin{enumerate}
+    \item Points on the side marked (a) of the line
+    \item Points on the side marked (b) of the line and
+    \item Points which lie on the line
+\end{enumerate}
+
+Here the side marked (a) may be called the upper part of the graph-line and the side marked (b) may be called the lower part of the graph-line.
+\begin{enumerate}
+    \item Three points $(3, 3), (4, 1), (6, -1)$ are taken on the side marked $[(\text{a})]$. The values of $x + y - 3$ in these points are $3, 2, 2$ respectively, which are all positive.
+    \item Three points $(0, 0), (1, 1), (-1, -1)$ are taken on the side marked $[(\text{b})]$. The values of $x + y - 3$ in these points are $-3, -1, -5$ respectively, which are all negative.
+\end{enumerate}
+
+Nota Bene: We can determine which side is positive and which side is negative of $a x + b y + c = 0$, by taking a point on the one side of the graph of the line and then determining the value of $a x + b y + c$ at that point.
+
+% Graph of Inequalities with Two Variables
+\subsection*{Graph of Inequalities with Two Variables}
+
+\textbf{Example 9.} Draw the graph of the inequality $x + y - 3 > 0$ or $x + y - 3 < 0$.
+
+solution: To draw the graph of the above inequalities, we first draw the graph of the equation $x + y - 3 = 0$.
+
+From the equation $x + y - 3 = 0$ we get,
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$x$ & 0 & 3 & 1 \\
+\hline
+$y$ & 3 & 0 & 2 \\
+\hline
+\end{tabular}
+\end{center}
+
+Image description: A graph of the linear equation $x + y - 3 = 0$, plotted using points (0, 3), (3, 0), and (1, 2). The straight line divides the $XY$-plane into two half-planes. For the inequality $x + y - 3 > 0$, the region above the line (opposite the origin) is shaded. For $x + y - 3 < 0$, the region below the line (containing the origin) is shaded.
+
+To draw the graph of the inequality $x + y - 3 > 0$, if we put the origin $(0, 0)$ in that inequality, we get $-3 > 0$ which is not true. So the graph of the inequality will be on the side of the equation $x + y - 3 = 0$ which is opposite to the side where the origin lies.
+
+To draw the graph of the inequality $x + y - 3 < 0$, if we put the value of origin $(0, 0)$ in that inequality, we get $-3 < 0$ which satisfies the inequality or true. So the graph of the inequality will be on the same side of the equation $x + y - 3 = 0$ where the origin lies.
+
+\textbf{Example 10.} Describe the solution set and draw the graph of the inequality $2 x - 3 y + 6 \geq 0$.
+
+solution: First we draw the graph of the equation $2 x - 3 y + 6 = 0$.
+From the above equation we have:
+\[ 2 x - 3 y + 6 = 0 \text{ or, } y = \frac{2 x}{3} + 2 \]
+Co-ordinates of some points on this graph-line are:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$x$ & 0 & -3 & 3 \\
+\hline
+$y$ & 2 & 0 & 4 \\
+\hline
+\end{tabular}
+\end{center}
+
+Image description: A graph of the linear equation $2 x - 3 y + 6 = 0$ (or $y = \frac{2 x}{3} + 2$), plotted using points (0, 2), (-3, 0), and (3, 4). The straight line divides the $XY$-plane into two half-planes. The region on the side of the origin, including the line itself, is shaded to represent the solution set of the inequality $2 x - 3 y + 6 \geq 0$, where the expression evaluates to a non-negative value.
+
+Now on the squared paper we take length of the side of a small square as unit and then plot the points $(0, 2), (-3, 0), (3, 4)$. Next we draw the graph of the equation by joining these points.
+
+Now at the origin $(0, 0)$, the value of the expression $2 x - 3 y + 6$ is 6, which is positive. Thus we have $2 x - 3 y + 6 > 0$ for all points on the origin side of the graph-line.
+So, the solution set of the inequality $2 x - 3 y + 6 \geq 0$ consists of the co-ordinates of all points on the graph line of the equation $2 x - 3 y + 6 = 0$ and the co-ordinates of all points on the origin side of the graph line.
+The graph of this solution set is the shaded area in the above figure in which the graph-line is also included.
+
+\textbf{Example 11.} In the plane $X Y$, draw the graph of the inequality $-2 x < 5$.
+
+solution: The inequality $-2 x < 5$ can be written as.
+\[ 2 x + 5 > 0 \text{ or, } 2 x > -5 \text{ or, } x > -\frac{5}{2} \]
+Now in $X Y$ plane we draw the graph of the equation $x = -\frac{5}{2}$. In squared paper, taking the length of two smallest squares as unit we draw the graph-line passing through the point $\left(-\frac{5}{2}, 0\right)$ and parallel to the $Y$ axis.
+
+Image description: A graph of the vertical line $x = -\frac{5}{2}$, drawn parallel to the $Y$-axis through the point $\left(-\frac{5}{2}, 0\right)$. The $XY$-plane is divided into two half-planes. The region to the right of the line, excluding the line itself, is shaded to represent the solution set of the inequality $-2 x < 5$ (or $x > -\frac{5}{2}$), where the origin (0, 0) satisfies the inequality.
+
+The origin lies at the right side of the graph-line and at origin $x = 0$ which is $> -\frac{5}{2}$.
+Therefore, the co-ordinates of all points on the right side of the graph-line are the solutions of the given inequality (points on the graph-line is not considered). The graph of the inequality is the shaded area in the above figure (this does not consist of the graph-line).
+
+\textbf{Example 12.} Draw the graph of the inequality $y \leq 2 x$.
+
+solution: We can write the inequality $y \leq 2 x$ in the form of $y - 2 x \leq 0$.
+Now we draw the graph of the equation $y - 2 x = 0$ or $y = 2 x$. From the equation we get,
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$x$ & 0 & 2 & -2 \\
+\hline
+$y$ & 0 & 4 & -4 \\
+\hline
+\end{tabular}
+\end{center}
+
+Image description: A graph of the linear equation $y = 2 x$ (or $y - 2 x = 0$), plotted using points (0, 0), (2, 4), and (-2, -4). The straight line divides the $XY$-plane into two half-planes. The region on and to the right of the line, where points like (1, 0) yield $y - 2 x \leq 0$, is shaded to represent the solution set of the inequality $y \leq 2 x$.
+
+In the graph paper, taking the length of the side of a small square as unit, we plot the points $(0, 0), (2, 4), (-2, -4)$ and by joining them we draw the line.
+Here, the point $(1, 0)$ lies on the right side of the graph-line. In this point, $y - 2 x = 0 - 2 \times 1 = -2 < 0$
+
+Thus the graph of the given inequality consists of the part of the plane which is formed by the graph-line and the part which lies in the right side of it (that is, the part where the point $(1, 0)$ lies).
+
+\end{document}

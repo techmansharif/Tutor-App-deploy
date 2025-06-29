@@ -1,0 +1,1135 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{titletoc}
+
+% Configuring page geometry
+\geometry{margin=1in}
+
+% Setting up font encoding
+\usepackage[T1]{fontenc}
+\usepackage{times}
+
+% Customizing section headings
+\title{Chapter 3: Algebraic Expressions}
+\author{}
+\date{}
+
+% Beginning the document
+\begin{document}
+
+% Creating the title
+\maketitle
+
+% Starting the content
+\section*{Introduction to Algebraic Expressions}
+
+[Prior knowledge of this chapter is attached to the Appendix at the end of this book. The Appendix should be read or discussed first.]
+
+Algebraic formulae are used to solve many algebraic problems. Moreover, many algebraic expressions are presented by resolving them into factors. That is why the problem solved by algebraic formulae and the contents of resolving expressions into factors by making suitable for the students have been presented in this chapter. Moreover, different types of mathematical problems can be solved by resolving into factors with the help of algebraic formulae. In the previous class, algebraic formulae and their related corollaries have been discussed elaborately. In this chapter, those are reiterated and some of their applications are presented through examples. Besides, extension of the formulae of square and cube, resolution into factors using remainder theorem, and formation of algebraic formulae and their applications in solving practical problems have been discussed here in detail.
+
+At the end of the chapter, the students will be able to:
+\begin{itemize}
+    \item Expand the formulae of square and cube by applying algebraic formulae.
+    \item Explain the remainder theorem and resolve into factors by applying the theorem.
+    \item Form algebraic formulae for solving real-life problems and solve the problems by applying the formulae.
+\end{itemize}
+
+\part{Algebraic Formulae}
+% Defining the section for Algebraic Expressions
+\section*{Algebraic Expressions}
+
+Meaningful organization of operational signs and numerical letter symbols is called an algebraic expression. For example, $2a + 3b - 4c$ is an algebraic expression. In algebraic expressions, different types of information are expressed through the letters $a, b, c, p, q, r, m, n, x, y, z, \ldots$, etc. These alphabets are used to solve different types of problems related to algebraic expressions. In arithmetic, only positive numbers are used, whereas in algebra, both positive and negative numbers, including zero, are used. Algebra is the generalization of arithmetic.
+
+The numbers used in algebraic expressions are constants; their values are fixed. The letter symbols used in algebraic expressions are variables; their values are not fixed and can be any value.
+
+% Defining the section for Algebraic Formulae
+\section*{Algebraic Formulae}
+
+Any general rule or resolution expressed by algebraic symbols is called an algebraic formula. In classes VII and VIII, algebraic formulae and related corollaries have been discussed. In this chapter, some applications are presented based on that discussion.
+
+\textbf{Formula 1:} $(a + b)^2 = a^2 + 2ab + b^2$
+
+\textbf{Formula 2:} $(a - b)^2 = a^2 - 2ab + b^2$
+
+\textbf{Remarks:} It is seen from Formula 1 and Formula 2 that adding $2ab$ or $-2ab$ to $a^2 + b^2$, we get a perfect square, i.e., we get $(a + b)^2$ or $(a - b)^2$. Substituting $-b$ instead of $b$ in Formula 1, we get Formula 2:
+\[
+\{a + (-b)\}^2 = a^2 + 2a(-b) + (-b)^2 \quad \text{That is,} \quad (a - b)^2 = a^2 - 2ab + b^2
+\]
+
+\textbf{Corollary 1:} $a^2 + b^2 = (a + b)^2 - 2ab$
+
+\textbf{Corollary 2:} $a^2 + b^2 = (a - b)^2 + 2ab$
+
+\textbf{Corollary 3:} $(a + b)^2 = (a - b)^2 + 4ab$
+
+\textbf{Proof:}
+\[
+(a + b)^2 = a^2 + 2ab + b^2 = a^2 - 2ab + b^2 + 4ab = (a - b)^2 + 4ab
+\]
+
+\textbf{Corollary 4:} $(a - b)^2 = (a + b)^2 - 4ab$
+
+\textbf{Proof:}
+\[
+(a - b)^2 = a^2 - 2ab + b^2 = a^2 + 2ab + b^2 - 4ab = (a + b)^2 - 4ab
+\]
+
+\textbf{Corollary 5:} $a^2 + b^2 = \frac{(a + b)^2 + (a - b)^2}{2}$
+
+\textbf{Proof:}
+From Formula 1 and Formula 2:
+\[
+a^2 + 2ab + b^2 = (a + b)^2
+\]
+\[
+a^2 - 2ab + b^2 = (a - b)^2
+\]
+Adding:
+\[
+2a^2 + 2b^2 = (a + b)^2 + (a - b)^2
+\]
+\[
+2(a^2 + b^2) = (a + b)^2 + (a - b)^2
+\]
+\[
+a^2 + b^2 = \frac{(a + b)^2 + (a - b)^2}{2}
+\]
+
+\textbf{Corollary 6:} $ab = \left(\frac{a + b}{2}\right)^2 - \left(\frac{a - b}{2}\right)^2$
+
+\textbf{Proof:}
+From Formula 1 and Formula 2:
+\[
+a^2 + 2ab + b^2 = (a + b)^2
+\]
+\[
+a^2 - 2ab + b^2 = (a - b)^2
+\]
+Subtracting:
+\[
+4ab = (a + b)^2 - (a - b)^2
+\]
+\[
+ab = \frac{(a + b)^2}{4} - \frac{(a - b)^2}{4}
+\]
+\[
+ab = \left(\frac{a + b}{2}\right)^2 - \left(\frac{a - b}{2}\right)^2
+\]
+
+\textbf{Remark:} By applying Corollary 6, the product of any two quantities can be expressed as the difference of two squares.
+
+\textbf{Formula 3:} $a^2 - b^2 = (a + b)(a - b)$
+
+Therefore, the difference of the squares of two expressions = sum of two expressions $\times$ difference of two expressions.
+
+\textbf{Formula 4:} $(x + a)(x + b) = x^2 + (a + b)x + ab$
+
+Therefore, $(x + a)(x + b) = x^2 + (\text{algebraic sum of } a \text{ and } b)x + (\text{the product of } a \text{ and } b)$
+
+\subsection*{Extension of Formula for Square}
+
+There are three terms in the expression $a + b + c$. It can be considered the sum of two terms $(a + b)$ and $c$. Therefore, by applying Formula 1, the square of the expression is:
+\[
+(a + b + c)^2 = \{(a + b) + c\}^2 = (a + b)^2 + 2(a + b)c + c^2
+\]
+\[
+= a^2 + 2ab + b^2 + 2ac + 2bc + c^2 = a^2 + b^2 + c^2 + 2ab + 2bc + 2ac
+\]
+
+\textbf{Formula 5:} $(a + b + c)^2 = a^2 + b^2 + c^2 + 2ab + 2bc + 2ac$
+
+\textbf{Corollary 7:} $a^2 + b^2 + c^2 = (a + b + c)^2 - 2(ab + bc + ac)$
+
+\textbf{Corollary 8:} $2(ab + bc + ac) = (a + b + c)^2 - (a^2 + b^2 + c^2)$
+
+\textbf{Note:} By applying Formula 5, we get:
+\begin{enumerate}
+    \item $(a + b - c)^2 = \{a + b + (-c)\}^2 = a^2 + b^2 + (-c)^2 + 2ab + 2b(-c) + 2a(-c) = a^2 + b^2 + c^2 + 2ab - 2bc - 2ac$
+    \item $(a - b + c)^2 = \{a + (-b) + c\}^2 = a^2 + (-b)^2 + c^2 + 2a(-b) + 2(-b)c + 2ac = a^2 + b^2 + c^2 - 2ab - 2bc + 2ac$
+    \item $(a - b - c)^2 = \{a + (-b) + (-c)\}^2 = a^2 + (-b)^2 + (-c)^2 + 2a(-b) + 2(-b)(-c) + 2a(-c) = a^2 + b^2 + c^2 - 2ab + 2bc - 2ac$
+\end{enumerate}
+
+\textbf{Example 1.} What is the square of $(4x + 5y)$?
+
+Solution:
+\[
+(4x + 5y)^2 = (4x)^2 + 2 \times (4x) \times (5y) + (5y)^2 = 16x^2 + 40xy + 25y^2
+\]
+
+\textbf{Example 2.} What is the square of $(3a - 7b)$?
+
+Solution:
+\[
+(3a - 7b)^2 = (3a)^2 - 2 \times (3a) \times (7b) + (7b)^2 = 9a^2 - 42ab + 49b^2
+\]
+
+\textbf{Example 3.} Find the square of 996 by applying the formula of square.
+
+Solution:
+\[
+(996)^2 = (1000 - 4)^2 = (1000)^2 - 2 \times 1000 \times 4 + 4^2 = 1000000 - 8000 + 16 = 1000016 - 8000 = 992016
+\]
+
+\textbf{Example 4.} What is the square of $a + b + c + d$?
+
+Solution:
+\[
+(a + b + c + d)^2 = \{(a + b) + (c + d)\}^2 = (a + b)^2 + 2(a + b)(c + d) + (c + d)^2
+\]
+\[
+= a^2 + 2ab + b^2 + 2(ac + ad + bc + bd) + c^2 + 2cd + d^2
+\]
+\[
+= a^2 + b^2 + c^2 + d^2 + 2ab + 2ac + 2ad + 2bc + 2bd + 2cd
+\]
+
+\textbf{Example 5.} Simplify: $(5x + 7y + 3z)^2 + 2(7x - 7y - 3z)(5x + 7y + 3z) + (7x - 7y - 3z)^2$
+
+Solution:
+Let $5x + 7y + 3z = a$ and $7x - 7y - 3z = b$. Therefore, the given expression is:
+\[
+a^2 + 2 \cdot b \cdot a + b^2 = a^2 + 2ab + b^2 = (a + b)^2
+\]
+\[
+= \{(5x + 7y + 3z) + (7x - 7y - 3z)\}^2 = (5x + 7y + 3z + 7x - 7y - 3z)^2
+\]
+\[
+= (12x)^2 = 144x^2
+\]
+
+\textbf{Example 6.} If $x - y = 2$ and $xy = 24$, what is the value of $x + y$?
+
+Solution:
+\[
+(x + y)^2 = (x - y)^2 + 4xy = (2)^2 + 4 \times 24 = 4 + 96 = 100
+\]
+\[
+\therefore x + y = \pm \sqrt{100} = \pm 10
+\]
+
+\textbf{Example 7.} If $a^4 + a^2 b^2 + b^4 = 3$ and $a^2 + ab + b^2 = 3$, what is the value of $a^2 + b^2$?
+
+Solution:
+\[
+a^4 + a^2 b^2 + b^4 = (a^2)^2 + 2a^2 b^2 + (b^2)^2 - a^2 b^2 = (a^2 + b^2)^2 - (ab)^2
+\]
+\[
+= (a^2 + b^2 + ab)(a^2 + b^2 - ab) = (a^2 + ab + b^2)(a^2 - ab + b^2)
+\]
+\[
+\therefore 3 = 3(a^2 - ab + b^2) \quad [\text{substituting the values}]
+\]
+\[
+a^2 - ab + b^2 = \frac{3}{3} = 1
+\]
+Now adding:
+\[
+a^2 + ab + b^2 = 3 \quad \text{and} \quad a^2 - ab + b^2 = 1
+\]
+\[
+2(a^2 + b^2) = 4 \quad \text{or} \quad a^2 + b^2 = \frac{4}{2} = 2
+\]
+\[
+\therefore a^2 + b^2 = 2
+\]
+
+\textbf{Example 8.} Prove that $(a + b)^4 - (a - b)^4 = 8ab(a^2 + b^2)$
+
+Solution:
+\[
+(a + b)^4 - (a - b)^4 = \{(a + b)^2\}^2 - \{(a - b)^2\}^2
+\]
+\[
+= \{(a + b)^2 + (a - b)^2\}\{(a + b)^2 - (a - b)^2\}
+\]
+\[
+= 2(a^2 + b^2) \times 4ab \quad [\text{applying Corollary 5 and Corollary 6}]
+\]
+\[
+= 8ab(a^2 + b^2)
+\]
+\[
+\therefore (a + b)^4 - (a - b)^4 = 8ab(a^2 + b^2)
+\]
+
+\textbf{Example 9.} If $a + b + c = 15$ and $a^2 + b^2 + c^2 = 83$, what is the value of $ab + bc + ac$?
+
+Solution:
+First method:
+\[
+2(ab + bc + ac) = (a + b + c)^2 - (a^2 + b^2 + c^2) = (15)^2 - 83 = 225 - 83 = 142
+\]
+\[
+\therefore ab + bc + ac = \frac{142}{2} = 71
+\]
+Alternative method:
+\[
+(a + b + c)^2 = (a^2 + b^2 + c^2) + 2(ab + bc + ac)
+\]
+\[
+(15)^2 = 83 + 2(ab + bc + ac)
+\]
+\[
+225 - 83 = 2(ab + bc + ac)
+\]
+\[
+2(ab + bc + ac) = 142
+\]
+\[
+\therefore ab + bc + ac = \frac{142}{2} = 71
+\]
+
+\textbf{Example 10.} If $a + b + c = 2$ and $ab + bc + ac = 1$, what is the value of $(a + b)^2 + (b + c)^2 + (c + a)^2$?
+
+Solution:
+\[
+(a + b)^2 + (b + c)^2 + (c + a)^2 = a^2 + 2ab + b^2 + b^2 + 2bc + c^2 + c^2 + 2ca + a^2
+\]
+\[
+= (a^2 + b^2 + c^2 + 2ab + 2bc + 2ca) + (a^2 + b^2 + c^2)
+\]
+\[
+= (a + b + c)^2 + (a + b + c)^2 - 2(ab + bc + ca)
+\]
+\[
+= (2)^2 + (2)^2 - 2 \times 1 = 4 + 4 - 2 = 8 - 2 = 6
+\]
+
+\textbf{Example 11.} Express $(2x + 3y)(4x - 5y)$ as the difference of two squares.
+
+Solution:
+Let $2x + 3y = a$ and $4x - 5y = b$. Therefore, the given expression:
+\[
+ab = \left(\frac{a + b}{2}\right)^2 - \left(\frac{a - b}{2}\right)^2
+\]
+\[
+= \left(\frac{2x + 3y + 4x - 5y}{2}\right)^2 - \left(\frac{2x + 3y - 4x + 5y}{2}\right)^2
+\]
+\[
+= \left(\frac{6x - 2y}{2}\right)^2 - \left(\frac{8y - 2x}{2}\right)^2 = \left(\frac{2(3x - y)}{2}\right)^2 - \left(\frac{2(4y - x)}{2}\right)^2
+\]
+\[
+= (3x - y)^2 - (4y - x)^2
+\]
+\[
+\therefore (2x + 3y)(4x - 5y) = (3x - y)^2 - (4y - x)^2
+\]
+
+\part{Formulae of Cubes}
+% Defining the section for Formulae of Cubes
+\section*{Formulae of Cubes}
+
+\textbf{Formula 6:} $(a + b)^3 = a^3 + 3a^2 b + 3ab^2 + b^3 = a^3 + b^3 + 3ab(a + b)$
+
+\textbf{Proof:}
+\[
+(a + b)^3 = (a + b)(a + b)^2 = (a + b)(a^2 + 2ab + b^2)
+\]
+\[
+= a(a^2 + 2ab + b^2) + b(a^2 + 2ab + b^2)
+\]
+\[
+= a^3 + 2a^2 b + ab^2 + a^2 b + 2ab^2 + b^3
+\]
+\[
+= a^3 + 3a^2 b + 3ab^2 + b^3 = a^3 + b^3 + 3ab(a + b)
+\]
+
+\textbf{Corollary 9:} $a^3 + b^3 = (a + b)^3 - 3ab(a + b)$
+
+\textbf{Formula 7:} $(a - b)^3 = a^3 - 3a^2 b + 3ab^2 - b^3 = a^3 - b^3 - 3ab(a - b)$
+
+\textbf{Proof:}
+\[
+(a - b)^3 = (a - b)(a - b)^2 = (a - b)(a^2 - 2ab + b^2)
+\]
+\[
+= a(a^2 - 2ab + b^2) - b(a^2 - 2ab + b^2)
+\]
+\[
+= a^3 - 2a^2 b + ab^2 - a^2 b + 2ab^2 - b^3
+\]
+\[
+= a^3 - 3a^2 b + 3ab^2 - b^3 = a^3 - b^3 - 3ab(a - b)
+\]
+
+\textbf{Note:} Substituting $-b$ instead of $b$ in Formula 6, we get Formula 7:
+\[
+\{a + (-b)\}^3 = a^3 + (-b)^3 + 3a(-b)\{a + (-b)\} = (a - b)^3 = a^3 - b^3 - 3ab(a - b)
+\]
+
+\textbf{Corollary 10:} $a^3 - b^3 = (a - b)^3 + 3ab(a - b)$
+
+\textbf{Formula 8:} $a^3 + b^3 = (a + b)(a^2 - ab + b^2)$
+
+\textbf{Proof:}
+\[
+a^3 + b^3 = (a + b)^3 - 3ab(a + b) = (a + b)\{(a + b)^2 - 3ab\}
+\]
+\[
+= (a + b)\{a^2 + 2ab + b^2 - 3ab\} = (a + b)(a^2 - ab + b^2)
+\]
+
+\textbf{Formula 9:} $a^3 - b^3 = (a - b)(a^2 + ab + b^2)$
+
+\textbf{Proof:}
+\[
+a^3 - b^3 = (a - b)^3 + 3ab(a - b) = (a - b)\{(a - b)^2 + 3ab\}
+\]
+\[
+= (a - b)\{a^2 - 2ab + b^2 + 3ab\} = (a - b)(a^2 + ab + b^2)
+\]
+
+\textbf{Example 12.} Find the cube of $2x + 3y$.
+
+Solution:
+\[
+(2x + 3y)^3 = (2x)^3 + 3(2x)^2 \cdot 3y + 3 \cdot 2x \cdot (3y)^2 + (3y)^3
+\]
+\[
+= 8x^3 + 3 \cdot 4x^2 \cdot 3y + 3 \cdot 2x \cdot 9y^2 + 27y^3
+\]
+\[
+= 8x^3 + 36x^2 y + 54xy^2 + 27y^3
+\]
+
+\textbf{Example 13.} Find the cube of $2x - y$.
+
+Solution:
+\[
+(2x - y)^3 = (2x)^3 - 3(2x)^2 \cdot y + 3 \cdot 2x \cdot y^2 - y^3
+\]
+\[
+= 8x^3 - 3 \cdot 4x^2 \cdot y + 3 \cdot 2x \cdot y^2 - y^3
+\]
+\[
+= 8x^3 - 12x^2 y + 6xy^2 - y^3
+\]
+
+\textbf{Example 14.} If $x = 37$, what is the value of $8x^3 + 72x^2 + 216x + 216$?
+
+Solution:
+\[
+8x^3 + 72x^2 + 216x + 216 = (2x)^3 + 3 \cdot (2x)^2 \cdot 6 + 3 \cdot 2x \cdot (6)^2 + (6)^3
+\]
+\[
+= (2x + 6)^3 = (2 \times 37 + 6)^3 = (74 + 6)^3 = (80)^3 = 512000
+\]
+
+\textbf{Example 15.} If $x - y = 8$ and $xy = 5$, what is the value of $x^3 - y^3 + 8(x + y)^2$?
+
+Solution:
+\[
+x^3 - y^3 + 8(x + y)^2 = (x - y)^3 + 3xy(x - y) + 8\{(x - y)^2 + 4xy\}
+\]
+\[
+= (8)^3 + 3 \times 5 \times 8 + 8(8^2 + 4 \times 5) = 8^3 + 15 \times 8 + 8 \times 84
+\]
+\[
+= 8(8^2 + 15 + 84) = 8(64 + 15 + 84) = 8 \times 163 = 1304
+\]
+
+\textbf{Example 16.} If $a = \sqrt{3} + \sqrt{2}$, prove that $a^3 + \frac{1}{a^3} = 18\sqrt Olim{3}$.
+
+Solution:
+Given $a = \sqrt{3} + \sqrt{2}$.
+\[
+\frac{1}{a} = \frac{1}{\sqrt{3} + \sqrt{2}} = \frac{\sqrt{3} - \sqrt{2}}{(\sqrt{3} + \sqrt{2})(\sqrt{3} - \sqrt{2})} = \frac{\sqrt{3} - \sqrt{2}}{(\sqrt{3})^2 - (\sqrt{2})^2} = \frac{\sqrt{3} - \sqrt{2}}{3 - 2} = \sqrt{3} - \sqrt{2}
+\]
+\[
+\therefore a + \frac{1}{a} = (\sqrt{3} + \sqrt{2}) + (\sqrt{3} - \sqrt{2}) = 2\sqrt{3}
+\]
+\[
+a^3 + \frac{1}{a^3} = \left(a + \frac{1}{a}\right)^3 - 3 \cdot a \cdot \frac{1}{a}\left(a + \frac{1}{a}\right) = (2\sqrt{3})^3 - 3(2\sqrt{3})
+\]
+\[
+= 2^3 \cdot (\sqrt{3})^3 - 3 \times 2\sqrt{3} = 8 \cdot 3\sqrt{3} - 6\sqrt{3} = 24\sqrt{3} - 6\sqrt{3} = 18\sqrt{3} \quad (\text{Proved})
+\]
+
+\textbf{Example 17.} If $x + y = 5$, $xy = 6$, and $x > y$:
+\begin{enumerate}
+    \item Find the value of $2(x^2 + y^2)$.
+    \item Find the value of $x^3 - y^3 - 3(x^2 + y^2)$.
+    \item Find the value of $x^5 + y^5$.
+\end{enumerate}
+
+Solution:
+\begin{enumerate}
+    \item We know:
+    \[
+    2(x^2 + y^2) = 2\{(x + y)^2 - 2xy\} = 2(5^2 - 2 \cdot 6) = 2 \times 13 = 26
+    \]
+    \[
+    \therefore 2(x^2 + y^2) = 26
+    \]
+    \item Given $x + y = 5$ and $xy = 6$, $x > y$.
+    \[
+    x - y = \sqrt{(x + y)^2 - 4xy} = \sqrt{5^2 - 4 \cdot 6} = \sqrt{25 - 24} = \sqrt{1} = 1
+    \]
+    \[
+    x^3 - y^3 - 3(x^2 + y^2) = (x - y)^3 + 3xy(x - y) - \frac{3}{2} \cdot 2(x^2 + y^2)
+    \]
+    \[
+    = 1^3 + 3 \cdot 6 \cdot 1 - \frac{3}{2} \cdot 26 = 1 + 18 - 39 = -20
+    \]
+    \[
+    \therefore x^3 - y^3 - 3(x^2 + y^2) = -20
+    \]
+    \item $x + y = 5$ and $x - y = 1$. Adding:
+    \[
+    2x = 6 \quad \therefore x = \frac{6}{2} = 3
+    \]
+    Subtracting:
+    \[
+    2y = 4 \quad \therefore y = \frac{4}{2} = 2
+    \]
+    \[
+    x^5 + y^5 = 3^5 + 2^5 = 243 + 32 = 275
+    \]
+\end{enumerate}
+
+\part{Factorization}
+% Defining the section for Factorization
+\section*{Factorization}
+
+If an expression is equal to the product of two or more expressions, each of the latter expressions is called a factor of the former expression. After finding the possible factors of any algebraic expression and then expressing the expression as the product of these factors, it is called factorization or resolution into factors. The algebraic expressions may consist of one or more terms. So, the factors may also contain one or more terms. Some processes of resolving expressions into factors will be discussed here.
+
+\subsection*{Common Factor}
+
+If any polynomial expression has a common factor in every term, these are to be found first.
+
+\textbf{Example 18.} $3a^2 b + 6ab^2 + 12a^2 b^2 = 3ab(a + 2b + 4ab)$
+
+\textbf{Example 19.} $2ab(x - y) + 2bc(x - y) + 3ca(x - y) = (x - y)(2ab + 2bc + 3ca)$
+
+\subsection*{Perfect Square}
+
+An expression can be expressed in the form of a perfect square.
+
+\textbf{Example 20.} Resolve into factors: $4x^2 + 12x + 9$
+
+Solution:
+\[
+4x^2 + 12x + 9 = (2x)^2 + 2 \times 2x \times 3 + (3)^2 = (2x + 3)^2 = (2x + 3)(2x + 3)
+\]
+
+\textbf{Example 21.} Resolve into factors: $9x^2 - 30xy + 25y^2$
+
+Solution:
+\[
+9x^2 - 30xy + 25y^2 = (3x)^2 - 2 \times 3x \times 5y + (5y)^2 = (3x - 5y)^2 = (3x - 5y)(3x - 5y)
+\]
+
+\subsection*{Difference of Two Squares}
+
+Expressing an expression as the difference of two squares and then applying the formula $a^2 - b^2 = (a + b)(a - b)$.
+
+\textbf{Example 22.} Resolve into factors: $a^2 - 1 + 2b - b^2$
+
+Solution:
+\[
+a^2 - 1 + 2b - b^2 = a^2 - (b^2 - 2b + 1) = a^2 - (b - 1)^2
+\]
+\[
+= \{a + (b - 1)\}\{a - (b - 1)\} = (a + b - 1)(a - b + 1)
+\]
+
+\textbf{Example 23.} Resolve into factors: $a^4 + 64b^4$
+
+Solution:
+\[
+a^4 + 64b^4 = (a^2)^2 + (8b^2)^2 = (a^2)^2 + 2 \times a^2 \times 8b^2 + (8b^2)^2 - 16a^2 b^2
+\]
+\[
+= (a^2 + 8b^2)^2 - (4ab)^2 = (a^2 + 8b^2 + 4ab)(a^2 + 8b^2 - 4ab)
+\]
+\[
+= (a^2 + 4ab + 8b^2)(a^2 - 4ab + 8b^2)
+\]
+
+\subsection*{Middle Term Factorization}
+
+Factors can be determined by applying the formula $x^2 + (a + b)x + ab = (x + a)(x + b)$. In this method, a polynomial of the form $x^2 + px + q$ can be factorized if two integers $a$ and $b$ can be found such that $a + b = p$ and $ab = q$. For this, two factors of $q$ with their signs are to be taken whose algebraic sum is $p$. If $q > 0$, $a$ and $b$ will be of the same sign, and if $q < 0$, $a$ and $b$ will be of opposite signs. Note that $p$ and $q$ may not be integers.
+
+\textbf{Example 24.} Resolve into factors: $x^2 + 12x + 35$
+
+Solution:
+\[
+x^2 + 12x + 35 = x^2 + (5 + 7)x + 5 \times 7 = (x + 5)(x + 7)
+\]
+
+\textbf{Example 25.} Resolve into factors: $x^2 + x - 20$
+
+Solution:
+\[
+x^2 + x - 20 = x^2 + (5 - 4)x + (5)(-4) = (x + 5)(x - 4)
+\]
+
+\subsection*{Middle Term Break-Up}
+
+By the middle term break-up method, a polynomial of the form $ax^2 + bx + c$ can be written as $ax^2 + bx + c = (rx + p)(sx + q)$ if $a = rs$, $b = rq + sp$, and $c = pq$. Hence, $ac = rspq = (rq)(sp)$ and $b = rq + sp$. Therefore, to determine factors of the polynomial $ax^2 + bx + c$, $ac$, that is, the product of the coefficient of $x^2$ and the term free from $x$, is to be expressed into two such factors whose algebraic sum is equal to $b$, the coefficient of $x$.
+
+\textbf{Example 26.} Resolve into factors: $3x^2 - x - 14$
+
+Solution:
+\[
+3x^2 - x - 14 = 3x^2 - 7x + 6x - 14 = x(3x - 7) + 2(3x - 7) = (3x - 7)(x + 2)
+\]
+
+\subsection*{Perfect Cube Form}
+
+Factors can be determined by expressing an expression in the form of a perfect cube.
+
+\textbf{Example 27.} Resolve into factors: $8x^3 + 36x^2 y + 54xy^2 + 27y^3$
+
+Solution:
+\[
+8x^3 + 36x^2 y + 54xy^2 + 27y^3 = (2x)^3 + 3 \times (2x)^2 \times 3y + 3 \times 2x \times (3y)^2 + (3y)^3
+\]
+\[
+= (2x + 3y)^3 = (2x + 3y)(2x + 3y)(2x + 3y)
+\]
+
+\subsection*{Formulae of Addition or Subtraction of Two Cubes}
+
+Factors can be determined by applying the formulae $a^3 + b^3 = (a + b)(a^2 - ab + b^2)$ and $a^3 - b^3 = (a - b)(a^2 + ab + b^2)$.
+
+\textbf{Example 28.} Resolve into factors:
+\begin{enumerate}
+    \item $8a^3 + 27b^3$
+    \item $a^6 - 64$
+\end{enumerate}
+
+Solution:
+\begin{enumerate}
+    \item $8a^3 + 27b^3 = (2a)^3 + (3b)^3 = (2a + 3b)\{(2a)^2 - 2a \times 3b + (3b)^2\} = (2a + 3b)(4a^2 - 6ab + 9b^2)$
+    \item $a^6 - 64 = (a^2)^3 - (4)^3 = (a^2 - 4)\{(a^2)^2 + a^2 \times 4 + (4)^2\} = (a^2 - 4)(a^4 + 4a^2 + 16)$
+    \[
+    a^2 - 4 = a^2 - 2^2 = (a + 2)(a - 2)
+    \]
+    \[
+    a^4 + 4a^2 + 16 = (a^2)^2 + (4)^2 + 4a^2 = (a^2 + 4)^2 - 2(a^2)(4) + 4a^2
+    \]
+    \[
+    = (a^2 + 4)^2 - 4a^2 = (a^2 + 4)^2 - (2a)^2 = (a^2 + 4 + 2a)(a^2 + 4 - 2a)
+    \]
+    \[
+    = (a^2 + 2a + 4)(a^2 - 2a + 4)
+    \]
+    \[
+    \therefore a^6 - 64 = (a + 2)(a - 2)(a^2 + 2a + 4)(a^2 - 2a + 4)
+    \]
+\end{enumerate}
+
+Alternative method for (2):
+\[
+a^6 - 64 = (a^3)^2 - (8)^2 = (a^3 + 8)(a^3 - 8) = (a^3 + 2^3)(a^3 - 2^3)
+\]
+\[
+= (a + 2)(a^2 - 2a + 4)(a - 2)(a^2 + 2a + 4) = (a + 2)(a - 2)(a^2 + 2a + 4)(a^2 - 2a + 4)
+\]
+
+\subsection*{Factors of the Expression with Fractional Coefficients}
+
+Factors of the expression with fractional coefficients can be expressed in several ways. For example:
+\[
+a^3 + \frac{1}{27} = a^3 + \frac{1}{3^3} = \left(a + \frac{1}{3}\right)\left(a^2 - \frac{a}{3} + \frac{1}{9}\right)
+\]
+Again:
+\[
+a^3 + \frac{1}{27} = \frac{1}{27}(27a^3 + 1) = \frac{1}{27}\{(3a)^3 + (1)^3\} = \frac{1}{27}(3a + 1)(9a^2 - 3a + 1)
+\]
+The two solutions are the same:
+\[
+\frac{1}{27}(3a + 1)(9a^2 - 3a + 1) = \frac{1}{3}(3a + 1) \times \frac{1}{9}(9a^2 - 3a + 1) = \left(a + \frac{1}{3}\right)\left(a^2 - \frac{a}{3} + \frac{1}{9}\right)
+\]
+
+\textbf{Example 29.} Resolve into factors: $x^3 + 6x^2 y + 11xy^2 + 6y^3$
+
+Solution:
+\[
+x^3 + 6x^2 y + 11xy^2 + 6y^3 = \{x^3 + 3 \cdot x^2 \cdot 2y + 3 \cdot x \cdot (2y)^2 + (2y)^3\} - xy^2 - 2y^3
+\]
+\[
+= (x + 2y)^3 - y^2 (x + 2y) = (x + 2y)\{(x + 2y)^2 - y^2\}
+\]
+\[
+= (x + 2y)(x + 2y + y)(x + 2y - y) = (x + 2y)(x + 3y)(x + y) = (x + y)(x + 2y)(x + 3y)
+\]
+
+\part{Remainder Theorem}
+% Defining the section for Remainder Theorem
+\section*{Remainder Theorem}
+
+In the following example, if $6x^2 - 7x + 5$ is divided by $x - 1$, what are the quotient and remainder?
+\[
+\begin{array}{r}
+x - 1 \mid 6x^2 - 7x + 5 \quad (6x - 1) \\
+6x^2 - 6x \\
+\hline
+-x + 5 \\
+-x + 1 \\
+\hline
+4 \\
+\end{array}
+\]
+Here, $x - 1$ is the divisor, $6x^2 - 7x + 5$ is the dividend, $6x - 1$ is the quotient, and 4 is the remainder.
+
+We know, dividend = divisor $\times$ quotient + remainder. If we indicate the dividend by $f(x)$, the quotient by $h(x)$, the remainder by $r$, and the divisor by $(x - a)$, we get:
+\[
+f(x) = (x - a) \cdot h(x) + r
+\]
+This formula is true for all values of $a$. Substituting $x = a$:
+\[
+f(a) = (a - a) \cdot h(a) + r = 0 \cdot h(a) + r = r
+\]
+Hence, $r = f(a)$. Therefore, if $f(x)$ is divided by $(x - a)$, the remainder is $f(a)$. This formula is known as the remainder theorem. That is, the remainder theorem gives the remainder when a polynomial $f(x)$ of positive degree is divided by $(x - a)$ without performing actual division. In the above example, if $a = 1$, then $f(x) = 6x^2 - 7x + 5$.
+\[
+f(1) = 6 - 7 + 5 = 4
+\]
+which is equal to the remainder. The degree of the divisor polynomial $(x - a)$ is 1. If the divisor is a factor of the dividend, the remainder will be zero; otherwise, the remainder will be a non-zero number.
+
+\textbf{Corollary 11:} $(x - a)$ will be a factor of $f(x)$ if and only if $f(a) = 0$.
+
+\textbf{Proof:}
+Let $f(a) = 0$. According to the remainder theorem, if $f(x)$ is divided by $(x - a)$, the remainder will be zero. Hence, $(x - a)$ will be a factor of $f(x)$. Conversely, let $(x - a)$ be a factor of $f(x)$. Therefore:
+\[
+f(x) = (x - a) \cdot h(x)
+\]
+where $h(x)$ is a polynomial. Putting $x = a$:
+\[
+f(a) = (a - a) \cdot h(a) = 0
+\]
+Hence, any polynomial $f(x)$ will be divisible by $(x - a)$ if and only if $f(a) = 0$. This formula is known as the factor theorem.
+
+\textbf{Proposition 12:} If the degree of $f(x)$ is positive and $a \neq 0$, then if $f(x)$ is divided by $(ax + b)$, the remainder will be $f\left(-\frac{b}{a}\right)$.
+
+\textbf{Proof:}
+The degree of divisor $ax + b$, $(a \neq 0)$ is 1. Hence:
+\[
+f(x) = (ax + b) \cdot h(x) + r = a\left(x + \frac{b}{a}\right) \cdot h(x) + r
+\]
+\[
+f(x) = \left(x + \frac{b}{a}\right) \cdot a \cdot h(x) + r
+\]
+If $f(x)$ is divided by $\left(x + \frac{b}{a}\right)$, the quotient will be $a \cdot h(x)$ and the remainder will be $r$. Here, divisor = $x - \left(-\frac{b}{a}\right)$. According to the remainder theorem:
+\[
+r = f\left(-\frac{b}{a}\right)
+\]
+Therefore, if $f(x)$ is divided by $(ax + b)$, the remainder will be $f\left(-\frac{b}{a}\right)$.
+
+\textbf{Corollary 13:} If $a \neq 0$, the expression $ax + b$ will be a factor of any polynomial $f(x)$, if and only if $f\left(-\frac{b}{a}\right) = 0$.
+
+\textbf{Proof:}
+\[
+ax + b = a\left(x + \frac{b}{a}\right)
+\]
+will be a factor of $f(x)$, if and only if $\left(x + \frac{b}{a}\right) = x - \left(-\frac{b}{a}\right)$ is a factor of $f(x)$. Hence, if and only if $f\left(-\frac{b}{a}\right) = 0$. This method of determining the factor by using the remainder theorem is called the vanishing method.
+
+\textbf{Example 30.} Resolve into factors: $x^3 - x - 6$
+
+Solution:
+Here, $f(x) = x^3 - x - 6$ is a polynomial. The factors of the constant $-6$ are $\pm 1, \pm 2, \pm 3, \pm 6$. Putting $x = 1, -1$, we see that the value of $f(x)$ is not zero. But:
+\[
+f(2) = 2^3 - 2 - 6 = 8 - 2 - 6 = 0
+\]
+Therefore, $x - 2$ is a factor of $f(x)$.
+\[
+f(x) = x^3 - x - 6 = x^3 - 2x^2 + 2x^2 - 4x + 3x - 6
+\]
+\[
+= x^2 (x - 2) + 2x(x - 2) + 3(x - 2) = (x - 2)(x^2 + 2x + 3)
+\]
+
+\textbf{Example 31.} Resolve into factors: $x^3 - 3xy^2 + 2y^3$ and $x^2 + xy - 2y^2$
+
+Solution:
+Consider $x$ a variable and $y$ a constant. Let:
+\[
+f(x) = x^3 - 3xy^2 + 2y^3
+\]
+\[
+f(y) = y^3 - 3y \cdot y^2 + 2y^3 = 3y^3 - 3y^3 = 0
+\]
+\[
+\therefore (x - y) \text{ is a factor of } f(x).
+\]
+\[
+x^3 - 3xy^2 + 2y^3 = x^3 - x^2 y + x^2 y - xy^2 - 2xy^2 + 2y^3
+\]
+\[
+= x^2 (x - y) + xy(x - y) - 2y^2 (x - y) = (x - y)(x^2 + xy - 2y^2)
+\]
+Again, let:
+\[
+g(x) = x^2 + xy - 2y^2
+\]
+\[
+g(y) = y^2 + y^2 - 2y^2 = 0
+\]
+\[
+\therefore (x - y) \text{ is a factor of } g(x).
+\]
+\[
+g(x) = x^2 + xy - 2y^2 = x^2 - xy + 2xy - 2y^2 = x(x - y) + 2y(x - y)
+\]
+\[
+= (x - y)(x + 2y)
+\]
+\[
+\therefore x^3 - 3xy^2 + 2y^3 = (x - y)(x^2 + xy - 2y^2) = (x - y)^2 (x + 2y)
+\]
+
+\textbf{Example 32.} Resolve into factors: $54x^4 + 27x^3 a - 16x - 8a$
+
+Solution:
+Let $f(x) = 54x^4 + 27x^3 a - 16x - 8a$.
+\[
+f\left(-\frac{1}{2}a\right) = 54\left(-\frac{1}{2}a\right)^4 + 27a\left(-\frac{1}{2}a\right)^3 - 16\left(-\frac{1}{2}a\right) - 8a
+\]
+\[
+= \frac{27}{8}a^4 - \frac{27}{8}a^4 + 8a - 8a = 0
+\]
+\[
+\therefore x - \left(-\frac{1}{2}a\right) = x + \frac{a}{2} = \frac{1}{2}(2x + a) \text{ is a factor of } f(x).
+\]
+Hence, $(2x + a)$ is a factor of $f(x)$.
+\[
+54x^4 + 27x^3 a - 16x - 8a = 27x^3 (2x + a) - 8(2x + a)
+\]
+\[
+= (2x + a)(27x^3 - 8) = (2x + a)\{(3x)^3 - (2)^3\}
+\]
+\[
+= (2x + a)(3x - 2)(9x^2 + 6x + 4)
+\]
+
+\textbf{Example 33.} $g(a) = a^3 + a^2 + 10a - 8$, $f(a) = a^3 - 9 + (a + 1)^3$.
+\begin{enumerate}
+    \item If $g(a)$ is divided by $(a - 2)$, determine the remainder.
+    \item Resolve into factors: $f(a)$.
+\end{enumerate}
+
+Solution:
+\begin{enumerate}
+    \item Given $g(a) = a^3 + a^2 + 10a - 8$. According to the remainder theorem, if $g(a)$ is divided by $(a - 2)$, the remainder will be $g(2)$.
+    \[
+    g(2) = 2^3 + 2^2 + 10 \cdot 2 - 8 = 8 + 4 + 20 - 8 = 24
+    \]
+    The remainder is 24.
+    \item $f(a) = a^3 - 9 + (a + 1)^3$. If $a = 1$:
+    \[
+    f(1) = 1^3 - 9 + (1 + 1)^3 = 1 - 9 + 8 = 0
+    \]
+    Therefore, $(a - 1)$ is a factor.
+    \[
+    f(a) = a^3 - 9 + a^3 + 3a^2 + 3a + 1 = 2a^3 + 3a^2 + 3a - 8
+    \]
+    \[
+    = 2a^3 - 2a^2 + 5a^2 - 5a + 8a - 8
+    \]
+    \[
+    = 2a^2 (a - 1) + 5a(a - 1) + 8(a - 1) = (a - 1)(2a^2 + 5a + 8)
+    \]
+    \[
+    \therefore a^3 - 9 + (a + 1)^3 = (a - 1)(2a^2 + 5a + 8)
+    \]
+\end{enumerate}
+
+\part{Forming and Applying Algebraic Formulae in Solving Real-Life Problems}
+% Defining the section for Forming and Applying Algebraic Formulae
+\section*{Forming and Applying Algebraic Formulae in Solving Real-Life Problems}
+
+In our daily business, we face realistic problems at different times and in different ways. These problems are described linguistically. In this section, we shall discuss the formation of algebraic formulae and their applications in solving different problems of real surroundings which are described linguistically. As a result of this discussion, the students, on the one hand, will get the conception about the application of mathematics in real surroundings; on the other hand, they will be eager to learn mathematics for their understanding of the involvement of mathematics with their surroundings.
+
+\subsection*{Methods of Solving the Problems}
+
+\begin{enumerate}
+    \item At first, the problem will have to be observed carefully and read attentively, then identify which are unknown and which are to be determined.
+    \item One of the unknown quantities is to be denoted with any variable (say $x$). Then, realizing the problem well, express other unknown quantities in terms of the same variable $x$.
+    \item The problem will have to be split into small parts and express them by algebraic expressions.
+    \item Using the given conditions, the small parts together are to be expressed by an equation.
+    \item The value of the unknown quantity $x$ is to be found by solving the equation.
+\end{enumerate}
+
+Different formulae are used in solving the problems based on real life. The formulae are mentioned below:
+
+\textbf{Related to Payable or Attainable:}
+Suppose $q =$ amount of money payable or attainable per person, $n =$ number of persons.
+\[
+\therefore \text{Amount of payable or attainable money, } A = qn
+\]
+
+\textbf{Related to Time and Work:}
+Suppose $q =$ portion of a work performed by everyone in unit time, $n =$ number of performers of work, $x =$ total time of doing work, $W =$ portion of a work done by $n$ persons in time $x$.
+\[
+\therefore W = qnx
+\]
+
+\textbf{Related to Time and Distance:}
+Suppose $v =$ speed per hour, $t =$ total time, $d =$ total distance.
+\[
+\therefore d = vt
+\]
+
+\textbf{Related to Pipe and Water Tank:}
+Suppose $Q_0 =$ amount of stored water in a tank at the time of opening the pipe, $q =$ amount of water flowing in or out by the pipe in a unit time, $t =$ time taken, $Q(t) =$ amount of water in the tank at time $t$.
+\[
+\therefore Q(t) = Q_0 \pm qt
+\]
+The '+' sign is used when water flows in, and the '-' sign when water flows out.
+
+\textbf{Related to Percentage:}
+Suppose $b =$ total quantity, $r =$ rate of percentage = $\frac{s}{100} = s\%$, $p =$ part of percentage $s\%$ of $b$.
+\[
+\therefore p = br
+\]
+
+\textbf{Related to Profit and Loss:}
+Suppose $C =$ cost price, $r =$ rate of profit or loss.
+\[
+\therefore \text{selling price } S = C(1 \pm r)
+\]
+In case of profit, $S = C(1 + r)$; in case of loss, $S = C(1 - r)$.
+
+\textbf{Related to Investment and Profit:}
+Suppose $I =$ profit after time $n$, $n =$ specific time, $P =$ principal, $r =$ profit of unit principal at unit time, $A =$ principal with profit after time $n$.
+
+In the case of simple profit:
+\[
+I = Pnr
+\]
+\[
+A = P + I = P + Pnr = P(1 + nr)
+\]
+In the case of compound profit:
+\[
+A = P(1 + r)^n
+\]
+
+\textbf{Example 34.} For a function of Annual Sports, members of an association made a budget of Tk. 45000 and decided that every member would subscribe equally. But 5 members refused to subscribe. As a result, the amount of subscription of each member increased by Tk. 15 per head. How many members were in the association?
+
+Solution:
+Let the number of members of the association be $x$ and the amount of subscription per head be Tk. $q$. Then the total amount of subscription:
+\[
+A = qx = 45000
+\]
+Actually, the number of members was $(x - 5)$, and the amount of subscription per head became Tk. $(q + 15)$. Then, the total amount of subscription:
+\[
+(x - 5)(q + 15)
+\]
+By the question:
+\[
+qx = (x - 5)(q + 15) \quad (1)
+\]
+\[
+qx = 45000 \quad (2)
+\]
+From equation (1):
+\[
+qx = (x - 5)(q + 15)
+\]
+\[
+qx = qx - 5q + 15x - 75
+\]
+\[
+5q = 15x - 75 = 5(3x - 15)
+\]
+\[
+\therefore q = 3x - 15
+\]
+Putting the value of $q$ in (2):
+\[
+(3x - 15) \times x = 45000
+\]
+\[
+3x^2 - 15x = 45000
+\]
+\[
+x^2 - 5x = 15000 \quad [\text{dividing both sides by } 3]
+\]
+\[
+x^2 - 5x - 15000 = 0
+\]
+\[
+x^2 - 125x + 120x - 15000 = 0
+\]
+\[
+x(x - 125) + 120(x - 125) = 0
+\]
+\[
+(x - 125)(x + 120) = 0
+\]
+\[
+\therefore x = 125 \quad \text{or} \quad x = -120
+\]
+Since the number of members cannot be negative, the value of $x$ as $-120$ is not acceptable. Therefore, the number of members of the association is 125.
+
+\textbf{Example 35.} Rafiq can do a work in 10 days, and Shafiq can do that work in 15 days. In how many days do they together finish the work?
+
+Solution:
+Let them finish the work in $d$ days.
+
+\begin{tabular}{|c|c|c|}
+\hline
+Name & Days to complete & Part done in 1 day \\
+\hline
+Rafiq & 10 & $\frac{1}{10}$ \\
+Shafiq & 15 & $\frac{1}{15}$ \\
+\hline
+\end{tabular}
+
+As per the question:
+\[
+\frac{d}{10} + \frac{d}{15} = 1 \quad \text{or} \quad d\left(\frac{1}{10} + \frac{1}{15}\right) = 1
+\]
+\[
+d\left(\frac{3 + 2}{30}\right) = 1 \quad \text{or} \quad \frac{5d}{30} = 1
+\]
+\[
+d = \frac{30}{5} = 6
+\]
+Therefore, they together can finish the work in 6 days.
+
+\textbf{Example 36.} A boatman can row $x$ km in time $t_1$ hour against the current. To cover that distance along the current, he takes $t_2$ hour. How much is the speed of the boat and the current?
+
+Solution:
+Let the speed of the boat in still water be $u$ km per hour and that of the current be $v$ km per hour. Along the current, the effective speed of the boat is $(u + v)$ km per hour, and against the current, it is $(u - v)$ km per hour. We know:
+\[
+\text{speed} = \frac{\text{distance traversed}}{\text{time}}
+\]
+According to the question:
+\[
+u + v = \frac{x}{t_2} \quad (1)
+\]
+\[
+u - v = \frac{x}{t_1} \quad (2)
+\]
+Adding equations (1) and (2):
+\[
+2u = \frac{x}{t_2} + \frac{x}{t_1} = x\left(\frac{1}{t_1} + \frac{1}{t_2}\right) \quad \text{or} \quad u = \frac{x}{2}\left(\frac{1}{t_1} + \frac{1}{t_2}\right)
+\]
+Subtracting equation (2) from equation (1):
+\[
+2v = \frac{x}{t_2} - \frac{x}{t_1} = x\left(\frac{1}{t_2} - \frac{1}{t_1}\right) \quad \text{or} \quad v = \frac{x}{2}\left(\frac{1}{t_2} - \frac{1}{t_1}\right)
+\]
+Hence, the speed of the current is $\frac{x}{2}\left(\frac{1}{t_2} - \frac{1}{t_1}\right)$ km per hour, and the speed of the boat is $\frac{x}{2}\left(\frac{1}{t_1} + \frac{1}{t_2}\right)$ km per hour.
+
+\textbf{Example 37.} A pipe can fill up an empty tank in 12 minutes. Another pipe flows out 14 liters of water per minute. If the two pipes are opened together and the empty tank is filled up in 96 minutes, how much water does the tank contain?
+
+Solution:
+Let $x$ liters of water flow in per minute by the first pipe, and the tank can contain $y$ liters of water. According to the question, the tank is filled by the first pipe in 12 minutes:
+\[
+y = 12x \quad (1)
+\]
+The empty tank is filled by the two pipes together in 96 minutes:
+\[
+y = 96x - 96 \times 14 \quad (2)
+\]
+From equation (1):
+\[
+x = \frac{y}{12}
+\]
+Putting the value of $x$ in equation (2):
+\[
+y = 96 \times \frac{y}{12} - 96 \times 14
+\]
+\[
+y = 8y - 96 \times 14
+\]
+\[
+7y = 96 \times 14
+\]
+\[
+y = \frac{96 \times 14}{7} = 192
+\]
+Hence, the tank contains 192 liters of water.
+
+\textbf{Example 38.} The price of a book is Tk. 24. This price is 80\% of the actual price. The government subsidizes the due price. How much money does the government subsidize for each book?
+
+Solution:
+Market price = 80\% of the actual price. We know:
+\[
+p = br
+\]
+Here, $p = \text{Tk. } 24$ and $r = 80\% = \frac{80}{100}$.
+\[
+24 = b \times \frac{80}{100}
+\]
+\[
+b = \frac{24 \times 100}{80} = 30 \text{ Tk.}
+\]
+Hence, the actual price of the book is Tk. 30. Amount of subsidized money:
+\[
+\text{Tk. } (30 - 24) = \text{Tk. } 6
+\]
+Hence, the subsidized money for each book is Tk. 6.
+
+\textbf{Example 39.} The loss is $r\%$ when $n$ oranges are sold per taka. How many oranges are to be sold per taka to make a profit of $s\%$?
+
+Solution:
+If the cost price is Tk. 100, the selling price at a loss of $r\%$ is Tk. $(100 - r)$. If the selling price is Tk. $(100 - r)$, the cost price is Tk. 100. Therefore, if the selling price is Tk. 1, the cost price is Tk. $\frac{100}{100 - r}$. Again, if the cost price is Tk. 100, the selling price at a profit of $s\%$ is Tk. $(100 + s)$. Therefore, if the cost price is Tk. $\frac{100}{100 - r}$, the selling price at a profit of $s\%$ is:
+\[
+\frac{100 + s}{100} \times \frac{100}{100 - r} = \text{Tk. } \frac{100 + s}{100 - r}
+\]
+In Tk. $\frac{100 + s}{100 - r}$, the number of oranges to be sold is $n$. Therefore, in Tk. 1, the number of oranges to be sold is:
+\[
+n \times \left(\frac{100 - r}{100 + s}\right)
+\]
+Hence, $\frac{n(100 - r)}{100 + s}$ oranges are to be sold per taka.
+
+\textbf{Example 40.} What is the profit of Tk. 650 in 6 years at the rate of profit Tk. 7 percent per annum?
+
+Solution:
+We know:
+\[
+I = Pnr
+\]
+Here, $P = \text{Tk. } 650$, $n = 6$ years, percent per annum $s = \text{Tk. } 7$.
+\[
+r = \frac{s}{100} = \frac{7}{100}
+\]
+\[
+I = 650 \times 6 \times \frac{7}{100} = 273
+\]
+Hence, the profit is Tk. 273.
+
+\textbf{Example 41.} Find the compound principal and compound profit of Tk. 15000 in 3 years at a profit of 6 percent per annum.
+
+Solution:
+We know:
+\[
+C = P(1 + r)^n \quad [\text{where } C \text{ is the principal with profit in the case of compound profit}]
+\]
+Given $P = 15000 \text{ Tk.}$, $r = 6\% = \frac{6}{100}$, $n = 3$ years.
+\[
+C = 15000\left(1 + \frac{6}{100}\right)^3 = 15000\left(1 + \frac{3}{50}\right)^3 = 15000\left(\frac{53}{50}\right)^3
+\]
+\[
+= 15000 \times \frac{53}{50} \times \frac{53}{50} \times \frac{53}{50} = \frac{446631}{25} = 17865.24
+\]
+Compound principal is Tk. 17865.24. Compound profit is:
+\[
+\text{Tk. } (17865.24 - 15000) = \text{Tk. } 2865.24
+\]
+
+\textbf{Example 42.} The loss is $x\%$ when 10 sticks of ice cream are sold per taka. How many sticks of ice cream are to be sold per taka to make a profit of $z\%$?
+
+Solution:
+If the cost price is Tk. 100, the selling price at a loss of $x\%$ is Tk. $(100 - x)$. If the selling price is Tk. $(100 - x)$, the cost price is Tk. 100. Therefore, if the selling price is Tk. 1, the cost price is Tk. $\frac{100}{100 - x}$. Hence, the cost price of 10 sticks is Tk. $\frac{100}{100 - x}$. The cost price of 1 stick is:
+\[
+\text{Tk. } \frac{100}{(100 - x) \times 10}
+\]
+Again, if the cost price is Tk. 100, the selling price at a profit of $z\%$ is Tk. $(100 + z)$. If the cost price is Tk. 1, the selling price is Tk. $\frac{100 + z}{100}$. Therefore, if the cost price is Tk. $\frac{100}{(100 - x) \times 10}$, the selling price is:
+\[
+\frac{100 + z}{100} \times \frac{100}{(100 - x) \times 10} = \frac{100 + z}{(100 - x) \times 10} = \frac{100 + z}{1000 - 10x}
+\]
+The selling price of 1 stick of ice cream is Tk. $\frac{100 + z}{1000 - 10x}$. Hence, $\frac{1000 - 10x}{100 + z}$ sticks have to be sold per taka.
+
+% Ending the document
+\end{document}

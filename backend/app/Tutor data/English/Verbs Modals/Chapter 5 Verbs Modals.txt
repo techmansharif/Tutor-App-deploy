@@ -1,0 +1,545 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\title{English Grammar and Composition: Verbs: Modals}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{05 Verbs: Modals}
+
+\subsection*{Primary auxiliaries and modal auxiliaries}
+
+In the last unit we discussed verbs and tenses. In this unit we will focus on modals.
+
+\textbf{A.} Read the passage below and the conversation that follows:
+
+Rehana took a secretarial course a few months ago. She \textbf{can} write short-hand and \textbf{can} type too. But she \textbf{cannot} use a word processor. She realizes that to get a good secretarial job, she \textbf{must} learn to use a computer. She also \textbf{has to} improve her English which is not very good. This morning she goes to an English Language Centre that a friend has recommended. At the administrative office there she has the following conversation with a member of the official staff:
+
+\begin{itemize}
+    \item \textbf{Admin staff:} Good morning! \textbf{Can} I help you?
+    \item \textbf{Rehana:} Morning. \textbf{Could} you please tell me when the next English course starts?
+    \item \textbf{Admin staff:} Well, we have different courses like General Communicative English, Business English, and English for nurses and so on. Which one \textbf{would} you like to do?
+    \item \textbf{Rehana:} The Business English course. \textbf{Could} you tell me when the next course starts and what the fee is?
+    \item \textbf{Admin staff:} Sure. It’s a three-month course and the fee is Taka 5000. \textbf{Would} you like to take a brochure—you \textbf{can} find details about all the courses that we offer. You \textbf{might} like to have a look at them.
+    \item \textbf{Rehana:} Thanks a lot.
+\end{itemize}
+
+Notice the words in bold. They are called modal verbs or modal auxiliaries.
+
+\textbf{Grammar point}
+
+There are two kinds of auxiliary verbs in English:
+
+\begin{itemize}
+    \item \textbf{Primary auxiliaries:} am/is/are/was/were, have/has/had, do/does/did
+    \item \textbf{Modal auxiliaries:} can/could, may/might, will/would, shall/should, must/ought to/need
+\end{itemize}
+
+Modal auxiliaries are different from Primary auxiliaries in the following ways:
+
+\begin{itemize}
+    \item \textbf{Past tense forms:} The primary auxiliaries have past tense forms. The modal auxiliaries do not. For example, \textit{must} or \textit{may} do not have a past form. (\textit{may} and \textit{might} can refer to the same time: present or future)
+    \item \textbf{Third person forms:} The primary auxiliaries have third person forms (he/she+ is/has/does). Modal auxiliaries do not change. They have no -s form.
+    \item \textbf{Infinitives:} The primary auxiliaries are related to an infinitive: to be, to have, or to do. There is no infinitive form for the modal auxiliaries. (We do not say to can, or to might.)
+\end{itemize}
+
+\textbf{Note:} \textit{Need} fits into both categories.
+
+It can be used as a full verb: need, needs, needed, e.g.
+
+\begin{itemize}
+    \item We need sugar.
+    \item He needs rest.
+    \item They needed some money.
+\end{itemize}
+
+It can also be used as a modal auxiliary verb:
+
+\begin{itemize}
+    \item We needn’t take a taxi.
+    \item We needn’t go to the doctor.
+\end{itemize}
+
+\textbf{Use}
+
+We use modals to express a variety of moods or attitudes towards actions or events in the past, present or future. Modals can be used to express possibility, certainty, ability to do something, requests, permission, obligation, necessity, prohibition, advice, etc.
+
+Look at the following sentences:
+
+\begin{itemize}
+    \item Can I borrow your English dictionary for two days?
+    \item Sorry, I’m using it now, but I can give it to you tomorrow.
+    \item Would Ben lend me his dictionary? What do you think?
+    \item You could ask him. He might.
+\end{itemize}
+
+\textbf{Activity 1}
+
+Discuss in pairs what functions do \textit{can}, \textit{could}, \textit{would} or \textit{might} in the above conversation perform, and what time do they refer to—past, present or future?
+
+\part{Can and Could, May and Might}
+
+\subsection*{Can and Could}
+
+\textbf{A.} Read the following texts.
+
+\begin{itemize}
+    \item a. I \textbf{can} sing and I \textbf{can} dance. But I \textbf{can’t} fly like a bird or swim like a fish.
+    \item b. \textbf{:} Excuse me, \textbf{can} you tell me the time please?\\
+    \textbf{:} Sure, it’s half past five.\\
+    \textbf{:} Thanks.
+    \item c. The teacher said to her class, “Students, you must remember two things. First, you \textbf{can} bring a calculator, but you \textbf{cannot} bring any mobile phone into the classroom, and second, you \textbf{cannot} chew gums in my class.”
+    \item d. \textbf{:} Hi, Babul. Are you taking part in the next marathon race?\\
+    \textbf{:} I’m afraid not. I \textbf{could} walk for miles without getting tired before. But now I \textbf{can’t}. I had a knee surgery two years ago.
+    \item e. \textbf{:} \textbf{Can} you tell Mr. Rashid that the guests are here?\\
+    \textbf{:} Sure. Anything else?\\
+    \textbf{:} Thanks, Shahana. And \textbf{could} you please send in some snacks and tea for the guests?
+    \item f. \textbf{:} \textbf{Can} I borrow your pen for a while?\\
+    \textbf{:} Yes, but please don’t forget to return it.\\
+    \textbf{:} Of course not.
+    \item g. \textbf{:} \textbf{Could} I use your laptop? I need to check my e-mail.\\
+    \textbf{:} Go ahead. You \textbf{could} take it to your room, if you want.\\
+    \textbf{:} Thanks a lot.
+    \item h. \textbf{:} I’m getting bored, can’t go anywhere. When is the rain going to stop?\\
+    \textbf{:} Well, you \textbf{could} make use of the time you’re stuck at home. You \textbf{could} read books, or do some writing, or do crossword puzzles to improve your English.
+\end{itemize}
+
+\textbf{Grammar point}
+
+\textit{Can} and \textit{could} are modal verbs, and are used like auxiliaries before the main verb.
+
+We make the negative by adding \textit{not/n’t} to \textit{can/could}. Note how we write \textit{cannot}. There is no break between \textit{can} and \textit{not}:
+
+\begin{itemize}
+    \item I \textbf{cannot} fly like a bird.
+\end{itemize}
+
+To make questions we say \textit{can/could + name/pronoun + main verb}:
+
+\begin{itemize}
+    \item \textbf{Can/could} you pass me the salt, please?
+    \item \textbf{Can} you use a computer?
+\end{itemize}
+
+\textbf{Use}
+
+\textbf{Can/could} for ability, and \textit{cannot} for inability/prohibition:
+
+We use \textit{can} to express ability:
+
+\begin{itemize}
+    \item I \textbf{can} sing and I \textbf{can} dance.
+\end{itemize}
+
+In the sentence \textit{But I cannot fly like a bird}, \textit{cannot} expresses lack of ability.
+
+The past tense of \textit{can} as ability is \textit{could}:
+
+\begin{itemize}
+    \item Two years ago I \textbf{could} walk for miles, but now I \textbf{cannot}.
+\end{itemize}
+
+We use \textit{cannot/can’t} to express prohibition:
+
+\begin{itemize}
+    \item You \textbf{cannot} bring mobile phones into the classroom, and you \textbf{cannot} chew gums in my class.
+\end{itemize}
+
+\textbf{For permission and requests:}
+
+We use \textit{can/could} to give or ask for permission. \textit{Can} is less formal than \textit{could}.
+
+\begin{itemize}
+    \item \textbf{Can} I borrow your pen?\\
+    Oh, sure!
+    \item \textbf{Could} I use your laptop, please? You \textbf{could} take it to your room, if you like.
+\end{itemize}
+
+We use \textit{can/could} to ask someone to do something:
+
+\begin{itemize}
+    \item \textbf{Can} you please tell Mr. Rashid to come?
+    \item \textbf{Could} you please send some snacks and tea?
+\end{itemize}
+
+\textbf{For possibility:}
+
+We use \textit{could} to express possibility:
+
+\begin{itemize}
+    \item You \textbf{could} read books, or do some writing, or do crossword puzzles.
+\end{itemize}
+
+\textbf{Activity 1}
+
+Read the following conversations. Fill in the blanks with \textit{can}, \textit{could}, or \textit{cannot/can’t}:
+
+\begin{itemize}
+    \item a. \textbf{Doctor:} Look at this chart, Padma. \_\_ you see the letters and the pictures?\\
+    \textbf{Padma:} Yes, I \_\_ see some pictures and some of the letters.\\
+    \textbf{Doctor:} \_\_ you name the things you see?\\
+    \textbf{Padma:} Well, I \_\_ see a bird, a flower, a house and the letters B, M, Q. \dots No, it’s O.\\
+    \textbf{Doctor:} That’s good. Now come here. \_\_ you take off your glasses, please?
+    \item b. \textbf{:} \_\_ you hear me at the back?\\
+    \textbf{:} No, we \_\_. We don’t think the microphone is working. \_\_ you please speak a little louder?
+    \item c. \textbf{:} Dad, \_\_ I go to the New Year eve’s concert?\\
+    \textbf{:} You \_\_, but you \_\_ stay out after 11 p.m.
+    \item d. \textbf{:} \_\_ you please make less noise? I’m trying to write a report, and I \_\_ concentrate if you sing so loudly.\\
+    \textbf{:} I’m sorry, but I \_\_ help it. I need to practice for the college function tonight.\\
+    \textbf{:} \_\_ you please go to another room then?
+    \item e. \textbf{:} Hey friends, where shall we go on holiday this winter?\\
+    \textbf{:} We \_\_ go to Dinajpur to see the Kantajee’s Temple.\\
+    \textbf{:} Oh, it will be too cold there in January. I \_\_ stand cold.\\
+    \textbf{:} Well, if you like mountains, we \_\_ go to the Neelgiri mountains in Bandarban.\\
+    \textbf{:} Or we \_\_ go to the Sundarbans. We \_\_ see both the jungle and the ocean!
+    \item f. \textbf{:} \_\_ you play tennis?\\
+    \textbf{:} Yes, I \_\_. But I \_\_ play it until I joined the community club and took lessons in tennis last year.\\
+    \textbf{:} \_\_ you please teach me?\\
+    \textbf{:} Sure. We \_\_ start tomorrow, if you are ready.
+\end{itemize}
+
+\subsection*{May and Might}
+
+\textbf{A.} Read the following texts.
+
+\begin{itemize}
+    \item a. \textbf{:} What are you doing this evening?\\
+    \textbf{:} We \textbf{may} go to the museum. You \textbf{can} come along with us.\\
+    \textbf{:} Oh, I’d love to. \textbf{Can} I ask Shamim if he’d like to join us?\\
+    \textbf{:} Sure. He \textbf{may} be in his office now. Why don’t you call him?
+    \item b. \textbf{:} I haven’t seen Rumana for ages.\\
+    \textbf{:} You \textbf{might} see her tomorrow evening. I think she’s in town now and if she knows about the alumni get-together, she \textbf{might} come there.
+    \item c. \textbf{:} \textbf{May} I try on these shoes?\\
+    \textbf{:} Of course, ma’am. But these \textbf{might} be too small for you. These are size 4. You \textbf{might} need a size 5.\\
+    \textbf{:} Let me just try these once… oops! Maybe you’re right. \textbf{Can} you please show me a size 5?
+    \item d. \textbf{:} Thank you, sir, for coming to this talk show this evening. \textbf{May} I ask you a last question?\\
+    \textbf{:} Yes, you \textbf{may}, if it’s not too personal.
+    \item e. \textbf{:} Excuse me. \textbf{May} we see the document?\\
+    \textbf{:} No, you \textbf{can’t}. It’s confidential.
+\end{itemize}
+
+\textbf{Grammar point}
+
+\textbf{Form}
+
+\textit{May} and \textit{might} are modal verbs and are used, like auxiliary verbs, to express different meanings of the main verb.
+
+In a positive sentence, we use \textit{may/might + verb}
+
+For negatives, we use \textit{may not/might not + verb}
+
+\textbf{Note:} \textit{May/might} are not usually used in a question form to mean possibility.
+
+We can use \textit{may} in a question to express asking for or giving permission. For example,
+
+\begin{itemize}
+    \item \textbf{May} I sit here? Yes, you \textbf{may}.
+    \item \textbf{May} I see that book? No, you \textbf{may not}.
+\end{itemize}
+
+However, this sounds very formal in everyday situations now, and \textit{can/could} are used more frequently.
+
+We use \textit{may/might} to refer to the present or future time:
+
+\begin{itemize}
+    \item It \textbf{may} rain this evening.
+    \item The shoes \textbf{might} be too small for you.
+    \item He \textbf{may} be in his office now.
+\end{itemize}
+
+\textbf{Use}
+
+We use \textit{may} or \textit{might} to say that something is possible but not certain, now or in future:
+
+\begin{itemize}
+    \item He \textbf{may not} be in office now.
+    \item You \textbf{may} see him in office tomorrow.
+    \item He \textbf{might} offer you the job.
+\end{itemize}
+
+\textbf{Note:} \textit{May} implies stronger possibility than \textit{might}, i.e. \textit{might}, like \textit{may}, expresses possibility, but in a lesser degree. For example, if we say, ‘We \textbf{might} go to the museum today’, there is less chance of going there than when we say, ‘We \textbf{may} go to the museum today’.
+
+Another function of \textit{may} is to express permission:
+
+\begin{itemize}
+    \item \textbf{May} I use your telephone?
+    \item \textbf{May} I ask you a question?
+    \item Those who have finished writing \textbf{may} leave the exam hall.
+\end{itemize}
+
+\textbf{Activity 1}
+
+Write \textit{may/might} + an appropriate verb in the following gaps.
+
+\begin{itemize}
+    \item a. \textbf{:} Are you going out? I think you should take an umbrella.\\
+    \textbf{:} Why? It’s not raining, is it?\\
+    \textbf{:} No, but there are dark clouds in the sky, and it \_\_ anytime.
+    \item b. \textbf{:} Shall we invite Kanak to go to the movie with us?\\
+    \textbf{:} Well, I haven’t seen her go to a movie often. But you never can tell. She \_\_ to see \textit{The Titanic}.
+    \item c. \textbf{:} We missed Asad in last year’s get-together. Hope he’d come to the party tonight.\\
+    \textbf{:} Well, as far as I know, he doesn’t like parties. He \_\_ to the party tonight also.
+\end{itemize}
+
+\textbf{Activity 2}
+
+Write six things that you \textit{may} or \textit{might} do during the next holidays.
+
+\part{Will/Would}
+
+We have already discussed the use of \textit{Will} and \textit{Shall} to express future facts or events. These are modal auxiliaries, and go before the main verb, and do not change.
+
+\textbf{A.} Read the following passage and notice the use of \textit{will}, \textit{won’t} and \textit{would} as modal auxiliaries:
+
+\begin{itemize}
+    \item a. My family and I \textbf{will} go to attend my cousin’s wedding tomorrow at Munshiganj. Father has already made all the arrangements. We \textbf{will} first take a bus to the Sadarghat, and then we \textbf{will} go by a steamer to Munshiganj. We \textbf{will} stay there overnight and \textbf{will} come back the next evening. I’m a little sad that I \textbf{won’t} go to school tomorrow and the day after, but I don’t want to miss all the fun at the wedding either.
+    \item b. \textbf{:} Hello, Rupam!\\
+    \textbf{:} Hi, Shahed! How are you?\\
+    \textbf{:} I’m good. Listen, we’re going on a river cruise tomorrow morning. \textbf{Would} you like to join us?\\
+    \textbf{:} Oh, I’d love to. What time \textbf{would} you leave?\\
+    \textbf{:} We \textbf{will} all meet at the school ground at 7.00.\\
+    \textbf{:} Okay I’ll be there by 7.00. \textbf{Would} you please give me a wake-up call at 6.15?\\
+    \textbf{:} I \textbf{will}. See you tomorrow then.
+\end{itemize}
+
+\textbf{Grammar point}
+
+\textit{Will} and \textit{won’t} are used to predict a future event which is seen as certain:
+
+\begin{itemize}
+    \item My family and I \textbf{will} go to attend my cousin’s wedding tomorrow.
+    \item We \textbf{will} meet at the school ground at 7.00.
+\end{itemize}
+
+\textbf{Note} that in conversations we usually use \textit{won’t} in place of \textit{will not}.
+
+Also we don’t generally use \textit{will not} in negative questions. Instead, we say, ‘\textbf{Won’t} you come to see me off at the airport?’
+
+We use \textit{would} for invitations, requests, and for polite conversations:
+
+\begin{itemize}
+    \item \textbf{Would} you like to join us for the river cruise? I’d love to.
+    \item What \textbf{would} you like to have, tea or coffee?
+\end{itemize}
+
+We usually use the contracted form of \textit{would} (‘d) after words ending in a vowel sound:
+
+\begin{itemize}
+    \item I’d/we’d/he’d/she’d, etc.
+\end{itemize}
+
+But we don’t say, ‘It’d’ (x), instead, we’d say ‘It \textbf{would}’.
+
+\textbf{Activity 1}
+
+Fill in the blanks with \textit{will} or \textit{won’t} or \textit{would}.
+
+\begin{itemize}
+    \item a. Jamal has less than 75\% attendance in class. He \_\_ be allowed to sit for the exam. What \_\_ he do now? I think he \_\_ keep it a secret from his parents, and \_\_ even tell his sister whom he tells almost everything.
+    \item b. Mahim has been late to office everyday for the last three days. If he continues like this he \_\_ lose his job.
+    \item c. \textbf{:} Hello, Meera. This is Akash here.\\
+    \textbf{:} Hello, Akash bhai.\\
+    \textbf{:} Is Sarwar there?\\
+    \textbf{:} He’s in the shower. \_\_ you like to leave a message?\\
+    \textbf{:} Yes. \_\_ you please tell him that we’re waiting for him at the library?
+    \item d. \textbf{:} Ah… I’m exhausted! \_\_ you please give me a glass of water?\\
+    \textbf{:} Sure. \_\_ you like to have something to eat?\\
+    \textbf{:} No, thanks, not now. \_\_ you mind opening that window, please?\\
+    \textbf{:} Not at all.\\
+    \textbf{:} Thanks, dear.
+    \item e. \textbf{:} I hope the function starts on time. It’s already ten minutes to seven now.\\
+    \textbf{:} Don’t worry. The chief guest \_\_ be here any moment. He’s very particular about time.
+\end{itemize}
+
+\part{Must/Must not/Need}
+
+\textbf{A.} Read the following texts:
+
+\begin{itemize}
+    \item a. \textbf{:} He ate a dozen eggs at a time! He \textbf{must} be crazy!\\
+    \textbf{:} You \textbf{must} be joking! I don’t believe you.
+    \item b. My mark-sheet shows that I’ve failed in English! There \textbf{must} be some mistake. English has always been my strong subject. It simply \textbf{can’t} be!
+    \item c. The teacher says to her students, “You \textbf{must} submit your essays tomorrow. I won’t accept any after that. And you \textbf{must not} copy from any book or from anyone else’s writing.
+    \item d. Hello, everybody! Here’s an announcement for tomorrow’s workshop. All the delegates \textbf{must} finish registration by 9 o’clock. The delegates \textbf{must} wear their badges while attending the sessions. The volunteers \textbf{mustn’t} leave the venue before the workshop is over at 6 p.m. The information desk will remain open from 8 a.m. to 7 p.m. for all kinds of assistance to the participants, delegates and the guests.
+    \item e. When you go for an interview you \textbf{need} to make a good impression as soon as you enter the room. You \textbf{need} to give the impression of being polite and at the same time of being confident and pleasant. Here are just a few things you should remember: You \textbf{mustn’t} move about in your chair, you \textbf{must} sit still and relax; You \textbf{needn’t} wear new or fashionable clothes, but you \textbf{must} wear clean and neat clothes; You \textbf{need} to speak loudly and clearly, but \textbf{mustn’t} interrupt when they are speaking.
+\end{itemize}
+
+\textbf{Use}
+
+We can use \textit{must} and \textit{can’t} to assert something that we infer or conclude to be the most logical possibility of a situation or an event. For example,
+
+\begin{itemize}
+    \item He \textbf{must} be crazy to eat a dozen eggs at a time.
+\end{itemize}
+
+Or, as the examinee is confident that he just cannot fail in English since it is his strong subject, he uses ‘\textit{can’t}’ to express the most logical possibility of the situation:
+
+\begin{itemize}
+    \item It simply \textbf{can’t} be.
+    \item There \textbf{must} be some mistake in the mark-sheet.
+\end{itemize}
+
+We use \textit{must} to express obligation and \textit{mustn’t} to express prohibition or something that is not allowed:
+
+\begin{itemize}
+    \item You \textbf{must} submit your essays tomorrow. (obligation)
+    \item Delegates \textbf{must} finish registration… (obligation)
+    \item You \textbf{must not} copy from any book or anyone else’s writing. (prohibition)
+    \item Volunteers \textbf{mustn’t} leave before… (prohibition)
+    \item You \textbf{must} wear clean and neat clothes…. (obligation)
+    \item You \textbf{mustn’t} move about in your chair…. (not allowed)
+    \item You \textbf{mustn’t} interrupt when they are speaking…. (not allowed)
+\end{itemize}
+
+We use \textit{need} to talk about something that is necessary:
+
+\begin{itemize}
+    \item When you go for an interview, you \textbf{need} to make a good impression. (necessary)
+    \item You \textbf{need} to speak loudly and clearly. (necessary)
+\end{itemize}
+
+We use \textit{need not} or \textit{needn’t} (without ‘to’) to talk about something that is not necessary:
+
+\begin{itemize}
+    \item You \textbf{needn’t} wear new or fashionable clothes.
+    \item You \textbf{needn’t} smile all the time, but you \textbf{need} to look relaxed and confident.
+\end{itemize}
+
+\textbf{Activity 1}
+
+Fill in the blanks in the following sentences with \textit{must}, \textit{mustn’t}, \textit{can’t} or \textit{need/needn’t}:
+
+\begin{itemize}
+    \item a. Sagar wants to go to the computer fair with his friends and tells his father so. His father says, “Well, you can go, but you \_\_ be home by 9 o’clock.”
+    \item b. All you read about in newspapers now-a-days is crime, violence and death. Things \_\_ continue like this. The government \_\_ do something to improve the law and order situation.
+    \item c. The bank manager tells Manzoor, who wants to open an account, that he \_\_ sign his name at the bottom of the form. The manager then gives Manzoor a new cheque book and says that he \_\_ lose it.
+    \item d. Rita wants to go and live in Japan one day. But then she \_\_ learn to speak Japanese.
+    \item e. One of the rules of hotels anywhere is that the guests \_\_ sign the register immediately on arrival.
+    \item f. \textbf{:} I think your friend Habib has come. He’s talking to Grandpa in the balcony.\\
+    \textbf{:} It \_\_ be Habib. I just talked to him on the phone. He’s in Chittagong now.
+    \item g. The doctor tells the patient that his heart condition is bad, and he \_\_ smoke at all.
+    \item h. When you go for an interview, you \_\_ (necessary) listen to the questions very carefully, but you \_\_ (not necessary) tell them your life story.
+    \item i. You \_\_ (not necessary) write a very long essay, but you \_\_ (necessary) type it, and submit it by tomorrow.
+\end{itemize}
+
+\part{Should/Ought to}
+
+\textbf{A.} Read the following texts and notice the meanings the use of \textit{should/ought to} gives to the main verbs.
+
+\begin{itemize}
+    \item a. \textbf{:} You don’t look good these days. Are you okay?\\
+    \textbf{:} I don’t know. I’ve had this cough for quite some time, and I don’t have much appetite either.\\
+    \textbf{:} You \textbf{should/ought to} go to a doctor.
+    \item b. \textbf{:} Atiya doesn’t like living in Boston. She hates the freezing winter season there.\\
+    \textbf{:} Well, she \textbf{should} then move to some warmer place during that time, like Texas or L.A.
+    \item c. \textbf{:} Hey, Kamal, could you suggest a good book to read during the holidays?\\
+    \textbf{:} I just finished reading \textit{The Life of Tagore}. I liked it very much. You \textbf{should/ought to} read it.\\
+    \textbf{:} Can I borrow it from you?\\
+    \textbf{:} Of course, but you \textbf{should} give it back to me after the vacation.\\
+    \textbf{:} I will. Thanks a lot, my friend.
+    \item d. \textbf{:} Friends, I’m hungry and I’m tired. We’ve been walking around for hours.\\
+    \textbf{:} Right. We \textbf{should} find a place to eat now.
+    \item e. \textbf{:} Have you noticed that Mr. Lee has put on a lot of weight recently? He \textbf{ought to} do some exercise regularly.\\
+    \textbf{:} Yes, but \textbf{shouldn’t} he consult a doctor before that?
+    \item f. \textbf{:} Do you know when Tom is arriving?\\
+    \textbf{:} Well, he \textbf{shouldn’t} be late. The train has left on time, so he \textbf{should} be here at 4.00 as scheduled.
+\end{itemize}
+
+\textbf{Grammar point}
+
+\textit{Should} and \textit{ought to} are modal verbs and go before the main verb. We can use them for the present:
+
+\begin{itemize}
+    \item We \textbf{should} find a place to eat now.
+\end{itemize}
+
+Or for the future:
+
+\begin{itemize}
+    \item He \textbf{should/ought to} go to a doctor.
+\end{itemize}
+
+We make the negative by adding \textit{not/n’t}:
+
+\begin{itemize}
+    \item If you want to lose weight, you \textbf{shouldn’t} eat so much chocolate.
+    \item And you \textbf{ought not} to eat junk or oily food.
+\end{itemize}
+
+We don’t usually use \textit{ought to} in questions. We make questions with \textit{should + subject + verb}:
+
+\begin{itemize}
+    \item e.g. Has Zaman sent the reports? I need them today.\\
+    I don’t think he has. \textbf{Should} I send him a mail or \textbf{should} I call him?
+    \item Or, \textbf{Shouldn’t} he consult a doctor before that?
+\end{itemize}
+
+\textbf{Use}
+
+We often use \textit{should} or \textit{ought to} when we are giving advice:
+
+\begin{itemize}
+    \item You’ve had that cough for quite some time. You \textbf{should/ought to} see a doctor.
+\end{itemize}
+
+We use \textit{should} or \textit{ought to} for expressing an opinion:
+
+\begin{itemize}
+    \item It’s a good book. You \textbf{should/ought to} read it. (I think)
+\end{itemize}
+
+We often use \textit{should} to talk about things we expect to happen in the future:
+
+\begin{itemize}
+    \item Tom \textbf{shouldn’t} be late. The train has left the station on time. He \textbf{should} be here at 4.00 as scheduled.
+\end{itemize}
+
+\textbf{Activity 1}
+
+Complete the conversations using \textit{should/shouldn’t} or \textit{ought to}.
+
+Jonathan: Hi, Akash. I’m calling to tell you that I’ll be coming to Bangladesh in late January for two weeks. What clothes \_\_ I bring with me? \_\_ I bring an overcoat?
+
+Akash: Well, you \_\_ bring some warm clothes, but I don’t think you need to bring any overcoat or heavy woolen clothes. A light jacket or sweater \_\_ do. Compared to New York, it’s usually not too cold in Dhaka. Rather you \_\_ bring enough cotton clothes, it can be quite warm and humid in February here.
+
+Jonathan: Great! And could you please make a list of all the interesting places I \_\_ see and things I \_\_ do while in your country?
+
+Akash: Sure, I will.
+
+Jonathan: One more thing. What do you think, \_\_ I rent a car while I’m in Dhaka?
+
+Akash: I think that’s a good idea. But you \_\_ worry, I’ll take care of that.
+
+Jonathan: Thanks a lot, Akash. See you soon.
+
+Akash: Ya, looking forward to seeing you. Bye.
+
+\textbf{Activity 2}
+
+Shamim and Rekha have bought a new TV. They’re trying to install it in their living room. Look at the pictures and complete the blanks with \textit{should/shouldn’t}:
+
+We \_\_ do anything without reading the instructions. Let’s see the instruction manual first. It \_\_ tell us everything.
+
+Okay, I’ve put in the plugs on the back. Can you turn on the switch, Rekha? Mmmmm… the screen \_\_ come on now.
+
+The screen \_\_ be moving like that. And the pictures \_\_ be clearer, too.
+
+I’m sure the screen \_\_ look like that. \_\_ we start from the beginning again?
+
+I think we \_\_ experiment with it any further. We \_\_ call the agency to send someone to help.
+
+\end{document}

@@ -235,7 +235,7 @@ const fetchQuizQuestion = async (submission = null) => {
   <div className="practice-quiz-container">
  <div className="quiz-header">
          <div className="quiz-title-section">
-                  <h2>Quiz</h2>
+                  <h2 style={{ color: 'blue' }}><i className="bi bi-pencil-fill"></i>  QUIZ</h2>
                   <h3>{subject}</h3>
                   <h3>{topic}</h3>
                   <h3>{subtopic}</h3>

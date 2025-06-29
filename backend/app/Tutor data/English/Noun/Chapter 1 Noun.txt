@@ -1,0 +1,351 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\title{English Grammar and Composition: The Noun}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+\part{Kinds of Nouns}
+\subsection*{01 The Noun: Kinds of Nouns}
+
+\textbf{A.} Read the following passage and notice the underlined words:
+
+Shakespeare was born in 1564 at Stratford-upon-Avon in England. He was a poet, playwright, and actor. He is widely regarded as one of the greatest writers in English and the most prominent dramatist of the world. He enjoys enormous popularity even in the modern age for his plays and poems.
+
+These are all nouns. The noun is a naming word. It may name a person, place, or thing. There is a bewildering variety of things in the world. So there is a bewildering number of nouns in a language. Look back at the nouns in the passage above and think what they name.
+
+There are five kinds of nouns in English. They are:
+\begin{enumerate}
+    \item Proper nouns
+    \item Common nouns
+    \item Collective nouns
+    \item Material nouns
+    \item Abstract nouns
+\end{enumerate}
+
+\textbf{Activity 1.} Notice the underlined words in the following passage and say what they refer to:
+
+Rajshahi is a divisional city in Bangladesh. It is in the western part of the country. It stands on the river Padma. My friend Alamgir lives in this city. He is a professor of History. I often visit him and discuss many things with him. He speaks good English.
+
+These are all proper nouns. A proper noun is the name of a particular person, place, or thing. For example, ``Rajshahi'' is the name of a particular city and ``History'' is the name of a particular subject. Think of the other proper nouns in the passage. A proper noun usually begins with a capital letter. A proper noun is usually singular but some proper nouns are plural in form. For example:
+\begin{itemize}
+    \item The Maldives is an island country.
+    \item Have you ever been to the Philippines?
+    \item The United Nations has a big responsibility.
+\end{itemize}
+
+\textit{Note:} Although these nouns are plural in form, they take a singular verb with them.
+
+\textbf{Activity 2.} Notice the underlined words in the following passage:
+
+Nasima is a beautiful girl. She is a bright student too. She reads in a local college. She has many friends. She discusses her lessons with them. She attends classes regularly. Every teacher is fond of her.
+
+These are common nouns. A common noun refers to every person, place, or thing of the same class or kind. It does not refer to anything in particular. For example, the noun `girl' may mean any girl in the world. A common noun can be both singular and plural. For example:
+\begin{itemize}
+    \item London is a big city.
+    \item There are many big cities in the world.
+\end{itemize}
+
+\textit{Note:} A proper noun can be used as a common noun. Look at the following examples:
+\begin{itemize}
+    \item He is called the Shakespeare (= the greatest dramatist) of Bangladesh.
+    \item There are two Raghibs in this class.
+\end{itemize}
+
+\textbf{B.} Look at the underlined nouns in the following passage:
+
+Salam comes of a big family. He has three brothers. His elder brother is a member of Parliament. His younger brother has recently joined the army. His other brother is a cricketer who plays for the national team. Salam himself is a Civil Servant who works for the government.
+
+These are collective nouns. A collective noun is the name of a collection or group of people or things taken together. For example, an army is a group of soldiers and a team is a group of players. Think of the other nouns in the passage as a group of persons spoken of as one whole. A collective noun can take both singular and plural verbs after it. For example:
+\begin{itemize}
+    \item The government has/have decided on a new pay scale.
+    \item The committee was/were in favour of my proposal.
+\end{itemize}
+
+\textbf{C.} Read the following passage and notice the underlined nouns:
+
+Mrs. Rahman is now visiting a jeweller. She will buy some gold and silver to make some jewellery. Next, she will also go to a grocery shop. She needs to buy sugar, tea, milk, and oil.
+
+These are material nouns. A material noun names a thing that has weight but cannot be counted. It is a kind of mass noun which is considered uncountable. It refers to any material or substance. The substance may be solid, liquid, or gaseous. ``Oxygen'' is also a material noun.
+
+\textbf{D.} Look at the underlined nouns in the following passage:
+
+Mr. Haque was a freedom fighter. He is known for his bravery. He is working for a private company now. Everybody loves him for his honesty and sincerity. He is an admirer of freedom and justice.
+
+These are abstract nouns. An abstract noun is the name of a quality, state, or concept. It has no material form, shape, or size.
+
+\textbf{Activity 3.} Think of some other abstract nouns and make a sentence with each of them.
+
+\textbf{Activity 4.} Identify the nouns in the following passage, and say whether they are Proper, Common, Collective, Material, or Abstract nouns.
+
+Hasan is a rich farmer who lives in a village in the district of Sirajganj. He has a lot of cultivable land. He grows rice, wheat, and other crops. He has a herd of cattle and other domestic animals. They provide him with milk and meat. Hasan is a kind man. He has love and sympathy for the poor class of people.
+\part{Number}
+\subsection*{1/2: Number}
+
+\textbf{A.} Read the following two passages and notice the forms of the underlined nouns:
+
+(i) Mr. Aslam is a teacher. His wife is a banker. They have only one child. Theirs is a small family. They live a happy life.
+
+(ii) Mr. and Mrs. Hasan are teachers. They have two children. Both of them are students. All the four members of this family are fond of books.
+
+In the first passage, each of the underlined nouns denotes only one person or thing. On the other hand, each underlined noun in the second passage denotes more than one person or thing.
+
+This is related to number. A noun that denotes one person or thing is said to have a singular form. For example, the nouns in the first passage (teacher, banker, child, family, and life) are all singular in form. On the contrary, a noun that denotes more than one person or thing is said to have a plural form. For example, all the nouns in the second passage (teachers, children, students, members, and books) are plural in form.
+
+Number is a grammatical distinction which tells whether a noun (also a pronoun, verb, or determiner) is singular or plural. There are two numbers in English -- the Singular and the Plural.
+
+\textbf{B.} Plurals are usually formed by adding $s$, $es$, or $ies$ to the singular form. Look at the following examples.
+
+(i) Singular + $s$ = plural
+\begin{table}[h]
+\begin{tabular}{ll}
+boy & boys \\
+girl & girls \\
+dog & dogs \\
+page & pages \\
+monkey & monkeys \\
+\end{tabular}
+\end{table}
+
+\textit{Note:} Most nouns are made plural by adding an $s$ to the singular form.
+
+(ii) Singular + $es$ = plural
+\begin{table}[h]
+\begin{tabular}{ll}
+bus & buses \\
+kiss & kisses \\
+dish & dishes \\
+watch & watches \\
+box & boxes \\
+\end{tabular}
+\end{table}
+
+\textit{Note:} Plurals are formed by adding $es$ when the singular form ends in $s$, $ss$, $sh$, $ch$, or $x$.
+
+(iii) Singular + $ies$ = plural
+\begin{table}[h]
+\begin{tabular}{ll}
+baby & babies \\
+lady & ladies \\
+story & stories \\
+duty & duties \\
+fly & flies \\
+\end{tabular}
+\end{table}
+
+\textit{Note:} Singular nouns ending in a consonant + $y$ form their plurals by dropping $y$ and adding $ies$.
+
+\textbf{C.} Plural forms of nouns can also be made in other ways. Notice the following examples:
+
+(i) Singular nouns ending in $f$/$fe$ form their plurals by dropping $f$/$fe$ and adding $ves$:
+\begin{table}[h]
+\begin{tabular}{ll}
+calf & calves \\
+wife & wives \\
+knife & knives \\
+\end{tabular}
+\end{table}
+
+Now write the plural forms of the following nouns: thief, leaf, wolf, shelf, life.
+
+(ii) Plurals are often formed by making an internal change of vowels:
+\begin{table}[h]
+\begin{tabular}{ll}
+foot & feet \\
+tooth & teeth \\
+man & men \\
+\end{tabular}
+\end{table}
+
+Now fill in the following blanks with plurals: goose, mouse, woman, louse.
+
+(iii) Look at the plurals of some compound words:
+\begin{table}[h]
+\begin{tabular}{ll}
+boy-friend & boy-friends \\
+take-off & take-offs \\
+step-son & step-sons \\
+passer-by & passers-by \\
+looker-on & lookers-on \\
+runner-up & runners-up \\
+father-in-law & fathers-in-law \\
+man-of-war & men-of-war \\
+\end{tabular}
+\end{table}
+
+(iv) Nouns ending in $is$ have $es$ in the plural:
+\begin{table}[h]
+\begin{tabular}{ll}
+thesis & theses \\
+crisis & crises \\
+basis & bases \\
+diagnosis & diagnoses \\
+synopsis & synopses \\
+\end{tabular}
+\end{table}
+
+\textbf{D.} Number is applicable not only for nouns but also for pronouns, verbs, and determiners. Read the following passage and notice the underlined words:
+
+Karim is a student of class nine. He is my friend. We go to school together by rickshaw. We always share our rickshaw fare. In his free time he loves to play badminton while I love to watch movies.
+
+In this passage `he' and `we' are pronouns; `reads', `is', `go', and `share' are verbs, and `my' and `our' are determiners. You can easily guess which of these words are singular and which are plural. Remember, whether a verb is singular or plural is determined by its subject. A singular subject takes a singular verb and a plural subject takes a plural verb.
+
+\textbf{Activity 1.} Now fill in the gaps in the following sentences:
+
+We have a pet that \_\_ in our house. We all \_\_ very fond of it. My mother \_\_ care of it. It \_\_ to eat fish and milk. It \_\_ us by killing \_\_.
+
+\textbf{Activity 2.} Rewrite the following passage changing the singular words into their plural forms:
+
+As you are my friend, you can borrow this book from me. But you should return it within a week. You should not tell a lie to me. I hate a liar. I also hate a person who breaks a promise.
+\part{Gender}
+\subsection*{1/3: Gender}
+
+\textbf{A.} Gender is a distinction which shows whether a noun or pronoun is male or female. It is related to the sex of living beings. Read the following passage and say what gender the underlined words refer to.
+
+All the teachers were invited to the party. Their spouses and children were also invited. But Mr. Rahman could not attend the party, because his wife was ill. As his son and daughter were away from home, there was nobody else in the house to look after her.
+
+\textbf{B.} There are four genders in English. They are:
+\begin{enumerate}
+    \item Masculine gender
+    \item Feminine gender
+    \item Common gender
+    \item Neuter gender
+\end{enumerate}
+
+\textbf{Activity 1.} Now fill in the gaps in the following sentences to understand what each gender denotes.
+
+The masculine gender denotes a \_\_ person or animal.
+
+The feminine gender refers to a \_\_ person or animal.
+
+The common gender refers to both \_\_ and \_\_ persons/animals.
+
+The neuter gender denotes a thing which is neither \_\_ nor \_\_.
+
+\textbf{Activity 2.} Here are some nouns. Say what gender they denote.
+\begin{table}[h]
+\begin{tabular}{llll}
+man & woman & student & camera \\
+uncle & aunt & doctor & flower \\
+brother & sister & sibling & pen \\
+lion & lioness & professor & table \\
+god & goddess & minister & book \\
+policeman & policewoman & policeperson & dress \\
+gander & goose & bird & bed \\
+\end{tabular}
+\end{table}
+
+\textbf{Activity 3.} Read the following masculine nouns and match them with their feminine forms.
+\begin{table}[h]
+\begin{tabular}{ll}
+\textbf{Masculine} & \textbf{Feminine} \\
+actor & actress \\
+count & countess \\
+duke & duchess \\
+priest & priestess \\
+salesman & saleswoman \\
+bull/ox & cow \\
+cock & hen \\
+dog & bitch \\
+drake & duck \\
+horse & mare \\
+lord & lady \\
+stag & hind \\
+fox & vixen \\
+nephew & niece \\
+\end{tabular}
+\end{table}
+
+\textbf{Activity 4.} Genders also refer to pronouns. Correct the mistakes of pronouns in the following passage:
+
+My father is a poet. She has written a lot of poems. Her poems are very good to read. My mother, however, does not read these poems. He is always busy doing his own work. His indifference to her poetry is painful.
+\part{Possessives and Appositives}
+\subsection*{1/4: Possessives and Appositives}
+
+\textbf{A.} Read the following passage and notice the underlined words:
+
+This is Salma's school. This is a girls' school. Her elder sister's husband is the founder of this school. It is one of the best schools in Rajshahi. Will you go to the Headmistress's chamber and talk to her about your daughter's admission?
+
+These are all possessive forms of nouns. The possessive case is a grammatical phenomenon which indicates relationship or ownership.
+
+\textit{Note:} The possessive case is formed in mainly two ways:
+
+(i) When the noun is singular, its possessive form will be noun + 's:
+\begin{itemize}
+    \item Della's hair is very long.
+    \item This is Nazma's bag.
+\end{itemize}
+
+However, in some possessives the letter $s$ is omitted in order to avoid a hissing sound.
+\begin{itemize}
+    \item I have done it for conscience' sake.
+    \item You should sacrifice it for goodness' sake.
+\end{itemize}
+
+(ii) When the noun is plural and ends in $s$, the possessive case is formed by adding only an apostrophe and no $s$ after it.
+\begin{itemize}
+    \item She reads in a girls' school.
+    \item Horses' tails are short.
+\end{itemize}
+
+But other plurals take (apostrophe + $s$) in their possessive forms:
+\begin{itemize}
+    \item These are children's books.
+    \item This is a women's club.
+\end{itemize}
+
+\textbf{Activity 1.} Correct the following sentences using the possessive forms of the nouns in bold:
+
+(i) \textbf{Nazrul} father is seriously ill. He is now at \textbf{death} door. His recovery at this stage completely depends on \textbf{Fortune} favour.
+
+(ii) \textbf{Mr. Haque} is ill. He is on \textbf{three days} casual leave. In case of emergency, he can apply for \textbf{one month} medical leave.
+
+(iii) Yesterday I visited \textbf{Mr. Islam} and \textbf{Mr. Kabir} families. But I could not visit \textbf{Mr. Rahim} and \textbf{Mrs. Rahim} family.
+
+\textbf{B.} Here are some more examples of the possessive forms of nouns:
+\begin{itemize}
+    \item Bangladesh's foreign policy is admirable.
+    \item We must obey Nature's laws.
+    \item He was at his wit's end.
+    \item I ate to my heart's content.
+    \item Everything is at my fingers' ends.
+    \item He has lost a pound's weight.
+    \item Everything depends on heaven's will.
+    \item His house is only at a stone's throw from mine.
+    \item It is not your money's worth.
+    \item It is a day's journey from here to Dhaka.
+\end{itemize}
+
+\textbf{C.} Nouns in Apposition:
+
+Apposition means ``placing near''. It is a grammatical arrangement in which two words referring to the same person or thing are placed side by side in a sentence.
+
+Read the following passage and notice the underlined words.
+
+Mr. Rahman, our Headmaster, is a very nice man. My friend, Nazrul, and I saw him yesterday. He discussed many things with both of us. He also talked about his childhood days. We also met his wife, Mrs Salma Begum. She is our English teacher. We like both of them.
+
+In the first sentence, Rahman and Headmaster refer to the same person. The noun ``Headmaster'' follows the noun ``Rahman'' simply to mean which Rahman is referred to. Here the second noun ``Headmaster'' is said to be in apposition to the first noun ``Rahman''. Similar is the case with ``Nazrul'' in the second sentence. It is in apposition to the first noun ``friend''. The second noun in such a situation is also called an appositive.
+
+\textbf{Activity 2.} Find out the other appositive in the passage:
+
+\textbf{Activity 3.} Read the following passage and identify the appositives in it:
+
+We, the students of class nine, are going to publish a magazine. Kazal, the first boy of our class, will be the chief editor of the magazine. Mr. Rafiq, our class teacher, is our chief adviser. We believe that many students will write for the magazine.
+
+\end{document}

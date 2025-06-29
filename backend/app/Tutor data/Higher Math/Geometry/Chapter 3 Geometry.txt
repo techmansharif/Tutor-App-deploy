@@ -1,0 +1,459 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\geometry{a4paper, margin=1in}
+
+% Font configuration (loaded last)
+\usepackage{noto}
+
+\begin{document}
+
+% Title and Introduction
+\section*{Chapter 3: Geometry}
+
+In the Geometry section of the Mathematics book of class 8 and class 9-10, the theorem of Pythagoras and its converse have been discussed in detail. In learning mathematics, the subjects related to this play a very important role. So, in the light of the theorem of Pythagoras, more discussion is necessary in Secondary Higher Mathematics. For this discussion, one needs to have a clear conception of orthogonal projection. With this objective in mind, the theorem of Pythagoras is discussed in briefly the first part of this stage, while at the second stage the conception of orthogonal projection and the corollary of the Pythagoras theorem will be discussed. In the concluding part of the discussion, some problems will be included for logical discussion and proof on the basis of theorem of Pythagoras and its extended conception.
+
+At the end of this chapter, the students will be able to:
+\begin{itemize}
+    \item explain the conception of orthogonal projection;
+    \item prove and apply the theorems on the basis of the theorem of Pythagoras;
+    \item prove and apply the theorems of the circumcentre, centroid and orthocenter;
+    \item prove and apply the theorems of Brahmagupta;
+    \item prove and apply the theorems of Ptolemy.
+\end{itemize}
+
+% Part 1: Pythagoras’ Theorem and Extensions
+\part{Pythagoras’ Theorem and Extensions}
+
+% Review of the Theorem of Pythagoras
+\subsection*{Review of the Theorem of Pythagoras}
+
+About 600 years before the birth of the Christ, the renowned Greek scholar Pythagoras (570-495 BC) described an extremely important theorem about right angled triangles. This theorem was named after him and so known as the theorem of Pythagoras. But it was known even around 1000 years before Pythagoras. Egyptian surveyors had possessed the knowledge about the theorem. The theorem of Pythagoras can be proved in many ways. Two of its proofs have been taught in lower secondary level. So we will skip its proof. Herein it will contain only its explanation and some brief discussion.
+
+\textbf{Theorem 1 (Theorem of Pythagoras).} In a right angled triangle the area of the square drawn on the hypotenuse is equal to the sum of the areas of the two squares drawn on the other two sides.
+
+Image description: A right angled triangle $ABC$ with $\angle BAC = 90^\circ$, hypotenuse $BC$, and sides $AB$ and $AC$. Squares are drawn on sides $BC$ (labeled $BB'C''C$), $AB$ (labeled $AA'B''B$), and $AC$ (labeled $CC'A''A$), with side lengths $a$, $c$, and $b$ respectively.
+
+In the figure above $ABC$ is a right angled triangle. $\angle BAC$ is a right angle and $BC$ is hypotenuse. If any square is drawn on the hypotenuse $BC$, its area is equal to the sum of the areas of the squares drawn on the sides adjacent to the right angle which are $AB$ and $AC$.
+
+Here $BC^2=$ the area of the square $BB'C''C=a^2$, $AB^2=$ the area of the square $AA'B''B=c^2$, and $CA^2=$ the area of the square $CC'A''A=b^2$.
+
+Therefore, $BC^2=AB^2+AC^2$ or $a^2=b^2+c^2$.
+
+For example, if the lengths of the two sides adjacent to the right angle of a right angled triangle are $b=8$ cm, and $c=6$ cm, it can be said as per the theorem of Pythagoras that the length of the hypotenuse will be $a=10$ cm.
+
+Similarly, it is possible to know the length of the third side by the lengths of any two sides.
+
+\textbf{Theorem 2 (Converse of the Theorem of Pythagoras).} If the area of the square on one side of a triangle is equal to the sum of areas of the squares drawn on the other two sides, the angle included by the latter two sides is a right angle.
+
+Image description: A triangle $ABC$ with sides $AB$, $BC$, and $AC$ labeled as $c$, $a$, and $b$ respectively. Squares are drawn on each side, with the area of the square on $BC$ equal to the sum of the areas of the squares on $AB$ and $AC$.
+
+In the figure shown above, three sides of the $\triangle ABC$ are $AB$, $BC$ and $AC$. The area of the square drawn on the side $BC$ is equal to the sum of the area of the squares drawn on sides $AB$ and $AC$. Therefore, $BC^2=AB^2+AC^2$ or, $a^2=b^2+c^2$. So, $\angle BAC$ is a right angle. For example, we can say that if the lengths $AB$, $BC$ and $CA$ of $\triangle ABC$ are 6 cm., 10 cm. and 8 cm. respectively, $\angle BAC$ must be a right angle.
+Since, $AB^2=6^2$ square cm. $=36$ square cm.,
+\begin{align*}
+BC^2 &= 10^2 \text{ square cm.} = 100 \text{ square cm.}, \\
+AC^2 &= 8^2 \text{ square cm.} = 64 \text{ square cm.}, \\
+\therefore BC^2 &= 100 = 36 + 64 = AB^2 + AC^2 \\
+\therefore \angle BAC &= 90^\circ = \text{right angle.}
+\end{align*}
+
+% Some Important Theorems
+\subsection*{Some Important Theorems}
+We shall now present the logical proof of some important theorems on the basis of the theorem of Pythagoras and by the conception of the orthogonal projection.
+
+\textbf{Theorem 3.} The area of the square drawn on the opposite side of the obtuse angle of an obtuse angled triangle is equal to the total sum of the two squares drawn on the other two sides and product of twice the area of the rectangle included by either of the two other sides and the orthogonal projection of the other side.
+
+Special Nomination: Suppose, in the triangle $ABC$, $\angle BCA$ is an obtuse angle, $AB$ is the opposite side of the obtuse angle and the sides adjacent to obtuse angle are $BC$ and $AC$ respectively. $CD$ is the orthogonal projection of the side $AC$ on the extended side $BC$ (figure below). It is to be proved that, $AB^2 = AC^2 + BC^2 + 2 \cdot BC \cdot CD$.
+
+Image description: An obtuse triangle $ABC$ with $\angle BCA > 90^\circ$. Side $BC$ is extended beyond $C$ to point $D$, where $CD$ is the perpendicular from $A$ to the extended $BC$, making $CD$ the orthogonal projection of $AC$ on the extended $BC$.
+
+Proof: As $CD$ is the orthogonal projection of the side $AC$ on the extended side $BC$, $\triangle ABD$ is a right angled triangle and $\angle ADB$ is a right angle.
+So, according to the theorem of Pythagoras
+\begin{align*}
+AB^2 &= AD^2 + BD^2 \\
+&= AD^2 + (BC + CD)^2 \quad [\because BD = BC + CD] \\
+&= AD^2 + BC^2 + CD^2 + 2 \cdot BC \cdot CD \\
+\therefore AB^2 &= AD^2 + CD^2 + BC^2 + 2 \cdot BC \cdot CD \cdots \cdots (1)
+\end{align*}
+Again $\triangle ADC$ is a right angled triangle and $\angle ADC$ is right angle.
+\begin{align*}
+\therefore AC^2 &= AD^2 + CD^2 \cdots \cdots (2)
+\end{align*}
+From the equation (2), putting the value $AD^2 + CD^2 = AC^2$ in equation (1), we get,
+\[
+AB^2 = AC^2 + BC^2 + 2 \cdot BC \cdot CD \quad [\text{Proved}]
+\]
+
+\textbf{Theorem 4.} In any triangle, the area of the square drawn on the opposite side of an acute angle is equal to the squares drawn on the other two sides diminished by twice the area of the rectangle included by any one of the other sides and the orthogonal projection of the other side on that side.
+
+Special Nomination: In the triangle $\triangle ABC$, $\angle ACB$ is an acute angle and the opposite side of the acute angle is $AB$. The other two sides are $AC$ and $BC$. Suppose, $AD$ is a perpendicular on the side $BC$ (left sided figure below) and the extended side of $BC$ (right sided figure below). So, $CD$ is the orthogonal projection of the side $AC$ on the side $BC$ in the case of both triangles. It is to be proved that $AB^2 = AC^2 + BC^2 - 2 \cdot BC \cdot CD$.
+It is to be noted that here the perpendicular is drawn from $A$ to $BC$. But similarly, the theorem can be proved by drawing a perpendicular from the point $B$ to $AC$.
+
+Image description: Two triangles $ABC$ with $\angle ACB < 90^\circ$. Left: A perpendicular $AD$ from $A$ to $BC$ intersects $BC$ at $D$, with $CD$ as the orthogonal projection of $AC$ on $BC$. Right: $AD$ intersects the extended $BC$ at $D$, with $CD$ as the orthogonal projection of $AC$ on the extended $BC$.
+
+Proof: $\triangle ADB$ is a right angled triangle and $\angle ADB$ is the right angle.
+\[
+\therefore \text{According to the theorem of Pythagoras, } AB^2 = AD^2 + BD^2 \quad (1)
+\]
+In the left sided figure above $BD = BC - CD$.
+\[
+\therefore BD^2 = (BC - CD)^2 = BC^2 + CD^2 - 2 \cdot BC \cdot CD
+\]
+In the right sided figure above $BD = CD - BC$.
+\[
+\therefore BD^2 = (CD - BC)^2 = CD^2 + BC^2 - 2 \cdot CD \cdot BC
+\]
+Therefore, in both figures, $BD^2 = BC^2 + CD^2 - 2 \cdot BC \cdot CD \cdots \cdots (2)$
+Now from equation (1) and (2), we get
+\begin{align*}
+AB^2 &= AD^2 + BC^2 + CD^2 - 2 \cdot BC \cdot CD \\
+\text{Or, } AB^2 &= AD^2 + CD^2 + BC^2 - 2 \cdot BC \cdot CD \cdots \cdots (3)
+\end{align*}
+Again, $\triangle ADC$ is a right angled triangle and $\angle ADC$ is the right angle.
+\[
+\therefore \text{According to the theorem of Pythagoras } AC^2 = AD^2 + CD^2 \cdots \cdots (4)
+\]
+from equation (3) and (4) we get,
+\[
+AB^2 = AC^2 + BC^2 - 2 \cdot BC \cdot CD \quad [\text{Proved}]
+\]
+
+Remark:
+\begin{enumerate}
+    \item In the case of the right angled triangle, the sides adjacent to the right angle are mutually perpendiculars, so each of their orthogonal projection is zero. If $\angle ACB$ is a right angle then the orthogonal projection of $AC$ on $BC$ is $CD=0$. So $BC \cdot CD=0$, therefore $AB^2=AC^2+BC^2$
+    \item Theorem 3 and Theorem 4, are based on Theorem 1. That is why Theorem 3 and Theorem 4 are called extensions of Theorem 1, therefore they can be called extensions of the theorem of Pythagoras.
+\end{enumerate}
+
+The decisions made on the basis of the explanation above: in the case of $\triangle ABC$,
+\begin{enumerate}
+    \item If $\angle ACB$ is an obtuse angle, $AB^2 > AC^2 + BC^2$ [Theorem 3]
+    \item If $\angle ACB$ is a right angle, $AB^2 = AC^2 + BC^2$ [Theorem 1]
+    \item If $\angle ACB$ is an acute angle, $AB^2 < AC^2 + BC^2$ [Theorem 4]
+\end{enumerate}
+
+The following theorem is known as the theorem of Apollonius as this theorem was stated by Apollonius (240-190 AD). It is established on the basis of the extensions of the theorem of Pythagoras (Theorem 3 and Theorem 4).
+
+\textbf{Theorem 5 (Theorem of Apollonius).} The sum of the areas of the squares drawn on any two sides of a triangle is equal to twice the sum of area of the squares drawn on the median of the third side and on either half of that side.
+
+Special Nomination: $AD$, Median of triangle $\triangle ABC$, bisects the side $BC$. It is to be proved that, $AB^2 + AC^2 = 2(AD^2 + BD^2)$.
+
+Image description: Two triangles $ABC$. Left: A perpendicular $AE$ from $A$ to $BC$ intersects $BC$ at $E$, with $D$ as the midpoint of $BC$, and $DE$ as the orthogonal projection of $AD$ on extended $BD$. Right: $AE$ intersects extended $BC$ at $E$, with $D$ as the midpoint of $BC$, and $DE$ as the orthogonal projection of $AD$ on extended $DC$.
+
+Proof: We draw a perpendicular $AE$ on the side $BC$ (left sided figure above) and on the extended side of $BC$ (right sided figure above). In both figures $\angle ADB$ is the obtuse angle of $\triangle ABD$ and $DE$ is the orthogonal projection of the line $AD$ on the extended $BD$.
+
+As per the extension of the theorem of Pythagoras in the case of the obtuse angle [Theorem 3] we get,
+\[
+AB^2 = AD^2 + BD^2 + 2 \cdot BD \cdot DE \cdots \cdots (1)
+\]
+Here, $\angle ADC$ is an acute angle of $\triangle ACD$ and $DC$ (left sided figure above) and $DE$ is the orthogonal projection of the line $AD$ on extended $DC$ (right sided figure above).
+
+As per the extension of the theorem of Pythagoras in the case of the acute angle [Theorem 4] we get,
+\[
+AC^2 = AD^2 + CD^2 - 2 \cdot CD \cdot DE \cdots \cdots (2)
+\]
+Now adding the equations (1) and (2) we get,
+\begin{align*}
+AB^2 + AC^2 &= 2AD^2 + BD^2 + CD^2 + 2 \cdot BD \cdot DE - 2 \cdot CD \cdot DE \\
+&= 2AD^2 + 2BD^2 \quad [\because BD = CD] \\
+\therefore AB^2 + AC^2 &= 2(AD^2 + BD^2) \quad [\text{Proved}]
+\end{align*}
+
+% Determination of the Relation Between the Side of the Triangle and the Median
+\subsection*{Determination of the Relation Between the Side of the Triangle and the Median by the Theorem of Apollonius}
+
+Let, length of the sides of $BC$, $CA$ and $AB$ of the $\triangle ABC$ are $a$, $b$ and $c$ respectively. $AD$, $BE$ and $CF$ are the medians drawn on sides $BC$, $CA$ and $AB$ and their lengths are $d$, $e$ and $f$ respectively.
+
+Then from Apollonius's Theorem we get,
+\begin{align*}
+AB^2 + AC^2 &= 2(AD^2 + BD^2) \\
+\text{Or, } c^2 + b^2 &= 2\left(d^2 + \left(\frac{1}{2} a\right)^2\right) \quad \left[\because BD = \frac{1}{2} a\right] \\
+\text{Or, } b^2 + c^2 &= 2d^2 + 2 \cdot \frac{1}{4} a^2 \\
+\text{Or, } b^2 + c^2 &= 2d^2 + \frac{a^2}{2} \\
+\text{Or, } d^2 &= \frac{2(b^2 + c^2) - a^2}{4}
+\end{align*}
+Similarly we can get, $e^2 = \frac{2(c^2 + a^2) - b^2}{4}$ and $f^2 = \frac{2(a^2 + b^2) - c^2}{4}$
+
+Therefore we can say that if the lengths of the sides of any triangle are known, the length of the medians can also be known.
+\begin{align*}
+\text{Again, } d^2 + e^2 + f^2 &= \frac{2(b^2 + c^2) - a^2}{4} + \frac{2(c^2 + a^2) - b^2}{4} + \frac{2(a^2 + b^2) - c^2}{4} \\
+\text{So, } d^2 + e^2 + f^2 &= \frac{3}{4}(a^2 + b^2 + c^2) \\
+\therefore 3(a^2 + b^2 + c^2) &= 4(d^2 + e^2 + f^2)
+\end{align*}
+So, we can say that in a triangle, thrice the sum of the area of the squares drawn on the three sides is equal to four times the sum of the areas of the squares drawn on the three medians.
+
+If it is a right angled triangle i.e. $\angle ACB$ is a right angle and $AB$ is hypotenuse, then
+\begin{align*}
+c^2 &= a^2 + b^2 \\
+\text{Or, } a^2 + b^2 + c^2 &= 2c^2 \\
+\text{Or, } \frac{4}{3}(d^2 + e^2 + f^2) &= 2c^2 \\
+\text{Or, } 2(d^2 + e^2 + f^2) &= 3c^2
+\end{align*}
+Therefore, we can say that twice the sum of the area of the squares drawn on the medians of a right angled triangle is equal to thrice the area of the square drawn on the hypotenuse.
+
+% Part 2: Orthogonal Projection
+\part{Orthogonal Projection}
+
+% Orthogonal Projection of a Point
+\subsection*{Orthogonal Projection of a Point}
+We call the orthogonal projection of any point on any definite straight line when it signifies the foot of the perpendicular drawn from that point on the definite straight line. Suppose, $XY$ is a definite straight line and $P$ is any point (figure below). We draw the perpendicular $PP'$ from the point $P$ on the straight line $XY$ and $P'$ is the foot of this perpendicular. So, the point $P'$ is the orthogonal of $P$ on the line $XY$. The orthogonal projection of any point on any definite straight line is a point.
+
+Image description: A straight line $XY$ with a point $P$ not on the line. A perpendicular line $PP'$ is drawn from $P$ to $XY$, intersecting at point $P'$, which is the orthogonal projection of $P$ on $XY$.
+
+% Orthogonal Projection of a Line
+\subsection*{Orthogonal Projection of a Line}
+Let, the end points of the line segment $AB$ are $A$ and $B$ (figure above). Now the perpendiculars $AA'$ and $BB'$ are drawn from the points $A$ and $B$ respectively on the line $XY$. The end points of the perpendiculars $AA'$ and $BB'$ are $A'$ and $B'$ respectively. This line segment $A'B'$ is the orthogonal projection of the line segment $AB$ on $XY$. Therefore, it is seen that the orthogonal projection is determined by drawing a perpendicular. So, it is said that the line segment $A'B'$ is the orthogonal projection of the line segment $AB$ on $XY$. In the figure above, if the line segment $AB$ is parallel to $XY$, then $AB=A'B'$. From this conception, we can say that the perpendicular of the orthogonal projection on any line is a point. In that case, the length of the orthogonal projection is zero.
+
+Note:
+\begin{enumerate}
+    \item The foot of the perpendicular drawn from any point on any line is the orthogonal projection of that point.
+    \item The perpendicular of the orthogonal projection on any line is a point, whose length is zero.
+    \item Any definite line parallel to the line segment of the orthogonal projection will be equal to that line segment.
+\end{enumerate}
+
+% Part 3: Similarity of Triangles
+\part{Similarity of Triangles}
+
+% Theorems about Circles and Triangles
+\subsection*{Theorems about Circles and Triangles}
+
+In this section some important theorems about circles and triangles will be presented logically. It is mandatory for the students to know the similarity of two triangles before proving the theorems. Similarity of triangles is discussed thoroughly in Secondary Geometry. For the convenience of the students, we will briefly recapitulate the similarity of triangles.
+
+\textbf{Equiangularity:} Two polygons having the same number of sides with successive equal angles are said to be equiangular polygons.
+
+\textbf{Similarity:} Two polygons having the same number of sides are said to be similar if one can establish a one-one correspondence among their vertices such that
+\begin{enumerate}
+    \item The corresponding angles are equal and
+    \item The corresponding sides are proportional.
+\end{enumerate}
+In this case the two polygons are called similar polygons.
+
+Image description: Three shapes: a rectangle $ABCD$, a square $EFGH$, and a rhombus $KLMN$. The rectangle and square have right angles but different side ratios, while the square and rhombus have equal side lengths but different angles.
+
+If you take a look at the figure above, you will see that,
+\begin{enumerate}
+    \item The rectangular $ABCD$ and square $EFGH$ are equiangular but not similar. All of their corresponding angles are right angle, but their corresponding sides are not proportional.
+    \item The square $EFGH$ and rhombus $KLMN$ are not similar, since their corresponding sides are proportional because of any successive matching of their vertex but their corresponding angles are not equal.
+\end{enumerate}
+
+However, it is not the same in the case of two triangles. If one condition of the mentioned two regarding the matching of the angles of the vertices of two triangles is true, the other one will be true as well and the two triangles will become similar. It should be mentioned in this regard that,
+\begin{enumerate}
+    \item If two triangles are equiangular, each pair of equal angles are called corresponding angles and the sides opposite to the corresponding angles are called corresponding sides.
+    \item If the three sides of a triangle are proportional to the sides of another triangle, each pair of proportional sides are called corresponding sides, and the angles opposite the corresponding sides are called corresponding angles.
+    \item In both cases the triangles are described by matching a one-one correspondence among their vertices of the angles. For example, the corresponding angles are $\angle A$ and $\angle D$, $\angle B$ and $\angle E$, $\angle C$ and $\angle F$; the corresponding sides are $AB$ and $DE$, $AC$ and $DF$, $BC$ and $EF$, in case of $\triangle ABC$ and $\triangle DEF$.
+\end{enumerate}
+
+Some theorems about the similarity of the two triangle are briefly described below.
+
+\textbf{Theorem 6.} If two triangles are equiangular, their corresponding sides are proportional.
+
+Image description: Two triangles $ABC$ and $DEF$ with $\angle A = \angle D$, $\angle B = \angle E$, and $\angle C = \angle F$, showing equiangularity and proportional sides $AB/DE = AC/DF = BC/EF$.
+
+In the figure above, $\triangle ABC$ and $\triangle DEF$ equiangular triangles.
+Therefore, since $\angle A = \angle D$, $\angle B = \angle E$ and $\angle C = \angle F$ then $\frac{AB}{DE} = \frac{AC}{DF} = \frac{BC}{EF}$.
+
+That is, the corresponding sides will be proportional.
+
+\textbf{Corollary 1.} If two triangles are equiangular, they will be similar.
+
+Remarks: If the two angles of one triangle are equal to the two angles of the other, the two triangles are equiangular, hence similar. This is because, the sum of the three angles of any triangle is two right angles.
+
+\textbf{Theorem 7.} If the sides of the two triangles are proportional, the opposite angles of the corresponding sides are mutually equal.
+
+Image description: Two triangles $ABC$ and $DEF$ with proportional sides $\frac{AB}{DE} = \frac{AC}{DF} = \frac{BC}{EF}$, showing equal corresponding angles $\angle A = \angle D$, $\angle B = \angle E$, $\angle C = \angle F$.
+
+In the figure above, $\triangle ABC$ and $\triangle DEF$ are such that their corresponding sides are proportional i.e., as $\frac{AB}{DE} = \frac{AC}{DF} = \frac{BC}{EF}$, the angles are mutually equal. Therefore, $\angle A = \angle D$, $\angle B = \angle E$ and $\angle C = \angle F$.
+
+Theorem 6 is called the converse proposition of the theorem Theorem 7.
+
+\textbf{Theorem 8.} If one angle of one triangle is equal to an angle of another triangle and the side adjoining the equal angles are proportional, the two triangles will be similar.
+
+Image description: Two triangles $ABC$ and $DEF$ with $\angle A = \angle D$ and proportional sides $\frac{AB}{DE} = \frac{AC}{DF}$, indicating similarity.
+
+In the figure below, $\triangle ABC$ and $\triangle DEF$ are such that $\angle A = \angle D$ and the sides $AB$, $AC$ and $DE$, $DF$ adjoining the equal angles are proportional i.e., as $\frac{AB}{DE} = \frac{AC}{DF}$, $\triangle ABC$ and $\triangle DEF$ are similar.
+
+\textbf{Theorem 9.} The ratio of the areas of the two similar triangles is equal to the ratio of the areas of the squares drawn on their two corresponding sides.
+
+Image description: Two similar triangles $ABC$ and $DEF$ with corresponding sides $BC$ and $EF$, showing the ratio of their areas equal to $\frac{BC^2}{EF^2}$.
+
+In the figure below $\triangle ABC$ and $\triangle DEF$ are similar triangles. $BC$ and $EF$ are the corresponding sides of the two triangles. In this condition, the ratio of the two triangles is equal to the ratio of the squares drawn on the two sides $BC$ and $EF$. Therefore, $\frac{\triangle ABC}{\triangle DEF} = \frac{BC^2}{EF^2}$. Similarly if $AB$ and $DE$ and $AC$ and $DF$ are the corresponding sides of two triangles, $\frac{\triangle ABC}{\triangle DEF} = \frac{AB^2}{DE^2} = \frac{AC^2}{DF^2}$.
+
+% Part 4: Triangle Centers and Circle Theorems
+\part{Triangle Centers and Circle Theorems}
+
+% The Circumcenter, Centroid and Orthocenter of a Triangle
+\subsection*{The Circumcenter, Centroid and Orthocenter of a Triangle}
+
+Here it should be mentioned that, the distance between the orthocenter and a vertex of a triangle is twice the perpendicular distance from the circumcenter to the opposite side of that vertex.
+
+\textbf{Circumcenter of a Triangle:} The circumcenter of a triangle is the point of intersection of two perpendicular bisectors of that triangle. Noted that, the perpendicular bisector of the third side of the triangle would pass through the circumcenter too.
+
+\textbf{Centroid of a Triangle:} The centroid of a triangle is the point of intersection of three medians of that triangle. The centroid of a triangle divides each median into the ratio 2:1.
+
+\textbf{Orthocenter of a Triangle:} The orthocenter of a triangle is the point of intersection of the perpendiculars drawn from each vertex to their respective opposite side.
+
+\textbf{Theorem 10.} The circumcenter, the centroid and the orthocenter of any triangle are collinear.
+
+Special Nomination: Suppose, $O$ is the orthocenter, $S$ is the circumcenter and $AP$ is a median of the triangle $\triangle ABC$. The line between orthocenter $O$ and the circumcenter $S$ intersect the median $AP$ at point $G$. If we join $S$ and $P$, the line $SP$ is a perpendicular on $BC$. So, it is enough to prove that the point $G$ is the centroid of $\triangle ABC$.
+
+Image description: A triangle $ABC$ with median $AP$ from $A$ to midpoint $P$ of $BC$. Point $O$ is the orthocenter, $S$ is the circumcenter, and $G$ is the intersection of line $SO$ with $AP$. Line $SP$ is perpendicular to $BC$.
+
+Proof: $OA$ is the distance between the vertex $A$ from the orthocentre $O$ and $SP$ is the distance between the opposite side $BC$ of the vertex $A$ from the circumcentre $S$ of $\triangle ABC$ $\therefore OA = 2SP \cdots \cdots (1)$
+Now since $AD$ and $SP$ both are perpendiculars on $BC$ so $AD \parallel SP$. Now $AD \parallel SP$ and $AP$ is their intersecting line. So $\angle PAD = \angle APS$, as they are both alternate angles. Therefore, $\angle OAG = \angle SPG$.
+Now in between $\triangle AGO$ and $\triangle PGS$,
+\begin{align*}
+\angle AGO &= \angle PGS \quad [\text{Vertical opposite angle}] \\
+\angle OAG &= \angle SPG \quad [\text{Alternate angles}] \\
+\therefore \text{remaining } \angle AOG &= \text{remaining } \angle PSG
+\end{align*}
+$\therefore \triangle AGO$ and $\triangle PGS$ equiangular.
+So, $\frac{AG}{GP} = \frac{OA}{SP}$ therefore, $\frac{AG}{GP} = \frac{2SP}{SP} \quad [\text{from the equation (1)}]$
+Therefore, $\frac{AG}{GP} = \frac{2}{1}$ Or, $AG : GP = 2 : 1$
+So, the point $G$ divides the median $AP$ into the ratio $2:1$.
+$\therefore G$ is the centroid of $\triangle ABC$. [Proved]
+
+Note:
+\begin{enumerate}
+    \item \textbf{Nine Point Circle:} The total nine points including the middle points of three sides, feet of the three perpendiculars drawn from each vertex to the opposite side and the middle points of the three line segments joining the orthocenter to the vertices of any triangle lie on one circle. This circle is called the nine point circle.
+    \item The center of the nine point circle is the middle point of the line segment joining the orthocenter and the circumcentre.
+    \item The radius of the nine point circle is half of the circumradius of the triangle.
+\end{enumerate}
+
+% Theorems about Circles and Triangles
+\subsection*{Theorems about Circles and Triangles}
+
+\textbf{Theorem 11 (The Theorem of Brahmagupta).} If any cyclic quadrilateral has perpendicular diagonals, then the perpendicular to a side from the point of intersection of the diagonals always bisects the opposite side.
+
+Special Nomination: $ABCD$ is a quadrilateral inscribed in a circle with perpendicular diagonals $AC$ and $BD$ intersecting at point $M$. $ME$ is a perpendicular on the side $BC$ from the point $M$ and extended $EM$ intersects the opposite side $AD$ at point $F$. It is to be proved that $AF = FD$.
+
+Image description: A cyclic quadrilateral $ABCD$ inscribed in a circle, with diagonals $AC$ and $BD$ intersecting at $M$. A perpendicular $ME$ from $M$ to $BC$ extends to intersect $AD$ at $F$.
+
+Proof: Because they are inscribed angles that intercept the same arc $CD$ of the circle, $\angle CBD = \angle CAD$
+\[
+\text{So, } \angle CBM = \angle MAF
+\]
+Again, $\angle CBM = \angle CME$ [Both complementary to the $\angle BME$]
+So, $\angle MAF = \angle FMA$
+Therefore, in $\triangle AFM$, $AF = FM$
+
+Similarly it can be shown that, $\angle FDM = \angle BCM = \angle BME = \angle DMF$
+So, in $\triangle DFM$, $FD = FM$
+So, $AF = FD$
+[Proved]
+
+\textbf{Theorem 12 (Ptolemy's Theorem).} In any cyclic quadrilateral the area of the rectangle contained by the two diagonals is equal to the sum of the area of the two rectangles contained by the two pairs of opposite sides.
+
+Special Nomination: Suppose $ABCD$ is a cyclic quadrilateral whose two pairs of opposite sides are $AB$, $CD$ and $BC$, $AD$. $AC$ and $BD$ are its diagonals. It is to be proved that, $AC \cdot BD = AB \cdot CD + BC \cdot AD$.
+
+Image description: A cyclic quadrilateral $ABCD$ inscribed in a circle, with diagonals $AC$ and $BD$ intersecting at point $P$. A point $P$ on $BD$ is chosen such that $\angle DAP = \angle BAC$, forming triangles $ABP$ and $ACD$, and $ABC$ and $APD$.
+
+Proof: (Without loss of generality) we can assume that $\angle BAC$ is smaller than $\angle DAC$. Then we draw $\angle DAP$ at point $A$ with line segment $AD$, making it equal to $\angle BAC$ so that $AP$ intersects the diagonal $BD$ at point $P$.
+According to the construction, $\angle BAC = \angle DAP$.
+Adding $\angle CAP$ in both sides, we get
+\[
+\angle BAC + \angle CAP = \angle DAP + \angle CAP \text{ Therefore, } \angle BAP = \angle CAD
+\]
+Now between $\triangle ABP$ and $\triangle ACD$
+\[
+\angle BAP = \angle CAD \text{ and } \angle ABD = \angle ACD \text{ [angles on the same segment of the circle]}
+\]
+and remaining $\angle APB = \text{remaining } \angle ADC$.
+$\therefore \triangle ABP$ and $\triangle ACD$ equiangular.
+\[
+\therefore \frac{BP}{CD} = \frac{AB}{AC}
+\]
+So, $AC \cdot BP = AB \cdot CD \cdots \cdots (1)$
+Again, between $\triangle ABC$ and $\triangle APD$
+\[
+\angle BAC = \angle PAD \text{ [by construction]}
+\]
+\[
+\angle ADP = \angle ACB \text{ [angles on the same segment of the circle]}
+\]
+and remaining $\angle ABC = \text{remaining } \angle APD$
+$\therefore \triangle ABC$ and $\triangle APD$ equiangular.
+\[
+\therefore \frac{AD}{AC} = \frac{PD}{BC}
+\]
+Therefore, $AC \cdot PD = BC \cdot AD \cdots \cdots (2)$
+Now adding equations (1) and (2), we get
+\begin{align*}
+AC \cdot BP + AC \cdot PD &= AB \cdot CD + BC \cdot AD \\
+\text{Or, } AC(BP + PD) &= AB \cdot CD + BC \cdot AD
+\end{align*}
+But $BP + PD = BD$
+So $AC \cdot BD = AB \cdot CD + BC \cdot AD \quad [\text{Proved}]$
+
+% Example
+\subsection*{Example}
+
+\textbf{Example 1.} In $\triangle PQR$, $\angle PQR = 90^\circ$ and midpoints of the three sides $PQ$, $QR$ and $PR$ are $D$, $E$ and $F$ respectively.
+\begin{enumerate}
+    \item Draw the figure according to the given information and identify the centroid.
+    \item Prove that, $PR^2 = PE^2 + QE^2 + 2RE^2$
+    \item If $QF \perp PR$ prove that, $QF^2 = PF \cdot RF$
+\end{enumerate}
+
+solution:
+\begin{enumerate}
+    \item In the following figure, as the midpoints of $PQ$, $QR$ and $PR$ are $D$, $E$ and $F$ respectively, the medians are $PE$, $QF$ and $DR$ who intersect at point $G$. $\therefore$ Point $G$ is the centroid.
+
+    Image description: A right angled triangle $PQR$ with $\angle PQR = 90^\circ$. Points $D$, $E$, $F$ are midpoints of $PQ$, $QR$, $PR$ respectively. Medians $PE$, $QF$, $DR$ intersect at centroid $G$. A perpendicular $QF$ is drawn to $PR$.
+
+    \item $\angle PQR = 90^\circ$ and midpoint of $QR$ in $\triangle PQR$ is $E$, $P$ and $E$ is joined. It is to be proved that, $PR^2 = PE^2 + QE^2 + 2RE^2$.
+    
+    Proof: In $\triangle PQE$, $\angle PQE = 90^\circ$ and $PE$ hypotenuse
+    \[
+    \therefore PE^2 = PQ^2 + QE^2 \cdots \cdots (1)
+    \]
+    Again, in $\triangle PQR$, $\angle PQR = 90^\circ$ and $PR$ hypotenuse
+    \[
+    \therefore PR^2 = PQ^2 + QR^2
+    \]
+    Or, $PR^2 = PQ^2 + (QE + RE)^2$
+    Or, $PR^2 = PQ^2 + QE^2 + RE^2 + 2QE \cdot RE$
+    Or, $PR^2 = PQ^2 + QE^2 + QE^2 + 2RE \cdot RE \quad [\because QE = RE]$
+    Or, $PR^2 = PE^2 + QE^2 + 2RE^2$ [using (1)]
+    $\therefore PR^2 = PE^2 + QE^2 + 2RE^2 \quad [\text{Proved}]$
+
+    \item In $\triangle PQR$, $\angle PQR = 90^\circ$ and $QF \perp PR$. It is to be proved that, $QF^2 = PF \cdot RF$.
+    
+    Proof: $\angle PQR = 90^\circ$
+    \[
+    \therefore \angle PQF + \angle FQR = 90^\circ \cdots \cdots (1)
+    \]
+    Again, as $QF \perp PR$, $\angle PFQ = \angle QFR = 90^\circ$
+    \[
+    \text{In } \triangle PQF, \angle PFQ + \angle PQF + \angle QPF = 180^\circ
+    \]
+    \[
+    \text{Or, } 90^\circ + \angle PQF + \angle QPF = 180^\circ
+    \]
+    \[
+    \therefore \angle PQF + \angle QPF = 90^\circ \cdots \cdots (2)
+    \]
+    From (1) and (2) we get,
+    \[
+    \angle PQF + \angle FQR = \angle PQF + \angle QPF
+    \]
+    \[
+    \therefore \angle FQR = \angle QPF
+    \]
+    In $\triangle PQF$ and $\triangle QFR$,
+    \[
+    \angle PFQ = \angle QFR, \angle QPF = \angle FQR
+    \]
+    \[
+    \text{remaining } \angle PQF = \text{remaining } \angle FRQ
+    \]
+    $\therefore \triangle PQF$ and $\triangle QFR$ are similar
+    \[
+    \therefore \frac{PQ}{QR} = \frac{QF}{FR} = \frac{PF}{FQ}
+    \]
+    Hence, $\frac{QF}{RF} = \frac{PF}{QF}$
+    Or, $QF^2 = PF \cdot RF$ [Proved]
+\end{enumerate}
+
+\end{document}

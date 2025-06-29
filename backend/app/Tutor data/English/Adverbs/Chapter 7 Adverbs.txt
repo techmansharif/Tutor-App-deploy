@@ -1,0 +1,249 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\title{English Grammar and Composition: The Adverb}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\part{Adverbs and Their Functions}
+
+\textbf{A.} Read the following sentences. Identify the adverbs in them and say which words they modify.
+
+\begin{itemize}
+    \item He is going \textbf{abroad} soon. (\textit{abroad} modifies \textit{is going}, \textit{soon} modifies \textit{is going})
+    \item I have done \textbf{very badly} in the exam. (\textit{very badly} modifies \textit{have done})
+    \item They live \textbf{upstairs}. (\textit{upstairs} modifies \textit{live})
+    \item The girl is \textbf{fairly} tall. (\textit{fairly} modifies \textit{tall})
+    \item She \textbf{seldom} visits me here. (\textit{seldom} modifies \textit{visits})
+    \item He was \textbf{almost} dead then. (\textit{almost} modifies \textit{dead})
+    \item They \textbf{rarely} talk with each other. (\textit{rarely} modifies \textit{talk})
+    \item \textbf{Unfortunately}, he failed the test. (\textit{unfortunately} modifies \textit{failed})
+    \item He lost \textbf{almost} everything. (\textit{almost} modifies \textit{everything})
+    \item He came here \textbf{simply} because he wanted to meet me. (\textit{simply} modifies \textit{came})
+    \item It is \textbf{absolutely} beyond my capacity to help you. (\textit{absolutely} modifies \textit{beyond})
+\end{itemize}
+
+\part{Kinds of Adverbs}
+
+\textbf{A.} Read the following passage and notice the adverbs:
+
+Salam is \textbf{trying hard} to go \textbf{abroad} for higher studies. He saw me \textbf{today} to discuss the matter with me. He \textbf{often} seeks my advice.
+
+There are four adverbs in this passage and they are of four different kinds.
+
+\begin{itemize}
+    \item The adverb `\textbf{hard}' answers the question “how?”. It is called an \textit{adverb of manner}.
+    \item “\textbf{Abroad}” answers the question “where?”. It is called an \textit{adverb of place}.
+    \item “\textbf{Today}” answers the question “when?”. It is called an \textit{adverb of time}.
+    \item “\textbf{Often}” expresses the frequency of an action. It is called an \textit{adverb of frequency}.
+\end{itemize}
+
+These are the four main types of adverbs.
+
+Now, identify the four kinds of adverbs in the following passage.
+
+Khan is a busy man. He \textbf{seldom} calls me. But \textbf{yesterday} he requested me to go \textbf{downtown} with him. I could not say no to him. He invited me \textbf{very cordially}.
+
+\begin{itemize}
+    \item \textbf{seldom}: adverb of frequency
+    \item \textbf{yesterday}: adverb of time
+    \item \textbf{downtown}: adverb of place
+    \item \textbf{very cordially}: adverb of manner
+\end{itemize}
+
+\textbf{B.} There are also some other kinds of adverbs. Read the following sentences and notice the adverbs in them.
+
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Adverbs of degree (Intensifiers)}:
+    \begin{itemize}
+        \item The boy is \textbf{very} smart. (\textit{very} intensifies \textit{smart})
+        \item He is \textbf{too} weak to walk. (\textit{too} intensifies \textit{weak})
+        \item The girl is \textbf{fairly} tall. (\textit{fairly} intensifies \textit{tall})
+        \item He looked at me \textbf{quite indifferently}. (\textit{quite} intensifies \textit{indifferently})
+        \item His statement was \textbf{absolutely} true. (\textit{absolutely} intensifies \textit{true})
+    \end{itemize}
+    Think of two/three other adverbs of degree and make sentences with them.
+    \item \textbf{Interrogative adverbs}:
+    \begin{itemize}
+        \item \textbf{Where} are you going? (\textit{where} questions place)
+        \item \textbf{When} do you sleep at night? (\textit{when} questions time)
+        \item \textbf{How} did you do the work? (\textit{how} questions manner)
+        \item \textbf{Why} are you laughing? (\textit{why} questions cause)
+    \end{itemize}
+    These are called interrogative adverbs. These adverbs are used for asking questions about the place, time, manner, and cause of an action. Notice where they are used.
+    \item \textbf{Adverbs of affirmation and negation}:
+    \begin{itemize}
+        \item You will \textbf{surely/certainly} pass the exam. (\textit{surely/certainly} affirm)
+        \item I \textbf{did not} go there. (\textit{not} negates)
+        \item `Do you like cricket?' `\textbf{Yes}, I do.' (\textit{yes} affirms)
+        \item `Will you come here?' `\textbf{No}, I won’t.' (\textit{no} negates)
+    \end{itemize}
+\end{enumerate}
+
+\textbf{C.} Adverbs may take different positions in a sentence. Look at the following examples:
+
+\begin{itemize}
+    \item The boy is reading \textbf{loudly}. (\textit{loudly}, manner, after verb)
+    \item They were boating \textbf{downstream}. (\textit{downstream}, place, after verb)
+    \item I am \textbf{very} busy \textbf{now}. (\textit{very}, degree, before adjective; \textit{now}, time, after verb)
+\end{itemize}
+
+The adverbs of manner, place, and time are usually used after the verbs they modify. Use some other such adverbs in this position.
+
+But an adverb of frequency is usually used between the subject and the verb. For example:
+
+\begin{itemize}
+    \item He \textbf{always} speaks the truth.
+    \item It \textbf{hardly} rains here.
+    \item They \textbf{rarely} eat together.
+    \item He \textbf{usually} comes here in the afternoon.
+\end{itemize}
+
+Adverbs of degree are used before an adjective or adverb. For example:
+
+\begin{itemize}
+    \item He is \textbf{totally} mad.
+    \item It is raining \textbf{very} hard.
+\end{itemize}
+
+Interrogative adverbs are always used at the beginning of a sentence. For example:
+
+\begin{itemize}
+    \item \textbf{Where} was he born?
+    \item \textbf{Why} are you so callous?
+\end{itemize}
+
+Adverbs actually do not have any fixed position in a sentence. They can change their position to serve different functions.
+
+\part{Adverbials}
+
+\textbf{A.} Read the following questions and think of their answers:
+
+\begin{itemize}
+    \item When will you see me?
+    \item Where are you going now?
+    \item How is it raining?
+    \item How frequently does he visit you?
+    \item Why are you waiting here?
+\end{itemize}
+
+Each of the first four questions can be answered by using a single word. For example, you can say:
+
+\begin{itemize}
+    \item I shall see you \textbf{tomorrow}.
+    \item I am going \textbf{downstairs}.
+    \item It is raining \textbf{hard/heavily}.
+    \item He \textbf{scarcely} visits me.
+\end{itemize}
+
+These single words are adverbs. You have seen their use in the preceding lessons. But you can answer any of the above questions by using a group of words. For example, you can say:
+
+\begin{itemize}
+    \item I shall see you \textbf{in the afternoon}.
+    \item I am going \textbf{to school}.
+    \item It is raining \textbf{very hard}.
+    \item He visits me \textbf{thrice a week}.
+    \item I am waiting here \textbf{to receive my friend}.
+\end{itemize}
+
+These are all \textit{adverbial phrases}. An adverbial phrase is a group of words that modifies a verb in the sentence.
+
+Identify the adverbial phrases in the following conversation:
+
+\textbf{Mukta:} When are you going to Dhaka?\\
+\textbf{Mukul:} I’m going there \textbf{next week}.\\
+\textbf{Mukta:} Why are you going?\\
+\textbf{Mukul:} I’m going there \textbf{to attend a seminar}.\\
+\textbf{Mukta:} How are you going?\\
+\textbf{Mukul:} I’m going \textbf{by bus}.
+
+\begin{itemize}
+    \item \textbf{next week}: adverbial phrase of time
+    \item \textbf{to attend a seminar}: adverbial phrase of purpose
+    \item \textbf{by bus}: adverbial phrase of manner
+\end{itemize}
+
+\textbf{B.} Adverbs and adverbial phrases have a common name. This name is \textit{Adverbial}. That means, an adverbial is a single word or a group of words which modifies a verb. Look at the underlined words/phrases in the following sentences:
+
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Adverbials of time}:
+    \begin{itemize}
+        \item Rashid saw me \underline{\textbf{yesterday}}.
+        \item I asked him to come \underline{\textbf{in the morning}}.
+        \item It was raining \underline{\textbf{then}}.
+        \item I shall go to Dhaka \underline{\textbf{next week}}.
+    \end{itemize}
+    \item \textbf{Adverbials of place}:
+    \begin{itemize}
+        \item Can you come \underline{\textbf{here}}?
+        \item I went \underline{\textbf{there}} \underline{\textbf{to invite my friend}}.
+        \item He was born \underline{\textbf{in a big city}}.
+        \item I am living \underline{\textbf{in an apartment}}.
+    \end{itemize}
+    \item \textbf{Adverbials of manner}:
+    \begin{itemize}
+        \item He speaks \underline{\textbf{loudly}}.
+        \item She was \underline{\textbf{brutally}} killed.
+        \item The problem was solved \underline{\textbf{in an amicable way}}.
+        \item He was wounded \underline{\textbf{very seriously}}.
+    \end{itemize}
+    \item \textbf{Adverbials of frequency}:
+    \begin{itemize}
+        \item It \underline{\textbf{often}} rains here.
+        \item He \underline{\textbf{never}} tells a lie.
+        \item She phones me \underline{\textbf{four times a day}}.
+        \item I go to Dhaka \underline{\textbf{almost every week}}.
+    \end{itemize}
+    \item \textbf{Adverbials of purpose}:
+    \begin{itemize}
+        \item I went home \underline{\textbf{to take rest}}.
+        \item He is going abroad \underline{\textbf{for higher studies}}.
+        \item She studies hard \underline{\textbf{to pass the exam}}.
+        \item They jumped into the pond \underline{\textbf{to save the child}}.
+    \end{itemize}
+    \item \textbf{Adverbial clauses}:
+    \begin{itemize}
+        \item An adverbial may also be a dependent clause in a complex sentence. For example:
+        \item I shall go home \underline{\textbf{after he comes}}.
+        \item The girl had been married off \underline{\textbf{before she was 18}}.
+        \item You can sit \underline{\textbf{wherever you like}}.
+        \item It is raining \underline{\textbf{like the sky is falling}}.
+        \item The flight was delayed \underline{\textbf{because the weather was foggy}}.
+    \end{itemize}
+\end{enumerate}
+
+\textit{Note:} Anything—be it a word, phrase, or clause—that modifies a verb is an \textit{adverbial}. All adverbs are adverbials but all adverbials are not adverbs.
+
+\textbf{C.} Read the following passage and identify the different kinds of adverbials in it:
+
+One day I was sitting \underline{\textbf{alone}} upon a bench at a park near my house. \underline{\textbf{Suddenly}}, a young girl arrived \underline{\textbf{there}}. She was \underline{\textbf{beautifully}} dressed. She sat beside me and began to talk with me \underline{\textbf{very cordially}}. We talked \underline{\textbf{for about half an hour}} and then we began to walk \underline{\textbf{together}}. \underline{\textbf{Within a short time}} we became good friends. When we parted, we promised \underline{\textbf{never}} to forget each other. We now phone each other \underline{\textbf{every day}}. We visit each other \underline{\textbf{almost regularly}}.
+
+\begin{itemize}
+    \item \textbf{alone}: adverbial of manner
+    \item \textbf{suddenly}: adverbial of manner
+    \item \textbf{there}: adverbial of place
+    \item \textbf{beautifully}: adverbial of manner
+    \item \textbf{very cordially}: adverbial of manner
+    \item \textbf{for about half an hour}: adverbial of time
+    \item \textbf{together}: adverbial of manner
+    \item \textbf{within a short time}: adverbial of time
+    \item \textbf{never}: adverbial of frequency
+    \item \textbf{every day}: adverbial of frequency
+    \item \textbf{almost regularly}: adverbial of frequency
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,987 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{parskip}
+\geometry{a4paper, margin=1in}
+
+% Setting up fonts for compatibility
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\begin{document}
+
+% Defining the title
+\title{Chapter 11: Algebraic Ratio and Proportion}
+\author{}
+\date{}
+\maketitle
+
+% Defining the introduction
+\section*{Introduction}
+It is important for us to have a clear conception of ratio and proportion in mathematics. Arithmetical ratio and proportion have been elaborately discussed in class VII. In this chapter, algebraic ratio and proportion will be discussed. We regularly use the concept of ratio and proportion in many applications: the production of construction materials, food stuff, and goods, applying fertilizer in land, making beautiful shapes and designs to make things attractive and good-looking, and so on. Many problems of daily life can also be solved by using the concept of ratio and proportion.
+
+After studying this chapter, the students will be able to:
+\begin{itemize}
+    \item Explain algebraic ratio and proportion.
+    \item Use different types of rules of transformation related to proportion.
+    \item Learn successive proportion.
+    \item Use ratio, proportion, successive proportion in solving real-life problems.
+\end{itemize}
+
+\part{Ratio and Proportion}
+% Defining the section for Ratio and Proportion
+\section*{Ratio and Proportion}
+
+\subsection*{Ratio}
+If we have two quantities (or numbers) of the same unit, we can express one quantity as a multiple (or a fraction) of the other quantity. This fraction is called the ratio of two quantities. Thus, a ratio says how much of one thing there is compared to another thing.
+
+The ratio of two quantities $p$ and $q$ is written as $p : q = \frac{p}{q}$. These two quantities, $p$ and $q$, are of the same kind and same unit. Here, $p$ is called the antecedent and $q$ is called the subsequent of the ratio.
+
+Sometimes we use the ratio as an approximate measure. For example, the number of cars on the road at 10 A.M. is two times higher than the number of cars at 8 A.M. In this case, it is not necessary to know the exact number of cars to determine the ratio. Again, in many occasions, we say that the area of your house is three times the area of mine. Also in this case, it is not necessary to know the exact area of the house. We use the concept of ratio in many other cases of practical life.
+
+\subsection*{Proportion}
+If four quantities (or numbers) are such that the ratio of the first and second quantities is equal to the ratio of the third and fourth quantities, those four quantities form a proportion. If $a, b, c, d$ are four such quantities, we write $a : b = c : d$. The four quantities need not be of the same kind. The two quantities of the ratio need to be of the same kind.
+
+In the figure, let the bases of two triangles be $a$ and $b$, respectively, and each of their heights be $h$ units. If the areas of these triangles are $A$ and $B$ square units, respectively, we can write:
+\[
+\frac{A}{B} = \frac{\frac{1}{2} a h}{\frac{1}{2} b h} = \frac{a}{b} \quad \text{or} \quad A : B = a : b
+\]
+i.e., the ratio of two areas is equal to the ratio of two bases.
+
+\subsection*{Example 1}
+$A$ and $B$ traverse a fixed distance in $t_1$ and $t_2$ minutes. Find the ratio of the average velocity of $A$ and $B$.
+
+\textbf{Solution:}
+Let the average velocities of $A$ and $B$ be $v_1$ meters per minute and $v_2$ meters per minute, respectively. So, in time $t_1$ minutes, $A$ traverses $v_1 t_1$ meters, and in $t_2$ minutes, $B$ traverses $v_2 t_2$ meters. According to the problem:
+\[
+v_1 t_1 = v_2 t_2
+\]
+\[
+\therefore \frac{v_1}{v_2} = \frac{t_2}{t_1}
+\]
+Here, the ratio of the velocities is inversely proportional to the ratio of time.
+
+\textbf{Work:}
+\begin{enumerate}
+    \item Express $3.5 : 5.6$ into $1 : a$ and $b : 1$.
+    \item If $x : y = 5 : 6$, what is the value of $3x : 5y$?
+\end{enumerate}
+
+\part{Continued Proportion}
+% Defining the section for Continued Proportion
+\section*{Continued Proportion}
+
+By continued proportion of $a, b, c$, it is meant that $a : b = b : c$. $a, b, c$ will be in continued proportion if and only if $b^2 = ac$. In the case of continued proportion, all the quantities are to be of the same kind. In this case, $c$ is called the third proportional of $a$ and $b$, and $b$ is called the mid-proportional of $a$ and $c$.
+
+\subsection*{Example 2}
+The ratio of the present ages of a father and son is $7 : 2$, and after 5 years, the ratio will be $8 : 3$. What are their present ages?
+
+\textbf{Solution:}
+Let the present age of the father be $a$ and that of the son be $b$. So, by the conditions of the problem, we have:
+\[
+\frac{a}{b} = \frac{7}{2} \quad (1)
+\]
+\[
+\frac{a + 5}{b + 5} = \frac{8}{3} \quad (2)
+\]
+From equation (1), we get:
+\[
+a = \frac{7b}{2} \quad (3)
+\]
+From equation (2), we get:
+\[
+3 (a + 5) = 8 (b + 5)
+\]
+\[
+3a + 15 = 8b + 40
+\]
+\[
+3a - 8b = 40 - 15
+\]
+\[
+3a - 8b = 25
+\]
+\[
+3 \times \frac{7b}{2} - 8b = 25 \quad [\text{using (3)}]
+\]
+\[
+\frac{21b - 16b}{2} = 25
+\]
+\[
+5b = 50
+\]
+\[
+\therefore b = 10
+\]
+Substituting $b = 10$ in equation (3):
+\[
+a = \frac{7 \times 10}{2} = 35
+\]
+Therefore, the present age of the father is 35 years, and that of the son is 10 years.
+
+\subsection*{Example 3}
+If $a : b = b : c$, prove that:
+\[
+\left( \frac{a + b}{b + c} \right)^2 = \frac{a^2 + b^2}{b^2 + c^2}
+\]
+
+\textbf{Solution:}
+Given that $a : b = b : c$, therefore:
+\[
+b^2 = ac
+\]
+Now:
+\[
+\left( \frac{a + b}{b + c} \right)^2 = \frac{(a + b)^2}{(b + c)^2} = \frac{a^2 + 2ab + b^2}{b^2 + 2bc + c^2}
+\]
+\[
+= \frac{a^2 + 2ab + ac}{ac + 2bc + c^2} \quad [\text{since } b^2 = ac]
+\]
+\[
+= \frac{a (a + 2b + c)}{c (a + 2b + c)} = \frac{a}{c}
+\]
+And:
+\[
+\frac{a^2 + b^2}{b^2 + c^2} = \frac{a^2 + ac}{ac + c^2} = \frac{a (a + c)}{c (a + c)} = \frac{a}{c}
+\]
+Therefore:
+\[
+\left( \frac{a + b}{b + c} \right)^2 = \frac{a^2 + b^2}{b^2 + c^2}
+\]
+
+\part{Transformation of Ratio}
+% Defining the section for Transformation of Ratio
+\section*{Transformation of Ratio}
+
+Here, the quantities of ratios are positive numbers.
+
+\begin{enumerate}
+    \item If $a : b = c : d$, then $b : a = d : c$ [Invertendo]
+
+    \textbf{Proof:}
+    Given that:
+    \[
+    \frac{a}{b} = \frac{c}{d}
+    \]
+    \[
+    ad = bc \quad [\text{multiplying both sides by } bd]
+    \]
+    \[
+    \frac{ad}{ac} = \frac{bc}{ac} \quad [\text{dividing both sides by } ac, \text{ where } a \text{ and } c \text{ are non-zero}]
+    \]
+    \[
+    \frac{d}{c} = \frac{b}{a}
+    \]
+    i.e., $b : a = d : c$.
+
+    \item If $a : b = c : d$, then $a : c = b : d$ [Alternendo]
+
+    \textbf{Proof:}
+    Given that:
+    \[
+    \frac{a}{b} = \frac{c}{d}
+    \]
+    \[
+    ad = bc \quad [\text{multiplying both sides by } bd]
+    \]
+    \[
+    \frac{ad}{cd} = \frac{bc}{cd} \quad [\text{dividing both sides by } cd, \text{ where } c, d \text{ are non-zero}]
+    \]
+    \[
+    \frac{a}{c} = \frac{b}{d}
+    \]
+    i.e., $a : c = b : d$.
+
+    \item If $a : b = c : d$, then $\frac{a + b}{b} = \frac{c + d}{d}$ [Componendo]
+
+    \textbf{Proof:}
+    Given that:
+    \[
+    \frac{a}{b} = \frac{c}{d}
+    \]
+    \[
+    \frac{a}{b} + 1 = \frac{c}{d} + 1 \quad [\text{adding 1 to both sides}]
+    \]
+    i.e., $\frac{a + b}{b} = \frac{c + d}{d}$.
+
+    \item If $a : b = c : d$, then $\frac{a - b}{b} = \frac{c - d}{d}$ [Dividendo]
+
+    \textbf{Proof:}
+    Given that:
+    \[
+    \frac{a}{b} = \frac{c}{d}
+    \]
+    \[
+    \frac{a}{b} - 1 = \frac{c}{d} - 1 \quad [\text{subtracting 1 from both sides}]
+    \]
+    i.e., $\frac{a - b}{b} = \frac{c - d}{d}$.
+
+    \item If $a : b = c : d$, then $\frac{a + b}{a - b} = \frac{c + d}{c - d}$ [Componendo-Dividendo]
+
+    \textbf{Proof:}
+    Given that $a : b = c : d$, or:
+    \[
+    \frac{a}{b} = \frac{c}{d}
+    \]
+    By componendo:
+    \[
+    \frac{a + b}{b} = \frac{c + d}{d} \quad (1)
+    \]
+    By dividendo:
+    \[
+    \frac{a - b}{b} = \frac{c - d}{d}
+    \]
+    \[
+    \frac{b}{a - b} = \frac{d}{c - d} \quad [\text{by invertendo}] \quad (2)
+    \]
+    Multiplying (1) and (2):
+    \[
+    \frac{a + b}{b} \times \frac{b}{a - b} = \frac{c + d}{d} \times \frac{d}{c - d}
+    \]
+    i.e., $\frac{a + b}{a - b} = \frac{c + d}{c - d}$ [where $a \neq b$, $c \neq d$].
+
+    \item If $\frac{a}{b} = \frac{c}{d} = \frac{e}{f} = \frac{g}{h}$, then each of the ratios equals:
+    \[
+    \frac{a + c + e + g}{b + d + f + h}
+    \]
+
+    \textbf{Proof:}
+    Let:
+    \[
+    \frac{a}{b} = \frac{c}{d} = \frac{e}{f} = \frac{g}{h} = k
+    \]
+    Therefore:
+    \[
+    a = bk, \quad c = dk, \quad e = fk, \quad g = hk
+    \]
+    \[
+    \frac{a + c + e + g}{b + d + f + h} = \frac{bk + dk + fk + hk}{b + d + f + h} = \frac{k (b + d + f + h)}{b + d + f + h} = k
+    \]
+    But $k$ is equal to each of the ratios. Therefore:
+    \[
+    \frac{a}{b} = \frac{c}{d} = \frac{e}{f} = \frac{g}{h} = \frac{a + c + e + g}{b + d + f + h}
+    \]
+\end{enumerate}
+
+\textbf{Work:}
+\begin{enumerate}
+    \item The sum of the ages of a mother and sister is $s$ years. The ratio of their ages, before $t$ years, was $r : p$. After $x$ years, what will be the ratio of their ages?
+    \item Let a man be standing at $p$ meters distance from a light-post, $r$ be the height of the man, $s$ be the shadow length. Determine the height of the light-post in terms of $p, r$, and $s$.
+\end{enumerate}
+
+\subsection*{Example 4}
+If $\frac{a}{b} = \frac{c}{d}$, show that:
+\[
+\frac{a^2 + b^2}{a^2 - b^2} = \frac{ac + bd}{ac - bd}
+\]
+
+\textbf{Solution:}
+Let:
+\[
+\frac{a}{b} = \frac{c}{d} = k
+\]
+Therefore:
+\[
+a = bk, \quad c = dk
+\]
+Now:
+\[
+\frac{a^2 + b^2}{a^2 - b^2} = \frac{(bk)^2 + b^2}{(bk)^2 - b^2} = \frac{b^2 (k^2 + 1)}{b^2 (k^2 - 1)} = \frac{k^2 + 1}{k^2 - 1}
+\]
+And:
+\[
+\frac{ac + bd}{ac - bd} = \frac{bk \cdot dk + b \cdot d}{bk \cdot dk - b \cdot d} = \frac{bd (k^2 + 1)}{bd (k^2 - 1)} = \frac{k^2 + 1}{k^2 - 1}
+\]
+Therefore:
+\[
+\frac{a^2 + b^2}{a^2 - b^2} = \frac{ac + bd}{ac - bd}
+\]
+
+\subsection*{Example 5}
+Solve:
+\[
+\frac{1 - ax}{1 + ax} \sqrt{\frac{1 + bx}{1 - bx}} = 1, \quad \text{where } 0 < b < 2a < 2b
+\]
+
+\textbf{Solution:}
+Given:
+\[
+\frac{1 - ax}{1 + ax} \sqrt{\frac{1 + bx}{1 - bx}} = 1
+\]
+\[
+\sqrt{\frac{1 + bx}{1 - bx}} = \frac{1 + ax}{1 - ax}
+\]
+\[
+\frac{1 + bx}{1 - bx} = \frac{(1 + ax)^2}{(1 - ax)^2} \quad [\text{squaring both sides}]
+\]
+Applying componendo and dividendo:
+\[
+\frac{(1 + bx) + (1 - bx)}{(1 + bx) - (1 - bx)} = \frac{(1 + ax)^2 + (1 - ax)^2}{(1 + ax)^2 - (1 - ax)^2}
+\]
+\[
+\frac{2}{2bx} = \frac{2 (1 + a^2 x^2)}{4ax}
+\]
+\[
+\frac{1}{bx} = \frac{1 + a^2 x^2}{2ax}
+\]
+\[
+2ax = b x (1 + a^2 x^2)
+\]
+\[
+x \{2a - b (1 + a^2 x^2)\} = 0
+\]
+\[
+\therefore x = 0
+\]
+Or:
+\[
+2a - b (1 + a^2 x^2) = 0
+\]
+\[
+b (1 + a^2 x^2) = 2a
+\]
+\[
+1 + a^2 x^2 = \frac{2a}{b}
+\]
+\[
+a^2 x^2 = \frac{2a}{b} - 1
+\]
+\[
+x^2 = \frac{1}{a^2} \left( \frac{2a}{b} - 1 \right)
+\]
+\[
+\therefore x = \pm \frac{1}{a} \sqrt{\frac{2a}{b} - 1}
+\]
+Thus, the required solution is:
+\[
+x = 0, \quad \pm \frac{1}{a} \sqrt{\frac{2a}{b} - 1}
+\]
+
+\subsection*{Example 6}
+If $\frac{\sqrt{1 + x} + \sqrt{1 - x}}{\sqrt{1 + x} - \sqrt{1 - x}} = p$, prove that:
+\[
+p^2 - \frac{2p}{x} + 1 = 0
+\]
+
+\textbf{Solution:}
+Given:
+\[
+\frac{\sqrt{1 + x} + \sqrt{1 - x}}{\sqrt{1 + x} - \sqrt{1 - x}} = p
+\]
+Applying componendo-dividendo:
+\[
+\frac{(\sqrt{1 + x} + \sqrt{1 - x}) + (\sqrt{1 + x} - \sqrt{1 - x})}{(\sqrt{1 + x} + \sqrt{1 - x}) - (\sqrt{1 + x} - \sqrt{1 - x})} = \frac{p + 1}{p - 1}
+\]
+\[
+\frac{2 \sqrt{1 + x}}{2 \sqrt{1 - x}} = \frac{p + 1}{p - 1}
+\]
+\[
+\frac{\sqrt{1 + x}}{\sqrt{1 - x}} = \frac{p + 1}{p - 1}
+\]
+\[
+\frac{1 + x}{1 - x} = \frac{(p + 1)^2}{(p - 1)^2} = \frac{p^2 + 2p + 1}{p^2 - 2p + 1} \quad [\text{squaring both sides}]
+\]
+Applying componendo-dividendo:
+\[
+\frac{(1 + x) + (1 - x)}{(1 + x) - (1 - x)} = \frac{(p^2 + 2p + 1) + (p^2 - 2p + 1)}{(p^2 + 2p + 1) - (p^2 - 2p + 1)}
+\]
+\[
+\frac{2}{2x} = \frac{2 (p^2 + 1)}{4p}
+\]
+\[
+\frac{1}{x} = \frac{p^2 + 1}{2p}
+\]
+\[
+p^2 + 1 = \frac{2p}{x}
+\]
+\[
+\therefore p^2 - \frac{2p}{x} + 1 = 0
+\]
+
+\subsection*{Example 7}
+If $\frac{a^3 + b^3}{a - b + c} = a (a + b)$, prove that $a, b, c$ are in continued proportion.
+
+\textbf{Solution:}
+Given:
+\[
+\frac{a^3 + b^3}{a - b + c} = a (a + b)
+\]
+\[
+\frac{(a + b) (a^2 - ab + b^2)}{a - b + c} = a (a + b)
+\]
+\[
+\frac{a^2 - ab + b^2}{a - b + c} = a \quad [\text{dividing both sides by } (a + b)]
+\]
+\[
+a^2 - ab + b^2 = a^2 - ab + ac
+\]
+\[
+b^2 = ac
+\]
+Therefore, $a, b, c$ are in continued proportion.
+
+\subsection*{Example 8}
+If $\frac{a + b}{b + c} = \frac{c + d}{d + a}$, prove that $c = a$ or $a + b + c + d = 0$.
+
+\textbf{Solution:}
+Given:
+\[
+\frac{a + b}{b + c} = \frac{c + d}{d + a}
+\]
+\[
+\frac{a + b}{b + c} - 1 = \frac{c + d}{d + a} - 1 \quad [\text{subtracting 1 from both sides}]
+\]
+\[
+\frac{a + b - b - c}{b + c} = \frac{c + d - d - a}{d + a}
+\]
+\[
+\frac{a - c}{b + c} = -\frac{a - c}{d + a}
+\]
+\[
+\frac{a - c}{b + c} + \frac{a - c}{d + a} = 0
+\]
+\[
+(a - c) \left( \frac{1}{b + c} + \frac{1}{d + a} \right) = 0
+\]
+\[
+(a - c) \frac{d + a + b + c}{(b + c)(d + a)} = 0
+\]
+\[
+(a - c)(d + a + b + c) = 0
+\]
+\[
+\therefore a - c = 0 \quad \text{or} \quad d + a + b + c = 0
+\]
+\[
+\therefore c = a \quad \text{or} \quad a + b + c + d = 0
+\]
+
+\subsection*{Example 9}
+If $\frac{x}{y + z} = \frac{y}{z + x} = \frac{z}{x + y}$ and $x, y, z$ are not mutually equal, prove that the value of each ratio is either equal to $-1$ or $\frac{1}{2}$.
+
+\textbf{Solution:}
+Let:
+\[
+\frac{x}{y + z} = \frac{y}{z + x} = \frac{z}{x + y} = k
+\]
+Therefore:
+\[
+x = k (y + z) \quad (1)
+\]
+\[
+y = k (z + x) \quad (2)
+\]
+\[
+z = k (x + y) \quad (3)
+\]
+Subtracting equation (2) from (1):
+\[
+x - y = k (y - x)
+\]
+\[
+k (y - x) = -(y - x)
+\]
+\[
+\therefore k = -1
+\]
+Adding equations (1), (2), and (3):
+\[
+x + y + z = k (y + z + z + x + x + y) = 2k (x + y + z)
+\]
+\[
+k = \frac{x + y + z}{2 (x + y + z)}
+\]
+\[
+\therefore k = \frac{1}{2}
+\]
+Therefore, the value of each ratio is $-1$ or $\frac{1}{2}$.
+
+\subsection*{Example 10}
+If $ax = by = cz$, show that:
+\[
+\frac{x^2}{yz} + \frac{y^2}{zx} + \frac{z^2}{xy} = \frac{bc}{a^2} + \frac{ca}{b^2} + \frac{ab}{c^2}
+\]
+
+\textbf{Solution:}
+Let:
+\[
+ax = by = cz = k
+\]
+\[
+\therefore x = \frac{k}{a}, \quad y = \frac{k}{b}, \quad z = \frac{k}{c}
+\]
+Now:
+\[
+\frac{x^2}{yz} + \frac{y^2}{zx} + \frac{z^2}{xy} = \frac{\left( \frac{k}{a} \right)^2}{\frac{k}{b} \cdot \frac{k}{c}} + \frac{\left( \frac{k}{b} \right)^2}{\frac{k}{c} \cdot \frac{k}{a}} + \frac{\left( \frac{k}{c} \right)^2}{\frac{k}{a} \cdot \frac{k}{b}}
+\]
+\[
+= \frac{k^2}{a^2} \cdot \frac{bc}{k^2} + \frac{k^2}{b^2} \cdot \frac{ca}{k^2} + \frac{k^2}{c^2} \cdot \frac{ab}{k^2}
+\]
+\[
+= \frac{bc}{a^2} + \frac{ca}{b^2} + \frac{ab}{c^2}
+\]
+Thus:
+\[
+\frac{x^2}{yz} + \frac{y^2}{zx} + \frac{z^2}{xy} = \frac{bc}{a^2} + \frac{ca}{b^2} + \frac{ab}{c^2}
+\]
+
+\subsection*{Example 11}
+If $a, b, c,$ and $d$ are in continued proportion, and $x = \frac{10pq}{p + q}$:
+\begin{enumerate}
+    \item Show that $\frac{a}{c} = \frac{a^2 + b^2}{b^2 + c^2}$.
+    \item Prove that $(a^2 + b^2 + c^2)(b^2 + c^2 + d^2) = (ab + bc + cd)^2$.
+    \item Determine $\frac{x + 5p}{x - 5p} + \frac{x + 5q}{x - 5q}$, where $p \neq q$.
+\end{enumerate}
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Given that $a : b = b : c$, or $\frac{a}{b} = \frac{b}{c}$, so $ac = b^2$.
+    \[
+    \text{RHS} = \frac{a^2 + b^2}{b^2 + c^2} = \frac{a^2 + ac}{ac + c^2} = \frac{a (a + c)}{c (a + c)} = \frac{a}{c} = \text{LHS}
+    \]
+    \[
+    \therefore \frac{a}{c} = \frac{a^2 + b^2}{b^2 + c^2}
+    \]
+    \item Given that $a, b, c, d$ are in continued proportion:
+    \[
+    \frac{a}{b} = \frac{b}{c} = \frac{c}{d}
+    \]
+    Let:
+    \[
+    \frac{a}{b} = \frac{b}{c} = \frac{c}{d} = k
+    \]
+    \[
+    \frac{c}{d} = k \quad \text{or} \quad c = dk
+    \]
+    \[
+    \frac{b}{c} = k \quad \text{or} \quad b = c k = dk \cdot k = dk^2
+    \]
+    \[
+    \frac{a}{b} = k \quad \text{or} \quad a = b k = dk^2 \cdot k = dk^3
+    \]
+    \[
+    \text{LHS} = (a^2 + b^2 + c^2)(b^2 + c^2 + d^2)
+    \]
+    \[
+    = \{(dk^3)^2 + (dk^2)^2 + (dk)^2\} \{(dk^2)^2 + (dk)^2 + d^2\}
+    \]
+    \[
+    = (d^2 k^6 + d^2 k^4 + d^2 k^2)(d^2 k^4 + d^2 k^2 + d^2)
+    \]
+    \[
+    = d^2 k^2 (k^4 + k^2 + 1) d^2 (k^4 + k^2 + 1)
+    \]
+    \[
+    = d^4 k^2 (k^4 + k^2 + 1)^2
+    \]
+    \[
+    \text{RHS} = (ab + bc + cd)^2
+    \]
+    \[
+    = (dk^3 \cdot dk^2 + dk^2 \cdot dk + dk \cdot d)^2
+    \]
+    \[
+    = (d^2 k^5 + d^2 k^3 + d^2 k)^2
+    \]
+    \[
+    = \{d^2 k (k^4 + k^2 + 1)\}^2
+    \]
+    \[
+    = d^4 k^2 (k^4 + k^2 + 1)^2 = \text{LHS}
+    \]
+    \[
+    \therefore (a^2 + b^2 + c^2)(b^2 + c^2 + d^2) = (ab + bc + cd)^2
+    \]
+    \item Given that $x = \frac{10pq}{p + q}$:
+    \[
+    \frac{x}{5p} = \frac{2q}{p + q}
+    \]
+    \[
+    \frac{x + 5p}{x - 5p} = \frac{2q + p + q}{2q - p - q} \quad [\text{by componendo-dividendo}]
+    \]
+    \[
+    \frac{x + 5p}{x - 5p} = \frac{p + 3q}{q - p} \quad (1)
+    \]
+    Again:
+    \[
+    x = \frac{10pq}{p + q}
+    \]
+    \[
+    \frac{x}{5q} = \frac{2p}{p + q}
+    \]
+    \[
+    \frac{x + 5q}{x - 5q} = \frac{2p + p + q}{2p - p - q} \quad [\text{by componendo-dividendo}]
+    \]
+    \[
+    \frac{x + 5q}{x - 5q} = \frac{3p + q}{p - q} \quad (2)
+    \]
+    Adding equations (1) and (2):
+    \[
+    \frac{x + 5p}{x - 5p} + \frac{x + 5q}{x - 5q} = \frac{p + 3q}{q - p} + \frac{3p + q}{p - q}
+    \]
+    \[
+    = \frac{p + 3q}{q - p} - \frac{3p + q}{q - p} = \frac{p + 3q - 3p - q}{q - p} = \frac{2q - 2p}{q - p} = \frac{2 (q - p)}{q - p} = 2 \quad [\text{since } q - p \neq 0]
+    \]
+\end{enumerate}
+
+\part{Continued Ratio}
+% Defining the section for Continued Ratio
+\section*{Continued Ratio}
+
+Let us assume that Roni's earning is Tk. 1000, Soni's earning is Tk. 1500, and Samir's earning is Tk. 2500. Here:
+\[
+\text{Roni's earning} : \text{Soni's earning} = 1000 : 1500 = 2 : 3
+\]
+\[
+\text{Soni's earning} : \text{Samir's earning} = 1500 : 2500 = 3 : 5
+\]
+Hence:
+\[
+\text{Roni's} : \text{Soni's} : \text{Samir's earning} = 2 : 3 : 5
+\]
+If two ratios are of the form $a : b$ and $b : c$, they can be rewritten in the form $a : b : c$. This is called a continued ratio. Any two or more ratios can be expressed in this form. It is noted that if two ratios are to be expressed in the form $a : b : c$, the antecedent of the first ratio and the subsequent of the second ratio need to be equal. For example, if two ratios $2 : 3$ and $4 : 3$ are to be put in the form $a : b : c$, the subsequent quantity of the first ratio is to be made equal to the antecedent quantity of the second ratio. That is, those quantities are to be made equal to their L.C.M.
+
+Here, the L.C.M. of 3 and 4 is 12:
+\[
+2 : 3 = \frac{2}{3} = \frac{2 \times 4}{3 \times 4} = \frac{8}{12} = 8 : 12
+\]
+\[
+4 : 3 = \frac{4}{3} = \frac{4 \times 3}{3 \times 3} = \frac{12}{9} = 12 : 9
+\]
+Therefore, the ratios $2 : 3$ and $4 : 3$ expressed in the form $a : b : c$ will be $8 : 12 : 9$.
+
+It is to be noted that if the earning of Samir in the above example is 1125, the ratio of their earnings will be $8 : 12 : 9$.
+
+\subsection*{Example 12}
+If $a, b, c$ are quantities of the same kind and $a : b = 3 : 4$, $b : c = 6 : 7$, what will be $a : b : c$?
+
+\textbf{Solution:}
+\[
+a : b = \frac{3}{4} = \frac{3 \times 3}{4 \times 3} = \frac{9}{12}
+\]
+\[
+b : c = \frac{6}{7} = \frac{6 \times 2}{7 \times 2} = \frac{12}{14} \quad [\text{L.C.M. of 4 and 6 is 12}]
+\]
+\[
+\therefore a : b : c = 9 : 12 : 14
+\]
+
+\subsection*{Example 13}
+The ratio of the angles of a triangle is $3 : 4 : 5$. Express the angles in degrees.
+
+\textbf{Solution:}
+Let the angles, according to the given ratio, be $3x, 4x,$ and $5x$. The sum of the three angles is $180^\circ$. According to the problem:
+\[
+3x + 4x + 5x = 180^\circ
+\]
+\[
+12x = 180^\circ
+\]
+\[
+x = 15^\circ
+\]
+Therefore, the angles are:
+\[
+3x = 3 \times 15^\circ = 45^\circ
+\]
+\[
+4x = 4 \times 15^\circ = 60^\circ
+\]
+\[
+5x = 5 \times 15^\circ = 75^\circ
+\]
+
+\subsection*{Example 14}
+If the sides of a square increase by $10\%$, how much will the area be increased in percentage?
+
+\textbf{Solution:}
+Let each side of the square be $a$ meters. Therefore, the area of the square is $a^2$ square meters. If the side of the square increases by $10\%$, each side will be $(a + a \cdot 10\%) = 1.10a$ meters. In this case, the area of the square will be:
+\[
+(1.10a)^2 = 1.21a^2 \text{ square meters}
+\]
+Thus, the area increases by:
+\[
+1.21a^2 - a^2 = 0.21a^2 \text{ square meters}
+\]
+The percentage of the increment of the area is:
+\[
+\frac{0.21a^2}{a^2} \times 100\% = 21\%
+\]
+
+\textbf{Work:}
+\begin{enumerate}
+    \item There are 35 male and 25 female students in your class. The ratio of rice and pulse given by each of the male and female students for making khichuri in a picnic is $3 : 1$ and $5 : 2$, respectively. Find the ratio of total rice and total pulse.
+    \item The amount of pulse, mustard, and paddy produced in a farmer's farm is 75 kg, 100 kg, and 525 kg, respectively. The grains are sold at prices of 100, 120, and 30 taka, respectively. After selling all the grains, calculate the ratio of income from the individual grains.
+\end{enumerate}
+
+\part{Proportional Division}
+% Defining the section for Proportional Division
+\section*{Proportional Division}
+
+Division of a quantity into a fixed ratio is called proportional division. If $S$ is to be divided in a given ratio $a : b : c : d$, dividing $S$ by $a + b + c + d$, the parts $a, b, c,$ and $d$ need to be taken. Therefore:
+\[
+\text{1st part} = S \cdot \frac{a}{a + b + c + d} = \frac{S a}{a + b + c + d}
+\]
+\[
+\text{2nd part} = S \cdot \frac{b}{a + b + c + d} = \frac{S b}{a + b + c + d}
+\]
+\[
+\text{3rd part} = S \cdot \frac{c}{a + b + c + d} = \frac{S c}{a + b + c + d}
+\]
+\[
+\text{4th part} = S \cdot \frac{d}{a + b + c + d} = \frac{S d}{a + b + c + d}
+\]
+In this way, any quantity may be divided into any fixed ratio.
+
+\subsection*{Example 15}
+The area of a rectangular land is 12 hectares, and the length of its diagonal is 500 meters. The ratio of the length and breadth of this land to that of another land is $3 : 4$ and $2 : 3$, respectively.
+
+\begin{enumerate}
+    \item What is the area of the given land in square meters?
+    \item What is the area of the other land?
+    \item What is the breadth of the given land?
+\end{enumerate}
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item We know that 1 hectare = 10,000 square meters. Therefore:
+    \[
+    12 \text{ hectares} = 12 \times 10,000 = 120000 \text{ square meters}
+    \]
+    \item Given that the ratio of the length and breadth of the given land to that of the other land is $3 : 4$ and $2 : 3$, respectively. Let the length of the given land be $3x$ meters and the breadth be $2y$ meters. Therefore, the length of the other land is $4x$ meters, and the breadth is $3y$ meters. The area of the given land is:
+    \[
+    3x \cdot 2y = 6xy \text{ square meters}
+    \]
+    The area of the other land is:
+    \[
+    4x \cdot 3y = 12xy \text{ square meters}
+    \]
+    According to the question:
+    \[
+    6xy = 120000
+    \]
+    \[
+    xy = 20000
+    \]
+    Therefore, the area of the other land is:
+    \[
+    12xy = 12 \times 20000 = 240000 \text{ square meters}
+    \]
+    \item Let the length of the given land be $3x$ meters and the breadth be $2y$ meters. Therefore, the length of its diagonal is:
+    \[
+    \sqrt{(3x)^2 + (2y)^2} \text{ meters}
+    \]
+    From part (b), $xy = 20000$. According to the question:
+    \[
+    \sqrt{(3x)^2 + (2y)^2} = 500
+    \]
+    \[
+    9x^2 + 4y^2 = 250000
+    \]
+    \[
+    (3x + 2y)^2 - 2 \cdot 3x \cdot 2y = 250000
+    \]
+    \[
+    (3x + 2y)^2 - 12xy = 250000
+    \]
+    \[
+    (3x + 2y)^2 - 12 \times 20000 = 250000
+    \]
+    \[
+    (3x + 2y)^2 = 250000 + 240000
+    \]
+    \[
+    (3x + 2y)^2 = 490000
+    \]
+    \[
+    3x + 2y = 700 \quad (1)
+    \]
+    Again:
+    \[
+    (3x - 2y)^2 = (3x + 2y)^2 - 4 \cdot 3x \cdot 2y
+    \]
+    \[
+    (3x - 2y)^2 = (3x + 2y)^2 - 24xy
+    \]
+    \[
+    (3x - 2y)^2 = (700)^2 - 24 \times 20000
+    \]
+    \[
+    (3x - 2y)^2 = 490000 - 480000
+    \]
+    \[
+    (3x - 2y)^2 = 10000
+    \]
+    \[
+    3x - 2y = 100 \quad (2)
+    \]
+    Subtracting (2) from (1):
+    \[
+    4y = 600
+    \]
+    \[
+    y = 150
+    \]
+    Therefore, the breadth of the given land is:
+    \[
+    2y = 2 \times 150 = 300 \text{ meters}
+    \]
+\end{enumerate}
+
+% Defining the section for Exercises
+\section*{Exercises}
+
+\subsection*{Exercise 11.1}
+\begin{enumerate}
+    \item If the sides of two squares are $a$ and $b$ meters, respectively, what will be the ratio of their areas?
+    \item If the area of a circle is equal to the area of a square, find the ratio of their perimeters.
+    \item If the ratio of two numbers is $3 : 4$ and their L.C.M. is 180, find the two numbers.
+    \item The ratio of absent to present students on a day in your class is found to be $1 : 4$. Express the number of absent students as a percentage with respect to the total number of students.
+    \item An item is first bought and then sold with a $28\%$ loss. Find the ratio of buying and selling cost.
+    \item The sum of the ages of a father and son is 70 years. Seven years ago, the ratio of their ages was $5 : 2$. What will be the ratio of their ages after 5 years?
+    \item If $a : b = b : c$, prove that:
+    \begin{enumerate}
+        \item $\frac{a}{c} = \frac{a^2 + b^2}{b^2 + c^2}$
+        \item $a^2 b^2 c^2 \left( \frac{1}{a^3} + \frac{1}{b^3} + \frac{1}{c^3} \right) = a^3 + b^3 + c^3$
+        \item $\frac{a b c (a + b + c)^3}{(a b + b c + c a)^3} = 1$
+    \end{enumerate}
+    \item Solve:
+    \begin{enumerate}
+        \item $\frac{1 - \sqrt{1 - x}}{1 + \sqrt{1 - x}} = \frac{1}{3}$
+        \item $\frac{a + x - \sqrt{a^2 - x^2}}{a + x + \sqrt{a^2 - x^2}} = \frac{b}{x}, \quad 2a > b > 0 \text{ and } x \neq 0$
+        \item $81 \left( \frac{1 - x}{1 + x} \right)^3 = \frac{1 + x}{1 - x}$
+    \end{enumerate}
+    \item If $\frac{a}{b} = \frac{a}{c} = \frac{b}{d}$, show that:
+    \begin{enumerate}
+        \item $\frac{a^3 + b^3}{b^3 + c^3} = \frac{b^3 + c^3}{c^3 + d^3}$
+        \item $(a^2 + b^2 + c^2)(b^2 + c^2 + d^2) = (ab + bc + cd)^2$
+    \end{enumerate}
+    \item If $x = \frac{4ab}{a + b}$, show that $\frac{x + 2a}{x - 2a} + \frac{x + 2b}{x - 2b} = 2$, $a \neq b$.
+    \item If $x = \frac{\sqrt[3]{m + 1} + \sqrt[3]{m - 1}}{\sqrt[3]{m + 1} - \sqrt[3]{m - 1}}$, prove that $x^3 - 3mx^2 + 3x - m = 0$.
+    \item If $x = \frac{\sqrt{2a + 3b} + \sqrt{2a - 3b}}{\sqrt{2a + 3b} - \sqrt{2a - 3b}}$, show that $3bx^2 - 4ax + 3b = 0$.
+    \item If $\frac{a^2 + b^2}{b^2 + c^2} = \frac{(a + b)^2}{(b + c)^2}$, show that $a, b, c$ are in continued proportion.
+    \item If $\frac{x}{b + c} = \frac{y}{c + a} = \frac{z}{a + b}$, prove that $\frac{a}{y + z - x} = \frac{b}{z + x - y} = \frac{c}{x + y - z}$.
+    \item If $\frac{bz - cy}{a} = \frac{cx - az}{b} = \frac{ay - bx}{c}$, prove that $\frac{x}{a} = \frac{y}{b} = \frac{z}{c}$.
+    \item If $\frac{a + b - c}{a + b} = \frac{b + c - a}{b + c} = \frac{c + a - b}{c + a}$ and $a + b + c \neq 0$, prove that $a = b = c$.
+    \item If $\frac{x}{xa + yb + zc} = \frac{y}{ya + zb + xc} = \frac{z}{za + xb + yc}$ and $x + y + z \neq 0$, show that each ratio is $\frac{1}{a + b + c}$.
+    \item If $(a + b + c)p = (b + c - a)q = (c + a - b)r = (a + b - c)s$, then prove that $\frac{1}{q} + \frac{1}{r} + \frac{1}{s} = \frac{1}{p}$.
+    \item If $lx = my = nz$, then show that $\frac{x^2}{yz} + \frac{y^2}{zx} + \frac{z^2}{xy} = \frac{mn}{l^2} + \frac{nl}{m^2} + \frac{lm}{n^2}$.
+    \item If $\frac{p}{q} = \frac{a^2}{b^2}$ and $\frac{a}{b} = \frac{\sqrt{a + q}}{\sqrt{a - q}}$, show that $\frac{p + q}{a} = \frac{p - q}{q}$.
+\end{enumerate}
+
+\subsection*{Exercise 11.2}
+\begin{enumerate}
+    \item If $a, b, c$ are in continued proportion, which one of the following is correct?
+    \begin{enumerate}
+        \item $a^2 = bc$
+        \item $b^2 = ac$
+        \item $ab = bc$
+        \item $a = b = c$
+    \end{enumerate}
+    \item The ratio of the ages of Arif and Akib is $5 : 3$. If Arif is 20 years old, how many years later will the ratio of their ages be $7 : 5$?
+    \begin{enumerate}
+        \item 5 years
+        \item 6 years
+        \item 8 years
+        \item 10 years
+    \end{enumerate}
+    \item If the sides of a square double, how much will the area of the square increase?
+    \begin{enumerate}
+        \item 2 times
+        \item 3 times
+        \item 4 times
+        \item 6 times
+    \end{enumerate}
+    \item If $x : y = 7 : 5$, $y : z = 5 : 7$, then $x : z =$ how much?
+    \begin{enumerate}
+        \item $35 : 49$
+        \item $35 : 35$
+        \item $25 : 49$
+        \item $49 : 25$
+    \end{enumerate}
+    \item If $b, a, c$ are in continued proportion, then:
+    \begin{enumerate}[label=(\roman*)]
+        \item $a^2 = bc$
+        \item $\frac{b}{a} = \frac{c}{a}$
+        \item $\frac{a + b}{a - b} = \frac{c + a}{c - a}$
+    \end{enumerate}
+    Which one of the following is correct?
+    \begin{enumerate}
+        \item i
+        \item i and ii
+        \item i and iii
+        \item i, ii, and iii
+    \end{enumerate}
+    \item If $x : y = 2 : 1$ and $y : z = 2 : 1$, then:
+    \begin{enumerate}[label=(\roman*)]
+        \item $x, y, z$ are in continued proportion
+        \item $z : x = 1 : 4$
+        \item $y^2 + zx = 4yz$
+    \end{enumerate}
+    Which one of the following is correct?
+    \begin{enumerate}
+        \item i and ii
+        \item i and iii
+        \item ii and iii
+        \item i, ii, and iii
+    \end{enumerate}
+    \item If $\frac{a}{x} = \frac{m^2 + n^2}{2mn}$, then $\frac{\sqrt{a + x}}{\sqrt{a - x}} =$ what?
+    \begin{enumerate}
+        \item $\frac{m}{n}$
+        \item $\frac{m + n}{m - n}$
+        \item $\frac{m - n}{m + n}$
+        \item $\frac{n}{m}$
+    \end{enumerate}
+    \item If the perimeter of a triangle is $36 \, \text{cm}$ and the ratio of the lengths of its sides is $3 : 4 : 5$, then:
+    \begin{enumerate}
+        \item What is the length of its greatest side in cm?
+        \begin{enumerate}
+            \item 5
+            \item 9
+            \item 12
+            \item 15
+        \end{enumerate}
+        \item What is the area of the triangle in square cm?
+        \begin{enumerate}
+            \item 6
+            \item 54
+            \item 67
+            \item 90
+        \end{enumerate}
+    \end{enumerate}
+    \item The weight of 1 cubic cm of wood is 7 decigrams. What is the percentage of the weight of the wood to the weight of an equal volume of water?
+    \item Distribute Tk. 300 among $a, b, c, d$ in such a way that the ratios are $a$'s part : $b$'s part = $2 : 3$, $b$'s part : $c$'s part = $1 : 2$, and $c$'s part : $d$'s part = $3 : 2$.
+    \item Three fishermen have caught 690 pieces of fish. The ratios of their parts are $\frac{2}{3}$, $\frac{4}{5}$, and $\frac{5}{6}$. How many fish will each of them get?
+    \item The perimeter of a triangle is $45 \, \text{cm}$. The ratio of the lengths of the sides is $3 : 5 : 7$. Find the length of each side.
+    \item If the ratio of two numbers is $5 : 7$ and their H.C.F. is 4, what is the L.C.M. of the numbers?
+    \item In a cricket game, the total runs scored by Sakib, Mushfique, and Mashrafi were 171. The ratio of runs scored by Sakib and Mushfique, and Mushfique and Mashrafi, was $3 : 2$. What were the runs scored by them individually?
+    \item In an office, there were 2 officers, 7 clerks, and 3 bearers. If a bearer gets Tk. 1, a clerk gets Tk. 2, and an officer gets Tk. 4, and their total salary is Tk. 150,000, what is their individual salary?
+    \item If the sides of a square are increased by $20\%$, what is the percentage increase in the area of the square?
+    \item If the length of a rectangle is increased by $10\%$ and the breadth is decreased by $10\%$, what is the percentage of increase or decrease in the area of the rectangle?
+    \item In a field, the ratio of production is $4 : 7$ before and after irrigation. In that field, the production of paddy in a land previously was 304 quintals. What would be the production of paddy after irrigation?
+    \item If the ratio of paddy to rice produced from paddy is $3 : 2$ and the ratio of wheat to suji produced from wheat is $4 : 3$, find the ratio of rice to suji produced from equal quantities of rice and wheat.
+    \item The area of a land is 432 square meters. If the ratios of the lengths and breadths of that land and another land are $3 : 4$ and $2 : 5$, respectively, what is the area of the other land?
+    \item Zami and Simi take loans of different amounts at a rate of $10\%$ simple interest on the same day from the same bank. The amount of capital and profit that Zami refunds after 2 years is the same amount that Simi refunds after 3 years on capital and profit. Find the ratio of their loans.
+    \item The ratio of the sides of a triangle is $5 : 12 : 13$, and the perimeter is $30 \, \text{cm}$.
+    \begin{enumerate}
+        \item Draw the triangle and write down the type of triangle with respect to the angles.
+        \item Determine the area of a square drawn with the diagonal of a rectangle, where the length of the rectangle is the largest side of the triangle and the breadth is the smallest side of the triangle.
+        \item If the length is increased by $10\%$ and the breadth is increased by $20\%$, what will be the percentage increase in the area?
+    \end{enumerate}
+    \item The ratio of present to absent students on a day in a class is $1 : 4$.
+    \begin{enumerate}
+        \item Express the percentage of absent students against total students.
+        \item The ratio of present to absent students would be $1 : 9$ if 5 more students were present. What was the total number of students?
+        \item Of the total number of students, the number of male students is 10 less than twice the number of female students. Find the ratio of male to female students.
+    \end{enumerate}
+    \item Ashik, Mizan, Anika, and Ahona started a business with a total capital of Tk. 132,500 and had a profit of Tk. 26,500 after the end of a year. In the capital of that business, Ashik's part : Mizan's part = $2 : 3$, Mizan's part : Anika's part = $4 : 5$, and Anika's part : Ahona's part = $5 : 6$.
+    \begin{enumerate}
+        \item Determine the simple ratio of the capital.
+        \item Determine the amount of capital of each person in that business.
+        \item 60\% of the profit is invested in the business at the end of the year. If the remaining profit is divided according to the capital ratio, then between Ahona and Ashik, who will get the greater amount of profit money?
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

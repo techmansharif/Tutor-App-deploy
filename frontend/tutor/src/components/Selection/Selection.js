@@ -26,8 +26,9 @@ const [selectedSubtopic, setSelectedSubtopic] = useState(initialValues?.selected
     
     // Filter out unwanted subjects
     const filteredSubjects = response.data.filter(subject => 
-      !['Higher Math', 'General Math', 'quiz1'].includes(subject.name)
+      !['Higher Math', 'General Math', 'quiz1','data'].includes(subject.name)
     );
+    
     
     setSubjects(filteredSubjects);
   } catch (error) {
@@ -47,7 +48,14 @@ const [selectedSubtopic, setSelectedSubtopic] = useState(initialValues?.selected
             headers: { 'user-id': user.user_id },
             withCredentials: true
           });
-          setTopics(response.data);
+          let sortedTopics;
+          if  (selectedSubject !== "English") {
+              sortedTopics = response.data.sort((a, b) => a.name.localeCompare(b.name, 'bn', { numeric: true }));
+            } else {
+              sortedTopics=response.data;
+            }
+          setTopics(sortedTopics);
+          // setTopics(response.data);
         } catch (error) {
           console.error('Error fetching topics:', error);
           alert('Error fetching topics. Please try again.');

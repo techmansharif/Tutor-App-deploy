@@ -1,0 +1,146 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\title{English Grammar and Composition: Introductory 'it' and 'there'}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\part{Introductory 'It' }
+
+\textbf{A.} Read the following letter and notice the use of 'there' and 'it' in it.
+
+Dear Shovon,\\
+I'm writing this to tell you about our day out at Savar yesterday. We went to Jahangirnagar University to watch the migratory birds that come \textbf{there} every winter. We started at 7 a.m. \textbf{It} was a very pleasant one and a half hour drive from Dhaka to the University. \textbf{It}'s a beautiful campus! \textbf{There} is a lake running through it. The scenic beauty of the place simply charmed us. \textbf{There} were hundreds of migratory birds—some circling in the sky in flocks, some resting on the lake water. \textbf{There} were red and white water lilies in full bloom in the lake. We were not the only ones watching the birds, \textbf{there} were about a dozen more visitors who came to enjoy the scene. \textbf{There} was enchanting sound of birds chirping, splashing water and fluttering winds all around us. \textbf{It} was such a splendid experience!
+
+\textbf{It} was almost 4 o'clock when we started back from \textbf{there} for Dhaka. By the way, we had a wonderful lunch at the campus. \textbf{There} was a roadside eating place just outside the campus gate that served the best rice and curry I've ever had.
+
+But no more today.\\
+Love,\\
+Lali
+
+\textbf{Grammar Point}
+
+Every sentence must have a subject, but sometimes the subject does not mean anything, like the introductory 'there' and 'it' in the above sentences. When we don't want to put a new information at the beginning of a sentence, we write it in a different way using there/it at the beginning. 'There' and 'it' at the beginning of a sentence are also called 'empty subjects'.
+
+\textbf{Use}
+
+We use the introductory 'there' to say that something exists or existed in the past:
+
+\begin{itemize}
+    \item There is a lake in the university campus.
+    \item There were hundreds of migratory birds.
+\end{itemize}
+
+We usually use \textit{it} to talk about something that we have already mentioned:
+
+\begin{itemize}
+    \item What's that bird? It's a Siberian duck.
+\end{itemize}
+
+We can also use \textit{it} when we talk about:
+
+\begin{itemize}
+    \item \textbf{distance}: It's about 22 kilometers from Dhaka to Savar.
+    \item \textbf{time}: It was 7 a.m. when we started for Savar.
+    \item \textbf{nature/quality of a place}: It's quiet and peaceful here by the lake.
+    \item \textbf{weather}: It's raining today.
+\end{itemize}
+
+We also use \textit{it + be + adjective} to express our feeling about something:
+
+\begin{itemize}
+    \item It was wonderful to watch the migratory birds on the lake water!
+    \item It's important to share your feelings with your close friends.
+    \item It's good to know that you care for me.
+\end{itemize}
+
+\part{Introductory 'There'}
+
+\textbf{Grammar Point (continued)}
+
+Notice that there/it is followed by the verb \textit{be}.
+
+\textbf{Form:}
+
+\begin{itemize}
+    \item \textbf{There + be} e.g. There is ... / There are ...\\
+    There was ... / There were ...
+    \item \textbf{It + be} e.g. It is ... / It was ...
+\end{itemize}
+
+
+
+The introductory 'it' and 'there' serve distinct purposes as empty subjects, and understanding their differences is key to using them correctly:
+
+\begin{itemize}
+    \item \textbf{'There' indicates existence}: 'There' is used to state that something exists or existed in a particular place or context. It introduces new information about the presence of objects, people, or phenomena. For example:
+        \begin{itemize}
+            \item There is a lake in the university campus. (A lake exists.)
+            \item There were hundreds of migratory birds. (Birds existed at that time.)
+        \end{itemize}
+    \item \textbf{'It' refers to or describes}: 'It' is used to refer to something already mentioned, describe conditions (e.g., time, distance, weather, quality), or express feelings about an experience. It does not introduce new entities but provides additional information or context. For example:
+        \begin{itemize}
+            \item It's a Siberian duck. (Refers to a bird already mentioned.)
+            \item It's about 22 kilometers from Dhaka to Savar. (Describes distance.)
+            \item It was wonderful to watch the migratory birds. (Expresses a feeling.)
+        \end{itemize}
+\end{itemize}
+
+\textbf{Activity 1}
+
+Rewrite each sentence below by using 'there' or 'it' at the beginning without changing the meaning of the original sentence:
+
+\begin{itemize}
+    \item a. Saying sorry is polite when you’ve done something wrong.\\
+    \_\_ polite when you’ve done something wrong.
+    \item b. Using mobile phone in the exam hall is forbidden.\\
+    \_\_ mobile phone in the exam hall.
+    \item c. Seeing your childhood friends after a long time is wonderful.\\
+    \_\_ after a long time.
+    \item d. A lady is waiting for you downstairs.\\
+    \_\_ a lady downstairs.
+    \item e. I first met her two years ago.\\
+    \_\_ since I last.
+    \item f. Hundreds of birds are on the lake water.\\
+    \_\_ on the lake water.
+\end{itemize}
+
+\textbf{Activity 2}
+
+Rewrite the following sentences so that they don’t begin with 'there', but would mean the same as the original sentences:
+
+\begin{itemize}
+    \item a. There is a red rose in the vase.
+    \item b. There are three golden stars on the baby’s cap.
+    \item c. There were two dogs chasing the burglar.
+    \item d. There was a gold fish in the bowl.
+    \item e. There are many leaves on the ground.
+\end{itemize}
+
+\textbf{Activity 3}
+
+Fill in the blanks in the following sentences with 'there' or 'it' + \textit{be}.
+
+\begin{itemize}
+    \item a. What’s that in your hand?\\
+    \_\_ a parcel. \_\_ just came in by post.\\
+    \_\_ anything valuable in it? Why are you holding it so tightly?\\
+    \_\_ some books. Raju has sent them for you.
+    \item b. We stood in front of the heavy curtains in the hall room. \_\_ something behind the curtains. I could sense it. I pulled the curtains. \_\_ a picture of a woman with a child. \_\_ hanging on the wall. \_\_ a sudden silence in the room. \_\_ a tense moment.
+\end{itemize}
+
+\end{document}

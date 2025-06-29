@@ -1,0 +1,370 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\title{English Grammar and Composition: Speech}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\part{Basics of Changing Speech}
+
+\textbf{A.} Read the texts below.
+
+\textbf{Context 1}
+
+\begin{itemize}
+    \item Monika said, “You’re late!” \textit{(reporting speech)} \textit{(Reported speech)}
+    \item Mohammad said, “I expected that you would come on time”. \textit{(reporting speech)} \textit{(Reported speech)}
+    \item Farhana said, “We have been waiting for you for a long time. We are hungry.”. \textit{(reporting speech)} \textit{(Reported speech)}
+    \item “I’m really sorry. I’m hungry too. Let’s go to a restaurant”, said Soma. \textit{(Reported speech)} \textit{(reporting speech)}
+\end{itemize}
+
+\textbf{Context 2}
+
+\begin{itemize}
+    \item We told Mithun that we were going to Sagardari to Michael’s place. She could join us.
+    \item Mithun told that without speaking to her mom she wouldn’t be able to decide anything.
+    \item Abid responded that was ridiculous as they all were grown up.
+    \item Mithun replied that it didn’t mean they were out of any bindings.
+\end{itemize}
+
+What differences do you find between the statements in Context 1 and Context 2?
+
+\textbf{Grammar Point}
+
+A \textit{reporting speech} is the statement of the person who reports about something. We use \textit{reported speech} when we are speaking or writing about something that another person said.
+
+A \textit{reported speech} is the statement what is being reported by a speaker. This statement is made by one person but reported by another person.
+
+In \textit{direct speech} we say exactly what was said or thought by others using verbs like \textit{said}, \textit{thought}, \textit{told}, \textit{shouted}, etc. (as in Context 1).
+
+The common feature of direct speech is inverted comma (“....”) before and after the speech (made by other than who is reporting).
+
+When we report what someone is saying or thinking now we use \textit{indirect speech} after \textit{says}, \textit{thinks}, \textit{hopes}, etc. (as in Context 2). Here we often use \textit{that} but \textit{that} is not obligatory.
+
+\textbf{Example}
+
+\begin{itemize}
+    \item I was speaking with Ranjan. He says (that) he has just left Barishal.
+\end{itemize}
+
+We also use this form when we say about something that is always true.
+
+e.g.
+
+\begin{itemize}
+    \item He says he doesn’t like band music.
+    \item Dipika says we can create a better world by loving each other.
+\end{itemize}
+
+\textbf{B.} Now read these sentences.
+
+\begin{itemize}
+    \item We said to Mithun that we were going to Sagardari to Michael’s place. She could join us.
+    \item Mithun told that without speaking to her mom she wouldn’t be able to decide anything.
+    \item Abid responded that was ridiculous as they all were grown up.
+    \item Mithun replied that it didn’t mean they were out of any bindings.
+    \item Abid hoped that her mom will finally allow Mithun to go.
+    \item I felt it wouldn’t be that easy.
+    \item However we all wished good luck for Mithun.
+\end{itemize}
+
+\textbf{Grammar Point}
+
+We use \textit{said} to report someone’s words/statements.\\
+We use \textit{told} when we make it clear who the speaker was speaking to.
+
+We can use verbs that express the feeling of the speaker when we report what someone has said or thought. For example, \textit{hope}, \textit{feel}, \textit{be afraid}, \textit{want}, \textit{wish}.
+
+\textbf{C.} Read the following conversations. How does the reported speech change when they are made indirect from direct?
+
+\textbf{Direct}
+
+\begin{itemize}
+    \item \textbf{Boby:} Hi Probir, It is good to see you in Facebook.
+    \item \textbf{Probir:} Hi Boby. Good to see you too. How are you?
+    \item \textbf{Boby:} I’m good. Well, I’ve got three tickets for the cricket match. Would you like to go with me?
+    \item \textbf{Probir:} Hmmm... I have an appointment with my doctor. I’m sorry.
+    \item \textbf{Boby:} Okay. Next time.
+\end{itemize}
+
+\textbf{Indirect}
+
+\begin{itemize}
+    \item Boby greeted Probir and told it was good to see him in the Facebook.
+    \item In exchange Probir also greeted Boby and said that it was good to see him too. He asked Boby how he was.
+    \item Boby replied that he was good. He also told that he had three tickets for cricket match. He asked Probir if he would like to go with him.
+    \item With hesitation Probir told that he had an appointment with his doctor. He was sorry.
+    \item Boby replied that it was ok and hoped they would go together next time.
+\end{itemize}
+
+In indirect speech we report things that people say. We often use \textit{said} and change the tense of the verb of the speaker used in the following way:
+
+\begin{tabular}{ll}
+\textbf{Actual words} & \textbf{Reported speech} \\
+present simple & past simple \\
+present continuous & past continuous \\
+past simple/present perfect & past perfect \\
+will & would \\
+can & could \\
+am/is/are/going to & was/were going to \\
+\end{tabular}
+
+\textbf{Grammar Point}
+
+In informal speech we sometimes use the same tense that the person used in the direct speech. Besides when we want to say something that someone says about future we use the same tense used in the direct speech.
+
+\textbf{Example}
+
+\begin{itemize}
+    \item Hannan: I’m going to Bandarban tomorrow.
+    \item Hannan says that he is going to Bandarban the next day.
+\end{itemize}
+
+\textbf{Activity 1}
+
+A bus was going from Dhaka to Khulna. Suddenly it stopped on the way and couldn’t move for a long time. Report what people said using the correct reported speech forms of the words in the parenthesis. The first one is done for you.
+
+\begin{enumerate}
+    \item The guide said that he was sorry for the delay. (I’m sorry)
+    \item The driver said \_\_ due to a road accident ahead. (‘All traffic is suspended’)
+    \item One passenger sitting next to me said \_\_ to get stuck for hours. (‘It is horrible’)
+    \item I said \_\_ a wash room as well. (‘I am hungry. I need...’)
+    \item Another woman from my back said \_\_ for her connecting bus. (‘I’ll be late’)
+    \item Some children cried that \_\_ outside. (‘We are fed up and want to go’)
+    \item A senior citizen said \_\_ (‘My pressure is rising up’)
+    \item The driver said that \_\_ last week too. (I’m so sorry but the same thing happened’)
+\end{enumerate}
+
+\textbf{Activity 2}
+
+Suppose last year you met a friend of yours, Mathin, after many years. These are some information about Mathin that she herself gave you. You met another friend, Lailee, in the evening. Use reported speech to tell Lailee what Mathin told you about her life. The first one is done for you.
+
+\begin{enumerate}
+    \item Mathin said that she was living in California with her uncle.
+    \item \_\_
+    \item \_\_
+    \item \_\_
+    \item \_\_
+    \item \_\_
+    \item \_\_
+    \item \_\_
+    \item \_\_
+    \item \_\_
+\end{enumerate}
+
+\part{Passage Narration}
+
+\textbf{A.} Read the texts below to see how direct speeches are converted to indirect speech when they are placed in a passage which is commonly known as ‘passage narration’.
+
+\textbf{Direct speech}
+
+\begin{itemize}
+    \item \textbf{Sales person:} How can I help you?
+    \item \textbf{Customer:} Thanks. I’m looking for one of my friends working here.
+    \item \textbf{Sales person:} What’s his or her name?
+    \item \textbf{Customer:} She is Sohana. Do you know her?
+    \item \textbf{Sales person:} Sure. And your name, please?
+\end{itemize}
+
+\textbf{Indirect speech}
+
+The sales person asked the customer how she could help him (the customer). The customer thanked her and told he was looking for one of his friends working there. The sales person asked what his friend’s name was. The customer replied that she was Sohana. He also asked whether she (sales person) knew Sohana. The sales person answered in the affirmative and asked his name politely.
+
+\textbf{Activity 1}
+
+Compare both the speeches and find out the changes in the indirect speeches by answering the following questions.
+
+\begin{itemize}
+    \item a. How do the modals change in the indirect speech?
+    \item b. How do the interrogative sentences change?
+    \item c. How do the yes/no questions change?
+    \item d. How do the information question (wh-questions) change?
+\end{itemize}
+
+\textbf{Grammar point}
+
+We use \textit{ask + object + question word} to report questions that ask for information.\\
+We use \textit{ask + object + if/whether} to report questions that ask for the answer yes or no.
+
+\textbf{Activity 2}
+
+Read the text with direct speeches. Change them into indirect speech and write them in one passage following the clues.
+
+\textbf{Direct}
+
+\begin{itemize}
+    \item “When are you starting for Burimari?”, Moni said.
+    \item “The day after tomorrow”, I said.
+    \item “Will you visit Dalia too?”
+    \item “I’m not very sure. I have some fixed programmes. They will occupy me the next few days”, I answered. “But why are you asking me that?”
+    \item “I wanted to accompany you”. Moni said.
+    \item “Are you sure?”, I wanted to know.
+\end{itemize}
+
+\textbf{Indirect}
+
+Moni asked me \_\_. I told it was the day after the next day. She then asked me \_\_. I was not sure. I told that I had some fixed programmes. They would occupy me the next few days. I asked \_\_. She told that she had wanted to accompany me. I wanted to know \_\_.
+
+\textbf{Activity 3}
+
+Report what happened in this conversation using question words (what, where, when, etc.) and correct reported speech verb forms. The first one is done for you.
+
+\textbf{Things the interviewer asked me}
+
+\begin{itemize}
+    \item Where are you from?
+    \item Why are you late?
+    \item Who did you speak to?
+    \item What can I do for you now?
+    \item How can you avoid this situation?
+\end{itemize}
+
+\textbf{Things I told}
+
+\begin{itemize}
+    \item I’m from Uttara.
+    \item I knew that the meeting will take place at ten o’clock.
+    \item I contacted with one of my classmates, Tonmoy.
+    \item Please give me a chance to attend the meeting.
+    \item Next time I’ll contact the office.
+\end{itemize}
+
+\textbf{Things the interviewer asked me}
+
+\begin{itemize}
+    \item He asked me where I was from.
+    \item He \_\_
+    \item He \_\_
+    \item He \_\_
+    \item He \_\_
+\end{itemize}
+
+\textbf{Things I told}
+
+\begin{itemize}
+    \item I told him that I was from Uttara.
+    \item I \_\_
+    \item I \_\_
+    \item I \_\_
+    \item I \_\_
+\end{itemize}
+
+\textbf{Activity 4}
+
+You went to a museum with a friend. Report what your friend asked you using question words (what, where, when, etc.) and correct reported speech verb forms.
+
+\textbf{Things my friend asked me}
+
+\begin{itemize}
+    \item What time does the museum open?
+    \item How much does a ticket cost?
+    \item How long does it remain open?
+    \item Is there any café inside the museum?
+    \item Will you wait for us when we finish our tour?
+    \item Have you purchased our ticket?
+    \item Is there any tour guide inside?
+\end{itemize}
+
+\textbf{Things my friend asked me}
+
+\begin{itemize}
+    \item He also asked me \_\_
+    \item Then he asked \_\_
+    \item He further asked \_\_
+    \item Next he asked \_\_
+    \item Again he asked \_\_
+    \item He continued to ask \_\_
+    \item Finally he asked \_\_
+\end{itemize}
+
+\textbf{Activity 5}
+
+Make a list of the words used in the reported speeches to show continuation of speeches. One is done for you.
+
+\begin{itemize}
+    \item a. also
+    \item b. \_\_
+    \item c. \_\_
+    \item d. \_\_
+    \item e. \_\_
+    \item f. \_\_
+\end{itemize}
+
+\textbf{B.} Read the following texts.
+
+\textbf{Direct}
+
+\begin{itemize}
+    \item Mathin told Lailee, “Listen to me. I’ve some important business now and so I have to go. Please come at my place in the evening.”
+    \item “We will chat together and have tea together”.
+    \item “How fantastic!”, said Lailee. I’ll definitely come.”
+    \item I’m free in the evening. Can I invite Nikhil to join us?”
+    \item “Wow! What a great interesting idea! I’m sure, he must be very happy to join us. Please ask him to join. Let’s have dinner together, not tea”, said Mathin.
+\end{itemize}
+
+\textbf{Indirect}
+
+Mathin asked Lailee to listen to her. She had some important business then and so she had to go. Mathin requested Lailee to go to her place in the evening. She told that they would chat together and have tea together. Lailee expressed her joy (or exclaimed in joy) and said that it was a fantastic idea. She confirmed that she would go as was free in the evening. Lailee asked Mathin if she could invite Nikhil to join them. Mathin expressed her joy too and said – that was a great idea. She hoped that Nikhil would be very happy to join them. She then proposed that they would have dinner together instead of tea.
+
+\textbf{Activity 6}
+
+Identify the changes or differences when the speech is converted to indirect from direct speech and answer the following questions.
+
+\begin{itemize}
+    \item a. What do we use in place of \textit{said} in the direct speech is an imperative sentence?
+    \item b. What do we use in place of \textit{said} when the direct speech is an exclamatory sentence?
+    \item c. What could be used in place of \textit{said} when the direct speech is an exclamatory sentence with a sad news?
+    \item d. What do we use in place of \textit{said} when the direct speech begins with \textit{Let}?
+    \item e. What change do you notice in the indirect speech for verb when the direct speech has \textit{Let}?
+\end{itemize}
+
+Note that when we change direct speech to indirect speech we do not change word by word. We do some fine tuning to make the language lively. Otherwise it becomes mechanical and unnatural. This is why in the above indirect sentence it is written –\\
+She confirmed that she would go as was free in the evening. We didn’t write – She said that she would definitely come. She also said that she was free in the evening.\\
+This type of fine tuning is important for changing speech from direct to indirect especially when you have a whole conversation to change.
+
+\textbf{Activity 7}
+
+Imagine that you went to your school the other day and there you met your friend, Nandita. She told you about her friend. This is what she told you:
+
+Jibon and I have been friends for two years. I first got to know him at a friend’s birthday party. But we saw each other at another occasion before that. He arrived at the party very late. He didn’t recognize me when we first talked. People were asking me to sing. He also requested. He wanted to sing with me too. I told him I didn’t really want to sing. Anyway, later I agreed. Although he was a singer we sang together for some time. We didn’t leave the party till 10 pm. Later we met each other frequently and gradually we became good friends. We have so many differences but we respect each other. Sometimes we fight but we never leave each other. This is why our friendship is so unique.
+
+\textbf{Activity 8}
+
+Now read the following speeches. The first one uses direct speech and the second one uses indirect speech. Underline the differences from direct to indirect speech. Then read the texts in the boxes to understand the changes.
+
+\textbf{Direct}
+
+It was a nice rainy morning. Bishu and Chimeg were seeing the rain through a window. Bishu asked Chimeg, “Do you have rains like Bangladesh?”. “No”, said Chimeg, “Mongolia doesn’t have monsoon rain. Mongolia has winter. But sometimes we have little rain and they are unlike this rain. I have never seen such rain in my life.” Bishu said, “I would like to get drenched in the rain. Will you follow me?” “Let us run”, said Chimeg.
+
+\textbf{Indirect}
+
+It was a nice rainy morning. Bishu and Chimeg were seeing the rain through a window. Bishu asked Chimeg whether they (Chimeg) had rains-like Bangladesh. Chimeg answered in the negative. She \underline{added} that Mongolia doesn’t have monsoon rain. Mongolia has winter. But sometimes they have little rain and they are unlike rain in Bangladesh. Chimeg \underline{also said} that she had never seen such rain in her life. Bishu \underline{desired} to get drenched in the rain and asked Chimeg if he would follow her. Chimeg \underline{proposed} to run in the open field.
+
+\begin{itemize}
+    \item The information here is a fact. So verbs do not change to past form.
+    \item When the same person speaks more than one time, we use \textit{added}, \textit{continued}, \textit{also said}, etc.
+    \item If anyone wants to do anything, we can use \textit{desired} instead of \textit{said}.
+    \item “Let us run” – this is a proposal and we use \textit{proposed} instead of \textit{said} in the indirect speech.
+\end{itemize}
+
+\textbf{Activity 9}
+
+Re-write the following story using the correct reported speech forms. Use \textit{say (that) ....., tell + object (that)...., ask + object + to infinitive}, or \textit{tell + objective + to infinitive}.
+
+There was a wedding party beside my house and the people were enjoying music in loud volume. It continued until mid-night and that was too much. I went there and said, “There are many students and patients around. It is mid night as well. Please turn down the volume of your music. It is creating disturbance for all.” One of them said, “It is a party. Who are you to tell us to turn it off? Leave the place and go home. Don’t disturb us.” I felt very offended. Finding no other alternative to make them understand, I called on the police by telephone. I said, “I’m speaking from Adabor area. It is mid night and some people are having a party with high volume music. I requested them to volume down their music. They insulted me and asked me to leave the place. Will you please come and do something needful?” The police said “Don’t worry. We are coming in five minutes”. After some time the police came and told the people, “It is time for people to sleep. Turn down your music or switch it off. You can enjoy your party without disturbing others.” Then they switched off the music.
+
+\end{document}

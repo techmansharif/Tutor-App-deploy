@@ -1,0 +1,96 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\title{English Grammar and Composition: E-mails}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\part{Effective E-mail Writing Tips}
+
+We write and send various types of e-mails every day. They may be friendly, professional, resumes, planning for events etc. Writing an effective e-mail is indeed very important.
+
+\textbf{How to get attention}
+
+It is important to get the receiver to read your e-mail; it is also important to get the e-mail noticed by the receiver, and then keep the receiver engaged till s/he finishes reading it. Here are some tips for you for writing an effective e-mail.
+
+\textbf{Five tips for writing an effective e-mail}
+
+\begin{enumerate}
+    \item \textbf{Clear purpose:} It is important to know the purpose of your e-mail. The receiver should be sure about the point.
+    \item \textbf{Use the subject line wisely:} Take the time to select a meaningful, straightforward subject line that tells the reason for the e-mail clearly.
+    \item \textbf{Make sure your identity:} There are many cases where e-mails are ignored or bypassed because the receiver is not familiar with the sender of the e-mail. Take time to make sure that your full name is placed as the sender so that the receiver will know who you are. Avoid using initials or nicknames as many people tend to ignore e-mails that are not sent with whole names which they can recognize.
+    \item \textbf{Get to the point:} Make sure your e-mails are concise. People want to know what the e-mail is about as soon as they open it. After a brief greeting followed by a comma, make sure the next few lines are related specifically to the subject of the e-mail. If this is a reply to another e-mail, reply immediately to any questions posed in the original e-mail. When composing the e-mail do not use unnecessary words. Short sentences and paragraphs are better than long ones. Use an active voice such as “We are sending your order today” instead of “Your order will be sent by us today.”
+    \item \textbf{Make sure your e-mail is readable:} There is nothing more annoying than an e-mail that cannot be read for various reasons, whether it’s because of poor grammar or spelling, or the use of inappropriate fonts and abbreviations, or even worse, an e-mail written in bright colors or all capital letters. It is always best to use the proper format when sending an e-mail. Check your e-mail text before sending it, and keep the formatting simple. Put a blank line between paragraphs. Remember: An e-mail is a form of communication; it is not a piece of artwork.
+\end{enumerate}
+
+\textbf{Why e-mails are bypassed}
+
+After you send your e-mail, you might not receive an answer for a number of reasons. In many cases, important e-mails are sometimes bypassed because the receiver simply looks at the subject and decides that it is not worth reading, or puts the e-mail aside for later reading (which may, or may not, happen!). This can be a problem if the information within the e-mail is essential.
+
+To avoid e-mails being bypassed or deleted just follow the five key points. You will get the attention of the receiver.
+
+\part{E-mail Structure and Style}
+
+\textbf{Examples of some e-mails:}
+
+\textbf{Example 1: An official note}
+
+\begin{flushleft}
+\textbf{To:} Team Members\\
+\textbf{Cc:}\\
+\textbf{Subject:} Changes to Agenda\\
+\\
+Dear colleagues,\\
+The following items will be on the agenda for our meeting on Friday:\\
+- Changes to protocol\\
+- New software installation\\
+- Email monitoring policy\\
+Failure to provide additional items by tomorrow will result in delay of the issue until proper, timely submissions are made.\\
+-Margo
+\end{flushleft}
+
+\textbf{Example 2: A personal mail}
+
+\begin{flushleft}
+\textbf{To:} mithila@gmail.com\\
+\textbf{Cc:}\\
+\textbf{Subject:} Hey! What's up?\\
+\\
+Hi Mithila,\\
+How you doing? It’s been ages since we last talked! I’m just chilling in Dhaka, got a new job at this cool startup. The vibe here is awesome, but I miss our crazy hangouts.\\
+You still in Sylhet? Planning a trip there soon—wanna catch up? Let me know what’s good with you!\\
+Cheers,\\
+Raifa
+\end{flushleft}
+
+\textbf{Example 3: An informal personal mail}
+
+\begin{flushleft}
+\textbf{To:} stella@gmail.com\\
+\textbf{Cc:}\\
+\textbf{Subject:} Life in Sylhet\\
+\\
+Hi Stella,\\
+Can’t believe I’ve been in Sylhet for a whole week already! Promised I’d drop you a line about how it’s going, so here’s the scoop.\\
+At first, it was tough getting used to the new scene—new friends, new school, the works. But now I’m starting to vibe with it and feel right at home. The Sylheti folks are super friendly and always ready to lend a hand.\\
+Made some cool friends, mostly girls, and the countryside here is just unreal—so green, thanks to all the rain. Though, gotta admit, the constant rain can get old fast.\\
+Sorry this is short—y’know I’m rubbish at writing long emails. Hit me back when you get a sec. Miss you tons!\\
+Love,\\
+Sumi
+\end{flushleft}
+
+\end{document}

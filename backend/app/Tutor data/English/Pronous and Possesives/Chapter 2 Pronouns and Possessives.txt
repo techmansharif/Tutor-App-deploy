@@ -1,0 +1,241 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\title{English Grammar and Composition: Pronouns and Possessives}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{02 Pronouns and Possessives}
+
+\part{Subject and Object Pronouns}
+
+\textbf{A.} Read the following sentences:
+
+\begin{itemize}
+    \item Who is she?
+    \item I don't know her. Sorry.
+    \item I know her. She lives near my place.
+    \item She is Meghna.
+\end{itemize}
+
+\textbf{Subject and Object Pronouns}
+
+\begin{itemize}
+    \item This is my bag. Where is yours?
+    \item Here is mine. And this is Uttom's.
+    \item But I don't see our passports.
+    \item This is my passport. Is it your passport?
+    \item Oh, yes. Thank you.
+\end{itemize}
+
+\textbf{Grammar Point:}
+
+Look at the following grid:
+
+\begin{table}[h]
+\begin{tabular}{lcccc}
+\textbf{Subject Pronoun} & \textbf{Object Pronoun} & \textbf{Possessive Adjective} & \textbf{Possessive Pronoun} \\
+I & me & my & mine \\
+you & you & your & yours \\
+he/she/it & him/her/it & his/her/its & his/her/its \\
+we & us & our & ours \\
+they & them & their & theirs \\
+\end{tabular}
+\end{table}
+
+1. When we use a pronoun as the subject of a verb in a sentence, it is called a subject pronoun.
+
+\textbf{Example:}
+
+I was travelling to Savar. On the way suddenly the bus stopped and remained non-moving. I called on the guide of the bus and asked him the reason. He (= the guide of the bus) told me that the tire of the bus got punctured.
+
+2. When we use a pronoun as the object of a verb in a sentence, we call that an object pronoun.
+
+\textbf{Example:}
+
+Rajon is our class captain for this month. I don't like him (=Rajon) that much.
+
+\textbf{Activity 1}
+
+Complete the description of a job by putting in the correct subject or object pronouns.
+
+I work in a restaurant. Three other people work with \_\_ here. \_\_ are Jibon, Sathi, and Bokul. \_\_ all are good friends. Jibon is a good singer. \_\_ always sings and works. I'm a fan of \_\_ singing. Sathi is a little senior to \_\_ \_\_ is a bit serious in everything. If \_\_ make any mistake, \_\_ scolds \_\_ but loves \_\_ a lot too. I don't know \_\_ passion.
+
+Bokul is \_\_ of \_\_ age. Everyone loves Bokul because of \_\_ pleasing personality. Bokul's special quality is \_\_ is never angry with anyone. Our manager doesn't like \_\_ friendship. She keeps an eye on \_\_ always. \_\_ enjoy \_\_ anxiety.
+
+\part{Possessive Adjectives and Pronouns}
+
+\textbf{Use}
+
+We use a possessive adjective to talk about:
+\begin{itemize}
+    \item Things that we own: What are you carrying? This is my passport.
+    \item Family members and friends: My brother lives in Indonesia. He is a Micro-Biologist there.
+    \item Things that are connected to us: At my school, we learn science subjects through learning by doing. It helps us a lot to understand the theories.
+\end{itemize}
+
+We use a possessive pronoun to talk about:
+\begin{itemize}
+    \item Something that belongs to us or is connected with us, without repeating the noun: The navy blue T-shirt is mine (=my T-shirt). Don't take that one please.
+    \item When we know which thing we are referring to: My laptop is six months old. How old is yours (=your laptop)?
+\end{itemize}
+
+\textbf{Activity 2}
+
+Two friends are talking about their exam preparation. Complete their conversation by putting in the correct possessive adjectives and possessive pronouns.
+
+\textbf{Kalyani:} Hi dear! (1) \_\_ look tired -- you are working very hard.
+
+\textbf{Gitanjali:} To be honest, (2) \_\_ preparation is not very satisfactory. Mom got seriously ill last month. (3) \_\_ illness killed some of the valuable time. How about (4) \_\_?
+
+\textbf{Kalyani:} Hmmm....not bad though. (5) \_\_ brother has come home on vacation. (6) \_\_ guidance has helped me a lot.
+
+\textbf{Gitanjali:} My situation is also like (7) \_\_. My mom and my sister are helping \_\_ to pull \_\_. As a result of (8) \_\_ collective efforts I'm improving. Yet it's not that easy once you have a gap in study.
+
+\textbf{Kalyani:} That's true. By the way, this is really a good park. Very neat and clean!
+
+\textbf{Gitanjali:} Oh yes, we take care of this park. We don't depend on the local municipality. In fact, it is (9) \_\_ and so we keep it tidy.
+
+\textbf{Kalyani:} Great! You know we have a small organization working on environment. From (10) \_\_ organization we went to other parts of the city. We tried to convince those people that (11) \_\_ parks are (12) \_\_. Yet the result is not always impressive.
+
+\textbf{Gitanjali:} When all start thinking `It is (13) \_\_ maybe the situation will improve.
+
+\textbf{Activity 3}
+
+Mr Tarafder is recalling his lost days. Read the text and decide if the underlined words are correct or incorrect. Put a tick mark if they are correct and write the correct words if they are incorrect. The first one is done for you.
+
+0. My brother and I were born in Kurigram. \underline{Ours} \textbf{Our} birthday was in October.
+
+1. It was many years ago and there was no electricity in \underline{our} locality.
+
+2. There was no fan at \underline{ours} home. During the summer we suffered a lot.
+
+3. When we started going to the secondary school, \underline{our} father bought two bicycles for \underline{us}.
+
+4. \underline{My} was black and \underline{his} was green.
+
+5. \underline{Mine} friend was Hitesh. \underline{Theirs} house was in a better part of the town.
+
+6. We went to \underline{their} house frequently by \underline{our} bicycle.
+
+7. Hitesh had a pet dog. \underline{It} colour was black and \underline{it} was very naughty.
+
+8. Whenever we entered \underline{theirs} house \underline{it} not only used to bark but also chased \underline{ours}.
+
+9. Yet I had special fascination for \underline{them} house. To be honest I liked Hitesh's younger sister.
+
+10. Once I sent \underline{her} a letter in a book and \underline{she} showed \underline{it} to Hitesh. The book was \underline{her}.
+
+11. Later Hitesh asked \underline{we} not to go to \underline{theirs} house anymore. \underline{We} were upset.
+
+\textbf{Activity 4}
+
+Some friends are travelling by bus. Complete their conversation by putting in the correct possessive adjectives and possessive pronouns.
+
+\textbf{Rahim:} Mahfuj, are you at the right place? This is \_\_ seat -- B3.
+
+\textbf{Mahfuj:} Really! Let me check. Hmmm.... No, it's not \_\_. Look at \_\_ ticket. It's \_\_. Can I see \_\_ ticket? Look, \_\_ D3. I mean \_\_ seat is D3.
+
+\textbf{Rahim:} Oops...Oh yes, sorry. You are right. Anyway, where should we put \_\_ bags -- in the bunker or in the box?
+
+\textbf{Mahfuj:} I'll put \_\_ under \_\_ seat. Since \_\_ is a heavier one, you can put \_\_ in the box. ... Do you know where Mokhles and Pritish are sitting?
+
+\textbf{Rahim:} They are at the back.
+
+\textbf{Mahfuj:} What are \_\_ seat numbers?
+
+\textbf{Rahim:} \_\_ are G1 and G2.
+
+\part{Reflexive Pronouns}
+
+Read the following sentences:
+
+\begin{itemize}
+    \item After we had completed our exams, we organized a party ourselves.
+    \item The party was really great. I prepared myself for the party.
+    \item Sujata and Ranju sang in the party but they didn't like each other.
+\end{itemize}
+
+These are some examples of reflexive pronouns. Now see how reflexive pronouns are formed.
+
+\begin{table}[h]
+\begin{tabular}{ll}
+\textbf{Subject Pronouns} & \textbf{Reflexive Pronouns} \\
+I & myself \\
+you (singular) & yourself \\
+he/she/it & himself/herself/itself \\
+we & ourselves \\
+you (plural) & yourselves \\
+they & themselves \\
+\end{tabular}
+\end{table}
+
+\textbf{Use}
+
+1. We use reflexive pronouns with certain verbs: build, cook, do, enjoy, hurt, paint, teach, make, organize.
+
+2. We usually use reflexive pronouns in the following patterns:
+\begin{itemize}
+    \item Subject + verb + reflexive pronoun: The party was really great. I prepared myself for the party.
+    \item Subject + verb + object + reflexive pronoun: After we had completed our exams, we organized a party ourselves.
+\end{itemize}
+
+We use reflexive pronouns immediately after the verb to talk about actions or experiences that only affect the subject and none else.
+
+Don't touch the rod. You'll hurt yourself. (It'll hurt none but you.)
+
+We use reflexive pronouns to mean that the activity has been done by no other person than the subject.
+
+She made the ice cream herself. (Nobody else made it.)
+
+We use `each other' to mean that the same action has been done by both the persons.
+
+Joyita and Jalal love each other. (Joyita loves Jalal and Jalal loves Joyita.)
+
+\textbf{Activity 5}
+
+Read the address made by the chief guest at a programme. Complete the text by adding reflexive pronouns in the gaps. The first one is done for you.
+
+I'm very glad to know that the students of this school have arranged this science fair \textbf{themselves}. It's really a classic example of students' creativity and hard work. This programme reminds me of my school days. Then many times we did similar programmes \_\_. It is good to know that Nasreen has innovated how to recycle banana skins to meet nutrition deficiency \_\_. I'm further glad to see Jinia's work \_\_. I congratulate the organizers of the programme as well. You endeavoured to raise fund for the programmes \_\_. And I cannot but give a hand to you. This is really a great school and I must say that this is a great programme to show how students can help the country and help \_\_ for good causes.
+
+\textbf{Activity 6}
+
+Musabbir and Dilruba have just moved into a new house. Dilruba is showing their new home to their friend, Rafiq. Complete the conversation using reflexive pronouns and the words in the box.
+
+\textbf{[finalise our plan, did it, do the carpeting, work, everything, do things]}
+
+\textbf{Dilruba:} Welcome to our new place.
+
+\textbf{Rafiq:} Wow, everything looks so nice. Did you decorate the house \_\_?
+
+\textbf{Dilruba:} Yes, we designed \_\_ \_\_. We didn't have enough money to pay for a home decorator.
+
+\textbf{Rafiq:} Was it really challenging for you?
+
+\textbf{Dilruba:} Yes, it was. It took long time to \_\_ \_\_ but we enjoyed \_\_.
+
+\textbf{Rafiq:} Guess, you didn't \_\_ \_\_ as well.
+
+\textbf{Dilruba:} Oh, no. We engaged two carpenters. But they did a good job, didn't they?
+
+\textbf{Rafiq:} That showcase looks interesting. Your carpenters are really geniuses!
+
+\textbf{Dilruba:} Oh, that is a job of Musabbir. He \_\_ \_\_. This is his first innovation of this type.
+
+\textbf{Rafiq:} Wow, I can't believe it. I really appreciate people who \_\_ \_\_. I'm no good at that.
+
+\end{document}

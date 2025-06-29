@@ -1,0 +1,179 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\title{English Grammar and Composition: Conditionals}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\part{First Conditional}
+
+\textbf{A.} Read some examples of first conditional sentences:
+
+\begin{itemize}
+    \item \textbf{:} Are you coming to my place?\\
+    \textbf{:} I’ll go to your place if I finish reading the story book. \textit{(Possible action/situation in the future)}
+    \item \textbf{:} I guess I’m going to miss the train.\\
+    \textbf{:} If you start now, you won’t miss the train. \textit{(Possibility immediately after the present moment)}
+    \item \textbf{:} What will you do, if your first attempts fail?\\
+    \textbf{:} If I don’t succeed at my first attempt, I’ll try again. \textit{(First conditional in questions)}
+    \item \textbf{:} I think you are going to be late. You haven’t sent the document yet.\\
+    \textbf{:} Hmmm....I think if I send it today, Shaymoli might get it tomorrow. \textit{(Use of might: to tell about a possibility)}
+    \item Thank you very much for everything.\\
+    \textbf{:} No problem. Here is my card. If you need any extra help, just give me a call. \textit{(Imperative in first conditional: to give advice)}
+\end{itemize}
+
+\textbf{How to make first conditionals?}
+
+First conditionals follow this pattern:
+
+\textit{If + subject + present tense} followed by \textit{subject + future tense (will/may/might + verb) + extension (if needed)}
+
+\textbf{Some conditions}
+
+\begin{itemize}
+    \item There will be two parts in a first conditional sentence.
+    \item First conditional can be used in affirmative, negative, and question sentences.
+    \item If the \textit{if} clause comes first, there should be a comma (,) where the \textit{if} clause ends.
+\end{itemize}
+
+\textbf{Use of $1^{\text{st}}$ conditional}
+
+\begin{enumerate}
+    \item We use $1^{\text{st}}$ conditional to speak about a future possibility depending on the present situation, the \textit{if}-part is the present condition, and the part with \textit{will/may/might} is the future possibility.
+    \item We can use the first conditionals when we talk about possibilities immediately after the present.
+    \item We can use \textit{may/might} instead of \textit{will} to say about the result of an action in the first conditional.
+    \item We can use imperative in first conditional to give an instruction or advice.
+\end{enumerate}
+
+\textbf{Activity 1}
+
+Read the e-mail written by one friend to another friend. The mail has some use of first conditionals but for each conditional sentence only a part is given. Complete the conditional sentences by selecting and adding the right part from the alternatives given below the mail.
+
+Dear Mithila,\\
+Great to hear from you. It is also great to know that you are coming to North Bengal. How many days are you planning to stay here? Are you going on a vacation or coming with any special assignment.\\
+Please let me know the date of your coming and tentative stay period. I’ll see you if I \textit{(a)} \_\_. I’ll also \textit{(b)} \_\_ if I can manage my parents. Who else are coming with you?\\
+I often think of our lost days. They were really so sweet! \textit{(c)} \_\_ if you can. I will copy them from you. And don’t forget your camera please for new photographs.\\
+However, we have a possibility to go on a study tour in March. Hope that will not coincide with your stay here. Yet, if it happens, \textit{(d)} \_\_?\\
+Stay fine. And keep in touch.\\
+Raifa
+
+\begin{itemize}
+    \item will you
+    \item Please bring your old memories
+    \item try to receive you from Jaipurhat airport
+    \item have no exams that time
+\end{itemize}
+
+\textbf{Activity 2}
+
+Mr and Mrs Bishwash are going to a wedding party. Complete their conversation, using the words below in first conditional.
+
+\begin{itemize}
+    \item 1. we/ not get
+    \item 2. we/ not be
+    \item 3. they/ wait
+    \item 4. guests/ annoyed
+    \item 5. her husband/ make
+    \item 6. it/ not be
+    \item 7. the others/ do
+    \item 8. they/ not see us
+    \item 9. guests/ not see
+    \item 10. she/ come
+    \item 11. what/ happen
+    \item 12. we/ not be
+    \item 13. we/ shame
+    \item 14. everything/ do
+    \item 15. there/ be not
+\end{itemize}
+
+\textbf{Mrs Bishwash:} If we don’t hurry (1) \_\_ to the party on time.\\
+\textbf{Mr Bishwash:} Hmmm, if \_\_ (2), \_\_ (3) for us.\\
+\textbf{Mrs Bishwash:} That’s true. If \_\_ (4), \_\_ (5) a mess of it.\\
+\textbf{Mr Bishwash:} Don’t worry. If \_\_ (6) too late, \_\_ (7) it without us.\\
+\textbf{Mrs Bishwash:} If \_\_ (8), \_\_ (9) us.\\
+\textbf{Mr Bishwash:} If \_\_ (10) with us, \_\_ (11)?\\
+\textbf{Mrs Bishwash:} If \_\_ (12) at the party, \_\_ (13).\\
+\textbf{Mr Bishwash:} Don’t worry, if \_\_ (14) on time, \_\_ (15) any problem.
+
+\textbf{Activity 3}
+
+Read the following text which tells about some guidance for tourists in a new city. The tourist guide is written in first conditional sentences. Half of each guidance is written in the first column and the rest half is given in the right column. Match the texts in both the columns to make conditional sentences.
+
+\begin{tabular}{ll}
+If you travel in between November to March & Seek help of the police \\
+If you travel during May to July & Keep some warm clothes with you \\
+If you go to any place alone & Look at the city brochure \\
+If you are lost & Go to the memorials in the evening \\
+If you want to shop & It may have discount \\
+If you want to avoid crowd & Don’t forget your umbrella and wind cheater \\
+If you book early & Don’t delay for late hours \\
+If you love museums & Don’t speak to any unknown person \\
+\end{tabular}
+
+\part{Second Conditional}
+
+\textbf{A.} Read some examples of second conditional.
+
+\begin{itemize}
+    \item \textbf{Atia:} What would you do, if you came here a month ago?\\
+    \textbf{Rozina:} If I came here a month ago, I would travel to some more rural areas in Bangladesh. And if I came here in my childhood, I would not leave the country ever.
+    \item \textbf{Kamal:} How are you enjoying your present job?\\
+    \textbf{Minto:} Not very good. I’m leaving this office.\\
+    \textbf{Kamal:} Why?\\
+    \textbf{Minto:} I love this office. I have been here for a long time. But the salary is too low. If they could offer me a better salary, I wouldn’t leave this job.
+    \item \textbf{Tamanna:} If you had lots of money, what would you do?\\
+    \textbf{Sefali:} If I had ten million dollars, I would go for a world tour.
+\end{itemize}
+
+\textbf{Grammar Point}
+
+\textbf{USE}
+
+We use second conditional to talk about future depending about the past situation.
+
+\textbf{Activity 1}
+
+You know the world is too much polluted now. Here are some suggestions on how to make the world better. Complete the sentences using the verbs and the second conditional. You may need to use the options given to use more than once. The first one is done for you.
+
+\begin{enumerate}
+    \item If you didn’t start wars, the world would be a better place.
+    \item If everyone \_\_ (use) their cars less, there \_\_ (not be) so much pollution.
+    \item If people \_\_ (do) more recycling, they \_\_ (help) environment a lot.
+    \item People \_\_ (not be) so unhealthy if they \_\_ (not eat) junk food.
+    \item People \_\_ (not suffer) from stress if life \_\_ (not be) so fast.
+    \item Celebrities \_\_ (not be) popular if people \_\_ (stop) reading about them.
+\end{enumerate}
+
+\textbf{Activity 2}
+
+Complete this interview using the words in brackets and the second conditionals. Use short forms where necessary.
+
+\textbf{Interviewer:} If you could have another job, what \_\_ (it/be)?\\
+\textbf{Interviewee:} Well I could be an NGO person. I would really be happy if I could work with rural people for their development. Alternatively, if I could do some research on Bangla literature, I might do better.\\
+\textbf{Interviewer:} What NGO would you join if you had the chance? National or international?\\
+\textbf{Interviewee:} I \_\_ (want) to start with national level NGO. However, if I \_\_ (continue), I \_\_ (finally switch) to international. I \_\_ (might have) more opportunities to work for my country.\\
+\textbf{Interviewer:} And what kind of research would you prefer if you had the chance to do that?\\
+\textbf{Interviewee:} I think I \_\_ (research) on Jibanananda Das, if I \_\_ (really have) any opportunity.\\
+\textbf{Interviewer:} Is he your favourite poet?\\
+\textbf{Interviewee:} Yes, very much. I \_\_ (do) comparative study between Jibanananda Das and Wordsworth.\\
+\textbf{Interviewer:} But you are quite successful in your current profession.\\
+\textbf{Interviewee:} Oh yes, I’m doing good. Yet, if I \_\_ (develop) as I dreamed, I \_\_ (do) better, I guess.\\
+\textbf{Interviewer:} Who knows... maybe you are right. But do you regret your present occupation now?\\
+\textbf{Interviewee:} Not exactly. Time has moulded me for my present job.
+s
+
+\end{document}

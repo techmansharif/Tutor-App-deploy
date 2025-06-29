@@ -1,0 +1,235 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\geometry{a4paper, margin=1in}
+
+% Font configuration (loaded last)
+\usepackage{noto}
+
+\begin{document}
+
+% Title and Introduction
+\section*{Chapter 7: Infinite Series}
+
+Sequence and finite series are discussed in detail in the General Mathematics Book of Class IX-X. There is a direct relationship between sequence and infinite series. Infinite series can be obtained after assigning plus signs before the terms of a sequence. Infinite series will be discussed in this chapter.
+
+After completing the chapter, the students will be able to -
+\begin{itemize}
+    \item explain the idea of a sequence;
+    \item identify the infinite series;
+    \item explain the condition of existing the sum of an infinite geometric series;
+    \item sum of an infinite geometric series;
+    \item transform a recurring decimal number into an infinite geometric series and express in fraction.
+\end{itemize}
+
+% Part 1: Sequences and Series Concepts
+\part{Sequences and Series Concepts}
+
+% Sequences
+\subsection*{Sequences}
+
+In the relationships illustrated below, every natural number $n$ is related to its square $n^2$; that is, the set of square numbers $\{1, 4, 9, 16, \ldots\}$ is obtained for the set of natural numbers $N = \{1, 2, 3, 4, \ldots\}$ under a certain rule. This set of arranged sequence numbers is a sequence. When some numbers are arranged successively under a definite rule such that the relationship between any two successive terms is known, then the set of numbers arranged in this way is called a sequence.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+1 & 2 & 3 & 4 & $\cdots$ & $n$ & $\cdots$ \\
+\hline
+$\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & & $\downarrow$ & \\
+\hline
+1 & 4 & 9 & 16 & $\cdots$ & $n^2$ & $\cdots$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Image description: A table showing a mapping from natural numbers to their squares. The top row lists natural numbers $1, 2, 3, 4, \ldots, n, \ldots$, and the bottom row lists their corresponding squares $1, 4, 9, 16, \ldots, n^2, \ldots$. Arrows point from each number in the top row to its square in the bottom row.
+
+The relationship shown above is called a function and is written as $f(n) = n^2$. The general term of this sequence is $n^2$. The number of terms of any sequence is infinite. The way to write the sequence in terms of the general term is $\left\{n^2\right\}, n = 1, 2, 3, 4, \ldots$ or, $\left\{n^2\right\}_{n=1}^{+\infty}$ or just, $\left\{n^2\right\}$. The first number of a sequence is called the first term, the second number of a sequence is called the second term, and so on. In the above sequence $1, 4, 9, 16, \ldots$, first term $= 1$, second term $= 4$, and so on. Four more examples of sequences are given below:
+\begin{enumerate}
+    \item $\frac{1}{2}, \frac{1}{2}, \frac{1}{2^3}, \frac{1}{2^4}, \ldots, \frac{1}{2^n}, \ldots$
+    \item $3, 1, -1, -3, \ldots, (5 - 2 n), \ldots$
+    \item $1, \frac{2}{3}, \frac{3}{5}, \frac{4}{7}, \ldots, \frac{n}{2 n - 1}, \ldots$
+    \item $\frac{1}{2}, \frac{1}{5}, \frac{1}{10}, \frac{1}{17}, \ldots, \frac{1}{n^2 + 1}, \ldots$
+\end{enumerate}
+
+% Series
+\subsection*{Series}
+
+If the terms of a sequence are connected successively by a '$+$' sign, then a series is formed. As an example, $1 + 4 + 9 + 16 + \ldots$ is a series. Then again, $\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} + \ldots$ is another series. The ratio between two successive terms of this series is the same. This type of series is called Geometric Series. The characteristics of a series depend on the relationship between two consecutive terms of it. For example, in case of Arithmetic Series, the difference between two consecutive terms is constant.
+
+Depending on the number of terms, series can be divided into two classes: 1) Finite series 2) Infinite series. Finite series are discussed in the General Mathematics Book of Class IX-X. Infinite series will be discussed here.
+
+% Part 2: Partial Sums
+\part{Partial Sums}
+
+% Partial Sum of Infinite Series
+\subsection*{Partial Sum of Infinite Series}
+
+Let $u_1 + u_2 + u_3 + \ldots + u_n + \ldots$ be an infinite series. Then its:
+1st partial sum is $S_1 = u_1$
+2nd partial sum is $S_2 = u_1 + u_2$
+3rd partial sum is $S_3 = u_1 + u_2 + u_3$
+$\therefore$ The $n$-th partial sum is $S_n = u_1 + u_2 + u_3 + \ldots + u_n$
+That is, the $n$-th partial sum of an infinite series is the sum of the first $n$ number of terms of the series, where $n \in N$.
+
+\textbf{Example 1.} Find the partial sum of the following two series:
+\begin{enumerate}
+    \item $1 + 2 + 3 + 4 + \ldots$
+    \item $1 - 1 + 1 - 1 + \ldots$
+\end{enumerate}
+
+solution:
+\begin{enumerate}
+    \item First term of the series $a = 1$ and common difference is $d = 1$. Therefore, the given series is an arithmetic progression.
+    Sum of the first $n$ terms of the arithmetic series is
+    \[ S_n = \frac{n}{2} \{2 a + (n - 1) d\} = \frac{n}{2} \{2 \cdot 1 + (n - 1) \cdot 1\} \]
+    So $S_n = \frac{n}{2} \{2 + n - 1\} = \frac{n (n + 1)}{2}$
+    In the above equation, putting different values of $n$ we get,
+    \[ \begin{aligned}
+    S_{10} &= \frac{10 \times 11}{2} = 55 \\
+    S_{1000} &= \frac{1000 \times 1001}{2} = 500500 \\
+    S_{100000} &= \frac{100000 \times 100001}{2} = 5000050000
+    \end{aligned} \]
+    Here as $n$ increases, the value of $S_n$ becomes larger.
+    Therefore, the given infinite series has no sum.
+
+    \item $1 - 1 + 1 - 1 + \ldots$ is the given infinite series. Its
+    1st partial sum $S_1 = 1$
+    2nd partial sum $S_2 = 1 - 1 = 0$
+    3rd partial sum $S_3 = 1 - 1 + 1 = 1$
+    4th partial sum $S_4 = 1 - 1 + 1 - 1 = 0$
+    In the above example it can be seen that, for odd $n$, the $n$-th partial sum $S_n = 1$ and for even $n$, the $n$-th partial sum $S_n = 0$.
+    Therefore, it is observed that there is no specific number which is the sum of this series.
+\end{enumerate}
+
+% Part 3: Infinite Series
+\part{Infinite Series}
+
+% Infinite Series
+\subsection*{Infinite Series}
+
+If $u_1, u_2, u_3, \ldots, u_n, \ldots$ is a sequence of real numbers, then $u_1 + u_2 + u_3 + \ldots + u_n + \ldots$ is called an infinite series of real numbers. $u_n$ is called the $n$-th term of this series.
+
+% Part 4: Infinite Geometric Series
+\part{Infinite Geometric Series}
+
+% Sum of Infinite Geometric Series
+\subsection*{Sum of Infinite Geometric Series}
+
+$a + a r + a r^2 + a r^3 + \ldots$ is a geometric series. Its first term is $a$ and common ratio is $r$.
+
+Therefore, the $n$-th term of the series $= a r^{n - 1}$, where $n \in N$
+Now, if $r \neq 1$ then the partial sum of this series up to $n$-th term is
+\[ \begin{aligned}
+S_n &= a + a r + a r^2 + a r^3 + \ldots + a r^{n - 1} \\
+S_n &= a \cdot \frac{r^n - 1}{r - 1} \quad \text{ when } r > 1 \text{ and } S_n = a \cdot \frac{1 - r^n}{1 - r} \quad \text{ when } r < 1
+\end{aligned} \]
+We observe:
+\begin{enumerate}
+    \item In the case of $|r| < 1$, that is $-1 < r < 1$, if the value of $n$ increases (that is, when $n \to \infty$) then the value of $|r^n|$ decreases. Thus making $n$ sufficiently large, the value can be decreased indefinitely, that is, $|r^n|$ approaches 0. So, the limiting value of $|r^n|$ becomes 0.
+    Consequently, the limiting value of $S_n, S_n = \frac{a (1 - r^n)}{1 - r} = \frac{a}{1 - r} - \frac{a r^n}{1 - r} = \frac{a}{1 - r}$
+    Therefore, the sum of the infinite series $S_{\infty} = \frac{a}{1 - r}$
+    \item In the case of $|r| > 1$, that is $r > 1$ or $r < -1$, if the value of $n$ increases then the value of $|r^n|$ increases and making $n$ sufficiently large the value of $|r^n|$ can be increased indefinitely. From this it is clear that there does not exist a finite number $S$ which can be considered as the limiting value of $S_n$.
+    So, in this case, sum of the infinite series does not exist.
+    \item If $r = -1$, then the limiting value of $S_n$ cannot be found. Because, if $n$ is even then $(-1)^n = 1$ and if $n$ is odd, then $(-1)^n = -1$. In this case the series will be, $a - a + a - a + a - a + \ldots$.
+    So, sum of this infinite series does not exist.
+    \item In case of $r = 1$, limiting value of $S_n$ cannot be found as well. Because, in that case the series will be $a + a + a + a + \ldots$ ($n$ numbered). That means, $S_n = n a$ which can be increased with the increasing of $n$.
+    So, sum of this infinite series does not exist.
+\end{enumerate}
+
+If $|r| < 1$, that is $-1 < r < 1$, then the sum of the infinite series $a + a r + a r^2 + \ldots, S = \frac{a}{1 - r}$. For other values of $r$, the sum of the series does not exist.
+
+Remark: The sum of the infinite geometric series (if exists) is sometimes denoted by $S_{\infty}$ and it is called the sum of the series up to infinity. That is, $a + a r + a r^2 + a r^3 + \ldots$ up to infinity, $S_{\infty} = \frac{a}{1 - r}$, when $|r| < 1$.
+
+\textbf{Example 2.} Find the sum (if it exists) of each of the following infinite geometric series:
+\begin{enumerate}
+    \item $\frac{1}{3} + \frac{1}{3^2} + \frac{1}{3^3} + \frac{1}{3^4} + \ldots$
+    \item $1 + 0.1 + 0.01 + 0.001 + \ldots$
+    \item $1 + \frac{1}{\sqrt{2}} + \frac{1}{2} + \frac{1}{2 \sqrt{2}} + \frac{1}{4} + \ldots$
+\end{enumerate}
+
+solution:
+\begin{enumerate}
+    \item Here, the first term of the series, $a = \frac{1}{3}$ and common ratio, $r = \frac{\frac{1}{3^2}}{\frac{1}{3}} = \frac{1}{3} < 1$
+    \[ \therefore \text{The sum to infinity of the series is, } S_{\infty} = \frac{a}{1 - r} = \frac{\frac{1}{3}}{1 - \frac{1}{3}} = \frac{1}{3} \times \frac{3}{2} = \frac{1}{2} \]
+
+    \item The first term of the series, $a = 1$ and common ratio, $r = \frac{0.1}{1} = \frac{1}{10} < 1$
+    \[ \therefore \text{The sum to infinity of the series is, } S_{\infty} = \frac{a}{1 - r} = \frac{1}{1 - \frac{1}{10}} = \frac{10}{9} = 1 \frac{1}{9} \]
+
+    \item Here, the first term of the series, $a = 1$ and common ratio, $r = \frac{\frac{1}{\sqrt{2}}}{1} = \frac{1}{\sqrt{2}} < 1$
+    \[ \therefore \text{The sum to infinity of the series is, } S_{\infty} = \frac{a}{1 - r} = \frac{1}{1 - \frac{1}{\sqrt{2}}} = \frac{\sqrt{2}}{\sqrt{2} - 1} = 3.414 \text{ (approx.)} \]
+\end{enumerate}
+
+\textbf{Example 4.} $\frac{1}{2 x + 1} + \frac{1}{(2 x + 1)^2} + \frac{1}{(2 x + 1)^3} + \ldots$ is an infinite geometric series.
+\begin{enumerate}
+    \item If $x = 1$, then determine the common ratio of the series.
+    \item If $x = \frac{3}{2}$, then determine the 5th term and sum up to the 10th term of the series.
+    \item If the series has sum to infinity, then what condition should be imposed upon $x$? Determine that sum.
+\end{enumerate}
+
+solution:
+\begin{enumerate}
+    \item Given that, $\frac{1}{2 x + 1} + \frac{1}{(2 x + 1)^2} + \frac{1}{(2 x + 1)^3} + \ldots$ is an infinite geometric series,
+    \[ \begin{aligned}
+    \text{If } x = 1, \text{ the series } &= \frac{1}{2 \cdot 1 + 1} + \frac{1}{(2 \cdot 1 + 1)^2} + \frac{1}{(2 \cdot 1 + 1)^3} + \ldots \\
+    &= \frac{1}{3} + \frac{1}{3^2} + \frac{1}{3^3} + \ldots
+    \end{aligned} \]
+    Its common ratio, $r = \frac{\frac{1}{3^2}}{\frac{1}{3}} = \frac{1}{3}$
+
+    \item Given that, $\frac{1}{2 x + 1} + \frac{1}{(2 x + 1)^2} + \frac{1}{(2 x + 1)^3} + \ldots$
+    \[ \begin{aligned}
+    \text{If } x = \frac{3}{2}, \text{ the series } &= \frac{1}{2 \cdot \frac{3}{2} + 1} + \frac{1}{\left(2 \cdot \frac{3}{2} + 1\right)^2} + \frac{1}{\left(2 \cdot \frac{3}{2} + 1\right)^3} + \ldots \\
+    &= \frac{1}{4} + \frac{1}{4^2} + \frac{1}{4^3} + \ldots
+    \end{aligned} \]
+    The first term of the series, $a = \frac{1}{4}$, common ratio, $r = \frac{\frac{1}{4^2}}{\frac{1}{4}} = \frac{1}{4} < 1$
+    \[ \therefore \text{5th term of the series } = a r^{5 - 1} = \frac{1}{4} \cdot \left(\frac{1}{4}\right)^{5 - 1} = \left(\frac{1}{4}\right)^5 = \frac{1}{4^5} \]
+    Sum of first 10 terms of the series $= \frac{a (1 - r^n)}{1 - r} \quad [n = 10]$
+    \[ = \frac{\frac{1}{4} \left\{1 - \left(\frac{1}{4}\right)^{10}\right\}}{1 - \frac{1}{4}} = \frac{\frac{1}{4} \left(1 - \frac{1}{4^{10}}\right)}{\frac{3}{4}} = \frac{1}{4} \times \frac{1}{3} \left(1 - \frac{1}{4^{10}}\right) = \frac{1}{3} \left(1 - \frac{1}{4^{10}}\right) \]
+
+    \item First term of the series, $a = \frac{1}{2 x + 1}$, Common ratio, $r = \frac{\frac{1}{(2 x + 1)^2}}{\frac{1}{2 x + 1}} = \frac{1}{2 x + 1}$
+    Here, $\frac{1}{2 x + 1} \neq 0$, So, $\frac{1}{2 x + 1} > 0$ or $\frac{1}{2 x + 1} < 0 \cdots (1)$
+    Now, the series will have sum to infinity if, $|r| < 1$ that is $\left|\frac{1}{2 x + 1}\right| < 1 \cdots (2)$
+    When condition of (1) $\frac{1}{2 x + 1} > 0$ is true, that is $2 x + 1 > 0$ [multiplicative reciprocal has the same sign] then putting it in (2), we get $\frac{1}{2 x + 1} < 1$
+    Now, multiplying both sides with positive number $2 x + 1$ will keep the inequality sign same
+    that is $1 < 2 x + 1$, or, $1 - 1 < 2 x$, or, $0 < 2 x$, or, $2 x > 0$ or, $x > 0$
+    When condition of $\frac{1}{2 x + 1} < 0$ is true, that is $2 x + 1 < 0$ [then putting it in (2), we get $-\frac{1}{2 x + 1} < 1$
+    Now if we multiply both sides with negative number $2 x + 1$, then the inequality sign will reverse
+    that is $-1 > 2 x + 1$, or, $-1 - 1 > 2 x$, or, $-2 > 2 x$, or, $-1 > x$, or, $x < -1$
+    $\therefore$ the condition is $x < -1$ or, $x > 0$
+    So the sum to infinity of the series, $S_{\infty} = \frac{a}{1 - r} = \frac{\frac{1}{2 x + 1}}{1 - \frac{1}{2 x + 1}}$
+    Multiplying the numerator and denominator by $(2 x + 1), S_{\infty} = \frac{1}{2 x + 1 - 1} = \frac{1}{2 x}$
+\end{enumerate}
+
+% Part 5: Recurring Decimals as Rational Fractions
+\part{Recurring Decimals as Rational Fractions}
+
+% Transformation of Repeating (or Recurring) Decimals in Rational Fractions
+\subsection*{Transformation of Repeating (or Recurring) Decimals in Rational Fractions}
+
+\textbf{Example 3.} Express in rational fractions of the following repeating decimals:
+\begin{enumerate}
+    \item $0.5$
+    \item $0.12$
+    \item $1.231$
+\end{enumerate}
+
+solution:
+\begin{enumerate}
+    \item $0.5 = 0.555 \ldots = 0.5 + 0.05 + 0.005 + \ldots$
+    This infinite geometric series goes with the first term, $a = 0.5$ and common ratio, $r = \frac{0.05}{0.5} = 0.1$
+    \[ \therefore 0.5 = \frac{a}{1 - r} = \frac{0.5}{1 - (0.1)} = \frac{0.5}{0.9} = \frac{5}{9} \]
+
+    \item $0.12 = 0.12121212 \ldots = 0.12 + 0.0012 + 0.000012 + \ldots$
+    The first term of this infinite geometric series, $a = 0.12$ and common ratio, $r = \frac{0.0012}{0.12} = 0.01$
+    \[ \therefore 0.12 = \frac{a}{1 - r} = \frac{0.12}{1 - (0.01)} = \frac{0.12}{0.99} = \frac{12}{99} = \frac{4}{33} \]
+
+    \item $1.231 = 1.231231231 \ldots = 1 + (0.231 + 0.000231 + 0.000000231 + \ldots)$
+    Here, the series in the parentheses is an infinite geometric series.
+    Its first term, $a = 0.231$ and common ratio, $r = \frac{0.000231}{0.231} = 0.001$
+    \[ \therefore 1.231 = 1 + \frac{a}{1 - r} = 1 + \frac{0.231}{1 - (0.001)} = 1 + \frac{231}{999} = \frac{1230}{999} = \frac{410}{333} \]
+\end{enumerate}
+
+\end{document}

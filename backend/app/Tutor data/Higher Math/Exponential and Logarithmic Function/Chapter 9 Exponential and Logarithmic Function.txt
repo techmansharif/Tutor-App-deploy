@@ -1,0 +1,823 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\geometry{a4paper, margin=1in}
+
+% Font configuration (loaded last)
+\usepackage{noto}
+
+\begin{document}
+
+\section*{Chapter 9: Exponential and Logarithmic Function}
+
+Exponential and logarithmic functions retain their place and importance in the theory and applications of mathematics as well as real-life applications. For example: population growth, compound interest calculation, etc.
+After completing the chapter, the student will be able to -
+\begin{itemize}
+    \item explain rational and irrational exponents;
+    \item prove and apply the laws concerning rational and irrational exponents;
+    \item explain the relation between exponents and logarithms;
+    \item explain, prove, and apply the laws of logarithms;
+    \item explain the concept of exponential, logarithmic, and absolute value functions and solve mathematical problems;
+    \item sketch the graph of functions;
+    \item represent exponential, logarithmic, and absolute value functions by graphs;
+    \item find logarithms and antilogarithms using calculators.
+\end{itemize}
+
+% Part 1: Rational and Irrational Exponents
+\part{Rational and Irrational Exponents}
+
+\subsection*{Rational and Irrational Exponents}
+
+We recall some notations: $R$ denotes the set of real numbers
+$N$ denotes the set of natural numbers
+$Z$ denotes the set of integers
+$Q$ denotes the set of rational numbers
+If $a$ is any real number and $n$ is any natural number, when $a$ is multiplied $n$ times, the product is written as $a^n = a \cdot a \cdot a \cdots$ ($n$ times) and $a^n$ is called the $n$th power of $a$. In such cases, $a$ is called the base and $n$ is called the exponent or index.
+\[ \therefore \text{in } 3^4 \text{ the base is } 3 \text{ and exponent is } 4. \]
+Again, in $\left(\frac{2}{3}\right)^4$, the base is $\frac{2}{3}$ and exponent is 4.
+Definition: For all $a \in R$
+\begin{enumerate}
+    \item $a^1 = a$
+    \item $a^n = a \cdot a \cdot a \cdot a \cdot a$ ($n$ times factor of $a$), where $n \in N, n > 1$
+\end{enumerate}
+
+\subsection*{Irrational Exponent}
+
+When an exponent $x$ is irrational, we fix the value of $a^x (a > 0)$ so that for some rational value $p$ approximate to $x$, the value of $a^p$ is close to the value of $a^x$. For example, we consider the number $3^{\sqrt{5}}$. We know, $\sqrt{5}$ is an irrational number and $\sqrt{5} = 2.236067977 \cdots$ (We have obtained this value using a calculator and $\cdots$ indicates that the decimal expression is infinite).
+As the approximate values of $\sqrt{5}$ considering
+\[ \begin{array}{llll}
+p_1 = 2.23 & p_2 = 2.236 & p_3 = 2.2360 & p_4 = 2.23606 \\
+p_6 = 2.2360679 & p_7 = 2.23606797
+\end{array} \]
+\[ p_5 = 2.236067 \]
+we obtain the following approximate values of $3^{\sqrt{5}}$.
+\[ \begin{aligned}
+& q_1 = 3^{2.236067} = 11.66465109 & q_5 = 3^{2.236067} = 11.6647407 \\
+& q_6 = 3^{2.2360679} = 11.6647523 & q_7 = 3^{2.23606797} = 11.6647532
+\end{aligned} \]
+These values have also been obtained using a calculator.
+Actually, $3^{\sqrt{5}} = 11.6647533 \cdots$
+
+\subsection*{Laws of Exponents}
+
+Formula 1. If $a \in R$ and $n \in N, a^1 = a, a^{n+1} = a^n \cdot a$.
+
+Proof: By definition $a^1 = a$ and for all $n \in N: a^{n+1} = \underbrace{\frac{n+1 \text{ times}}{a \cdot a \cdot a \cdot \cdots \cdot a \cdot a}}_{n \text{ times}} =$
+
+Note: $N$ is the set of all natural numbers.
+
+Formula 2. For every $a \in R$ and $m, n \in N, a^m \cdot a^n = a^{m+n}$
+
+Proof:
+Let us consider the statement $a^m \cdot a^n = a^{m+n} \cdots (1)$ fixing some value for $m \in N$ and taking $n$ as the variable.
+
+Putting $n = 1$ in (1) we get,
+\[ \text{L.H.S} = a^m \cdot a^1 = a^m \cdot a = a^{m+1} = \text{R.H.S} [\text{Formula 1}] \]
+\[ \therefore (1) \text{ is true for } n = 1. \]
+Now, let (1) is true for $n = k$. i.e. $a^m \cdot a^k = a^{m+k}$
+Then, 
+\[ a^m \cdot a^{k+1} = a^m \left(a^k \cdot a\right) [\text{Formula 1}] \]
+\[ \begin{aligned}
+&= \left(a^m \cdot a^k\right) \cdot a \\
+&= a^{m+k} \cdot a \\
+&= a^{m+k+1} [\text{Formula 1}]
+\end{aligned} \]
+i.e. (1) is true for $n = k + 1$.
+
+Hence, by mathematical induction for all $n \in N$ (1) is true.
+\[ \therefore \text{for every } m, n \in N \quad a^m \cdot a^n = a^{m+n} \]
+\[ a^m \cdot a^n = a^{m+n} \]
+This is the functional law of exponents.
+
+Formula 3. For every $a \in R, a \neq 0$ and $m, n \in N, m \neq n$, 
+\[ \frac{a^m}{a^n} = \left\{
+\begin{array}{l}
+a^{m-n}, \text{ when } m > n \\
+\frac{1}{a^{n-m}}, \text{ when } m < n
+\end{array}
+\right. \]
+
+Proof:
+\begin{enumerate}
+    \item Suppose, $m > n$. Then $m - n \in N$,
+    \[ \therefore a^{m-n} \cdot a^n = a^{(m-n)+n} = a^m [\text{Formula 2}] \]
+    \[ \therefore \frac{a^m}{a^n} = a^{m-n} [\text{definition of division}] \]
+
+    \item Suppose, $m < n$. Then $n - m \in N$
+    \[ \therefore a^{n-m} \cdot a^m = a^{(n-m)+m} = a^n [\text{Formula 2}] \]
+    \[ \therefore \frac{a^m}{a^n} = \frac{1}{a^{n-m}} [\text{definition of division}] \]
+\end{enumerate}
+
+Note: Prove the above formula by mathematical induction. [like formula 2]
+
+Formula 4. If $a \in R$ and $m, n \in N$, then $\left(a^m\right)^n = a^{mn}$
+
+Formula 5. For all $a, b \in R$ and $n \in N, (a \cdot b)^n = a^n \cdot b^n$
+
+[Prove the above formulae by mathematical induction]
+
+\subsection*{Zero and Negative Integer Exponents}
+
+Definition: For some $a \in R$, if $a \neq 0$,
+\begin{enumerate}
+    \item[3.] $a^0 = 1$
+    \item[4.] $a^{-n} = \frac{1}{a^n}$, where $n \in N$
+\end{enumerate}
+
+Remark: While expanding the concept of exponent, the validity of the functional law of exponents $a^m \cdot a^n = a^{m+n}$ is assured carefully.
+If the formula is true for $m = 0$, then $a^0 \cdot a^n = a^{0+n}$ i.e., $a^0 = \frac{a^n}{a^n} = 1$ must be held.
+Similarly, if the formula needs to be true for $m = -n (n \in N)$, then $a^{-n} \cdot a^n = a^{-n+n} = a^0 = 1$ i.e., $a^{-n} = \frac{1}{a^n}$ must be held. The above definitions have been defined considering these cases.
+
+\textbf{Example 1.}
+\begin{enumerate}
+    \item $2^5 \cdot 2^6 = 2^{5+6} = 2^{11}$
+    \item $\frac{3^5}{3^3} = 3^{5-3} = 3^2$
+    \item $\frac{3^3}{3^5} = \frac{1}{3^{5-3}} = \frac{1}{3^2}$
+    \item $\left(\frac{5}{4}\right)^3 = \frac{5}{4} \times \frac{5}{4} \times \frac{5}{4} = \frac{5 \times 5 \times 5}{4 \times 4 \times 4} = \frac{5^3}{4^3}$
+    \item $\left(4^2\right)^7 = 4^{2 \times 7} = 4^{14}$
+    \item $\left(a^2 b^3\right)^5 = \left(a^2\right)^5 \cdot \left(b^3\right)^5 = a^{2 \times 5} \cdot b^{3 \times 5} = a^{10} b^{15}$
+\end{enumerate}
+
+\textbf{Example 2.} 
+\begin{enumerate}
+    \item $6^0 = 1$
+    \item $(-6)^0 = 1$
+    \item $7^{-1} = \frac{1}{7}$
+    \item $7^{-2} = \frac{1}{7^2} = \frac{1}{49}$
+    \item $10^{-1} = \frac{1}{10} = 0.1$
+    \item $10^{-2} = \frac{1}{10^2} = \frac{1}{100}$
+\end{enumerate}
+
+\textbf{Example 3.} If $m, n \in N$, assuming the validity of the law $\left(a^m\right)^n = a^{mn}$, show that $\left(a^m\right)^n = a^{mn}$ where $a \neq 0$ and $m \in N$ and $n \in Z$
+
+solution: Prove that, $\left(a^m\right)^n = a^{mn} \cdots (1)$
+where, $a \neq 0$ and $m \in N$ and $n \in Z$
+Step 1. First assume that, $n > 0$, in this case the validity of (1) has been ascertained.
+
+Step 2. Now let, $n = 0$ so here $\left(a^m\right)^n = \left(a^m\right)^0 = 1$
+\[ \text{and, } a^{mn} = a^0 = 1 [\because n = 0] \]
+\[ \therefore (1) \text{ is true.} \]
+Step 3. Last suppose, $n < 0$ and $n = -k$, where $k \in N$
+\[ \text{Here } \left(a^m\right)^n = \left(a^m\right)^{-k} = \frac{1}{\left(a^m\right)^k} = a^{-mk} = a^{m(-k)} = a^{mn} \]
+
+\textbf{Example 4.} Show that, for all $m, n \in N, \frac{a^m}{a^n} = a^{m-n}$, where $a \neq 0$
+
+solution: If $m > n, \frac{a^m}{a^n} = a^{m-n}$ [Formula 3]
+If $m < n, \frac{a^m}{a^n} = \frac{1}{a^{n-m}}$ [Formula 3]
+\[ \therefore \frac{a^m}{a^n} = a^{-(n-m)} [\text{Definition 4}] \]
+\[ = a^{m-n} \]
+If $m = n, \frac{a^m}{a^n} = \frac{a^n}{a^n} = 1 = a^0$ [Definition 3]
+\[ = a^{m-m} = a^{m-n} \]
+
+Note: From the definitions of exponents described above, for any $m \in Z$ we can get the explanation of $a^m$, where $a \neq 0$. Considering exponents as positive or zero or negative, we can prove the formula below for all integer exponents.
+
+Formula 6. If $a \neq 0, b \neq 0$ and $m, n \in Z$,
+\begin{enumerate}
+    \item $a^m \cdot a^n = a^{m+n}$
+    \item $\frac{a^m}{a^n} = a^{m-n}$
+    \item $\left(a^m\right)^n = a^{mn}$
+    \item $(ab)^n = a^n b^n$
+    \item $\left(\frac{a}{b}\right)^n = \frac{a^n}{b^n}$
+\end{enumerate}
+
+\subsection*{Explanation of the Root}
+
+Definition: If $n \in N, n > 1$ and $a \in R$, if there is such $x \in R$ that $x^n = a$, then this $x$ is called an $n$-th root of $a$. If $n = 2$, this root is called the square root, and for $n = 3$, it is called the cube root.
+
+\textbf{Example 5.} 
+\begin{enumerate}
+    \item 2 and -2 both are the fourth root of 16, as $(2)^4 = 16$ and $(-2)^4 = 16$
+    \item -3 is the cube root of -27, because $(-3)^3 = -27$
+    \item $\forall n \in N, 0$ is the $n$-th root of 0. For $n > 1, 0^n = 0$
+    \item -9 has no square root, because the square of any real number is non-negative.
+\end{enumerate}
+
+It is important to know and remember the following facts,
+\begin{enumerate}
+    \item[(i)] If $a > 0$ and $n \in N, n > 1$, then $a$ has a unique positive $n$-th root. This unique positive root is denoted as $\sqrt[n]{a}$ ($\sqrt[n]{a}$ is replaced with $\sqrt{a}$ for $n=2$) and it is called the principal $n$-th root of $a$. If $n$ is an even number, $a$ has another $n$-th root, and that is $-\sqrt[n]{a}$
+    \item[(ii)] If $a < 0$ and $n \in N, n > 1$ is an odd number, then $a$ has only one $n$-th root, which is negative. This root is denoted as $-\sqrt[n]{|a|}$. If $n$ is even and $a$ is negative, $a$ does not have any $n$-th root.
+    \item[(iii)] The $n$-th root of 0 is $\sqrt[n]{0} = 0$
+\end{enumerate}
+
+Note:
+\begin{enumerate}
+    \item If $a > 0, \sqrt[n]{a} > 0$
+    \item If $a < 0$ and $n$ is odd, $\sqrt[n]{a} = -\sqrt[n]{|a|} < 0$ [where $|a|$ is the absolute value of $a$]
+\end{enumerate}
+
+\textbf{Example 6.} 
+\[ \sqrt{4} = 2, (\sqrt{4} \neq -2), \sqrt[3]{-8} = -2 = -\sqrt[3]{8}, \]
+\[ \sqrt{a^2} = |a| = \left\{
+\begin{array}{l}
+a, \text{ when } a \geq 0 \\
+-a, \text{ when } a < 0
+\end{array}
+\right. \]
+
+Formula 7. If $a < 0, n \in N, n > 1$ and $n$ is odd, then show that, $\sqrt[n]{a} = -\sqrt[n]{|a|}$
+
+Proof:
+\[ \begin{aligned}
+\sqrt[n]{a} &= \sqrt[n]{-|a|} [\because a < 0] \\
+&= \sqrt[n]{(-1)^n |a|} [\because n \text{ is odd}] \\
+&= -\sqrt[n]{|a|}
+\end{aligned} \]
+So, $\sqrt[n]{a} = -\sqrt[n]{|a|}$
+
+\textbf{Example 7.} Find the value of $-\sqrt[3]{27}$.
+
+solution: 
+\[ -\sqrt[3]{27} = -\sqrt[3]{(3)^3} = -3 \]
+
+Formula 8. If $a > 0, m \in Z$ and $n \in N, n > 1, (\sqrt[n]{a})^m = \sqrt[n]{a^m}$
+
+Proof: Let, $\sqrt[n]{a} = x$ and $\sqrt[n]{a^m} = y$
+Then, $x^n = a$ and $y^n = a^m$
+\[ \text{or, } y^n = a^m = \left(x^n\right)^m = \left(x^m\right)^n \]
+Since $y > 0, x^m > 0$, therefore considering the unique $n$-th root we get, $y = x^m$
+\[ \text{or, } \sqrt[n]{a^m} = (\sqrt[n]{a})^m \]
+\[ \text{i.e., } (\sqrt[n]{a})^m = \sqrt[n]{a^m} \]
+
+Formula 9. If $a > 0$ and $\frac{m}{n} = \frac{p}{q}$, where $m, p \in Z$ and $n, q \in N, n > 1, q > 1$, then, $\sqrt[n]{a^m} = \sqrt[q]{a^p}$
+
+Proof: Here, $qm = pn$
+Let, $\sqrt[n]{a^m} = x$ then, $x^n = a^m$
+\[ \text{or, } \left(x^n\right)^q = \left(a^m\right)^q \]
+\[ \text{or, } x^{nq} = a^{mq} = a^{pn} \]
+\[ \text{or, } \left(x^q\right)^n = \left(a^p\right)^n \]
+\[ \text{or, } x^q = a^p [\text{considering the unique } n\text{-th root}] \]
+\[ \text{or, } x = \sqrt[q]{a^p} \]
+\[ \text{i.e., } \sqrt[n]{a^m} = \sqrt[q]{a^p} \]
+
+Corollary 1. If $a > 0$ and $n, k \in N, n > 1$, then, $\sqrt[n]{a} = \sqrt[nk]{a^k}$
+
+\subsection*{Rational Fractional Exponents}
+
+Definition 5: If $a \in R$ and $n \in N, n > 1, a^{\frac{1}{n}} = \sqrt[n]{a}$ when $a > 0$ or $a < 0$ and $n$ is odd.
+
+Remark: Exponent Rule $\left(a^m\right)^n = a^{mn}$ [Formula 6]
+If it is true in all cases, then $\left(a^{\frac{1}{n}}\right)^n = a^{\frac{n}{n}} = a^1 = a$ needs to happen, i.e., the $n$-th root of $a^{\frac{1}{n}}$ needs to happen. So, the definition mentioned above is explained to prevent ambiguity for more than one number of roots.
+
+Remark: If $a < 0$ and $n \in N, n > 1$ odd, then from Formula 7 it is seen that
+\[ a^{\frac{1}{n}} = \sqrt[n]{a} = -\sqrt[n]{|a|} = -|a|^{\frac{1}{n}} \]
+In these cases, using this formula, the value of $a^{\frac{1}{n}}$ is determined.
+
+Remark: If $a$ is a rational number, then in most cases $a^{\frac{1}{n}}$ will be a rational number too. In these cases, the approximate value of $a^{\frac{1}{n}}$ is used.
+
+Definition 6: If $a > 0, m \in Z$ and $n \in N, n > 1, a^{\frac{m}{n}} = \left(a^{\frac{1}{n}}\right)^m$
+
+Note: From Definitions 5 and 6 and Formula 8, we see that, $a^{\frac{m}{n}} = (\sqrt[n]{a})^m = \sqrt[n]{a^m}$ where, $a > 0, m \in Z$ and, $n \in N, n > 1$
+So, $p \in Z$ and $q \in Z, q > 1$ if such that, $\frac{m}{n} = \frac{p}{q}$ happens, then we can see from Formula 9 that, $a^{\frac{m}{n}} = a^{\frac{p}{q}}$
+
+Note: From the definitions of integer exponents and rational fractional exponents, we can get the explanation of $a^r$, where $a > 0$ and $r \in Q$. From the above discussion, we see that if $a > 0$, then if $r$ is divided into equal fractional value, the value of $a^r$ does not change.
+
+Note: The rules explained in Formula 6 are generally true for all rational exponents.
+
+Formula 10. If $a > 0, b > 0$ and $r, s \in Q$
+\begin{enumerate}
+    \item $a^r \cdot a^s = a^{r+s}$
+    \item $\frac{a^r}{a^s} = a^{r-s}$
+    \item $\left(a^r\right)^s = a^{rs}$
+    \item $(ab)^r = a^r b^r$
+    \item $\left(\frac{a}{b}\right)^r = \frac{a^r}{b^r}$
+\end{enumerate}
+
+From repeated applications of (a) and (d), we see that,
+
+Corollary 2. If
+\begin{enumerate}
+    \item $a > 0$ and $r_1, r_2, \cdots, r_k \in Q$,
+    \[ a^{r_1} \cdot a^{r_2} \cdot a^{r_3} \cdots a^{r_k} = a^{r_1 + r_2 + r_3 + \cdots + r_k}. \]
+    \item If $a_1 > 0, a_2 > 0, \cdots, a_n > 0$ and $r \in Q$, then 
+    \[ \left(a_1 \cdot a_2 \cdots a_n\right)^r = a_1^r \cdot a_2^r \cdots a_n^r. \]
+\end{enumerate}
+
+\textbf{Example 8.} Show that, $a^{\frac{m}{n}} \cdot a^{\frac{p}{q}} = a^{\frac{m}{n} + \frac{p}{q}}$
+where, $a > 0 ; m, p \in Z ; n, q \in N, n > 1, q > 1$.
+
+solution: Transforming $\frac{m}{n}$ and $\frac{p}{q}$ into fractions with the same denominator, we can see that,
+\[ \begin{aligned}
+a^{\frac{m}{n}} \cdot a^{\frac{p}{q}} &= a^{\frac{mq}{nq}} \cdot a^{\frac{np}{nq}} = \left(a^{\frac{1}{nq}}\right)^{mq} \left(a^{\frac{1}{nq}}\right)^{np} [\text{Using Definition 6}] \\
+&= \left(a^{\frac{1}{nq}}\right)^{mq + np} [\text{Formula 6}] \\
+&= a^{\frac{mq + np}{nq}} \\
+&= a^{\frac{mq}{nq} + \frac{np}{nq}} \\
+&= a^{\frac{m}{n} + \frac{p}{q}}
+\end{aligned} \]
+
+Some Important Facts:
+\begin{enumerate}
+    \item[(i)] If $a^x = 1$, where $a > 0$ and $a \neq 1$, then $x = 0$
+    \item[(ii)] If $a^x = 1$, where $a > 0$ and $x \neq 0$, then $a = 1$
+    \item[(iii)] If $a^x = a^y$, where $a > 0$ and $a \neq 1$, then $x = y$
+    \item[(iv)] If $a^x = b^x$, where $\frac{a}{b} > 0$ and $x \neq 0$, then $a = b$
+\end{enumerate}
+
+\textbf{Example 9.} If $a^x = b, b^y = c$, and $c^z = a$, then show that, $xyz = 1$.
+
+solution: From the given condition, $b = a^x, c = b^y$, and $a = c^z$
+Now, 
+\[ b = a^x = \left(c^z\right)^x = c^{zx} = \left(b^y\right)^{zx} = b^{xyz} \]
+\[ \text{or, } b = b^{xyz} \text{ or, } b^1 = b^{xyz} \]
+\[ \therefore xyz = 1 \]
+
+\textbf{Example 10.} If $a^b = b^a$, then show that, $\left(\frac{a}{b}\right)^{\frac{a}{b}} = a^{\frac{a}{b} - 1}$ and from this prove that, if $a = 2b$, then $b = 2$
+
+solution: Given that, $a^b = b^a$
+\[ \therefore b = \left(a^b\right)^{\frac{1}{a}} = (a)^{\frac{b}{a}} \]
+\[ \text{L.H.S.} = \left(\frac{a}{b}\right)^{\frac{a}{b}} = \left(\frac{a}{a^{\frac{b}{a}}}\right)^{\frac{a}{b}} = \left(a^1 \cdot a^{-\frac{b}{a}}\right)^{\frac{a}{b}} \]
+\[ = a^{\frac{a}{b}} \cdot a^{-1} = a^{\frac{a}{b} - 1} = \text{R.H.S.} (\text{proved}) \]
+Again, if $a = 2b$
+\[ \left(\frac{2b}{b}\right)^{\frac{2b}{b}} = (2b)^{\frac{2b}{b} - 1} \]
+\[ \text{or, } (2)^2 = (2b)^{2 - 1} \text{ or, } 4 = 2b \]
+\[ \therefore b = 2 (\text{proved}) \]
+
+\textbf{Example 11.} If $x^{x \sqrt{x}} = (x \sqrt{x})^x$, then find the value of $x$.
+
+solution: Given that, $x^{x \sqrt{x}} = (x \sqrt{x})^x$
+\[ \text{or, } \left(x^x\right)^{\sqrt{x}} = \left(x \cdot x^{\frac{1}{2}}\right)^x = \left(x^{1 + \frac{1}{2}}\right)^x = \left(x^{\frac{3}{2}}\right)^x = \left(x^x\right)^{\frac{3}{2}} \]
+\[ \therefore \left(x^x\right)^{\sqrt{x}} = \left(x^x\right)^{\frac{3}{2}} \]
+\[ \text{or, } \sqrt{x} = \frac{3}{2} \text{ or, } x = \left(\frac{3}{2}\right)^2 = \frac{9}{4} \]
+\[ \therefore x = \frac{9}{4} \]
+
+\textbf{Example 12.} If $a^x = b^y = c^z$ and $b^2 = ac$, then prove that, $\frac{1}{x} + \frac{1}{z} = \frac{2}{y}$.
+
+solution: Given that, $a^x = b^y$ or, $a = b^{\frac{y}{x}}$
+Again, $c^z = b^y$ or, $c = b^{\frac{y}{z}}$
+Now, 
+\[ b^2 = ac \text{ or, } b^2 = b^{\frac{y}{x}} \cdot b^{\frac{y}{z}} = b^{\frac{y}{x} + \frac{y}{z}} \]
+\[ \text{or, } 2 = \frac{y}{x} + \frac{y}{z} \]
+\[ \text{or, } \frac{2}{y} = \frac{1}{x} + \frac{1}{z} [\text{Dividing both sides by } y] \]
+\[ \therefore \frac{1}{x} + \frac{1}{z} = \frac{2}{y} (\text{proved}) \]
+
+\textbf{Example 13.} Prove that, $\left(\frac{x^b}{x^c}\right)^{b + c} \times \left(\frac{x^c}{x^a}\right)^{c + a} \times \left(\frac{x^a}{x^b}\right)^{a + b} = 1$.
+
+solution: 
+\[ \text{L.H.S.} = \left(\frac{x^b}{x^c}\right)^{b + c} \times \left(\frac{x^c}{x^a}\right)^{c + a} \times \left(\frac{x^a}{x^b}\right)^{a + b} \]
+\[ = \left(x^{b - c}\right)^{b + c} \times \left(x^{c - a}\right)^{c + a} \times \left(x^{a - b}\right)^{a + b} \]
+\[ = x^{b^2 - c^2} \times x^{c^2 - a^2} \times x^{a^2 - b^2} \]
+\[ = x^{b^2 - c^2 + c^2 - a^2 + a^2 - b^2} \]
+\[ = x^0 = 1 = \text{R.H.S.} \]
+
+\textbf{Example 14.} If $a^{\frac{1}{x}} = b^{\frac{1}{y}} = c^{\frac{1}{z}}$ and $abc = 1$, then show that, $x + y + z = 0$.
+
+solution: Let, $a^{\frac{1}{x}} = b^{\frac{1}{y}} = c^{\frac{1}{z}} = k$
+\[ \text{then we get, } a = k^x, b = k^y, c = k^z \]
+\[ \therefore abc = k^x \cdot k^y \cdot k^z = k^{x + y + z} \]
+Given that, $abc = 1$
+\[ \therefore k^{x + y + z} = 1 = k^0 \]
+\[ \therefore x + y + z = 0 \]
+
+\textbf{Example 15.} Simplify 
+\[ \frac{1}{1 + a^{y - z} + a^{y - x}} + \frac{1}{1 + a^{z - x} + a^{z - y}} + \frac{1}{1 + a^{x - y} + a^{x - z}} \]
+
+solution:
+\[ \frac{1}{1 + a^{y - z} + a^{y - x}} = \frac{a^{-y}}{a^{-y}\left(1 + a^{y - z} + a^{y - x}\right)} = \frac{a^{-y}}{a^{-y} + a^{-z} + a^{-x}} \]
+Similarly, 
+\[ \frac{1}{1 + a^{z - x} + a^{z - y}} = \frac{a^{-z}}{a^{-z}\left(1 + a^{z - x} + a^{z - y}\right)} = \frac{a^{-z}}{a^{-z} + a^{-x} + a^{-y}} \]
+\[ \text{and } \frac{1}{1 + a^{x - y} + a^{x - z}} = \frac{a^{-x}}{a^{-x} + a^{-y} + a^{-z}} \]
+Hence given quantity 
+\[ = \frac{1}{1 + a^{y - z} + a^{y - x}} + \frac{1}{1 + a^{z - x} + a^{z - y}} + \frac{1}{1 + a^{x - y} + a^{x - z}} \]
+\[ = \frac{a^{-y}}{a^{-y} + a^{-z} + a^{-x}} + \frac{a^{-z}}{a^{-z} + a^{-x} + a^{-y}} + \frac{a^{-x}}{a^{-x} + a^{-y} + a^{-z}} \]
+\[ = \frac{a^{-x} + a^{-y} + a^{-z}}{a^{-x} + a^{-y} + a^{-z}} = 1 \]
+
+\textbf{Example 16.} If $a = 2 + 2^{\frac{2}{3}} + 2^{\frac{1}{3}}$, then show that, $a^3 - 6a^2 + 6a - 2 = 0$
+
+solution: Given that, $a = 2 + 2^{\frac{2}{3}} + 2^{\frac{1}{3}}$
+\[ \therefore a - 2 = 2^{\frac{2}{3}} + 2^{\frac{1}{3}} \]
+\[ \text{or, } (a - 2)^3 = \left(2^{\frac{2}{3}} + 2^{\frac{1}{3}}\right)^3 = 2^2 + 2 + 3 \cdot 2^{\frac{2}{3}} \cdot 2^{\frac{1}{3}}\left(2^{\frac{2}{3}} + 2^{\frac{1}{3}}\right) = 6 + 6(a - 2) \left[\because 2^{\frac{2}{3}} + 2^{\frac{1}{3}} = a - 2\right] \]
+\[ \text{or, } a^3 - 3a^2 \cdot 2 + 3a \cdot 2^2 - 2^3 = 6 + 6a - 12 \]
+\[ \text{or, } a^3 - 6a^2 + 12a - 8 = 6a - 6 \]
+\[ \therefore a^3 - 6a^2 + 6a - 2 = 0 \]
+
+\textbf{Example 17.} Solve: $4^x - 3 \cdot 2^{x + 2} + 2^5 = 0$
+
+solution: 
+\[ 4^x - 3 \cdot 2^{x + 2} + 2^5 = 0 \]
+\[ \text{or, } \left(2^2\right)^x - 3 \cdot 2^x \cdot 2^2 + 32 = 0 \]
+\[ \text{or, } \left(2^x\right)^2 - 12 \cdot 2^x + 32 = 0 \]
+\[ \text{or, } y^2 - 12y + 32 = 0 [\text{suppose } 2^x = y] \]
+\[ \text{or, } y^2 - 4y - 8y + 32 = 0 \text{ or, } y(y - 4) - 8(y - 4) = 0 \]
+\[ \text{or, } (y - 4)(y - 8) = 0 \]
+\[ \text{So, } y - 4 = 0 \text{ or, } y - 8 = 0 \]
+\[ \text{or, } 2^x - 4 = 0 \left[\because 2^x = y\right] \text{ or, } 2^x - 8 = 0 \left[\because 2^x = y\right] \]
+\[ \text{or, } 2^x = 4 = 2^2 \text{ or, } 2^x = 8 = 2^3 \]
+\[ \therefore x = 2 \text{ or, } x = 3 \]
+\[ \therefore \text{Required solution, } x = 2, 3 \]
+
+% Part 2: Logarithms and Their Properties
+\part{Logarithms and Their Properties}
+
+\subsection*{Logarithm}
+
+Logarithm originated from two Greek words Logos and arithmas. Logos means discussion and arithmas means number. So logarithm means discussion about numbers.
+
+Definition: If $a^x = b$, where $a > 0$ and $a \neq 1$, then $x$ is called the logarithm of $b$ to the base $a$ where $x = \log_a b$
+Hence, if $a^x = b$, then $x = \log_a b$
+On the other hand, if $x = \log_a b$, then $a^x = b$
+In this case, the number $b$ is the antilogarithm of $x$ with respect to base $a$, and we write, $b = \text{antilog}_a x$
+In many cases, the bases of $\log$ and antilog are not written.
+
+\textbf{Example 18.} 
+\[ \text{antilog} 2.82679 = 671.1042668 \]
+\[ \text{antilog} (9.82672 - 10) = 0.671 \]
+\[ \text{and antilog} (6.74429 - 10) = 0.000555 \]
+
+Note: The approximate value of $\log a$ can be determined using a scientific calculator. (Detailed explanation is given in the mathematics book of class 9-10)
+According to the definition, we get,
+\[ \log_2 64 = 6 \text{ as } 2^6 = 64 \text{ and } \log_8 64 = 2 \text{ as } 8^2 = 64 \]
+Therefore, the logarithm of the same number can be different based on different bases. Different logarithm values of the same number can be determined by taking any number as a base that is positive but not 1. Any positive number can be regarded as a base of logarithm. Logarithm values of zero or any negative number cannot be determined.
+
+Note: If $a > 0, a \neq 1$ and $b \neq 0$, then the logarithm of $b$ with a unique base $a$ can be denoted by $\log_a b$.
+Therefore,
+\begin{enumerate}
+    \item $\log_a b = x$ if and only if $a^x = b$. From (a), we see that,
+    \item $\log_a \left(a^x\right) = x$
+    \item $a^{\log_a b} = b$
+\end{enumerate}
+
+\textbf{Example 19.} 
+\begin{enumerate}
+    \item $4^2 = 16 \Rightarrow \log_4(16) = 2$
+    \item $5^{-2} = \frac{1}{5^2} = \frac{1}{25} \Rightarrow \log_5\left(\frac{1}{25}\right) = -2$
+    \item $10^3 = 1000 \Rightarrow \log_{10}(1000) = 3$
+    \item $7^{\log_7 9} = 9 \quad \left[\because a^{\log_a b} = b\right]$
+    \item $18 = \log_2\left(2^{18}\right) \quad \left[\because \log_a\left(a^x\right) = x\right]$
+\end{enumerate}
+
+\subsection*{Formulas of Logarithm}
+
+Since proofs have been already given in the mathematics book of class 9-10, here only the formulas are shown.
+\begin{enumerate}
+    \item $\log_a a = 1$ and $\log_a 1 = 0$
+    \item $\log_a(M \times N) = \log_a M + \log_a N$
+    \item $\log_a\left(\frac{M}{N}\right) = \log_a M - \log_a N$
+    \item $\log_a\left(M^N\right) = N \log_a M$
+    \item $\log_a M = \log_b M \times \log_a b$ [Formula for changing the base]
+\end{enumerate}
+
+\textbf{Example 20.} 
+\[ \log_2 5 + \log_2 7 + \log_2 3 = \log_2(5 \cdot 7 \cdot 3) = \log_2 105 \]
+
+\textbf{Example 21.} 
+\[ \log_3 20 - \log_3 5 = \log_3 \frac{20}{5} = \log_3 4 \]
+
+\textbf{Example 22.} 
+\[ \log_5 64 = \log_5 2^6 = 6 \log_5 2 \]
+
+Note:
+\begin{enumerate}
+    \item[(i)] If $x > 0, y > 0$ and $a \neq 1$, then $x = y$ if and only if $\log_a x = \log_a y$
+    \item[(ii)] If $a > 1$ and $x > 1$, then $\log_a x > 0$
+    \item[(iii)] If $0 < a < 1$ and $0 < x < 1$, then $\log_a x > 0$
+    \item[(iv)] If $a > 1$ and $0 < x < 1$, then $\log_a x < 0$
+\end{enumerate}
+
+\textbf{Example 23.} Find the value of $x$ when
+\begin{enumerate}
+    \item $\log_{\sqrt{8}} x = 3 \frac{1}{3}$
+    \item $\log_{10}\left[98 + \sqrt{x^2 - 12x + 36}\right] = 2$
+\end{enumerate}
+
+solution:
+\begin{enumerate}
+    \item 
+    \[ \log_{\sqrt{8}} x = 3 \frac{1}{3} = \frac{10}{3} \]
+    \[ \text{or, } x = (\sqrt{8})^{\frac{10}{3}} = \left(\sqrt{2^3}\right)^{\frac{10}{3}} \]
+    \[ \text{or, } x = 2^{\frac{3}{2} \cdot \frac{10}{3}} = 2^5 = 32 \]
+    \[ \therefore x = 32 \]
+
+    \item 
+    \[ \text{Since } \log_{10}\left[98 + \sqrt{x^2 - 12x + 36}\right] = 2 \]
+    \[ \text{or, } 98 + \sqrt{x^2 - 12x + 36} = 10^2 = 100 \]
+    \[ \text{or, } \sqrt{x^2 - 12x + 36} = 2 \]
+    \[ \text{or, } x^2 - 12x + 36 = 4 \]
+    \[ \text{or, } x^2 - 12x + 32 = 0 \]
+    \[ \text{or, } (x - 4)(x - 8) = 0 \]
+    \[ \therefore x = 4 \text{ or } x = 8 \]
+\end{enumerate}
+
+\textbf{Example 24.} 
+\[ \text{Let } p = a^{\log_k b - \log_k c} \times b^{\log_k c - \log_k a} \times c^{\log_k a - \log_k b} \]
+\[ \text{or, } \log_k p = 0 \text{ or } p = k^0 = 1 \]
+
+\textbf{Example 25.} Show that, $x^{\log_a y} = y^{\log_a x}$
+
+solution: Let $p = \log_a y, q = \log_a x$
+Therefore $a^p = y, a^q = x$
+\[ \therefore \left(a^p\right)^q = y^q \text{ or } y^q = a^{pq} \]
+\[ \text{and } \left(a^q\right)^p = x^p \text{ or } x^p = a^{pq} \]
+\[ \therefore x^p = y^q \text{ or } x^{\log_a y} = y^{\log_a x} \]
+
+\textbf{Example 26.} Show that, $\log_a p \times \log_p q \times \log_q r \times \log_r b = \log_a b$
+
+solution: 
+\[ \text{L.H.S.} = \log_a p \times \log_p q \times \log_q r \times \log_r b \]
+\[ = \left(\log_a p \times \log_p q\right) \times \left(\log_q r \times \log_r b\right) \]
+\[ = \log_a q \times \log_q b = \log_a b = \text{R.H.S.} \]
+
+\textbf{Example 27.} Show that, $\frac{1}{\log_a (abc)} + \frac{1}{\log_b (abc)} + \frac{1}{\log_c (abc)} = 1$
+
+solution: Let, $\log_a (abc) = x, \log_b (abc) = y, \log_c (abc) = z$
+Therefore, $a^x = abc, b^y = abc, c^z = abc$
+\[ \therefore a = (abc)^{\frac{1}{x}}, b = (abc)^{\frac{1}{y}}, c = (abc)^{\frac{1}{z}} \]
+Now, 
+\[ (abc)^1 = abc = (abc)^{\frac{1}{x}} (abc)^{\frac{1}{y}} (abc)^{\frac{1}{z}} = (abc)^{\frac{1}{x} + \frac{1}{y} + \frac{1}{z}} \]
+\[ \therefore \frac{1}{x} + \frac{1}{y} + \frac{1}{z} = 1 \]
+\[ \text{i.e., } \frac{1}{\log_a (abc)} + \frac{1}{\log_b (abc)} + \frac{1}{\log_c (abc)} = 1 \]
+
+\textbf{Example 28.} If $p = \log_a (bc), q = \log_b (ca), r = \log_c (ab)$, then show that, $\frac{1}{p + 1} + \frac{1}{q + 1} + \frac{1}{r + 1} = 1$
+
+solution: 
+\[ 1 + p = 1 + \log_a (bc) = \log_a a + \log_a (bc) = \log_a (abc) \]
+Similarly, 
+\[ 1 + q = \log_b (abc) \text{ and } 1 + r = \log_c (abc) \]
+Using the result of the previous example, 
+\[ \frac{1}{\log_a (abc)} + \frac{1}{\log_b (abc)} + \frac{1}{\log_c (abc)} = 1 \]
+\[ \therefore \frac{1}{p + 1} + \frac{1}{q + 1} + \frac{1}{r + 1} = 1 \]
+
+\textbf{Example 29.} If $\frac{\log a}{y - z} = \frac{\log b}{z - x} = \frac{\log c}{x - y}$, then show that, $a^x b^y c^z = 1$
+
+solution: Let, 
+\[ \frac{\log a}{y - z} = \frac{\log b}{z - x} = \frac{\log c}{x - y} = k \]
+Then, 
+\[ \log a = k(y - z), \log b = k(z - x), \log c = k(x - y) \]
+\[ \therefore x \log a + y \log b + z \log c = k(xy - zx + yz - xy + zx - yz) = 0 \]
+\[ \text{or, } \log a^x + \log b^y + \log c^z = 0 \]
+\[ \text{or, } \log \left(a^x b^y c^z\right) = 0 \]
+\[ \text{or, } \log \left(a^x b^y c^z\right) = \log 1 [\because \log 1 = 0] \]
+\[ \therefore a^x b^y c^z = 1 \]
+
+% Part 3: Exponential and Logarithmic Functions, Graphing Exponential, Logarithmic
+\part{Exponential and Logarithmic Functions, Graphing Exponential, Logarithmic}
+
+\subsection*{Exponential, Logarithmic, and Absolute Value Functions}
+
+In the first chapter, we learned about functions; in this chapter, we shall know about Exponential, Logarithmic, and Absolute Value Functions.
+
+\subsubsection*{Exponential Function}
+
+Observe the following three tables of corresponding values of $x$ and $y$:
+
+Table 1
+\[ \begin{array}{|c|c|c|c|c|c|c|}
+\hline
+x & -2 & -1 & 0 & 1 & 2 & 3 \\
+\hline
+y & -4 & -2 & 0 & 2 & 4 & 6 \\
+\hline
+\end{array} \]
+
+Table 2
+\[ \begin{array}{|c|c|c|c|c|c|}
+\hline
+x & 0 & 1 & 2 & 3 & 4 & 5 \\
+\hline
+y & 0 & 1 & 4 & 9 & 16 & 25 \\
+\hline
+\end{array} \]
+
+Table 3
+\[ \begin{array}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+x & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+\hline
+y & 1 & 2 & 4 & 8 & 16 & 32 & 64 & 128 & 256 & 512 & 1024 \\
+\hline
+\end{array} \]
+
+In Table 1, for different values of $x$, we get values of $y$ of equal differences, complying with the function $y = 2x$. This is an equation of a straight line.
+In Table 2, the same happens, complying with the function $y = x^2$.
+In Table 3, the same is true for $y = 2^x$.
+Exponential function $f(x) = a^x$ is true for all real numbers $x$. Here, $a > 0$ and $a \neq 1$. For example, $y = 2^x, 10^x, x^x, e^x$ are exponential functions.
+
+Note: The domain of the exponential function $f(x) = a^x$ is $(-\infty, \infty)$, and the range is $(0, \infty)$.
+
+\subsubsection*{Graph of Function $f(x) = 2^x$}
+
+To draw the graph of the given function, we list the values of $y$ for some corresponding $x$ values.
+\[ \begin{array}{|c|c|c|c|c|c|c|}
+\hline
+x & -3 & -2 & -1 & 0 & 1 & 2 \\
+\hline
+y & \frac{1}{8} & \frac{1}{4} & \frac{1}{2} & 1 & 2 & 4 \\
+\hline
+\end{array} \]
+Plotting the ordered pair $(x, y)$ in the graph, we have this graph.
+
+Image description: A graph of the exponential function $y = 2^x$ plotted on a Cartesian plane. The curve passes through points such as $(-3, \frac{1}{8})$, $(-2, \frac{1}{4})$, $(-1, \frac{1}{2})$, $(0, 1)$, $(1, 2)$, and $(2, 4)$. The graph approaches the x-axis as $x$ becomes more negative, indicating $y \to 0$ as $x \to -\infty$, and rises steeply as $x$ increases, showing $y \to \infty$ as $x \to \infty$.
+
+Notice the figure:
+\begin{enumerate}
+    \item[(i)] If $x$ is negative and $|x|$ is large enough, $y$ tends to zero, even though it's never exactly zero, i.e., if $x \to -\infty$, then $y \to 0$.
+    \item[(ii)] If $x$ is positive and $|x|$ is large enough, $y$ is large enough, i.e., if $x \to \infty$, then $y \to \infty$.
+\end{enumerate}
+We understand from this that the range of the function $f(x) = 2^x$ is $(0, \infty)$.
+
+\subsubsection*{Logarithmic Function}
+
+As the exponential function is a one-to-one function, it has an inverse function.
+The inverse function of $f(x) = y = a^x$ is $f^{-1}(y) = x = \log_a y$
+i.e., $x$ is $y$'s $a$-based logarithm.
+
+Definition: The logarithmic function is defined by $f(x) = \log_a x$, where $a > 0$ and $a \neq 1$.
+For example, $f(x) = \log_3 x, \log_e x, \log_{10} x$, etc., are logarithmic functions.
+
+\subsubsection*{Drawing Graph of $y = \log_2 x$}
+
+As $y = \log_2 x$, hence, with respect to the inverse function of $y = 2^x$, $y = x$, the reflection of the exponential function is determined, which is the logarithmic function and symmetrical with $y = x$.
+Here, domain $R = (0, \infty)$ and range $D = (-\infty, \infty)$.
+
+\subsection*{Graphs of Function}
+
+Function is detected by representing geometrically in a plane. This geometrical representation is the drawing of graphs. Here we discuss the method of drawing graphs of exponential, logarithmic, and absolute value functions.
+
+\subsubsection*{Drawing the Graph of $y = f(x) = a^x$}
+
+(i) When $a > 1$ and $x$ is any real number, then $f(x) = a^x$ is always positive.
+
+Step 1. For positive values of $x$, the value of $f(x)$ increases with the increase of $x$.
+
+Step 2. When $x = 0, y = a^0 = 1$, therefore, $(0, 1)$ is a point on the line.
+
+Step 3. For negative values of $x$, the value of $f(x)$ decreases with the increase of $x$. i.e., if $x \to -\infty$, then $y \to 0$.
+
+Image description: A graph of the exponential function $y = a^x$ for $a > 1$ on a Cartesian plane. The curve passes through $(0, 1)$, rises steeply for positive $x$ as $y \to \infty$ when $x \to \infty$, and approaches the x-axis for negative $x$ as $y \to 0$ when $x \to -\infty$. The domain is $(-\infty, \infty)$ and the range is $(0, \infty)$.
+
+Here, the graph of function $y = a^x, a > 1$ is shown beside. Here $D_f = (-\infty, \infty)$ and $R_f = (0, \infty)$.
+
+(ii) When $0 < a < 1, x$ is real, then $y = f(x) = a^x$ is always positive.
+
+Step 1. Observe if the value of $x$ is increasing from the right side of the origin, i.e., if $x \to \infty$, then $y \to 0$.
+
+Step 2. When $x = 0$, then $y = a^0 = 1$, hence $(0, 1)$ lies on the line.
+
+Step 3. When $a < 1$, the value of $x$ is negative and monotone increasing to the left side from the origin, then $y$ is monotone increasing, i.e., $y \to \infty$.
+
+Let, $a = \frac{1}{2} < 1, x = -2, -3, \cdots, -n$, then $y = f(x) = a^x = \left(\frac{1}{2}\right)^{-2} = 2^2, y = 2^3, \cdots, y = 2^n$. When $n \to \infty$, then the graph of $y \to \infty$.
+
+Image description: A graph of the exponential function $y = a^x$ for $0 < a < 1$ (e.g., $a = \frac{1}{2}$) on a Cartesian plane. The curve passes through $(0, 1)$, approaches the x-axis for positive $x$ as $y \to 0$ when $x \to \infty$, and rises steeply for negative $x$ as $y \to \infty$ when $x \to -\infty$. The domain is $(-\infty, \infty)$ and the range is $(0, \infty)$.
+
+$y = f(x) = a^x$ is shown beside.
+Here $D_f = (-\infty, \infty)$ and $R_f = (0, \infty)$.
+
+\subsubsection*{Sketching the Graph of $f(x) = \log_a x$}
+
+(i) Let, $y = f(x) = \log_a x$ when $0 < a < 1$. The function can be written as $x = a^y$.
+
+Step 1. When $y$'s positive value is increasing, i.e., $y \to \infty$, then $x$ tends to zero, i.e., $x \to 0$.
+
+Step 2. As $a^0 = 1$, hence $y = \log_a 1 = 0$, so the line goes through $(1, 0)$.
+
+Step 3. The negative value of $y$, i.e., $y$ decreases below the origin point, i.e., $y \to -\infty$, then $x$ increases continuously, i.e., $x \to \infty$.
+
+Image description: A graph of the logarithmic function $y = \log_a x$ for $0 < a < 1$ on a Cartesian plane. The curve passes through $(1, 0)$, approaches the x-axis for large $x$ as $y \to -\infty$ when $x \to \infty$, and rises towards $y \to \infty$ as $x \to 0^+$. The domain is $(0, \infty)$ and the range is $(-\infty, \infty)$.
+
+In the figure beside, $y = \log_a x, 0 < a < 1$ is shown. Here $D_f = (0, \infty)$ and $R_f = (-\infty, \infty)$.
+
+(ii) When $y = \log_a x, a > 1$, then
+
+Step 1. When $a > 1$, for all $y, x$ is positive, and with increasing values of $y, x$ increases, i.e., if $y \to \infty$, then $x \to \infty$.
+
+Step 2. As $a^0 = 1$, hence $y = \log_a 1 = 0$, so the line passes through $(1, 0)$.
+
+Step 3. If for negative values of $y, y$ keeps increasing, i.e., if $y \to -\infty$, then $x$ tends to zero, i.e., $x \to 0$.
+
+Image description: A graph of the logarithmic function $y = \log_a x$ for $a > 1$ on a Cartesian plane. The curve passes through $(1, 0)$, rises for increasing $x$ as $y \to \infty$ when $x \to \infty$, and drops towards $y \to -\infty$ as $x \to 0^+$. The domain is $(0, \infty)$ and the range is $(-\infty, \infty)$.
+
+Now, the graph of $f(x) = \log_a x, a > 1$ is shown here. Here $D_f = (0, \infty)$ and $R_f = (-\infty, \infty)$.
+
+\textbf{Example 34.} Draw the graph of $f(x) = \log_{10} x$
+
+solution: Let $y = f(x) = \log_{10} x$
+As $10^0 = 1$, hence $y = \log_{10} 1 = 0$, so the line passes through $(1, 0)$. When $x \to 0$, then $y \to -\infty$. When $x \to \infty$, then $y \to \infty$. $\therefore y = \log_{10} x$ goes upwards.
+The graph is drawn below:
+Here $D_f = (0, \infty)$ and $R_f = (-\infty, \infty)$.
+
+Image description: A graph of the logarithmic function $y = \log_{10} x$ on a Cartesian plane. The curve passes through $(1, 0)$, rises gradually for increasing $x$ as $y \to \infty$ when $x \to \infty$, and drops steeply towards $y \to -\infty$ as $x \to 0^+$. The domain is $(0, \infty)$ and the range is $(-\infty, \infty)$.
+
+\textbf{Example 35.} Sketch the graph of $f(x) = \ln x$
+
+solution: Let $y = f(x) = \ln x$
+As $e^0 = 1$, hence $y = \ln 1 = 0$, so the line passes through $(1, 0)$. When $x \to 0$, then $y \to -\infty$. When $x \to \infty$, then $y \to \infty$.
+\[ \therefore y = \ln x \text{ goes upwards.} \]
+The graph is sketched here.
+Here $D_f = (0, \infty)$ and $R_f = (-\infty, \infty)$.
+
+Image description: A graph of the natural logarithmic function $y = \ln x$ on a Cartesian plane. The curve passes through $(1, 0)$, increases gradually for larger $x$ as $y \to \infty$ when $x \to \infty$, and decreases sharply towards $y \to -\infty$ as $x \to 0^+$. The domain is $(0, \infty)$ and the range is $(-\infty, \infty)$.
+
+% Part 4: Absolute Value Functions
+\part{Absolute Value Functions}
+
+\subsection*{Absolute Value}
+
+In the mathematics book of class 9-10, absolute value is discussed elaborately; here, only the definition is given.
+For any real number $x$, it is zero, positive, or negative. But the absolute value of $x$ is always zero or positive. The absolute value of $x$ is expressed by $|x|$ and defined as:
+\[ |x| = \left\{
+\begin{array}{l}
+x, \text{ when } x \geq 0 \\
+-x, \text{ when } x < 0
+\end{array}
+\right. \]
+
+\textbf{Example 32.} 
+\[ |0| = 0, |3| = 3, |-3| = -(-3) = 3 \]
+
+\subsubsection*{Absolute Value Function}
+
+If $x \in R$, then
+\[ y = f(x) = |x| = \left\{
+\begin{array}{l}
+x \text{ when } x \geq 0 \\
+-x \text{ when } x < 0
+\end{array}
+\right. \]
+\[ \therefore \text{Domain } D_f = R \text{ and range } R_f = [0, \infty) \]
+
+\textbf{Example 30.} $f(x) = \frac{x}{|x|}$ Determine the function's domain and range.
+
+solution: 
+\[ f(0) = \frac{0}{|0|} = \frac{0}{0} \text{ which is undefined.} \]
+\[ \therefore \text{the function is not defined at } x = 0 \text{ point, but is defined at any other point.} \]
+\[ \therefore \text{Domain of the function } D_f = R - \{0\} \]
+\[ f(x) = \frac{x}{|x|} = \left\{
+\begin{array}{l}
+\frac{x}{x} = 1, \text{ when } x > 0 \\
+\frac{x}{-x} = -1, \text{ when } x < 0
+\end{array}
+\right. \]
+\[ \therefore \text{range of the function } R_f = \{-1, 1\} \]
+
+\textbf{Example 31.} $y = f(x) = \ln \frac{a + x}{a - x}, a > 0$ and integer, determine the domain and range of the function.
+
+solution: As logarithm is defined only for positive integers.
+\[ \therefore \frac{a + x}{a - x} > 0 \text{ if } \]
+\[ \text{(i) } a + x > 0 \text{ and } a - x > 0 \text{ or } \]
+\[ \text{(ii) } a + x < 0 \text{ and } a - x < 0 \]
+\[ \text{(i) } \Rightarrow x > -a \text{ and } a > x \]
+\[ \Rightarrow -a < x \text{ and } x < a \]
+\[ \therefore \text{domain} = \{x : -a < x\} \cap \{x : x < a\} \]
+\[ = (-a, \infty) \cap (-\infty, a) = (-a, a) \]
+\[ \text{(ii) } \Rightarrow x < -a \text{ and } a < x \]
+\[ \Rightarrow x < -a \text{ and } x > a \]
+\[ \therefore \text{domain} = \{x : x < -a\} \cap \{x : x > a\} = \varnothing. \]
+\[ \therefore \text{We get from the domain of the given function } D_f = (\text{i}), \text{ and (ii) } (-a, a) \cup \varnothing = (-a, a) \]
+range: 
+\[ y = f(x) = \ln \frac{a + x}{a - x} \Rightarrow e^y = \frac{a + x}{a - x} \]
+\[ \Rightarrow a + x = a e^y - x e^y \]
+\[ \Rightarrow x + x e^y = a e^y - a \]
+\[ \Rightarrow \left(1 + e^y\right) x = a \left(e^y - 1\right) \]
+\[ \Rightarrow x = \frac{a \left(e^y - 1\right)}{e^y + 1} \]
+$x$ is real for all real values of $y$
+\[ \therefore \text{Range of the given function } R_f = R \]
+
+\textbf{Example 33.} $f(x) = e^{-\frac{|x|}{2}}$ when $-1 < x < 0$. Determine domain and range.
+
+solution: 
+\[ f(x) = e^{-\frac{|x|}{2}}, -1 < x < 0 \]
+$x$'s value is between -1 to 0
+\[ \text{Therefore, domain } D_f = (-1, 0) \]
+again, in the interval $-1 < x < 0, f(x) \in \left(e^{\frac{-1}{2}}, 1\right)$
+\[ \text{so, range } f = \left(e^{\frac{-1}{2}}, 1\right) \]
+
+\textbf{Example 36.} $y = \frac{4 - x}{4 + x}$ is a function.
+\begin{enumerate}
+    \item Determine the domain of the function.
+    \item Determine its inverse function.
+    \item If $g(x) = \ln y$, then determine the domain of $g(x)$.
+\end{enumerate}
+
+solution:
+\begin{enumerate}
+    \item Given, $y = \frac{4 - x}{4 + x}$
+    Here $4 + x = 0$, i.e., if $x = -4$, then $y$ is undefined.
+    \[ \therefore x \neq -4 \]
+    \[ \therefore \text{Domain of function} = R - \{-4\} \]
+
+    \item Given, $y = \frac{4 - x}{4 + x}$
+    Let, $f(x) = y \therefore x = f^{-1}(y)$
+    Now, 
+    \[ y = \frac{4 - x}{4 + x} \]
+    \[ \text{or, } 4y + xy = 4 - x \]
+    \[ \text{or, } xy + x = 4 - 4y \]
+    \[ \text{or, } x(y + 1) = 4(1 - y) \]
+    \[ \text{or, } x = \frac{4(1 - y)}{1 + y} \]
+    \[ \text{or, } f^{-1}(y) = \frac{4(1 - y)}{1 + y} \left[\because x = f^{-1}(y)\right] \]
+    \[ \therefore f^{-1}(x) = \frac{4(1 - x)}{(1 + x)} [\text{Changing the variable}] \]
+
+    \item Given, $g(x) = \ln (y)$
+    \[ \therefore g(x) = \ln \frac{4 - x}{4 + x} \left[\because y = \frac{4 - x}{4 + x}\right] \]
+    \[ \therefore g(x) \in R \text{ if } \frac{4 - x}{4 + x} > 0 \]
+    \[ \text{Now } \frac{4 - x}{4 + x} > 0 \text{ if } \]
+    \[ \text{(i) } 4 - x > 0 \text{ and } 4 + x > 0 \text{ or } \]
+    \[ \text{(ii) } 4 - x < 0 \text{ and } 4 + x < 0 \]
+    \[ \text{Now (i) } \Rightarrow x < 4 \text{ and } x > -4 \]
+    \[ \therefore \text{Domain} = \{x \in R : x < 4\} \cap \{x \in R : x > -4\} = (-\infty, 4) \cap (-4, \infty) = (-4, 4) \]
+    \[ \text{again, (ii) } \Rightarrow x > 4 \text{ and } x < -4 \]
+    \[ \therefore \text{Domain} = \{x \in R : x > 4\} \cap \{x \in R : x < -4\} = (4, \infty) \cap (-\infty, -4) = \varnothing \]
+    \[ \therefore \text{Domain of the given function} = (-4, 4) \cup \varnothing = (-4, 4) \]
+\end{enumerate}
+
+\end{document}

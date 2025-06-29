@@ -324,7 +324,7 @@ def debug_latex_structure(subject_name, topic_name, root_dir):
         print(f"   '{content}' → '{part}'")
 
 if __name__ == "__main__":
-    ROOT_DIRECTORY = r"C:\D backup\Tutor data"
+    ROOT_DIRECTORY = r"D:\Tutor\Tutor-App-deploy\backend\app\Tutor data"
     
     # Option 1: Process all topics with smart parsing
     print("🧠 Using SMART LATEX PARSING approach...")

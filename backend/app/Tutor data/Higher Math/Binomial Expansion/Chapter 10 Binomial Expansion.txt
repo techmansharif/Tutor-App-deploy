@@ -1,0 +1,358 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\geometry{a4paper, margin=1in}
+
+% Font configuration (loaded last)
+\usepackage{noto}
+
+\begin{document}
+
+\section*{Chapter 10: Binomial Expansion}
+
+In our previous classes, addition, subtraction, multiplication, division, square, and cube-related algebraic expressions (single term, binomial, and polynomial) had been discussed. When the power of a binomial or a polynomial expression is more than three, determining the value of such an expression is laborious and time-consuming. In this chapter, the working method will be presented for cases where the power is more than three. Generally, a formula will be demonstrated for the power of $n$, by which the value of a binomial expression with a non-negative integer power will be possible to determine. However, at this stage, the value of $n$ will not exceed a definite limit $(n \leq 8)$. A triangle will be introduced, called Pascal's Triangle, so that students can easily understand and use the subject matter. The power of a binomial expression may be a positive or negative integer or fraction. However, our present discussion will be limited to only positive integers of power. In higher classes, a detailed discussion will be included.
+
+After completing this chapter, the students will be able to-
+\begin{itemize}
+    \item describe the binomial expression;
+    \item describe Pascal's Triangle;
+    \item describe the binomial expression for general power;
+    \item find the value of $n!$ and ${}^n C_r$;
+    \item solve mathematical problems using binomial expression.
+\end{itemize}
+
+% Part 1: Binomial Coefficients and Pascal’s Triangle
+\part{Binomial Coefficients and Pascal’s Triangle}
+
+\subsection*{Binomial Expression}
+
+An algebraic expression consisting of two terms is called a binomial expression. $a+b, x-y, 1+x, 1-x^2, a^2-b^2$, etc., are binomial expressions.
+
+\subsection*{Binomial Coefficient}
+
+The coefficient of different powers of $y$ in the expansion of $(1+y)^n$ is called Binomial Coefficients, with 1 considered as the coefficient of $y$. If we arrange the coefficients of the expansion for $n=0$ to $n=5$,
+\[ \begin{aligned}
+n=0 & & & 1 \\
+n=1 & & & 1 & 1 \\
+n=2 & & & 1 & 2 & 1 \\
+n=3 & & & 1 & 3 & 3 & 1 \\
+n=4 & & & 1 & 4 & 6 & 4 & 1 \\
+n=5 & & & 1 & 5 & 10 & 10 & 5 & 1
+\end{aligned} \]
+If we observe, we see that the coefficients have formed a triangular shape. The technique of determining the coefficients of binomial expansion was first used by Blaise Pascal. So, it is called Pascal's Triangle. We can easily determine the coefficients of binomial expansion by Pascal's Triangle.
+
+Image description: A triangular arrangement of numbers representing binomial coefficients, known as Pascal's Triangle. Each row corresponds to the coefficients of the expansion of $(1+y)^n$ for $n=0$ to $n=5$. The triangle starts with a single 1 at the top (for $n=0$), followed by rows with coefficients: $1, 1$ (for $n=1$); $1, 2, 1$ (for $n=2$); $1, 3, 3, 1$ (for $n=3$); $1, 4, 6, 4, 1$ (for $n=4$); and $1, 5, 10, 10, 5, 1$ (for $n=5$). Each number in a row is the sum of the two numbers directly above it in the previous row.
+
+\subsection*{Use of Pascal's Triangle}
+
+From Pascal's Triangle, we see that 1 is on both the left and right sides. The middle term of the triangle is the summation of the two numbers just above it. If we observe the following example, we can easily understand it.
+
+Binomial coefficients for $n=5$ and $n=6$ will be:
+\[ \begin{aligned}
+n=5 \rightarrow & 1 & 5 & 10 & 10 & 5 & 1 \\
+n=6 \rightarrow & 1 & 6 & 15 & 20 & 15 & 6 & 1
+\end{aligned} \]
+\[ \therefore (1+y)^5 = 1 + 5y + 10y^2 + 10y^3 + 5y^4 + y^5 \]
+\[ \therefore (1+y)^6 = 1 + 6y + 15y^2 + 20y^3 + 15y^4 + 6y^5 + y^6 \]
+\[ (1+y)^7 = 1 + 7y + 21y^2 + 35y^3 + 35y^4 + 21y^5 + 7y^6 + y^7 \]
+If we observe carefully, we will understand that this method has a special weakness. For example, to determine the expansion of $(1+y)^5$, we need to know the expansion of $(1+y)^4$. Again, it is necessary to know the preceding two coefficients just above for any binomial coefficients. To overcome this limitation, we aim to directly find the technique for determining the binomial coefficients. From Pascal's Triangle, we see that the power of the coefficient of binomial expansion depends on the power $n$ and the position of the term. We introduce a new symbol $\binom{n}{r}$, where the power $n$ and the position of the term $r$ are related. For example, if $n=4$, the number of terms will be 5. We write the terms like this:
+When $n=4$, number of terms is $5: T_1, T_2, T_3, T_4, T_5$
+Coefficients of them are: $1, 4, 6, 4, 1$
+Using the new symbol: $\binom{4}{0}, \binom{4}{1}, \binom{4}{2}, \binom{4}{3}, \binom{4}{4}$
+Here, 
+\[ \binom{4}{0} = 1, \binom{4}{1} = \frac{4}{1} = 4, \binom{4}{2} = \frac{4 \times 3}{1 \times 2} = 6, \binom{4}{3} = \frac{4 \times 3 \times 2}{1 \times 2 \times 3} = 4, \binom{4}{4} = \frac{4 \times 3 \times 2 \times 1}{1 \times 2 \times 3 \times 4} = 1 \]
+[You will understand easily from Pascal's Triangle.]
+Using the new symbol $(n=1, 2, 3, \cdots)$, Pascal's Triangle will be like this:
+\[ \begin{array}{|c|}
+\hline
+n=1 & \binom{1}{0} \binom{1}{1} \\
+n=2 & \binom{2}{0} \binom{2}{1} \binom{2}{2} \\
+n=3 & \binom{3}{0} \binom{3}{1} \binom{3}{2} \binom{3}{3} \\
+n=4 & \binom{4}{0} \binom{4}{1} \binom{4}{2} \binom{4}{3} \binom{4}{4} \\
+n=5 & \binom{5}{0} \binom{5}{1} \binom{5}{2} \binom{5}{3} \binom{5}{4} \binom{5}{5} \\
+\hline
+\end{array} \]
+Therefore, from the triangle above, we can easily say that the coefficient of the third term $\left(T_{2+1}\right)$ of $(1+y)^4$ is $\binom{4}{2}$, and the coefficients of the third $\left(T_{2+1}\right)$ and fourth $\left(T_{3+1}\right)$ terms of $(1+y)^5$ are $\binom{5}{2}$ and $\binom{5}{3}$, respectively. Generally, the coefficient of the $(r+1)$th term $\left(T_{r+1}\right)$ of $(1+y)^n$ is $\binom{n}{r}$.
+Now, to know the value of $\binom{n}{r}$, we again observe Pascal's Triangle. From the two sides of Pascal's Triangle, we see that
+\[ \begin{aligned}
+\binom{1}{0} &= 1, \binom{2}{0} = 1, \binom{3}{0} = 1, \cdots, \binom{n}{0} = 1 \\
+\binom{1}{1} &= 1, \binom{2}{1} = 2, \binom{3}{1} = 3, \cdots, \binom{n}{1} = n
+\end{aligned} \]
+Taking $n=5$, we get,
+\[ \begin{aligned}
+\binom{5}{0} &= 1, \binom{5}{1} = 5, \binom{5}{2} = \frac{5 \times 4}{1 \times 2} = 10 \\
+\binom{5}{3} &= \frac{5 \times 4 \times 3}{1 \times 2 \times 3} = 10, \binom{5}{4} = \frac{5 \times 4 \times 3 \times 2}{1 \times 2 \times 3 \times 4} = 5 \\
+\binom{5}{5} &= \frac{5 \times 4 \times 3 \times 2 \times 1}{1 \times 2 \times 3 \times 4 \times 5} = 1
+\end{aligned} \]
+Therefore, in the case of $\binom{5}{3}$, it can be said, 
+\[ \binom{5}{3} = \frac{5 \times (5-1) \times (5-2)}{1 \times 2 \times 3} \]
+and 
+\[ \binom{6}{4} = \frac{6 \times (6-1) \times (6-2) \times (6-3)}{1 \times 2 \times 3 \times 4} \]
+Generally, we can write,
+\[ \begin{aligned}
+\binom{n}{0} &= 1, \binom{n}{n} = 1 \\
+\binom{n}{r} &= \frac{n \times (n-1) \times (n-2) \cdots (n-r+1)}{1 \times 2 \times 3 \times 4 \cdots \times r}
+\end{aligned} \]
+
+\subsection*{Finding the Value of $n!$ and ${}^n C_r$}
+
+Observe the following examples:
+\[ 2 = 2 \cdot 1, 6 = 3 \cdot 2 \cdot 1, 24 = 4 \cdot 3 \cdot 2 \cdot 1, 120 = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1, \cdots \]
+We can briefly express the product on the right side by a symbol.
+\[ 2 = 2 \cdot 1 = 2!, 6 = 3 \cdot 2 \cdot 1 = 3!, 24 = 4 \cdot 3 \cdot 2 \cdot 1 = 4!, 120 = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 5!, \cdots \]
+Now we observe
+\[ \begin{aligned}
+4! &= 4 \cdot 3 \cdot 2 \cdot 1 = 4 \cdot (4-1) \cdot (4-2) \cdot (4-3) \\
+5! &= 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 5 \cdot (5-1) \cdot (5-2) \cdot (5-3) \cdot (5-4)
+\end{aligned} \]
+Therefore, generally, we can write, 
+\[ n! = n (n-1) (n-2) (n-3) \cdots 3 \cdot 2 \cdot 1 \]
+and $n!$ is called Factorial $n$. Similarly, 3! is called the factorial of 3, 4! is called the factorial of 4.
+
+Again we observe:
+\[ \binom{7}{4} = \frac{7 \cdot 6 \cdot 5 \cdot 4}{1 \cdot 2 \cdot 3 \cdot 4} = \frac{7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1}{(1 \cdot 2 \cdot 3 \cdot 4) \cdot (3 \cdot 2 \cdot 1)} = \frac{7!}{4! \times 3!} = \frac{7!}{4! \times (7-4)!} \]
+\[ \therefore \text{Generally we can say } \binom{n}{r} = \frac{n!}{r! (n-r)!} \]
+Factorials of the right side can be expressed by this symbol,
+\[ \binom{n}{r} = \frac{n!}{r! (n-r)!} = {}^n C_r \]
+\[ \therefore \binom{7}{4} = \frac{7!}{4! (7-4)!} = {}^7 C_4 \text{ and } \binom{5}{3} = \frac{5!}{3! (5-3)!} = {}^5 C_3 \]
+\[ \text{Therefore, } \binom{n}{r} = {}^n C_r, \text{ i.e., } \binom{n}{r} \text{ and } {}^n C_r \text{ are equal.} \]
+\[ \therefore \binom{n}{1} = {}^n C_1, \binom{n}{2} = {}^n C_2, \binom{n}{3} = {}^n C_3, \cdots, \binom{n}{n} = {}^n C_n \]
+\[ \text{We know, } \binom{n}{n} = {}^n C_n = \frac{n!}{n! (n-n)!} = \frac{n!}{n! (0)!} = \frac{1}{0!} \]
+\[ \therefore 1 = \frac{1}{0!}, \text{ i.e., } 0! = 1 \]
+Remember,
+\[ \begin{aligned}
+n! &= n (n-1) (n-2) \cdots 3 \cdot 2 \cdot 1 \\
+\binom{n}{r} &= {}^n C_r, {}^n C_n = 1 \\
+\binom{n}{r} &= {}^n C_r = \frac{n!}{r! (n-r)!}, \binom{n}{0} = {}^n C_0 = 1 \\
+\binom{n}{n} &= {}^n C_n = 1, 0! = 1
+\end{aligned} \]
+
+% Part 2: Binomial Expansion of (1+y)ⁿ
+\part{Binomial Expansion of $(1+y)^n$}
+
+\subsection*{Binomial Expansion of $(1+y)^n$}
+
+We first consider a binomial expression of $(1+y)$. Now we multiply $(1+y)$ by $(1+y)$ successively, then we get $(1+y)^2, (1+y)^3, (1+y)^4, (1+y)^5, \cdots$, etc. We know,
+\[ \begin{aligned}
+(1+y)^2 &= (1+y)(1+y) = 1 + 2y + y^2 \\
+(1+y)^3 &= (1+y)(1+y)^2 = (1+y)\left(1 + 2y + y^2\right) = 1 + 3y + 3y^2 + y^3
+\end{aligned} \]
+Similarly, it is possible to determine the value of $(1+y)^4, (1+y)^5, \ldots$, etc., by the process of lengthy multiplication. But it will be lengthy and time-consuming if the powers of $(1+y)$ increase. So, it will be better to find a method to easily determine the expansion of $(1+y)^n$ for any powers (say $n$) of $(1+y)$. For $n=0, 1, 2, 3, 4, \cdots$, i.e., for non-negative values of $n$, our discussion is limited in this context. Now we carefully observe the procedure.
+\[ \begin{array}{|c|l|c|}
+\hline
+\text{Value of } n & & \text{Pascal's Triangle} & \text{Number of Terms} \\
+\hline
+n=0 & (1+y)^0= & 1 & 1 \\
+n=1 & (1+y)^1= & 1 + y & 2 \\
+n=2 & (1+y)^2= & 1 + 2y + y^2 & 3 \\
+n=3 & (1+y)^3= & 1 + 3y + 3y^2 + y^3 & 4 \\
+n=4 & (1+y)^4= & 1 + 4y + 6y^2 + 4y^3 + y^4 & 5 \\
+n=5 & (1+y)^5= & 1 + 5y + 10y^2 + 10y^3 + 5y^4 + y^5 & 6 \\
+\hline
+\end{array} \]
+On the basis of the above expressions, we come to the decision of the expansion of $(1+y)^n$.
+\begin{enumerate}
+    \item In the expansion of $(1+y)^n$, the number of terms is $(n+1)$, i.e., the number of terms is greater than the power.
+    \item The power of $y$ is increasing from zero to $1, 2, 3, \cdots, n$, i.e., the power of $y$ is increasing orderly up to $n$.
+\end{enumerate}
+
+Using appropriate signs,
+\[ \begin{aligned}
+(1+y)^4 &= \binom{4}{0} y^0 + \binom{4}{1} y^1 + \binom{4}{2} y^2 + \binom{4}{3} y^3 + \binom{4}{4} y^4 \\
+&= 1 + 4y + 6y^2 + 4y^3 + y^4 \\
+(1+y)^5 &= \binom{5}{0} y^0 + \binom{5}{1} y^1 + \binom{5}{2} y^2 + \binom{5}{3} y^3 + \binom{5}{4} y^4 + \binom{5}{5} y^5 \\
+&= 1 + 5y + 10y^2 + 10y^3 + 5y^4 + y^5
+\end{aligned} \]
+and the expansion of $(1+y)^n$
+\[ \begin{aligned}
+(1+y)^n &= \binom{n}{0} y^0 + \binom{n}{1} y^1 + \binom{n}{2} y^2 + \binom{n}{3} y^3 + \cdots + \binom{n}{n} y^n \\
+&= 1 \cdot y^0 + n y^1 + \frac{n(n-1)}{1 \cdot 2} y^2 + \frac{n(n-1)(n-2)}{1 \cdot 2 \cdot 3} y^3 + \cdots + 1 \cdot y^n
+\end{aligned} \]
+\[ \therefore (1+y)^n = 1 + n y + \frac{n(n-1)}{1 \cdot 2} y^2 + \frac{n(n-1)(n-2)}{1 \cdot 2 \cdot 3} y^3 + \cdots + y^n \]
+Now we use ${}^n C_r$ instead of $\binom{n}{r}$ in the binomial theorem.
+\[ \begin{aligned}
+(1+y)^n &= 1 + n y + \frac{n(n-1)}{2!} y^2 + \frac{n(n-1)(n-2)}{3!} y^3 + \cdots + y^n \\
+(1+y)^n &= 1 + n y + \frac{n(n-1)}{1 \cdot 2} y^2 + \frac{n(n-1)(n-2)}{1 \cdot 2 \cdot 3} y^3 + \cdots + y^n
+\end{aligned} \]
+Observe: For positive integer $n$, the general term or $(r+1)$-th term of the binomial expansion of $(1+y)^n$ is 
+\[ T_{r+1} = \binom{n}{r} y^r \text{ or, } {}^n C_r y^r \]
+Here, $\binom{n}{r}$ or ${}^n C_r$ is the coefficient of the binomial expansion.
+
+% Part 3: General Binomial Expansion of (x+y)ⁿ
+\part{General Binomial Expansion of $(x+y)^n$}
+
+\subsection*{Binomial Expansion of $(x+y)^n$}
+
+We have so far discussed the expansion of $(1+y)^n$; now we shall discuss the general form of binomial expansion $(x+y)^n$, where $n$ is a positive integer. Generally, the expansion of $(x+y)^n$ is known as the binomial theorem.
+We know,
+\[ (1+y)^n = 1 + \binom{n}{1} y + \binom{n}{2} y^2 + \binom{n}{3} y^3 + \cdots + \binom{n}{r} y^r + \cdots + \binom{n}{n} y^n \]
+Now, 
+\[ (x+y)^n = \left[x\left(1 + \frac{y}{x}\right)\right]^n = x^n \left(1 + \frac{y}{x}\right)^n \]
+\[ \therefore (x+y)^n = x^n \left[1 + \binom{n}{1} \frac{y}{x} + \binom{n}{2} \left(\frac{y}{x}\right)^2 + \binom{n}{3} \left(\frac{y}{x}\right)^3 + \cdots + \binom{n}{n} \left(\frac{y}{x}\right)^n\right] \]
+\[ \therefore (x+y)^n = x^n \left[1 + \binom{n}{1} \frac{y}{x} + \binom{n}{2} \frac{y^2}{x^2} + \binom{n}{3} \frac{y^3}{x^3} + \cdots + \frac{y^n}{x^n}\right] \left[\because \binom{n}{n} = 1\right] \]
+\[ = x^n + \binom{n}{1} \left(x^n \cdot \frac{y}{x}\right) + \binom{n}{2} \left(x^n \cdot \frac{y^2}{x^2}\right) + \binom{n}{3} \left(x^n \cdot \frac{y^3}{x^3}\right) + \cdots + x^n \cdot \frac{y^n}{x^n} \]
+\[ (x+y)^n = x^n + \binom{n}{1} x^{n-1} y + \binom{n}{2} x^{n-2} y^2 + \binom{n}{3} x^{n-3} y^3 + \cdots + y^n \]
+This is the general form of the binomial theorem. Observe that it is similar to $(1+y)^n$. Here, the power of $x$ is added from $n$ to 0. We also observe that the addition of the powers of $x$ and $y$ in every term is equal to the power of the binomial expansion. The powers of $x$ from the initial term to the last term decrease from $n$ to 0, and conversely, the powers of $y$ increase from 0 to $n$.
+\[ \begin{aligned}
+(x+y)^n &= x^n + {}^n C_1 x^{n-1} y + {}^n C_2 x^{n-2} y^2 + {}^n C_3 x^{n-3} y^3 + \cdots + {}^n C_r x^{n-r} y^r \\
+&\quad + \cdots + {}^n C_n y^n
+\end{aligned} \]
+\[ \text{or, } (x+y)^n = x^n + n x^{n-1} y + \frac{n(n-1)}{2!} x^{n-2} y^2 + \frac{n(n-1)(n-2)}{3!} x^{n-3} y^3 + \cdots + y^n \]
+\[ (x+y)^n = x^n + n x^{n-1} y + \frac{n(n-1)}{1 \cdot 2} x^{n-2} y^2 + \frac{n(n-1)(n-2)}{1 \cdot 2 \cdot 3} x^{n-3} y^3 + \cdots + y^n \]
+General term or $(r+1)$th term 
+\[ T_{r+1} = \binom{n}{r} x^{n-r} y^r \text{ or } {}^n C_r x^{n-r} y^r \]
+where $\binom{n}{r}$ or ${}^n C_r$ is the coefficient of the binomial expansion.
+
+% Part 4: Applications of Binomial Expansion
+\part{Applications of Binomial Expansion}
+
+\textbf{Example 1.} Expand $(1 + 3x)^5$
+
+solution: With the help of Pascal's Triangle
+\[ \begin{aligned}
+& 1 \\
+& 1 & 1 \\
+& 1 & 2 & 1 \\
+& 1 & 3 & 3 & 1 \\
+& 1 & 4 & 6 & 4 & 1 \\
+& 1 & 5 & 10 & 10 & 5 & 1
+\end{aligned} \]
+\[ \therefore (1 + 3x)^5 = 1 + 5 \cdot (3x) + 10 \cdot (3x)^2 + 10 \cdot (3x)^3 + 5 \cdot (3x)^4 + (3x)^5 \]
+\[ = 1 + 15x + 90x^2 + 270x^3 + 405x^4 + 243x^5 \]
+By binomial theorem
+\[ (1 + 3x)^5 = \binom{5}{0} (3x)^0 + \binom{5}{1} (3x)^1 + \binom{5}{2} (3x)^2 + \binom{5}{3} (3x)^3 + \binom{5}{4} (3x)^4 + \binom{5}{5} (3x)^5 \]
+\[ = 1 + 5 \cdot 3x + \frac{5 \cdot 4}{1 \cdot 2} \cdot 9x^2 + \frac{5 \cdot 4 \cdot 3}{1 \cdot 2 \cdot 3} \cdot 27x^3 + \frac{5 \cdot 4 \cdot 3 \cdot 2}{1 \cdot 2 \cdot 3 \cdot 4} \cdot 81x^4 + 243x^5 \]
+\[ = 1 + 15x + 90x^2 + 270x^3 + 405x^4 + 243x^5 \]
+
+\textbf{Example 2.} Expand $(1 - 3x)^5$
+
+solution: Using binomial theorem
+\[ (1 - 3x)^5 = \binom{5}{0} (-3x)^0 + \binom{5}{1} (-3x)^1 + \binom{5}{2} (-3x)^2 + \binom{5}{3} (-3x)^3 + \binom{5}{4} (-3x)^4 + \binom{5}{5} (-3x)^5 \]
+\[ = 1 - 5 \cdot 3x + \frac{5 \cdot 4}{1 \cdot 2} \cdot 9x^2 - \frac{5 \cdot 4 \cdot 3}{1 \cdot 2 \cdot 3} \cdot 27x^3 + \frac{5 \cdot 4 \cdot 3 \cdot 2}{1 \cdot 2 \cdot 3 \cdot 4} \cdot 81x^4 - 243x^5 \]
+\[ = 1 - 15x + 90x^2 - 270x^3 + 405x^4 - 243x^5 \]
+
+Remark: From the expansion of $(1 + 3x)^5$ and $(1 - 3x)^5$, we see that both expansions are the same. By changing only the signs of the coefficients, we get one from the other, i.e., $+, -, +, \cdots$
+
+\textbf{Example 3.} Expand up to the fifth term of $\left(1 + \frac{2}{x}\right)^8$
+
+solution: Using binomial expansion, expand up to the fifth term of $\left(1 + \frac{2}{x}\right)^8$ as follows:
+\[ \begin{aligned}
+\left(1 + \frac{2}{x}\right)^8 &= \binom{8}{0} \left(\frac{2}{x}\right)^0 + \binom{8}{1} \left(\frac{2}{x}\right)^1 + \binom{8}{2} \left(\frac{2}{x}\right)^2 + \binom{8}{3} \left(\frac{2}{x}\right)^3 + \binom{8}{4} \left(\frac{2}{x}\right)^4 \\
+&= 1 \cdot 1 + \frac{8}{1} \cdot \frac{2}{x} + \frac{8 \cdot 7}{1 \cdot 2} \cdot \frac{4}{x^2} + \frac{8 \cdot 7 \cdot 6}{1 \cdot 2 \cdot 3} \cdot \frac{8}{x^3} + \frac{8 \cdot 7 \cdot 6 \cdot 5}{1 \cdot 2 \cdot 3 \cdot 4} \cdot \frac{16}{x^4} \\
+&= 1 + \frac{16}{x} + \frac{112}{x^2} + \frac{448}{x^3} + \frac{1120}{x^4}
+\end{aligned} \]
+\[ \therefore \left(1 + \frac{2}{x}\right)^8 = 1 + \frac{16}{x} + \frac{112}{x^2} + \frac{448}{x^3} + \frac{1120}{x^4} \text{ [Expansion up to the fifth term]} \]
+
+\textbf{Example 4.} Find the coefficients of $x^3$ and $x^6$ in the expansion of $\left(1 - \frac{x^2}{4}\right)^8$
+
+solution: By binomial expansion, we get
+\[ \begin{aligned}
+\left(1 - \frac{x^2}{4}\right)^8 &= \binom{8}{0} \left(-\frac{x^2}{4}\right)^0 + \binom{8}{1} \left(-\frac{x^2}{4}\right)^1 + \binom{8}{2} \left(-\frac{x^2}{4}\right)^2 + \binom{8}{3} \left(-\frac{x^2}{4}\right)^3 \\
+&\quad + \binom{8}{4} \left(-\frac{x^2}{4}\right)^4 + \cdots \\
+&= 1 \cdot 1 + \frac{8}{1} \cdot \left(-\frac{x^2}{4}\right) + \frac{8 \cdot 7}{1 \cdot 2} \cdot \left(\frac{x^4}{16}\right) + \frac{8 \cdot 7 \cdot 6}{1 \cdot 2 \cdot 3} \cdot \left(-\frac{x^6}{64}\right) + \frac{8 \cdot 7 \cdot 6 \cdot 5}{1 \cdot 2 \cdot 3 \cdot 4} \cdot \left(\frac{x^8}{256}\right) + \cdots \\
+&= 1 - 2x^2 + \frac{7}{4} x^4 - \frac{7}{8} x^6 + \cdots
+\end{aligned} \]
+Here, we see that in the expansion of $\left(1 - \frac{x^2}{4}\right)^8$, the term containing $x^3$ is absent. So, the coefficient of $x^3$ is 0, and the coefficient of $x^6$ is $-\frac{7}{8}$.
+\[ \therefore \text{coefficient of } x^3 \text{ is } 0 \text{ and coefficient of } x^6 \text{ is } -\frac{7}{8}. \]
+
+\textbf{Example 5.} Expand $(x + y)^5$ and from that expansion find $(3 + 2x)^5$.
+
+solution: 
+\[ \begin{aligned}
+(x + y)^5 &= x^5 + \binom{5}{1} x^4 y + \binom{5}{2} x^3 y^2 + \binom{5}{3} x^2 y^3 + \binom{5}{4} x y^4 + y^5 \\
+&= x^5 + 5 x^4 y + \frac{5 \cdot 4}{1 \cdot 2} x^3 y^2 + \frac{5 \cdot 4 \cdot 3}{1 \cdot 2 \cdot 3} x^2 y^3 + \frac{5 \cdot 4 \cdot 3 \cdot 2}{1 \cdot 2 \cdot 3 \cdot 4} x y^4 + y^5 \\
+&= x^5 + 5 x^4 y + 10 x^3 y^2 + 10 x^2 y^3 + 5 x y^4 + y^5
+\end{aligned} \]
+\[ \therefore \text{Required expansion } (x + y)^5 = x^5 + 5 x^4 y + 10 x^3 y^2 + 10 x^2 y^3 + 5 x y^4 + y^5 \]
+Now, putting $x = 3$ and $y = 2x$
+\[ \begin{aligned}
+(3 + 2x)^5 &= 3^5 + 5 \cdot 3^4 (2x) + 10 \cdot 3^3 (2x)^2 + 10 \cdot 3^2 (2x)^3 + 5 \cdot 3 (2x)^4 + (2x)^5 \\
+&= 243 + 810 x + 1080 x^2 + 720 x^3 + 240 x^4 + 32 x^5
+\end{aligned} \]
+\[ \therefore (3 + 2x)^5 = 243 + 810 x + 1080 x^2 + 720 x^3 + 240 x^4 + 32 x^5 \]
+
+\textbf{Example 6.} Expand $\left(x + \frac{1}{x^2}\right)^6$ up to the fourth term in descending power of $x$ and identify the term which is free of $x$.
+
+solution: We get by binomial theorem,
+\[ \begin{aligned}
+\left(x + \frac{1}{x^2}\right)^6 &= x^6 + \binom{6}{1} x^5 \left(\frac{1}{x^2}\right) + \binom{6}{2} x^4 \left(\frac{1}{x^2}\right)^2 + \binom{6}{3} x^3 \left(\frac{1}{x^2}\right)^3 + \cdots \\
+&= x^6 + 6 x^3 + \frac{6 \cdot 5}{1 \cdot 2} x^4 \frac{1}{x^4} + \frac{6 \cdot 5 \cdot 4}{1 \cdot 2 \cdot 3} x^3 \frac{1}{x^6} + \cdots \\
+&= x^6 + 6 x^3 + 15 + 20 \frac{1}{x^3} + \cdots
+\end{aligned} \]
+\[ \therefore \text{Required expansion is } x^6 + 6 x^3 + 15 + 20 \frac{1}{x^3} + \cdots \text{ and } x\text{-free term } 15 \]
+
+\textbf{Example 7.} Expand $\left(2 - \frac{x}{2}\right)^7$ up to the first four terms in ascending power of $x$. Find also $(1.995)^7$ up to four decimal places.
+
+solution: 
+\[ \begin{aligned}
+\left(2 - \frac{x}{2}\right)^7 &= 2^7 + \binom{7}{1} 2^6 \left(-\frac{x}{2}\right) + \binom{7}{2} 2^5 \left(-\frac{x}{2}\right)^2 + \binom{7}{3} 2^4 \left(-\frac{x}{2}\right)^3 + \cdots \\
+&= 128 + 7 \cdot 64 \left(-\frac{x}{2}\right) + \frac{7 \cdot 6}{1 \cdot 2} \cdot 32 \left(\frac{x^2}{4}\right) + \frac{7 \cdot 6 \cdot 5}{1 \cdot 2 \cdot 3} \cdot 16 \left(-\frac{x^3}{8}\right) + \cdots \\
+\therefore \left(2 - \frac{x}{2}\right)^7 &= 128 - 224 x + 168 x^2 - 70 x^3 + \cdots
+\end{aligned} \]
+\[ \therefore \text{Required expansion is } \left(2 - \frac{x}{2}\right)^7 = 128 - 224 x + 168 x^2 - 70 x^3 + \cdots \]
+Now, 
+\[ 2 - \frac{x}{2} = 1.995 \text{ or, } \frac{x}{2} = 2 - 1.995 \text{ Hence } x = 0.01 \]
+Now, putting $x = 0.01$, we get
+\[ \left(2 - \frac{0.01}{2}\right)^7 = 128 - 224 \times (0.01) + 168 \times (0.01)^2 - 70 \times (0.01)^3 + \cdots \]
+\[ \text{or, } (1.995)^7 = 125.7767 \text{ (up to four decimal places)} \]
+\[ \text{Required Value } (1.995)^7 = 125.7767 \]
+
+\textbf{Example 8.} Expand $\left(x - \frac{1}{x^2}\right)^5$
+
+solution: By binomial theorem
+\[ \begin{aligned}
+\left(x - \frac{1}{x^2}\right)^5 &= x^5 + {}^5 C_1 x^{5-1} \left(-\frac{1}{x^2}\right) + {}^5 C_2 x^{5-2} \left(-\frac{1}{x^2}\right)^2 + {}^5 C_3 x^{5-3} \left(-\frac{1}{x^2}\right)^3 \\
+&\quad + {}^5 C_4 x^{5-4} \left(-\frac{1}{x^2}\right)^4 + \left(-\frac{1}{x^2}\right)^5 \\
+&= x^5 - 5 x^4 \cdot \frac{1}{x^2} + \frac{5 \cdot 4}{1 \cdot 2} x^3 \frac{1}{x^4} - \frac{5 \cdot 4 \cdot 3}{1 \cdot 2 \cdot 3} x^2 \frac{1}{x^6} + \frac{5 \cdot 4 \cdot 3 \cdot 2}{1 \cdot 2 \cdot 3 \cdot 4} x \frac{1}{x^8} - \frac{1}{x^{10}} \\
+&= x^5 - 5 x^2 + \frac{10}{x} - \frac{10}{x^4} + \frac{5}{x^7} - \frac{1}{x^{10}}
+\end{aligned} \]
+
+\textbf{Example 9.} Expand $\left(2 x^2 - \frac{1}{x^2}\right)^8$ up to four terms.
+
+solution: Using binomial theorem, 
+\[ \begin{aligned}
+\left(2 x^2 - \frac{1}{x^2}\right)^8 &= \left(2 x^2\right)^8 + {}^8 C_1 \left(2 x^2\right)^7 \left(-\frac{1}{x^2}\right) + {}^8 C_2 \left(2 x^2\right)^6 \left(-\frac{1}{x^2}\right)^2 + {}^8 C_3 \left(2 x^2\right)^5 \left(-\frac{1}{x^2}\right)^3 + \cdots \\
+&= 2^8 \cdot x^{16} - 8 \cdot 2^7 \cdot x^{14} \cdot \frac{1}{x^2} + \frac{8 \cdot 7}{1 \cdot 2} \cdot 2^6 \cdot x^{12} \cdot \frac{1}{x^4} - \frac{8 \cdot 7 \cdot 6}{1 \cdot 2 \cdot 3} \cdot 2^5 \cdot x^{10} \cdot \frac{1}{x^6} + \cdots \\
+&= 256 x^{16} - 1024 x^{12} + 1792 x^8 - 1792 x^4 + \cdots
+\end{aligned} \]
+
+\textbf{Example 10.} In the expansion of $\left(k - \frac{x}{3}\right)^7$, the coefficient of $k^3$ is 560
+\begin{enumerate}
+    \item If $k = 1$, expand up to the fourth term.
+    \item Determine $x$
+    \item If in the expansion, the coefficient of $x^3$ is 15 times the coefficient of $x^5$, then determine the value of $k$.
+\end{enumerate}
+
+solution:
+\begin{enumerate}
+    \item If $k = 1$, the algebraic term is $\left(1 - \frac{x}{3}\right)^7$
+    Using binomial theorem
+    \[ \begin{aligned}
+    \left(1 - \frac{x}{3}\right)^7 &= {}^7 C_0 \left(-\frac{x}{3}\right)^0 + {}^7 C_1 \left(-\frac{x}{3}\right)^1 + {}^7 C_2 \left(-\frac{x}{3}\right)^2 + {}^7 C_3 \left(-\frac{x}{3}\right)^3 + \cdots \\
+    &= 1 - 7 \cdot \frac{x}{3} + \frac{7 \cdot 6}{1 \cdot 2} \cdot \frac{x^2}{9} - \frac{7 \cdot 6 \cdot 5}{1 \cdot 2 \cdot 3} \cdot \frac{x^3}{27} + \cdots \\
+    &= 1 - \frac{7 x}{3} + \frac{7 x^2}{3} - \frac{35 x^3}{27} + \cdots
+    \end{aligned} \]
+
+    \item Using binomial theorem,
+    \[ \begin{aligned}
+    \left(k - \frac{x}{3}\right)^7 &= k^7 + {}^7 C_1 k^6 \left(-\frac{x}{3}\right) + {}^7 C_2 k^5 \left(-\frac{x}{3}\right)^2 + {}^7 C_3 k^4 \left(-\frac{x}{3}\right)^3 \\
+    &\quad + {}^7 C_4 k^3 \left(-\frac{x}{3}\right)^4 + {}^7 C_5 k^2 \left(-\frac{x}{3}\right)^5 + \cdots \\
+    &= k^7 - \frac{7 x}{3} \cdot k^6 + \frac{7 x^2}{3} \cdot k^5 - \frac{35 x^3}{27} \cdot k^4 + \frac{35 x^4}{81} \cdot k^3 - \frac{7 x^5}{81} \cdot k^2 + \cdots
+    \end{aligned} \]
+    Here, the coefficient of $k^3$ is $\frac{35 x^4}{81}$
+    According to the question, 
+    \[ \frac{35 x^4}{81} = 560 \text{ or, } x^4 = \frac{560 \times 81}{35} \text{ or, } x^4 = 1296 \]
+    \[ \therefore x = 6 \]
+
+    \item Getting from the result of the expansion of $\left(k - \frac{x}{3}\right)^7$ from just above, 
+    \[ \left(k - \frac{x}{3}\right)^7 = k^7 - \frac{7 x}{3} \cdot k^6 + \frac{7 x^2}{3} \cdot k^5 - \frac{35 x^3}{27} \cdot k^4 + \frac{35 x^4}{81} \cdot k^3 - \frac{7 x^5}{81} \cdot k^2 + \cdots \]
+    The coefficient of $x^3$ is $-\frac{35 k^4}{27}$, and the coefficient of $x^5$ is $-\frac{7 k^2}{81}$
+    Accordingly, 
+    \[ -\frac{35 k^4}{27} = -\frac{7 k^2}{81} \times 15 \text{ or, } \frac{k^4}{k^2} = \frac{27 \times 7 \times 15}{35 \times 81} \text{ or, } k^2 = 1 \]
+    \[ \therefore k = 1 \]
+\end{enumerate}
+
+\end{document}

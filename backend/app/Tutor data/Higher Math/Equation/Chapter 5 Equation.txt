@@ -1,0 +1,643 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\geometry{a4paper, margin=1in}
+
+% Font configuration (loaded last)
+\usepackage{noto}
+
+\begin{document}
+
+% Title and Introduction
+\section*{Chapter 5: Equation}
+
+Equations are used to describe various mathematical problems. For example, someone buys some shirts at the price of Tk. 200 each and some pants at Tk. 400 each, which costs him a total of Tk. 1500. We can describe this information by the equation $200 s + 400 p = 1500$ or, $2 s + 4 p = 15$, where $s=$ number of shirts and $p=$ number of pants.
+$2 s + 4 p = 15$ is an equation, where $s$ and $p$ are unknown variables. Variables $s$ and $p$ have specific domains and equations are used to find the values of unknown variables from their corresponding domains.
+At the end of this chapter, the students will be able to -
+\begin{itemize}
+    \item solve quadratic equations $\left(a x^2 + b x + c = 0\right)$;
+    \item identify the equations involving square roots;
+    \item solve the equations involving square roots;
+    \item explain indicial equations;
+    \item solve indicial equations;
+    \item solve system of linear and quadratic equations of two variables;
+    \item express practical problems in linear and quadratic equations of two variables and solve them;
+    \item solve system of indicial equations of two variables;
+    \item solve quadratic equations $\left(a x^2 + b x + c = 0\right)$ graphically.
+\end{itemize}
+
+% Part 1: Quadratic Equations of One Variable
+\part{Quadratic Equations of One Variable}
+
+% Quadratic Equations of One Variable and Their Solutions
+\subsection*{Quadratic Equations of One Variable and Their Solutions}
+
+We know, values of variables for which both sides of an equation are equal, are called roots of that equation and these values satisfy the equation.
+
+Linear and quadratic equations of one variable and linear equations of two variables have been discussed in details in the Secondary Algebra Book. A quadratic equation of one variable e.g. $a x^2 + b x + c = 0$ can be solved easily after factorizing the left hand side of the equation if the roots are rational. But all expressions cannot be factorized easily. That is why the following procedure is used to solve the quadratic equations of any form.
+
+Now we solve the quadratic equation.
+\[ a x^2 + b x + c = 0 \cdots (1) \]
+or, $a^2 x^2 + a b x + a c = 0$ [Multiplying both sides by $a$ ]
+or, $(a x)^2 + 2(a x) \frac{b}{2} + \left(\frac{b}{2}\right)^2 - \left(\frac{b}{2}\right)^2 + a c = 0$
+or, $\left(a x + \frac{b}{2}\right)^2 = \frac{b^2}{4} - a c$
+or, $\left(a x + \frac{b}{2}\right)^2 = \frac{b^2 - 4 a c}{4}$
+or, $a x + \frac{b}{2} = \pm \frac{\sqrt{b^2 - 4 a c}}{2}$
+or, $a x = -\frac{b}{2} \pm \frac{\sqrt{b^2 - 4 a c}}{2}$
+or, $x = \frac{-b \pm \sqrt{b^2 - 4 a c}}{2 a}$
+Therefore, the two values of $x$ are:
+\[ x_1 = \frac{-b + \sqrt{b^2 - 4 a c}}{2 a} \cdots (2) \quad \text{and} \quad x_2 = \frac{-b - \sqrt{b^2 - 4 a c}}{2 a} \cdots (3) \]
+In equation (1) above, $b^2 - 4 a c$ is called the Discriminant of the quadratic equation, because it determines the state and nature of the roots of the equation.
+
+% Variations and Nature of the Roots
+\subsection*{Variations and Nature of the Roots of a Quadratic Equation Depending on the Conditions of the Discriminant}
+
+Let $a, b, c$ be rational numbers. Then,
+\begin{enumerate}
+    \item If $b^2 - 4 a c > 0$ and is a perfect square, then the two roots of the equation are real, unequal, and rational.
+    \item If $b^2 - 4 a c > 0$ but is not a perfect square, then the two roots of the equation are real, unequal, and irrational.
+    \item If $b^2 - 4 a c = 0$, hence the roots of the equation are real and equal. In this case, $x = -\frac{b}{2 a}$.
+    \item If $b^2 - 4 a c < 0$, then the roots of the equation are not real. In this case, the two roots are always conjugate complex or imaginary to each other.
+\end{enumerate}
+
+\textbf{Example 1.} Solve $x^2 - 5 x + 6 = 0$.
+
+solution: Comparing the given equation with $a x^2 + b x + c = 0$, we get $a = 1$, $b = -5$, and $c = 6$. So the solutions of the equation are:
+\[ x = \frac{-(-5) \pm \sqrt{(-5)^2 - 4 \cdot 1 \cdot 6}}{2 \cdot 1} = \frac{5 \pm \sqrt{25 - 24}}{2} = \frac{5 \pm \sqrt{1}}{2} = \frac{5 \pm 1}{2} \]
+\[ \text{or, } x = \frac{5 + 1}{2}, \frac{5 - 1}{2} \]
+That is $x_1 = 3, x_2 = 2$
+
+\textbf{Example 2.} Solve $x^2 - 6 x + 9 = 0$.
+
+solution: A comparison with $a x^2 + b x + c = 0$ gives $a = 1, b = -6$, and $c = 9$. Hence we obtain,
+\[ x = \frac{-(-6) \pm \sqrt{(-6)^2 - 4 \cdot 1 \cdot 9}}{2 \cdot 1} = \frac{6 \pm \sqrt{36 - 36}}{2} = \frac{6 \pm 0}{2} \]
+That is $x_1 = 3, x_2 = 3$
+
+\textbf{Example 3.} Solve $x^2 - 2 x - 2 = 0$.
+
+solution: After comparing this equation with the standard quadratic equation $a x^2 + b x + c = 0$ we can write $a = 1, b = -2$, and $c = -2$.
+Therefore, the two roots are:
+\[ x = \frac{2 \pm \sqrt{(-2)^2 - 4 \cdot 1 \cdot (-2)}}{2 \cdot 1} = \frac{2 \pm \sqrt{4 + 8}}{2} = \frac{2 \pm \sqrt{12}}{2} \]
+\[ \text{or, } x = \frac{2 \pm 2 \sqrt{3}}{2} = \frac{2(1 \pm \sqrt{3})}{2} = 1 \pm \sqrt{3} \]
+\[ \text{i.e. } x_1 = 1 + \sqrt{3}, x_2 = 1 - \sqrt{3} \]
+It is noticed here that though $x^2 - 2 x - 2$ cannot be factorized with rational numbers, yet it has been possible to solve the equation by this method.
+
+\textbf{Example 4.} Solve $3 - 4 x - x^2 = 0$.
+
+solution: Comparing the equation with the standard quadratic equation $a x^2 + b x + c = 0$ we get $a = -1, b = -4, c = 3$,
+\[ x = \frac{-(-4) \pm \sqrt{(-4)^2 - 4 \cdot (-1) \cdot 3}}{2 \cdot (-1)} = \frac{4 \pm \sqrt{16 + 12}}{-2} = \frac{4 \pm \sqrt{28}}{-2} \]
+\[ = \frac{4 \pm 2 \sqrt{7}}{-2} \text{ or, } x = -(2 \pm \sqrt{7}) \]
+i.e. $x_1 = -2 - \sqrt{7}, x_2 = -2 + \sqrt{7}$
+
+% Solving Quadratic Equation Using Graph
+\subsection*{Solving Quadratic Equation Using Graph}
+
+We have already solved the quadratic equation $a x^2 + b x + c = 0$ algebraically. Method of solving it using graphs will be discussed now.
+
+Suppose $y = a x^2 + b x + c$. Then the values of $x$ for which $y = 0$ (i.e. the graph of $y$ intersects the $X$-axis) are the solutions of $a x^2 + b x + c = 0$.
+
+\textbf{Example 33.} Use graph to solve $x^2 - 5 x + 4 = 0$.
+
+solution: Given equation $x^2 - 5 x + 4 = 0 \cdots (1)$ Suppose, $y = x^2 - 5 x + 4 \cdots (2)$
+
+For some values of $x$, we find the corresponding values of $y$ to get the associated points on the graph and put these in the table below.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+$x$ & 0 & 1 & 2 & 2.5 & 3 & 4 & 5 \\
+\hline
+$y$ & 4 & 0 & -2 & -2.5 & -2 & 0 & 4 \\
+\hline
+\end{tabular}
+\end{center}
+
+Image description: A graph of the quadratic function $y = x^2 - 5 x + 4$, plotted using points from the table (e.g., (0, 4), (1, 0), (2, -2), (2.5, -2.5), (3, -2), (4, 0), (5, 4)). The parabola opens upward, intersecting the $X$-axis at points (1, 0) and (4, 0).
+
+We draw the graph of equation (2) plotting the points given in the above table.
+It is seen that the graph intersects the $X$-axis at $(1, 0)$ and $(4, 0)$.
+$\therefore$ the solution of equation (1) is $x = 1, x = 4$.
+
+\textbf{Example 34.} Solve $x^2 - 4 x + 4 = 0$ graphically.
+
+solution: Given equation $x^2 - 4 x + 4 = 0 \cdots (1)$ Suppose, $y = x^2 - 4 x + 4 \cdots (2)$
+
+We find the values of $y$ corresponding to some values of $x$ which give the associated points for the graph:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+$x$ & 0 & 1 & 1.5 & 2 & 2.5 & 3 & 4 \\
+\hline
+$y$ & 4 & 1 & 0.25 & 0 & 0.25 & 1 & 4 \\
+\hline
+\end{tabular}
+\end{center}
+
+Image description: A graph of the quadratic function $y = x^2 - 4 x + 4$, plotted using points from the table (e.g., (0, 4), (1, 1), (1.5, 0.25), (2, 0), (2.5, 0.25), (3, 1), (4, 4)). The parabola opens upward, touching the $X$-axis at point (2, 0).
+
+Now we draw the graph of equation (2) plotting the points given in the above table.
+It is seen that the graph intersects the $X$-axis at $(2, 0)$.
+Since a quadratic equation has two roots, the solutions of the equation are $x = 2, x = 2$.
+
+\textbf{Example 35.} Solve $x^2 - 2 x - 1 = 0$ graphically.
+
+solution: Given equation $x^2 - 2 x - 1 = 0 \cdots (1)$ Suppose, $y = x^2 - 2 x - 1 \cdots (2)$
+
+For some values of $x$, we find the corresponding values of $y$ that give the associated points on the graph:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$x$ & -1 & -0.5 & 0 & 0.5 & 1 & 1.5 & 2 & 2.5 & 3 \\
+\hline
+$y$ & 2 & 0.25 & -1 & -1.75 & -2 & -1.75 & -1 & 0.25 & 2 \\
+\hline
+\end{tabular}
+\end{center}
+
+Image description: A graph of the quadratic function $y = x^2 - 2 x - 1$, plotted using points from the table (e.g., (-1, 2), (-0.5, 0.25), (0, -1), (0.5, -1.75), (1, -2), (1.5, -1.75), (2, -1), (2.5, 0.25), (3, 2)). The parabola opens upward, intersecting the $X$-axis approximately at points (-0.4, 0) and (2.4, 0).
+
+We sketch the graph of equation (2) plotting the tabulated points in the graph paper.
+It is observed that the graph intersects the $X$-axis approximately at $(-0.4, 0)$ and $(2.4, 0)$. Therefore, the solution of equation (1) is $x = -0.4$ (approx.) or $x = 2.4$ (approx.)
+
+\textbf{Example 36.} Find both the roots of $-x^2 + 3 x - 2 = 0$ graphically.
+
+solution: Given equation $-x^2 + 3 x - 2 = 0 \cdots (1)$ Suppose, $y = -x^2 + 3 x - 2 \cdots (2)$
+
+For some values of $x$, we find the associated values of $y$ to get the related points of the graph of the equation and put these in the table given below.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+$x$ & 0 & 0.5 & 1 & 1.5 & 2 & 2.5 & 3 \\
+\hline
+$y$ & -2 & -0.75 & 0 & 0.25 & 0 & -0.75 & -2 \\
+\hline
+\end{tabular}
+\end{center}
+
+Image description: A graph of the quadratic function $y = -x^2 + 3 x - 2$, plotted using points from the table (e.g., (0, -2), (0.5, -0.75), (1, 0), (1.5, 0.25), (2, 0), (2.5, -0.75), (3, -2)). The parabola opens downward, intersecting the $X$-axis at points (1, 0) and (2, 0).
+
+Plotting the points obtained in the graph paper, we get the graph of the equation.
+We see that the graph passes through the points $(1, 0)$ and $(2, 0)$ on the $X$-axis. Therefore, the solution of the equation is $x = 1$ or $x = 2$.
+
+% Part 2: Equations Involving Radicals
+\part{Equations Involving Radicals}
+
+% Equations Involving Radicals
+\subsection*{Equations Involving Radicals}
+
+In an equation, the quantities with a variable involving a square root sign are freed from the square root sign by squaring and a new equation is obtained. All the roots of the equation thus obtained do not satisfy the given equation. These are extraneous roots. Therefore, the roots of the equation involving the radical sign are to be tested to know whether they satisfy the given equation or not. After test, those who satisfy the given equation are the roots of the equation. Some examples are given below:
+
+\textbf{Example 5.} Solve: $\sqrt{8 x + 9} - \sqrt{2 x + 15} = \sqrt{2 x - 6}$
+
+solution: $\sqrt{8 x + 9} - \sqrt{2 x + 15} = \sqrt{2 x - 6}$
+\[ \text{or, } \sqrt{2 x + 15} + \sqrt{2 x - 6} = \sqrt{8 x + 9} \]
+\[ \text{or, } 2 x + 15 + 2 x - 6 + 2 \sqrt{2 x + 15} \sqrt{2 x - 6} = 8 x + 9 \text{ [squaring]} \]
+\[ \text{or, } \sqrt{2 x + 15} \sqrt{2 x - 6} = 2 x \]
+\[ \text{or, } (2 x + 15)(2 x - 6) = 4 x^2 \text{ [again squaring]} \]
+\[ \text{or, } 4 x^2 + 18 x - 90 = 4 x^2 \]
+\[ \text{or, } 18 x = 90 \]
+\[ \therefore x = 5 \]
+Verification: For $x = 5$, left hand side $=\sqrt{49} - \sqrt{25} = 7 - 5 = 2$ and right hand side $=\sqrt{4} = 2$
+$\therefore$ Required solution $x = 5$.
+
+\textbf{Example 6.} Solve: $\sqrt{2 x + 8} - 2 \sqrt{x + 5} + 2 = 0$
+
+solution: $\sqrt{2 x + 8} = 2 \sqrt{x + 5} - 2$
+\[ \text{or, } 2 x + 8 = 4(x + 5) + 4 - 8 \sqrt{x + 5} \text{ [squaring]} \]
+\[ \text{or, } 8 \sqrt{x + 5} = 4 x + 20 + 4 - 2 x - 8 \]
+\[ \text{or, } 8 \sqrt{x + 5} = 2 x + 16 = 2(x + 8) \]
+\[ \text{or, } 4 \sqrt{x + 5} = x + 8 \]
+\[ \text{or, } 16(x + 5) = x^2 + 16 x + 64 \text{ [squaring]} \]
+\[ \text{or, } 16 x + 80 = x^2 + 16 x + 64 \]
+\[ \text{or, } 16 = x^2 \]
+\[ \therefore x = \pm \sqrt{16} = \pm 4 \]
+Verification: For $x = 4$, left hand side $=\sqrt{16} - 2 \sqrt{9} + 2 = 4 - 2 \times 3 + 2 = 0 =$ right hand side
+For $x = -4$, left hand side $=\sqrt{-8 + 8} - 2 \sqrt{-4 + 5} + 2 = 0 - 2 \times 1 + 2 = 0 =$ right hand side
+$\therefore$ Required solution $x = 4, -4$
+
+\textbf{Example 7.} Solve: $\sqrt{2 x + 9} - \sqrt{x - 4} = \sqrt{x + 1}$
+
+solution: $\sqrt{2 x + 9} - \sqrt{x - 4} = \sqrt{x + 1}$
+\[ \text{or, } 2 x + 9 + x - 4 - 2 \sqrt{2 x + 9} \sqrt{x - 4} = x + 1 \text{ [squaring]} \]
+\[ \text{or, } 2 x + 4 - 2 \sqrt{2 x + 9} \sqrt{x - 4} = 0 \]
+\[ \text{or, } \sqrt{2 x + 9} \sqrt{x - 4} = x + 2 \]
+\[ \text{or, } (2 x + 9)(x - 4) = x^2 + 4 x + 4 \text{ [squaring]} \]
+\[ \text{or, } 2 x^2 + x - 36 = x^2 + 4 x + 4 \]
+\[ \text{or, } x^2 - 3 x - 40 = 0 \]
+\[ \text{or, } (x - 8)(x + 5) = 0 \]
+\[ \therefore x = 8 \text{ or } x = -5 \]
+Verification: For $x = 8$, left hand side $= 5 - 2 = 3$ and right hand side $= 3$
+$\therefore x = 8$ is a root of the given equation.
+$x = -5$ is not acceptable. Because putting $x = -5$, each term becomes the square root of a negative number which is not defined.
+$\therefore$ Required solution $x = 8$
+
+Remark: $x = -5$ is not acceptable even when we determine the roots in complex number.
+
+\textbf{Example 8.} Solve: $\sqrt{(x - 1)(x - 2)} + \sqrt{(x - 3)(x - 4)} = \sqrt{2}$
+
+solution: $\sqrt{(x - 1)(x - 2)} + \sqrt{(x - 3)(x - 4)} = \sqrt{2}$
+\[ \text{or, } \sqrt{x^2 - 3 x + 2} - \sqrt{2} = -\sqrt{x^2 - 7 x + 12} \]
+\[ \text{or, } x^2 - 3 x + 2 - 2 \sqrt{2} \sqrt{x^2 - 3 x + 2} + 2 = x^2 - 7 x + 12 \text{ [squaring]} \]
+\[ \text{or, } \sqrt{2 x^2 - 6 x + 4} = 2 x - 4 \]
+\[ \text{or, } 2 x^2 - 6 x + 4 = (2 x - 4)^2 = 4 x^2 - 16 x + 16 \text{ [squaring]} \]
+\[ \text{or, } x^2 - 5 x + 6 = 0 \]
+\[ \text{or, } (x - 2)(x - 3) = 0 \]
+\[ \therefore x = 2 \text{ or } x = 3 \]
+Verification: For $x = 2$, left hand side $=\sqrt{2} =$ right hand side
+For $x = 3$, left hand side $=\sqrt{2} =$ right hand side
+$\therefore$ Required solution $x = 2, 3$.
+
+\textbf{Example 9.} Solve: $\sqrt{x^2 - 6 x + 15} - \sqrt{x^2 - 6 x + 13} = \sqrt{10} - \sqrt{8}$
+
+solution: $\sqrt{x^2 - 6 x + 15} - \sqrt{x^2 - 6 x + 13} = \sqrt{10} - \sqrt{8}$
+Now, writing $x^2 - 6 x + 13 = y$, we get the equation as
+\[ \sqrt{y + 2} - \sqrt{y} = \sqrt{10} - \sqrt{8} \]
+\[ \text{or, } \sqrt{y + 2} + \sqrt{8} = \sqrt{y} + \sqrt{10} \]
+\[ \text{or, } y + 2 + 8 + 2 \sqrt{8 y + 16} = y + 10 + 2 \sqrt{10 y} \text{ [squaring]} \]
+\[ \text{or, } \sqrt{8 y + 16} = \sqrt{10 y} \]
+\[ \text{or, } 8 y + 16 = 10 y \text{ [squaring]} \]
+\[ \text{or, } 2 y = 16 \text{ or, } y = 8 \]
+\[ \text{or, } x^2 - 6 x + 13 = 8 \text{ [putting the value of } y\text{ ]} \]
+\[ \text{or, } x^2 - 6 x + 5 = 0 \text{ or, } (x - 1)(x - 5) = 0 \]
+\[ \therefore x = 1 \text{ or } 5 \]
+Verification: For $x = 1$, left hand side $=\sqrt{10} - \sqrt{8} =$ right hand side
+For $x = 5$, left hand side $=\sqrt{10} - \sqrt{8} =$ right hand side
+$\therefore$ Required solution $x = 1, 5$
+
+% Part 3: Indicial (Exponential) Equations
+\part{Indicial (Exponential) Equations}
+
+% Indicial Equation
+\subsection*{Indicial Equation}
+
+The equation in which the unknown variable exists as an index/exponent is called an Indicial or Exponential equation. $2^x = 8, 16^x = 4^{x+2}, 2^{x+1} - 2^x - 8 = 0$ etc. are indicial equations, where $x$ is an unknown variable. To solve indicial equations, the following property of indices is often used:
+If $a > 0, a \neq 1$, then $a^x = a^m$ if and only if $x = m$. That is why both sides of an equation are expressed in powers of the same number.
+
+\textbf{Example 10.} Solve: $(1 + x)^{\frac{1}{3}} + (1 - x)^{\frac{1}{3}} = 2^{\frac{1}{3}}$
+
+solution: $(1 + x)^{\frac{1}{3}} + (1 - x)^{\frac{1}{3}} = 2^{\frac{1}{3}}$
+\[ \text{or, } 1 + x + 1 - x + 3 \cdot (1 + x)^{\frac{1}{3}}(1 - x)^{\frac{1}{3}}\left\{(1 + x)^{\frac{1}{3}} + (1 - x)^{\frac{1}{3}}\right\} = 2 \text{ [cubing]} \]
+\[ \text{or, } 2 + 3 \cdot (1 + x)^{\frac{1}{3}}(1 - x)^{\frac{1}{3}} \cdot 2^{\frac{1}{3}} = 2 \]
+\[ \text{or, } 3 \cdot 2^{\frac{1}{3}} \cdot (1 + x)^{\frac{1}{3}} \cdot (1 - x)^{\frac{1}{3}} = 0 \]
+\[ \text{or, } (1 + x)^{\frac{1}{3}}(1 - x)^{\frac{1}{3}} = 0 \]
+\[ \text{or, } (1 + x)(1 - x) = 0 \text{ [again cubing]} \]
+$x = 1$ and $x = -1$ both the roots satisfy the equation.
+$\therefore$ Required solution $x = \pm 1$
+
+\textbf{Example 11.} Solve: $2^{x+7} = 4^{x+2}$
+
+solution: $2^{x+7} = 4^{x+2}$
+\[ \text{or, } 2^{x+7} = \left(2^2\right)^{x+2} \]
+\[ \text{or, } 2^{x+7} = 2^{2 x + 4} \]
+\[ \text{or, } x + 7 = 2 x + 4 \]
+\[ \text{or, } x = 3 \]
+$\therefore$ Required solution $x = 3$
+
+\textbf{Example 12.} Solve: $3 \cdot 27^x = 9^{x+4}$
+
+solution: $3 \cdot 27^x = 9^{x+4}$
+\[ \text{or, } 3 \cdot \left(3^3\right)^x = \left(3^2\right)^{x+4} \]
+\[ \text{or, } 3 \cdot 3^{3 x} = 3^{2(x+4)} \]
+\[ \text{or, } 3^{3 x + 1} = 3^{2 x + 8} \]
+\[ \text{or, } 3 x + 1 = 2 x + 8 \]
+\[ \text{or, } x = 7 \]
+$\therefore$ Required solution $x = 7$
+
+\textbf{Example 13.} Solve: $3^{m x - 1} = 3 a^{m x - 2} (a > 0, a \neq 3, m \neq 0)$
+
+solution: $3^{m x - 1} = 3 a^{m x - 2}$
+\[ \text{or, } \frac{3^{m x - 1}}{3} = a^{m x - 2} \text{ [dividing both sides by 3]} \]
+\[ \text{or, } 3^{m x - 2} = a^{m x - 2} \]
+\[ \text{or, } \left(\frac{a}{3}\right)^{m x - 2} = 1 = \left(\frac{a}{3}\right)^0 \]
+\[ \text{or, } m x - 2 = 0 \]
+\[ \text{or, } m x = 2 \]
+\[ \text{or, } x = \frac{2}{m} \]
+$\therefore$ Required solution $x = \frac{2}{m}$
+
+\textbf{Example 14.} Solve: $2^{3 x - 5} \cdot a^{x - 2} = 2^{x - 3} \cdot 2 a^{1 - x} (a > 0 \text{ and } a \neq \frac{1}{2})$
+
+solution: $2^{3 x - 5} \cdot a^{x - 2} = 2^{x - 3} \cdot 2 a^{1 - x}$
+\[ \text{or, } \frac{a^{x - 2}}{a^{1 - x}} = \frac{2^{x - 3} \cdot 2^1}{2^{3 x - 5}} \text{ or, } a^{x - 2 - 1 + x} = 2^{x - 3 + 1 - 3 x + 5} \]
+\[ \text{or, } a^{2 x - 3} = 2^{-2 x + 3} \text{ or, } a^{2 x - 3} = 2^{-(2 x - 3)} \]
+\[ \text{or, } a^{2 x - 3} = \frac{1}{2^{2 x - 3}} \text{ or, } a^{2 x - 3} \cdot 2^{2 x - 3} = 1 \]
+\[ \text{or, } (2 a)^{2 x - 3} = 1 = (2 a)^0 \]
+\[ \text{or, } 2 x - 3 = 0 \text{ or, } 2 x = 3 \text{ or, } x = \frac{3}{2} \]
+$\therefore$ Required solution $x = \frac{3}{2}$
+
+\textbf{Example 15.} Solve: $a^{-x} \left(a^x + b^{-x}\right) = \frac{a^2 b^2 + 1}{a^2 b^2} (a > 0, b > 0, a b \neq 1)$
+
+solution: $a^{-x} \left(a^x + b^{-x}\right) = 1 + \frac{1}{a^2 b^2}$
+\[ \text{or, } a^{-x} \cdot a^x + a^{-x} \cdot b^{-x} = 1 + \frac{1}{a^2 b^2} \]
+\[ \text{or, } 1 + (a b)^{-x} = 1 + (a b)^{-2} \]
+\[ \text{or, } (a b)^{-x} = (a b)^{-2} \]
+\[ \text{or, } -x = -2 \]
+\[ \text{or, } x = 2 \]
+$\therefore$ Required solution $x = 2$
+
+\textbf{Example 16.} Solve: $3^{x + 5} = 3^{x + 3} + \frac{8}{3}$
+
+solution: $3^{x + 5} = 3^{x + 3} + \frac{8}{3}$
+\[ \text{or, } 3^x \cdot 3^5 = 3^x \cdot 3^3 + \frac{8}{3} \]
+\[ \text{or, } 3^x \cdot 3^6 - 3^x \cdot 3^4 = 8 \text{ [multiplying both sides by 3 and then transposing]} \]
+\[ \text{or, } 3^x \cdot 3^4 \left(3^2 - 1\right) = 8 \]
+\[ \text{or, } 3^{x + 4} \cdot 8 = 8 \]
+\[ \text{or, } 3^{x + 4} = 1 = 3^0 \]
+\[ \text{or, } x + 4 = 0 \text{ or, } x = -4 \]
+$\therefore$ Required solution $x = -4$
+
+\textbf{Example 17.} Solve: $3^{2 x - 2} - 5 \cdot 3^{x - 2} - 66 = 0$
+
+solution: $3^{2 x - 2} - 5 \cdot 3^{x - 2} - 66 = 0$
+\[ \text{or, } \frac{3^{2 x}}{9} - \frac{5}{9} \cdot 3^x - 66 = 0 \]
+\[ \text{or, } 3^{2 x} - 5 \cdot 3^x - 594 = 0 \text{ [multiplying both sides by 9]} \]
+\[ \text{or, } a^2 - 5 a - 594 = 0 \text{ [taking } 3^x = a\text{ ]} \]
+\[ \text{or, } a^2 - 27 a + 22 a - 594 = 0 \]
+\[ \text{or, } (a - 27)(a + 22) = 0 \]
+Now $a \neq -22$ since $a = 3^x > 0, \therefore a + 22 \neq 0$
+Thus, $a - 27 = 0$
+\[ \text{or, } 3^x = 27 = 3^3 \]
+\[ \text{or, } x = 3 \]
+Required solution: $x = 3$
+
+\textbf{Example 18.} Solve: $a^{2 x} - \left(a^3 + a\right) a^{x - 1} + a^2 = 0 (a > 0, a \neq 1)$
+
+solution: $a^{2 x} - \left(a^3 + a\right) a^{x - 1} + a^2 = 0$
+\[ \text{or, } a^{2 x} - a \left(a^2 + 1\right) a^x \cdot a^{-1} + a^2 = 0 \]
+\[ \text{or, } a^{2 x} - \left(a^2 + 1\right) a^x + a^2 = 0 \]
+\[ \text{or, } p^2 - \left(a^2 + 1\right) p + a^2 = 0 \text{ [Taking } a^x = p\text{ ]} \]
+\[ \text{or, } p^2 - a^2 p - p + a^2 = 0 \]
+\[ \text{or, } (p - 1)\left(p - a^2\right) = 0 \]
+\[ \text{or, } p = 1 \text{ or } p = a^2 \]
+\[ \text{or, } a^x = 1 = a^0 \text{ or } a^x = a^2 \]
+\[ \text{or, } x = 0 \text{ or } x = 2 \]
+$\therefore$ Required solution $x = 0, 2$
+
+% Part 4: Systems of Quadratic Equations and Applications
+\part{Systems of Quadratic Equations and Applications}
+
+% System of Quadratic Equations with Two Variables
+\subsection*{System of Quadratic Equations with Two Variables}
+
+The method of solution of the system of two linear equations with two variables or the system of two equations of which one is linear and the other is quadratic with two variables have been discussed in the Secondary Algebra Book. Here we will discuss the solution methodology of some systems involving two such quadratic equations. It may be mentioned that if $x$ and $y$ are two variables of any system, then $\langle x, y \rangle = (a, b)$ is a solution of this system when both sides of the two equations will be equal if we substitute $a$ for $x$ and $b$ for $y$.
+
+\textbf{Example 19.} Solve: $x + \frac{1}{y} = \frac{3}{2}, y + \frac{1}{x} = 3$
+
+solution: $x + \frac{1}{y} = \frac{3}{2} \cdots (1)$
+\[ y + \frac{1}{x} = 3 \cdots (2) \]
+From (1) $x y + 1 = \frac{3}{2} y \cdots (3)$
+From (2), $x y + 1 = 3 x \cdots (4)$
+From (3) and (4) $\frac{3}{2} y = 3 x$ or, $y = 2 x \cdots (5)$
+Putting the value of $y$ from (5) in (4) we get,
+\[ 2 x^2 + 1 = 3 x \text{ or, } 2 x^2 - 3 x + 1 = 0 \]
+\[ \text{or, } (x - 1)(2 x - 1) = 0 \therefore x = 1 \text{ or } \frac{1}{2} \]
+From (5) we get, when $x = 1, y = 2$ and when $x = \frac{1}{2}, y = 1$
+$\therefore$ Required solution $(x, y) = (1, 2), \left(\frac{1}{2}, 1\right)$
+
+\textbf{Example 20.} Solve: $x^2 = 3 x + 6 y, x y = 5 x + 4 y$
+
+solution: $x^2 = 3 x + 6 y \cdots (1)$
+\[ x y = 5 x + 4 y \cdots (2) \]
+Subtracting (2) from (1), $x(x - y) = -2(x - y)$
+\[ \text{or, } x(x - y) + 2(x - y) = 0 \]
+\[ \text{or, } (x - y)(x + 2) = 0 \]
+\[ \therefore x = y \cdots (3) \]
+\[ \text{or, } x = -2 \cdots (4) \]
+From (3) and (1) we get, $y^2 = 9 y$ or, $y(y - 9) = 0 \therefore y = 0$ or 9
+From (3), when $y = 0, x = 0$ and when $y = 9, x = 9$
+Again from (4) and (1) we get, $x = -2$ and $4 = -6 + 6 y$ or, $6 y = 10$ or, $y = \frac{5}{3}$
+$\therefore$ Required solution $(x, y) = (0, 0), (9, 9), \left(-2, \frac{5}{3}\right)$
+
+\textbf{Example 21.} Solve: $x^2 + y^2 = 61, x y = -30$
+
+solution: $x^2 + y^2 = 61 \cdots (1)$
+\[ x y = -30 \cdots (2) \]
+Multiplying equation (2) by 2 and subtracting the result from (1) we get, $(x - y)^2 = 121$
+\[ \text{or, } (x - y) = \pm 11 \cdots (3) \]
+Multiplying equation (2) by 2 and adding the result with (1) we get, $(x + y)^2 = 1$
+\[ \text{or, } x + y = \pm 1 \cdots (4) \]
+From (3) and (4) we get,
+\[ \left.\begin{array}{l} x + y = 1 \\ x - y = 11 \end{array}\right\} \cdots (5) \]
+\[ \left.\begin{array}{l} x + y = 1 \\ x - y = -11 \end{array}\right\} \cdots (7) \]
+\[ \left.\begin{array}{l} x + y = -1 \\ x - y = 11 \end{array}\right\} \cdots (6) \]
+\[ \left.\begin{array}{l} x + y = -1 \\ x - y = -11 \end{array}\right\} \cdots (8) \]
+Solving we get,
+From (5), $x = 6, y = -5$ From (6), $x = -5, y = 6$
+From (7), $x = 5, y = -6$ From (8) $x = -6, y = 5$
+$\therefore$ Required solution $(x, y) = (6, -5), (-5, 6), (5, -6), (-6, 5)$
+
+\textbf{Example 22.} Solve: $x^2 - 2 x y + 8 y^2 = 8, 3 x y - 2 y^2 = 4$
+
+solution: $x^2 - 2 x y + 8 y^2 = 8 \cdots (1)$
+\[ 3 x y - 2 y^2 = 4 \cdots (2) \]
+From (1) and (2) we get,
+\[ \frac{x^2 - 2 x y + 8 y^2}{3 x y - 2 y^2} = \frac{2}{1} \]
+\[ \text{or, } x^2 - 2 x y + 8 y^2 = 6 x y - 4 y^2 \]
+\[ \text{or, } x^2 - 8 x y + 12 y^2 = 0 \]
+\[ \text{or, } x^2 - 6 x y - 2 x y + 12 y^2 = 0 \]
+\[ \text{or, } (x - 6 y)(x - 2 y) = 0 \]
+\[ \therefore x = 6 y \cdots (3) \text{ or, } x = 2 y \cdots (4) \]
+Putting the value of $x$ in (2) from (3) we get,
+\[ 3 \cdot 6 y \cdot y - 2 y^2 = 4 \text{ or, } 16 y^2 = 4 \text{ or, } y^2 = \frac{1}{4} \text{ or, } y = \pm \frac{1}{2} \]
+From (3), $x = 6 \times \left( \pm \frac{1}{2}\right) = \pm 3$
+Again putting the value of $x$ from (4) in (2) we get,
+\[ 3 \cdot 2 y \cdot y - 2 y^2 = 4 \text{ or, } 4 y^2 = 4 \text{ or, } y^2 = 1 \text{ or, } y = \pm 1 \]
+From (4) $x = 2 \times (\pm 1) = \pm 2$
+$\therefore$ Required solution $(x, y) = \left(3, \frac{1}{2}\right), \left(-3, -\frac{1}{2}\right), (2, 1), (-2, -1)$
+
+\textbf{Example 23.} Solve: $\frac{x + y}{x - y} + \frac{x - y}{x + y} = \frac{5}{2}, x^2 + y^2 = 90$
+
+solution: $\frac{x + y}{x - y} + \frac{x - y}{x + y} = \frac{5}{2} \cdots (1)$
+\[ x^2 + y^2 = 90 \cdots (2) \]
+From (1) we get,
+\[ \frac{(x + y)^2 + (x - y)^2}{(x + y)(x - y)} = \frac{5}{2} \]
+\[ \text{or, } \frac{2\left(x^2 + y^2\right)}{x^2 - y^2} = \frac{5}{2} \]
+\[ \text{or, } \frac{2 \times 90}{x^2 - y^2} = \frac{5}{2} \text{ [Putting } x^2 + y^2 = 90 \text{ from (2)]} \]
+\[ \text{or, } x^2 - y^2 = 72 \cdots (3) \]
+(2) + (3) implies, $2 x^2 = 162$ or, $x^2 = 81$ or, $x = \pm 9$
+and (2) - (3) implies, $2 y^2 = 18$ or, $y^2 = 9$ or, $y = \pm 3$
+$\therefore$ Required solution $(x, y) = (9, 3), (9, -3), (-9, 3), (-9, -3)$
+
+% Applications of Simultaneous Quadratic Equations
+\subsection*{Applications of Simultaneous Quadratic Equations}
+
+Many problems of everyday life can be solved using the knowledge of simultaneous equations. Sometimes, we are to find out the values of two unknown quantities of the problem. In that case, the two unknown quantities are taken as $x$ and $y$ or any other symbols. Then consistent and independent equations are formed according to the conditions of the problem. The values of the unknown quantities $x$ and $y$ are obtained by solving these equations.
+
+\textbf{Example 24.} The sum of the areas of the two square regions is 650 square metres. If the area of the rectangular region formed by the two sides of the two squares is 323 square metres, what are the lengths of the sides of the two squares?
+
+solution: Suppose, the length of the side of one square is $x$ metres and that of the other square is $y$ metres.
+According to the question, $x^2 + y^2 = 650 \cdots (1)$
+and, $x y = 323 \cdots (2)$
+$\therefore (x + y)^2 = x^2 + y^2 + 2 x y = 650 + 646 = 1296$
+i.e. $(x + y) = \pm \sqrt{1296} = \pm 36$
+and, $(x - y)^2 = x^2 + y^2 - 2 x y = 650 - 646 = 4$
+i.e. $(x - y) = \pm 2$
+
+Since the length is positive, the value of $x + y$ must be positive.
+$\therefore (x + y) = 36 \cdots (3)$ and $(x - y) = \pm 2 \cdots (4)$
+Adding, $2 x = 36 \pm 2$
+$\therefore x = \frac{36 \pm 2}{2} = 18 \pm 1 = 19$ or, 17
+From equation (3) we get, $y = 36 - x = 17$ or, 19
+$\therefore$ The length of the side of one square is 19 metres and that of the other square is 17 meters.
+
+\textbf{Example 25.} Twice the breadth of a rectangle is 10 metres more than its length. If the area of the region enclosed by the rectangle is 600 square metres, find its length.
+
+solution: Suppose that the length of the rectangle is $x$ metres and the breadth of the rectangle is $y$ metres.
+According to the question, $2 y = x + 10 \cdots (1)$
+\[ x y = 600 \cdots (2) \]
+From equation (1) we get, $y = \frac{10 + x}{2}$
+Putting the value of $y$ in equation (2) we get, $\frac{x(10 + x)}{2} = 600$
+\[ \text{or, } \frac{10 x + x^2}{2} = 600 \text{ or, } x^2 + 10 x = 1200 \]
+\[ \text{or, } x^2 + 10 x - 1200 = 0 \text{ or, } (x + 40)(x - 30) = 0 \]
+Therefore, $x + 40 = 0$ or, $x - 30 = 0$
+i.e. $x = -40$ or, $x = 30$
+
+But length cannot be negative, $\therefore x = 30$
+$\therefore$ Hence, the length of the rectangle $= 30$ meter.
+
+\textbf{Example 26.} If a number of two digits be divided by the product of its digits, the quotient is 3. When 18 is added to the number, the digits of the number change their places. Find the number.
+
+solution: Suppose, tens' place digit is $x$ and ones' place digit is $y$
+$\therefore$ The number $= 10 x + y$
+From the 1st condition, $\frac{10 x + y}{x y} = 3$ or, $10 x + y = 3 x y \cdots (1)$
+From the 2nd condition, $10 x + y + 18 = 10 y + x$ or, $9 x - 9 y + 18 = 0$
+\[ \text{or, } x - y + 2 = 0 \text{ or, } y = x + 2 \cdots (2) \]
+Putting $y = x + 2$ in (1) we get, $10 x + x + 2 = 3 \cdot x(x + 2)$
+\[ \text{or, } 11 x + 2 = 3 x^2 + 6 x \]
+\[ \text{or, } 3 x^2 - 5 x - 2 = 0 \]
+\[ \text{or, } 3 x^2 - 6 x + x - 2 = 0 \]
+\[ \text{or, } 3 x(x - 2) + 1(x - 2) = 0 \]
+\[ \text{or, } (x - 2)(3 x + 1) = 0 \]
+\[ \therefore x - 2 = 0 \text{ or } 3 x + 1 = 0 \]
+\[ \text{i.e. } x = 2 \text{ or, } x = -\frac{1}{3} \]
+But the digit of a number cannot be negative or a fraction.
+$\therefore x = 2$ and $y = x + 2 = 2 + 2 = 4$
+$\therefore$ The required number is 24
+
+% System of Indicial Equations with Two Variables
+\subsection*{System of Indicial Equations with Two Variables}
+
+The method of solution of indicial equations with one variable has been discussed in the previous chapter. Here we will discuss the solution methodology of the system of indicial equations with two variables.
+
+\textbf{Example 27.} Solve: $a^{x + 2} \cdot a^{2 y + 1} = a^{10}, a^{2 x} \cdot a^{y + 1} = a^9 (a \neq 1)$
+
+solution: $a^{x + 2} \cdot a^{2 y + 1} = a^{10} \cdots (1) \quad a^{2 x} \cdot a^{y + 1} = a^9 \cdots (2)$
+From (1), $a^{x + 2 y + 3} = a^{10}$ or, $x + 2 y + 3 = 10$ or, $x + 2 y - 7 = 0 \cdots (3)$
+From (2), $a^{2 x + y + 1} = a^9$ or, $2 x + y + 1 = 9$ or, $2 x + y - 8 = 0 \cdots (4)$
+From (3) and (4) by the method of cross-multiplication,
+\[ \frac{x}{-16 + 7} = \frac{y}{-14 + 8} = \frac{1}{1 - 4} \]
+\[ \text{or, } \frac{x}{-9} = \frac{y}{-6} = \frac{1}{-3} \]
+\[ \text{or, } \frac{x}{3} = \frac{y}{2} = 1 \]
+\[ \text{or, } x = 3, y = 2 \]
+$\therefore$ Required solution $(x, y) = (3, 2)$
+
+\textbf{Example 28.} Solve: $3^{3 y - 1} = 9^{x + y}, 4^{x + 3 y} = 16^{2 x + 3}$
+
+solution: $3^{3 y - 1} = 9^{x + y} \cdots (1)$
+\[ \text{or, } 3^{3 y - 1} = \left(3^2\right)^{x + y} \text{ or, } 3^{3 y - 1} = 3^{2 x + 2 y} \]
+\[ \text{or, } 3 y - 1 = 2 x + 2 y \]
+\[ \text{or, } 2 x - y + 1 = 0 \cdots (2) \]
+and $4^{x + 3 y} = 16^{2 x + 3} \cdots (3)$
+\[ \text{or, } 4^{x + 3 y} = \left(4^2\right)^{2 x + 3} \text{ or, } 4^{x + 3 y} = 4^{4 x + 6} \]
+\[ \text{or, } x + 3 y = 4 x + 6 \text{ or, } 3 x - 3 y + 6 = 0 \]
+\[ \text{or, } x - y + 2 = 0 \cdots (4) \]
+From (2) and (4) by the method of cross-multiplication, $\frac{x}{-2 + 1} = \frac{y}{1 - 4} = \frac{1}{-2 + 1}$ or, $\frac{x}{-1} = \frac{y}{-3} = -1$
+\[ \text{or, } x = 1, y = 3 \]
+$\therefore$ Required solution $(x, y) = (1, 3)$
+
+\textbf{Example 29.} Solve: $x^y = y^x, x = 2 y$
+
+solution: $x^y = y^x \cdots (1) \quad x = 2 y \cdots (2)$ here, $x \neq 0, y \neq 0$
+Putting the value of $x$ in (1) from (2) we get, $(2 y)^y = y^{2 y}$ or, $2^y \cdot y^y = y^{2 y}$
+\[ \text{or, } \frac{y^{2 y}}{y^y} = 2^y \text{ or, } y^y = 2^y \therefore y = 2 \]
+From (2), $x = 4$
+$\therefore$ Required solution $(x, y) = (4, 2)$
+
+\textbf{Example 30.} Solve: $x^y = y^2, y^{2 y} = x^4$, where $x \neq 1$
+
+solution: $x^y = y^2 \cdots (1) \quad y^{2 y} = x^4 \cdots (2)$
+From (1) we get, $\left(x^y\right)^y = \left(y^2\right)^y$ or, $x^{y^2} = y^{2 y} \cdots (3)$
+From (3) and (2) we get, $x^{y^2} = x^4$
+\[ \therefore y^2 = 4 \text{ or, } y = \pm 2 \]
+Now, if $y = 2$, from (1) we get, $x^2 = 2^2 = 4$ or, $x = \pm 2$
+Again, if $y = -2$, from (1) we get, $x^{-2} = (-2)^2 = 4$ or, $x^2 = \frac{1}{4}$ or, $x = \pm \frac{1}{2}$
+$\therefore$ Required solution $(x, y) = (2, 2), (-2, 2), \left(\frac{1}{2}, -2\right), \left(-\frac{1}{2}, -2\right)$
+
+\textbf{Example 31.} Solve: $8 \cdot 2^{x y} = 4^y, 9^x \cdot 3^{x y} = \frac{1}{27}$
+
+solution: $8 \cdot 2^{x y} = 4^y \cdots (1) \quad 9^x \cdot 3^{x y} = \frac{1}{27} \cdots (2)$
+From (1) we get, $2^3 \cdot 2^{x y} = \left(2^2\right)^y$ or, $2^{3 + x y} = 2^{2 y}$ or, $3 + x y = 2 y \cdots (3)$
+From (2) we get, $\left(3^2\right)^x \cdot 3^{x y} = \frac{1}{3^3}$ or, $3^{2 x + x y} = 3^{-3}$ or, $2 x + x y = -3 \cdots (4)$
+Subtracting (4) from (3) we get, $3 - 2 x = 2 y + 3$ or, $-x = y \cdots (5)$
+Putting the value of $y$ in (3) from (5) we get, $3 - x^2 = -2 x$
+\[ \text{or, } x^2 - 2 x - 3 = 0 \text{ or, } (x + 1)(x - 3) = 0 \]
+\[ \therefore x = -1 \text{ or } x = 3 \]
+If $x = -1$, from (5) we get, $y = 1$
+If $x = 3$, from (5) we get, $y = -3$
+$\therefore$ Required solution $(x, y) = (-1, 1), (3, -3)$
+
+\textbf{Example 32.} Solve: $18 y^x - y^{2 x} = 81, 3^x = y^2$
+
+solution: $18 y^x - y^{2 x} = 81 \cdots (1) \quad 3^x = y^2 \cdots (2)$
+From (1) we get, $y^{2 x} - 18 y^x + 81 = 0$ or, $\left(y^x - 9\right)^2 = 0$
+\[ \text{or, } y^x - 9 = 0 \text{ or, } y^x = 3^2 \cdots (3) \]
+From (2) we get, $\left(3^x\right)^x = \left(y^2\right)^x$ or, $3^{x^2} = y^{2 x} \cdots (4)$
+From (3) we get, $\left(y^x\right)^2 = \left(3^2\right)^2$ or, $y^{2 x} = 3^4 \cdots (5)$
+From (4) and (5) we get, $3^{x^2} = 3^4$
+\[ \therefore x^2 = 4 \text{ or, } x = \pm 2 \]
+If $x = 2$ from (2) we get, $y^2 = 9$ or, $y = \pm 3$
+If $x = -2$ from (3) we get, $y^{-2} = 9$ or, $y^2 = \frac{1}{9}$ or, $y = \pm \frac{1}{3}$
+$\therefore$ Required solution $(x, y) = (2, 3), (2, -3), \left(-2, \frac{1}{3}\right), \left(-2, -\frac{1}{3}\right)$
+
+\textbf{Example 37.} $x^2 + 4 x = m$
+\begin{enumerate}
+    \item If $m = -4$, find the value of $x$.
+    \item If $m = 5$, find the discriminant of the equation and the nature of roots.
+    \item If $\sqrt{m - 4} + \sqrt{m - 10} = 6$, find the value of $x$.
+\end{enumerate}
+
+solution:
+\begin{enumerate}
+    \item Given that, $x^2 + 4 x = m$
+    Now, if $m = -4$ then $x^2 + 4 x = -4$
+    \[ \text{or, } x^2 + 4 x + 4 = 0 \]
+    \[ \text{or, } (x + 2)^2 = 0 \]
+    \[ \text{or, } x + 2 = 0, x + 2 = 0 \]
+    \[ \therefore x = -2, -2 \]
+
+    \item Given that, $x^2 + 4 x = m$
+    Now, if $m = 5, x^2 + 4 x = 5$
+    \[ \text{or, } x^2 + 4 x - 5 = 0 \]
+    Discriminant of the equation $= 4^2 - 4 \cdot 1 \cdot (-5) = 16 + 20 = 36$, which is a perfect square.
+    Since the discriminant is positive, perfect square number, the roots of the equation are real, unequal, and rational.
+
+    \item Given that, $\sqrt{m - 4} + \sqrt{m - 10} = 6$
+    \[ \text{or, } \sqrt{m - 4} = 6 - \sqrt{m - 10} \]
+    \[ \text{or, } (\sqrt{m - 4})^2 = (6 - \sqrt{m - 10})^2 \]
+    \[ \text{or, } m - 4 = 6^2 - 2 \cdot 6 \cdot \sqrt{m - 10} + m - 10 \]
+    \[ \text{or, } 12 \sqrt{m - 10} = 26 + 4 \]
+    \[ \text{or, } 12 \sqrt{m - 10} = 30 \]
+    \[ \text{or, } 2 \sqrt{m - 10} = 5 \]
+    \[ \text{or, } (2 \sqrt{m - 10})^2 = 25 \]
+    \[ \text{or, } 4(m - 10) = 25 \]
+    \[ \text{or, } 4 m - 40 = 25 \]
+    \[ \text{or, } 4 m = 65 \]
+    \[ \text{or, } m = \frac{65}{4} \]
+    Now substituting $m = \frac{65}{4}$ in the given equation $x^2 + 4 x = m$, we get
+    \[ x^2 + 4 x = \frac{65}{4} \]
+    \[ \text{or, } 4 x^2 + 16 x - 65 = 0 \]
+    \[ \text{or, } 4 x^2 + 26 x - 10 x - 65 = 0 \]
+    \[ \text{or, } 2 x(2 x + 13) - 5(2 x + 13) = 0 \]
+    \[ \text{or, } (2 x + 13)(2 x - 5) = 0 \]
+    \[ \therefore 2 x + 13 = 0 \text{ or, } 2 x - 5 = 0 \]
+    \[ \text{or, } x = -\frac{13}{2} \text{ or, } x = \frac{5}{2} \]
+    $x = -\frac{13}{2}$ or $x = \frac{5}{2}$ both values of $x$ satisfy the equation.
+    $\therefore x = -\frac{13}{2}, \frac{5}{2}$
+\end{enumerate}
+
+\end{document}

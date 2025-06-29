@@ -1,0 +1,288 @@
+% Setting up the document class and necessary packages
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{titletoc}
+
+% Configuring page geometry
+\geometry{margin=1in}
+
+% Setting up font encoding
+\usepackage[T1]{fontenc}
+\usepackage{times}
+
+% Customizing section headings
+\title{Chapter 9: Trigonometric Ratio}
+\author{}
+\date{}
+
+% Beginning the document
+\begin{document}
+
+% Creating the title
+\maketitle
+
+% Starting the content
+\section*{Introduction to Trigonometric Ratios}
+
+Right-angled triangles are prevalent in daily life, from measuring river widths to determining tree heights using shadows. These applications rely on trigonometry, a branch of mathematics derived from Greek words 'tri' (three), 'gon' (edge), and 'metron' (measure), focusing on relationships between triangle sides and angles. Historically used in Egyptian and Babylonian civilizations for land surveys and astronomy, trigonometry now supports fields like navigation, astronomy, and calculus.
+
+At the end of the chapter, students will be able to:
+\begin{itemize}
+    \item Describe trigonometric ratios of acute angles.
+    \item Determine mutual relations among trigonometric ratios of acute angles.
+    \item Solve and prove problems using trigonometric ratios of acute angles.
+    \item Geometrically determine and apply trigonometric ratios for $30^\circ$, $45^\circ$, $60^\circ$.
+    \item Determine and apply trigonometric ratios for $0^\circ$ and $90^\circ$.
+    \item Prove trigonometric identities.
+    \item Apply trigonometric identities.
+\end{itemize}
+
+\part{Naming of Sides of a Right-Angled Triangle}
+% Defining the section for Naming of Sides of a Right-Angled Triangle
+\section*{Naming of Sides of a Right-Angled Triangle}
+
+In a right-angled triangle, sides are named hypotenuse (opposite the right angle), opposite side (opposite a given acute angle), and adjacent side (forming the angle with the hypotenuse). For $\angle PON$ in $\triangle PON$, with right angle at $N$: $OP$ is the hypotenuse, $ON$ is adjacent, $PN$ is opposite. For $\angle OPN$, $OP$ is the hypotenuse, $PN$ is adjacent, $ON$ is opposite. Vertices use capital letters, sides use lowercase, and angles often use Greek letters: $\alpha$, $\beta$, $\gamma$, $\theta$, $\phi$, $\omega$.
+
+Image description: A figure shows right-angled $\triangle PON$ with right angle at $N$, $\angle PON$ at $O$, and $\angle OPN$ at $P$, labeling $OP$ as hypotenuse, $ON$ and $PN$ as adjacent or opposite depending on the angle.
+
+\textbf{Example 1.} Indicate the hypotenuse, adjacent side, and opposite side for angle $\theta$ in the given triangles.
+
+Solution:
+\begin{enumerate}
+    \item[(a)] Hypotenuse: 17 units, opposite: 8 units, adjacent: 15 units.
+    \item[(b)] Hypotenuse: $p$, opposite: $r$, adjacent: $q$.
+    \item[(c)] Hypotenuse: $EF$, opposite: $EG$, adjacent: $FG$.
+\end{enumerate}
+
+Image description: Three figures show right-angled triangles: (a) with sides 8, 15, 17 units, (b) with sides $p, q, r$, (c) with sides $EF, EG, FG$, each labeling $\theta$ and corresponding hypotenuse, opposite, and adjacent sides.
+
+\textbf{Example 2.} Find the lengths of the hypotenuse, adjacent, and opposite sides for angles $\alpha$ and $\beta$.
+
+Solution:
+\begin{enumerate}
+    \item For $\alpha$: Hypotenuse: 25 units, adjacent: 7 units, opposite: 24 units.
+    \item For $\beta$: Hypotenuse: 25 units, adjacent: 24 units, opposite: 7 units.
+\end{enumerate}
+
+Image description: A figure shows a right-angled triangle with hypotenuse 25 units, one side 7 units, another 24 units, labeling angles $\alpha$ and $\beta$ with their respective hypotenuse, adjacent, and opposite sides.
+
+\part{Trigonometric Ratios of an Acute Angle}
+% Defining the section for Constancy of Ratios in Similar Right-Angled Triangles
+\section*{Constancy of Ratios in Similar Right-Angled Triangles}
+
+For an acute angle $\angle XOA$, take point $P$ on $OA$, draw $PM \perp OX$, forming right-angled $\triangle POM$. The ratios of sides $PM$, $OM$, $OP$ are constant, independent of $P$’s position. Drawing $P_1M_1 \perp OX$ from another point $P_1$ forms similar $\triangle POM \sim \triangle P_1OM_1$, yielding constant ratios: $\frac{PM}{OP} = \frac{P_1M_1}{OP_1}$, $\frac{OM}{OP} = \frac{OM_1}{OP_1}$, $\frac{PM}{OM} = \frac{P_1M_1}{OM_1}$. These are trigonometric ratios.
+
+Image description: A figure shows angle $\angle XOA$, ray $OA$ with points $P, P_1$, perpendiculars $PM \perp OX$, $P_1M_1 \perp OX$, forming similar right-angled triangles $POM$ and $P_1OM_1$, with sides labeled.
+
+% Defining the section for Trigonometric Ratios of an Acute Angle
+\section*{Trigonometric Ratios of an Acute Angle}
+
+For acute $\angle XOA = \theta$, take point $P$ on $OA$, draw $PM \perp OX$, forming right-angled $\triangle POM$. With respect to $\theta$, $PM$ is opposite, $OM$ is adjacent, $OP$ is hypotenuse. The six trigonometric ratios are:
+\[
+\sin \theta = \frac{PM}{OP} = \frac{\text{opposite}}{\text{hypotenuse}}, \quad \cos \theta = \frac{OM}{OP} = \frac{\text{adjacent}}{\text{hypotenuse}}, \quad \tan \theta = \frac{PM}{OM} = \frac{\text{opposite}}{\text{adjacent}}
+\]
+\[
+\operatorname{cosec} \theta = \frac{1}{\sin \theta}, \quad \sec \theta = \frac{1}{\cos \theta}, \quad \cot \theta = \frac{1}{\tan \theta}
+\]
+
+Image description: A figure shows acute angle $\angle XOA = \theta$, point $P$ on $OA$, perpendicular $PM \perp OX$, forming $\triangle POM$ with $PM$ opposite, $OM$ adjacent, $OP$ hypotenuse for $\theta$.
+
+% Defining the section for Relation Among Trigonometric Ratios
+\section*{Relation Among Trigonometric Ratios}
+
+For acute $\angle XOA = \theta$, in $\triangle POM$:
+\[
+\sin \theta = \frac{PM}{OP}, \quad \operatorname{cosec} \theta = \frac{OP}{PM}, \quad \cos \theta = \frac{OM}{OP}, \quad \sec \theta = \frac{OP}{OM}, \quad \tan \theta = \frac{PM}{OM}, \quad \cot \theta = \frac{OM}{PM}
+\]
+\[
+\tan \theta = \frac{\sin \theta}{\cos \theta}, \quad \cot \theta = \frac{\cos \theta}{\sin \theta}
+\]
+
+Image description: A figure shows $\triangle POM$ with acute $\angle XOA = \theta$, labeling $PM, OM, OP$ and illustrating trigonometric ratios.
+
+% Defining the section for Trigonometric Identities
+\section*{Trigonometric Identities}
+
+For $\triangle POM$ with $\angle XOA = \theta$:
+\begin{enumerate}
+    \item[(i)] $\sin^2 \theta + \cos^2 \theta = \left(\frac{PM}{OP}\right)^2 + \left(\frac{OM}{OP}\right)^2 = \frac{PM^2 + OM^2}{OP^2} = \frac{OP^2}{OP^2} = 1$ (by Pythagoras).
+    \item[(ii)] $\sec^2 \theta = \left(\frac{OP}{OM}\right)^2 = \frac{OP^2}{OM^2} = \frac{OM^2 + PM^2}{OM^2} = 1 + \tan^2 \theta$.
+    \item[(iii)] $\operatorname{cosec}^2 \theta = \left(\frac{OP}{PM}\right)^2 = \frac{OP^2}{PM^2} = \frac{PM^2 + OM^2}{PM^2} = 1 + \cot^2 \theta$.
+\end{enumerate}
+
+Image description: A figure shows $\triangle POM$ with $\angle XOA = \theta$, used to derive trigonometric identities using sides $PM, OM, OP$.
+
+\textbf{Example 3.} If $\tan A = \frac{4}{3}$, find the other trigonometric ratios of angle $A$.
+
+Solution: Given $\tan A = \frac{4}{3}$, opposite = 4, adjacent = 3, hypotenuse = $\sqrt{4^2 + 3^2} = 5$. Thus:
+\[
+\sin A = \frac{4}{5}, \quad \cos A = \frac{3}{5}, \quad \cot A = \frac{3}{4}, \quad \operatorname{cosec} A = \frac{5}{4}, \quad \sec A = \frac{5}{3}
+\]
+
+\textbf{Example 4.} In right-angled $\triangle ABC$ with $\angle B = 90^\circ$, if $\tan A = 1$, verify $2 \sin A \cos A = 1$.
+
+Solution: Given $\tan A = 1$, opposite = adjacent = $a$, hypotenuse = $\sqrt{a^2 + a^2} = a\sqrt{2}$. Thus:
+\[
+\sin A = \frac{a}{a\sqrt{2}} = \frac{1}{\sqrt{2}}, \quad \cos A = \frac{a}{a\sqrt{2}} = \frac{1}{\sqrt{2}}
+\]
+\[
+2 \sin A \cos A = 2 \cdot \frac{1}{\sqrt{2}} \cdot \frac{1}{\sqrt{2}} = 1
+\]
+Verified.
+
+\textbf{Example 5.} Prove $\tan \theta + \cot \theta = \sec \theta \cdot \operatorname{cosec} \theta$.
+
+Solution:
+\[
+\text{L.H.S.} = \tan \theta + \cot \theta = \frac{\sin \theta}{\cos \theta} + \frac{\cos \theta}{\sin \theta} = \frac{\sin^2 \theta + \cos^2 \theta}{\sin \theta \cos \theta} = \frac{1}{\sin \theta \cos \theta} = \frac{1}{\sin \theta} \cdot \frac{1}{\cos \theta} = \sec \theta \cdot \operatorname{cosec} \theta = \text{R.H.S.}
+\]
+
+\textbf{Example 6.} Prove $\sec^2 \theta + \operatorname{cosec}^2 \theta = \sec^2 \theta \cdot \operatorname{cosec}^2 \theta$.
+
+Solution:
+\[
+\text{L.H.S.} = \sec^2 \theta + \operatorname{cosec}^2 \theta = \frac{1}{\cos^2 \theta} + \frac{1}{\sin^2 \theta} = \frac{\sin^2 \theta + \cos^2 \theta}{\sin^2 \theta \cos^2 \theta} = \frac{1}{\sin^2 \theta \cos^2 \theta} = \sec^2 \theta \cdot \operatorname{cosec}^2 \theta = \text{R.H.S.}
+\]
+
+\textbf{Example 7.} Prove $\frac{1}{1 + \sin^2 \theta} + \frac{1}{1 + \operatorname{cosec}^2 \theta} = 1$.
+
+Solution:
+\[
+\text{L.H.S.} = \frac{1}{1 + \sin^2 \theta} + \frac{1}{1 + \frac{1}{\sin^2 \theta}} = \frac{1}{1 + \sin^2 \theta} + \frac{\sin^2 \theta}{1 + \sin^2 \theta} = \frac{1 + \sin^2 \theta}{1 + \sin^2 \theta} = 1 = \text{R.H.S.}
+\]
+
+\textbf{Example 8.} Prove $\frac{1}{2 - \sin^2 \theta} + \frac{1}{2 + \tan^2 \theta} = 1$.
+
+Solution:
+\[
+\text{L.H.S.} = \frac{1}{2 - \sin^2 \theta} + \frac{1}{2 + \frac{\sin^2 \theta}{\cos^2 \theta}} = \frac{1}{2 - \sin^2 \theta} + \frac{\cos^2 \theta}{2 \cos^2 \theta + \sin^2 \theta} = \frac{1}{2 - \sin^2 \theta} + \frac{\cos^2 \theta}{2 - \sin^2 \theta} = \frac{1 + \cos^2 \theta}{2 - \sin^2 \theta} = 1 = \text{R.H.S.}
+\]
+
+\textbf{Example 9.} Prove $\frac{\tan A}{\sec A + 1} - \frac{\sec A - 1}{\tan A} = 0$.
+
+Solution:
+\[
+\text{L.H.S.} = \frac{\tan A}{\sec A + 1} - \frac{\sec A - 1}{\tan A} = \frac{\tan^2 A - (\sec^2 A - 1)}{(\sec A + 1) \tan A} = \frac{\tan^2 A - \tan^2 A}{(\sec A + 1) \tan A} = 0 = \text{R.H.S.}
+\]
+
+\textbf{Example 10.} Prove $\sqrt{\frac{1 - \sin A}{1 + \sin A}} = \sec A - \tan A$.
+
+Solution:
+\[
+\text{L.H.S.} = \sqrt{\frac{1 - \sin A}{1 + \sin A}} \cdot \sqrt{\frac{1 - \sin A}{1 - \sin A}} = \sqrt{\frac{(1 - \sin A)^2}{\cos^2 A}} = \frac{1 - \sin A}{\cos A} = \sec A - \tan A = \text{R.H.S.}
+\]
+
+\textbf{Example 11.} If $\tan A + \sin A = a$, $\tan A - \sin A = b$, prove $a^2 - b^2 = 4 \sqrt{ab}$.
+
+Solution:
+\[
+\text{L.H.S.} = a^2 - b^2 = (\tan A + \sin A)^2 - (\tan A - \sin A)^2 = 4 \tan A \sin A = 4 \sqrt{\tan^2 A \sin^2 A} = 4 \sqrt{(\tan A + \sin A)(\tan A - \sin A)} = 4 \sqrt{ab} = \text{R.H.S.}
+\]
+
+\textbf{Example 12.} If $\sec A + \tan A = \frac{5}{2}$, find $\sec A - \tan A$.
+
+Solution: Since $\sec^2 A - \tan^2 A = 1$, $(\sec A + \tan A)(\sec A - \tan A) = 1$. Given $\sec A + \tan A = \frac{5}{2}$, $\sec A - \tan A = \frac{1}{\frac{5}{2}} = \frac{2}{5}$.
+
+\part{Trigonometric Ratios for Angles 30°, 45°, 60°}
+% Defining the section for Trigonometric Ratios for Angles 30°, 45°, 60°
+\section*{Trigonometric Ratios for Angles $30^\circ$, $45^\circ$, $60^\circ$}
+
+\subsection*{Trigonometric Ratios for $30^\circ$ and $60^\circ$}
+
+For $\angle XOZ = 30^\circ$, point $P$ on $OZ$, draw $PM \perp OX$, extend to $Q$ with $MQ = PM$, join $OQ$. In $\triangle POM \cong \triangle QOM$ (SAS), $\angle QOM = \angle POM = 30^\circ$, $\angle OQM = \angle OPM = 60^\circ$. Thus, $\angle POQ = 60^\circ$, making $\triangle OPQ$ equilateral. If $OP = 2a$, $PM = a$, $OM = \sqrt{4a^2 - a^2} = \sqrt{3}a$. Ratios:
+\[
+\sin 30^\circ = \frac{a}{2a} = \frac{1}{2}, \quad \cos 30^\circ = \frac{\sqrt{3}a}{2a} = \frac{\sqrt{3}}{2}, \quad \tan 30^\circ = \frac{a}{\sqrt{3}a} = \frac{1}{\sqrt{3}}
+\]
+\[
+\operatorname{cosec} 30^\circ = 2, \quad \sec 30^\circ = \frac{2}{\sqrt{3}}, \quad \cot 30^\circ = \sqrt{3}
+\]
+\[
+\sin 60^\circ = \frac{\sqrt{3}a}{2a} = \frac{\sqrt{3}}{2}, \quad \cos 60^\circ = \frac{a}{2a} = \frac{1}{2}, \quad \tan 60^\circ = \sqrt{3}
+\]
+\[
+\operatorname{cosec} 60^\circ = \frac{2}{\sqrt{3}}, \quad \sec 60^\circ = 2, \quad \cot 60^\circ = \frac{1}{\sqrt{3}}
+\]
+
+Image description: A figure shows $\angle XOZ = 30^\circ$, point $P$ on $OZ$, $PM \perp OX$ extended to $Q$, equilateral $\triangle OPQ$, and right-angled $\triangle POM$ with sides labeled for calculating ratios.
+
+\subsection*{Trigonometric Ratios for $45^\circ$}
+
+For $\angle XOZ = 45^\circ$, point $P$ on $OZ$, $PM \perp OX$. In $\triangle OPM$, $\angle POM = 45^\circ$, so $\angle OPM = 45^\circ$, $PM = OM = a$, $OP = \sqrt{a^2 + a^2} = a\sqrt{2}$. Ratios:
+\[
+\sin 45^\circ = \cos 45^\circ = \frac{a}{a\sqrt{2}} = \frac{1}{\sqrt{2}}, \quad \tan 45^\circ = \frac{a}{a} = 1
+\]
+\[
+\operatorname{cosec} 45^\circ = \sec 45^\circ = \sqrt{2}, \quad \cot 45^\circ = 1
+\]
+
+Image description: A figure shows $\angle XOZ = 45^\circ$, point $P$ on $OZ$, $PM \perp OX$, isosceles right-angled $\triangle OPM$ with $PM = OM$, and hypotenuse $OP$.
+
+\part{Trigonometric Ratios of Complementary Angles}
+% Defining the section for Trigonometric Ratios of Complementary Angles
+\section*{Trigonometric Ratios of Complementary Angles}
+
+For complementary angles $\theta$ and $90^\circ - \theta$ in $\triangle POM$ with $\angle POM = \theta$, $\angle OPM = 90^\circ - \theta$:
+\[
+\sin (90^\circ - \theta) = \cos \theta, \quad \cos (90^\circ - \theta) = \sin \theta, \quad \tan (90^\circ - \theta) = \cot \theta
+\]
+\[
+\cot (90^\circ - \theta) = \tan \theta, \quad \sec (90^\circ - \theta) = \operatorname{cosec} \theta, \quad \operatorname{cosec} (90^\circ - \theta) = \sec \theta
+\]
+
+Image description: A figure shows $\triangle POM$ with $\angle POM = \theta$, $\angle OPM = 90^\circ - \theta$, right angle at $M$, illustrating complementary angle ratios.
+
+\part{Trigonometric Ratios of Angles 0° and 90°}
+% Defining the section for Trigonometric Ratios of Angles 0° and 90°
+\section*{Trigonometric Ratios of Angles $0^\circ$ and $90^\circ$}
+
+As $\theta \to 0^\circ$ in $\triangle PON$, $PN \to 0$, $OP \approx ON$, so $\sin 0^\circ \approx 0$, $\cos 0^\circ \approx 1$. Define:
+\[
+\sin 0^\circ = 0, \quad \cos 0^\circ = 1, \quad \tan 0^\circ = 0, \quad \sec 0^\circ = 1
+\]
+$\operatorname{cosec} 0^\circ$, $\cot 0^\circ$ are undefined. As $\theta \to 90^\circ$, $OP \approx PN$, $ON \to 0$, so $\sin 90^\circ \approx 1$, $\cos 90^\circ \approx 0$. Define:
+\[
+\sin 90^\circ = 1, \quad \cos 90^\circ = 0, \quad \cot 90^\circ = 0, \quad \operatorname{cosec} 90^\circ = 1
+\]
+$\tan 90^\circ$, $\sec 90^\circ$ are undefined.
+
+Image description: A figure shows $\triangle PON$ with $\angle PON = \theta$, illustrating as $\theta \to 0^\circ$ ($PN \to 0$, $OP \approx ON$) and $\theta \to 90^\circ$ ($OP \approx PN$, $ON \to 0$).
+
+\textbf{Example 13.} Find the values:
+\begin{enumerate}
+    \item $\frac{1 - \sin^2 45^\circ}{1 + \sin^2 45^\circ} + \tan^2 45^\circ$
+    \item $\cot 90^\circ \cdot \tan 0^\circ \cdot \sec 30^\circ \cdot \operatorname{cosec} 60^\circ$
+    \item $\sin 60^\circ \cos 30^\circ + \cos 60^\circ \sin 30^\circ$
+    \item $\frac{1 - \tan^2 60^\circ}{1 + \tan^2 60^\circ} + \sin^2 60^\circ$
+\end{enumerate}
+
+Solution:
+\begin{enumerate}
+    \item $\frac{1 - \left(\frac{1}{\sqrt{2}}\right)^2}{1 + \left(\frac{1}{\sqrt{2}}\right)^2} + 1^2 = \frac{1 - \frac{1}{2}}{1 + \frac{1}{2}} + 1 = \frac{\frac{1}{2}}{\frac{3}{2}} + 1 = \frac{1}{3} + 1 = \frac{4}{3}$
+    \item $0 \cdot 0 \cdot \frac{2}{\sqrt{3}} \cdot \frac{2}{\sqrt{3}} = 0$
+    \item $\frac{\sqrt{3}}{2} \cdot \frac{\sqrt{3}}{2} + \frac{1}{2} \cdot \frac{1}{2} = \frac{3}{4} + \frac{1}{4} = 1$
+    \item $\frac{1 - (\sqrt{3})^2}{1 + (\sqrt{3})^2} + \left(\frac{\sqrt{3}}{2}\right)^2 = \frac{1 - 3}{1 + 3} + \frac{3}{4} = -\frac{1}{2} + \frac{3}{4} = \frac{1}{4}$
+\end{enumerate}
+
+\textbf{Example 14.} Solve:
+\begin{enumerate}
+    \item If $\sqrt{2} \cos (A - B) = 1$, $2 \sin (A + B) = \sqrt{3}$, $A, B$ acute, find $A, B$.
+    \item If $\frac{\cos A - \sin A}{\cos A + \sin A} = \frac{1 - \sqrt{3}}{1 + \sqrt{3}}$, find $A$.
+    \item If $A = 45^\circ$, prove $\cos 2A = \frac{1 - \tan^2 A}{1 + \tan^2 A}$.
+    \item Solve $2 \cos^2 \theta + 3 \sin \theta - 3 = 0$, $\theta$ acute.
+\end{enumerate}
+
+Solution:
+\begin{enumerate}
+    \item $\cos (A - B) = \frac{1}{\sqrt{2}} = \cos 45^\circ$, so $A - B = 45^\circ$. $\sin (A + B) = \frac{\sqrt{3}}{2} = \sin 60^\circ$, so $A + B = 60^\circ$. Solving: $A = 52.5^\circ$, $B = 7.5^\circ$.
+    \item $\frac{\cos A - \sin A}{\cos A + \sin A} = \frac{1 - \sqrt{3}}{1 + \sqrt{3}}$. Cross-multiplying gives $\cot A = \frac{1}{\sqrt{3}} = \cot 60^\circ$, so $A = 60^\circ$.
+    \item $\cos 2 \cdot 45^\circ = \cos 90^\circ = 0$. R.H.S. = $\frac{1 - \tan^2 45^\circ}{1 + \tan^2 45^\circ} = \frac{1 - 1}{1 + 1} = 0$. Proved.
+    \item $2(1 - \sin^2 \theta) + 3 \sin \theta - 3 = 0$. Factorize: $(1 - \sin \theta)(2 \sin \theta - 1) = 0$. Since $\theta$ is acute, $\sin \theta = \frac{1}{2}$, so $\theta = 30^\circ$.
+\end{enumerate}
+
+% Ending the document
+\end{document}

@@ -1,0 +1,622 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{parskip}
+\geometry{a4paper, margin=1in}
+
+% Setting up Bangla support with polyglossia
+\usepackage{polyglossia}
+\setmainlanguage{bengali}
+\setotherlanguage{english}
+\newfontfamily\bengalifont[Script=Bengali]{Noto Serif Bengali}
+
+% Setting up fonts for compatibility
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\begin{document}
+
+% Defining the title
+\title{অধ্যায় ১১: বীজগাণিতিক অনুপাত ও সমানুপাত}
+\author{}
+\date{}
+\maketitle
+
+% Defining the introduction
+\section*{ভূমিকা}
+অনুপাত ও সমানুপাতের ধারণা থাকা আমাদের জন্য খুবই গুরুত্বপূর্ণ। সপ্তম শ্রেণিতে পাটিগণিতীয় অনুপাত ও সমানুপাত বিশদভাবে আলোচনা করা হয়েছে। এ অধ্যায়ে আমরা বীজগণিতীয় অনুপাত ও সমানুপাত সম্পর্কে আলোচনা করবো। আমরা প্রতিনিয়তই নির্মাণ সামগ্রী ও বিভিন্ন প্রকার খাদ্য সামগ্রী তৈরিতে, ভোগ্যপণ্য উৎপাদনে, জমিতে সার প্রয়োগে, কোনো কিছুর আকার-আয়তন দৃষ্টিনন্দন করতে এবং দৈনন্দিন কার্যক্রমের আরও অনেক ক্ষেত্রে অনুপাত ও সমানুপাতের ধারণা প্রয়োগ করে থাকি। এটি ব্যবহার করে দৈনন্দিন জীবনে অনেক সমস্যার সমাধান করা যায়।
+
+এ অধ্যায় শেষে শিক্ষার্থীরা:
+\begin{itemize}
+    \item বীজগণিতীয় অনুপাত ও সমানুপাত ব্যাখ্যা করতে পারবে।
+    \item সমানুপাত সংক্রান্ত বিভিন্ন রূপান্তর বিধি প্রয়োগ করতে পারবে।
+    \item ধারাবাহিক অনুপাত বর্ণনা করতে পারবে।
+    \item বাস্তব সমস্যা সমাধানে অনুপাত, সমানুপাত ও ধারাবাহিক অনুপাত ব্যবহার করতে পারবে।
+\end{itemize}
+
+\part{অনুপাত ও সমানুপাত}
+\section*{অনুপাত ও সমানুপাত}
+
+\subsection*{অনুপাত}
+একই এককে সমজাতীয় দুইটি রাশির পরিমাণের একটি অপরটির কত গুণ বা কত অংশ তা একটি ভগ্নাংশ দ্বারা প্রকাশ করা যায়। এই ভগ্নাংশটিকে রাশি দুইটির অনুপাত বলে।
+
+দুইটি রাশি $p$ ও $q$ এর অনুপাতকে $p : q = \frac{p}{q}$ লেখা হয়। $p$ ও $q$ রাশি দুইটি সমজাতীয় ও একই এককে প্রকাশিত হতে হবে। অনুপাতে $p$ কে পূর্ব রাশি এবং $q$ কে উত্তর রাশি বলা হয়।
+
+অনেক সময় আনুমানিক পরিমাপ করতেও আমরা অনুপাত ব্যবহার করি। যেমন, সকাল ৮টায় রাস্তায় যে সংখ্যক গাড়ি থাকে, ১০টায় তার দ্বিগুণ গাড়ি থাকে। এ ক্ষেত্রে অনুপাত নির্ণয়ে গাড়ির প্রকৃত সংখ্যা জানার প্রয়োজন হয় না। আবার অনেক সময় আমরা বলে থাকি, তোমার ঘরের আয়তন আমার ঘরের আয়তনের তিনগুণ হবে। এখানে�ও ঘরের সঠিক আয়তন জানার প্রয়োজন হয় না। বাস্তব জীবনে এরকম অনেক ক্ষেত্রে আমরা অনুপাতের ধারণা ব্যবহার করে থাকি।
+
+\subsection*{সমানুপাত}
+যদি চারটি রাশি এরূপ হয় যে, প্রথম ও দ্বিতীয় রাশির অনুপাত তৃতীয় ও চতুর্থ রাশির অনুপাতের সমান হয়, তবে এ চারটি রাশি নিয়ে একটি সমানুপাত উৎপন্ন হয়। $a, b, c, d$ এরূপ চারটি রাশি হলে আমরা লিখি $a : b = c : d$। সমানুপাতের চারটি রাশিই একজাতীয় হওয়ার প্রয়োজন হয় না। প্রত্যেক অনুপাতের রাশি দুইটি এক জাতীয় হলেই চলে।
+
+Image description: উপরের চিত্রে, দুইটি ত্রিভুজের ভূমি যথাক্রমে $a$ ও $b$ এবং এদের প্রত্যেকের উচ্চতা $h$ একক। ত্রিভুজদ্বয়ের ক্ষেত্রফল $A$ ও $B$ বর্গএকক।
+
+উপরের চিত্রে, দুইটি ত্রিভুজের ভূমি যথাক্রমে $a$ ও $b$ এবং এদের প্রত্যেকের উচ্চতা $h$ একক। ত্রিভুজদ্বয়ের ক্ষেত্রফল $A$ ও $B$ বর্গএকক হলে আমরা লিখতে পারি
+\[
+\frac{A}{B} = \frac{\frac{1}{2} a h}{\frac{1}{2} b h} = \frac{a}{b} \quad \text{বা} \quad A : B = a : b
+\]
+অর্থাৎ, ক্ষেত্রফলদ্বয়ের অনুপাত ভূমিদ্বয়ের অনুপাতের সমান।
+
+\part{ক্রমিক সমানুপাত}
+\section*{ক্রমিক সমানুপাত}
+
+$a, b, c$ ক্রমিক সমানুপাতী বলতে বোঝায় $a : b = b : c$। $a, b, c$ ক্রমিক সমানুপাতী হবে যদি এবং কেবল যদি $b^2 = a c$ হয়। ক্রমিক সমানুপাতের ক্ষেত্রে সবগুলো রাশি এক জাতীয় হতে হবে। এক্ষেত্রে $c$ কে $a$ ও $b$ এর তৃতীয় সমানুপাতী এবং $b$ কে $a$ ও $c$ এর মধ্যসমানুপাতী বলা হয়।
+
+\subsection*{উদাহরণ ১}
+$A$ ও $B$ নির্দিষ্ট পথ অতিক্রম করে যথাক্রমে $t_1$ এবং $t_2$ মিনিটে। $A$ ও $B$ এর গড় গতিবেগের অনুপাত নির্ণয় কর।
+
+সমাধান:  
+মনে করি, $A$ ও $B$ এর গড় গতিবেগ প্রতি মিনিটে যথাক্রমে $v_1$ মিটার ও $v_2$ মিটার। তাহলে, $t_1$ মিনিটে $A$ অতিক্রম করে $v_1 t_1$ মিটার এবং $t_2$ মিনিটে $B$ অতিক্রম করে $v_2 t_2$ মিটার। প্রশ্নানুসারে,
+\[
+v_1 t_1 = v_2 t_2
+\]
+\[
+\therefore \frac{v_1}{v_2} = \frac{t_2}{t_1}
+\]
+এখানে গতিবেগের অনুপাত সময়ের অনুপাতের ব্যস্তানুপাতী।
+
+Image description: চিত্রে $A$ ও $B$ এর নির্দিষ্ট পথ অতিক্রমের সময় এবং গতিবেগ নির্দেশ করে।
+
+\part{অনুপাতের রূপান্তর}
+\section*{অনুপাতের রূপান্তর}
+
+এখানে অনুপাতের রাশিগুলো ধনাত্মক সংখ্যা।
+\begin{enumerate}
+    \item যদি $a : b = c : d$ হলে, $b : a = d : c$ [ব্যস্তকরণ (Invertendo)]  
+    প্রমাণ: দেওয়া আছে,
+    \[
+    \frac{a}{b} = \frac{c}{d}
+    \]
+    \[
+    a d = b c \quad [\text{উভয় পক্ষকে $b d$ দ্বারা গুণ করে}]
+    \]
+    \[
+    \frac{a d}{a c} = \frac{b c}{a c} \quad [\text{উভয় পক্ষকে $a c$ দ্বারা ভাগ করে, যেখানে $a, c$ এর কোনটিই শূন্য নয়}]
+    \]
+    \[
+    \frac{d}{c} = \frac{b}{a}
+    \]
+    অর্থাৎ, $b : a = d : c$।
+    \item যদি $a : b = c : d$ হলে, $a : c = b : d$ [একান্তরকরণ (Alternendo)]  
+    প্রমাণ: দেওয়া আছে,
+    \[
+    \frac{a}{b} = \frac{c}{d}
+    \]
+    \[
+    a d = b c \quad [\text{উভয় পক্ষকে $b d$ দ্বারা গুণ করে}]
+    \]
+    \[
+    \frac{a d}{c d} = \frac{b c}{c d} \quad [\text{উভয় পক্ষকে $c d$ দ্বারা ভাগ করে, যেখানে $c, d$ এর কোনটিই শূন্য নয়}]
+    \]
+    \[
+    \frac{a}{c} = \frac{b}{d}
+    \]
+    অর্থাৎ, $a : c = b : d$।
+    \item যদি $a : b = c : d$ হলে, $\frac{a + b}{b} = \frac{c + d}{d}$ [যোজন (Componendo)]  
+    প্রমাণ: দেওয়া আছে,
+    \[
+    \frac{a}{b} = \frac{c}{d}
+    \]
+    \[
+    \frac{a}{b} + 1 = \frac{c}{d} + 1 \quad [\text{উভয় পক্ষে ১ যোগ করে}]
+    \]
+    \[
+    \frac{a + b}{b} = \frac{c + d}{d}
+    \]
+    \item যদি $a : b = c : d$ হলে, $\frac{a - b}{b} = \frac{c - d}{d}$ [বিয়োজন (Dividendo)]  
+    প্রমাণ: দেওয়া আছে,
+    \[
+    \frac{a}{b} = \frac{c}{d}
+    \]
+    \[
+    \frac{a}{b} - 1 = \frac{c}{d} - 1 \quad [\text{উভয় পক্ষ থেকে ১ বিয়োগ করে}]
+    \]
+    \[
+    \frac{a - b}{b} = \frac{c - d}{d}
+    \]
+    \item যদি $a : b = c : d$ হলে, $\frac{a + b}{a - b} = \frac{c + d}{c - d}$ [যোজন-বিয়োজন (Componendo-Dividendo)]  
+    প্রমাণ: দেওয়া আছে, $a : b = c : d$ বা,
+    \[
+    \frac{a}{b} = \frac{c}{d}
+    \]
+    যোজন করে,
+    \[
+    \frac{a + b}{b} = \frac{c + d}{d} \quad (1)
+    \]
+    বিয়োজন করে,
+    \[
+    \frac{a - b}{b} = \frac{c - d}{d}
+    \]
+    \[
+    \frac{b}{a - b} = \frac{d}{c - d} \quad [\text{ব্যস্তকরণ করে}] \quad (2)
+    \]
+    (১) ও (২) গুণ করে,
+    \[
+    \frac{a + b}{b} \times \frac{b}{a - b} = \frac{c + d}{d} \times \frac{d}{c - d}
+    \]
+    \[
+    \frac{a + b}{a - b} = \frac{c + d}{c - d} \quad [\text{যেখানে $a \neq b$, $c \neq d$}]
+    \]
+    \item যদি $\frac{a}{b} = \frac{c}{d} = \frac{e}{f} = \frac{g}{h}$ হয়, তবে প্রতিটি অনুপাতের মান,
+    \[
+    \frac{a + c + e + g}{b + d + f + h}
+    \]
+    প্রমাণ: মনে করি,
+    \[
+    \frac{a}{b} = \frac{c}{d} = \frac{e}{f} = \frac{g}{h} = k
+    \]
+    \[
+    \therefore a = b k, \quad c = d k, \quad e = f k, \quad g = h k
+    \]
+    \[
+    \frac{a + c + e + g}{b + d + f + h} = \frac{b k + d k + f k + h k}{b + d + f + h} = \frac{k (b + d + f + h)}{b + d + f + h} = k
+    \]
+    কিন্তু $k$ প্রদত্ত সমানুপাতের প্রত্যেকটি অনুপাতের সমান।  
+    \[
+    \therefore \frac{a}{b} = \frac{c}{d} = \frac{e}{f} = \frac{g}{h} = \frac{a + c + e + g}{b + d + f + h}
+    \]
+\end{enumerate}
+
+\subsection*{উদাহরণ ২}
+পিতা ও পুত্রের বর্তমান বয়সের অনুপাত $7 : 2$ এবং ৫ বছর পরে তাদের বয়সের অনুপাত $8 : 3$ হবে। তাদের বর্তমান বয়স কত?
+
+সমাধান:  
+মনে করি, পিতার বর্তমান বয়স $a$ বছর এবং পুত্রের বর্তমান বয়স $b$ বছর। প্রশ্নের প্রথম ও দ্বিতীয় শর্তানুসারে যথাক্রমে পাই,
+\[
+\frac{a}{b} = \frac{7}{2} \quad (1)
+\]
+\[
+\frac{a + 5}{b + 5} = \frac{8}{3} \quad (2)
+\]
+সমীকরণ (১) থেকে পাই,
+\[
+a = \frac{7b}{2} \quad (3)
+\]
+সমীকরণ (২) থেকে পাই,
+\[
+3 (a + 5) = 8 (b + 5)
+\]
+\[
+3a + 15 = 8b + 40
+\]
+\[
+3a - 8b = 40 - 15
+\]
+\[
+3a - 8b = 25 \quad (4)
+\]
+(৩) ব্যবহার করে (৪) এ প্রতিস্থাপন করি,
+\[
+3 \times \frac{7b}{2} - 8b = 25
+\]
+\[
+\frac{21b - 16b}{2} = 25
+\]
+\[
+5b = 50
+\]
+\[
+\therefore b = 10
+\]
+সমীকরণ (৩) এ $b = 10$ বসিয়ে পাই,
+\[
+a = \frac{7 \times 10}{2} = 35
+\]
+সুতরাং, পিতার বর্তমান বয়স ৩৫ বছর এবং পুত্রের বর্তমান বয়স ১০ বছর।
+
+\subsection*{উদাহরণ ৩}
+যদি $a : b = b : c$ হয়, তবে প্রমাণ কর যে,
+\[
+\left( \frac{a + b}{b + c} \right)^2 = \frac{a^2 + b^2}{b^2 + c^2}
+\]
+
+সমাধান:  
+দেওয়া আছে, $a : b = b : c$।  
+\[
+\therefore b^2 = a c
+\]
+এখন,
+\[
+\left( \frac{a + b}{b + c} \right)^2 = \frac{(a + b)^2}{(b + c)^2} = \frac{a^2 + 2ab + b^2}{b^2 + 2bc + c^2}
+\]
+\[
+= \frac{a^2 + 2ab + a c}{a c + 2bc + c^2} \quad [\because b^2 = a c]
+\]
+\[
+= \frac{a (a + 2b + c)}{c (a + 2b + c)} = \frac{a}{c}
+\]
+আবার,
+\[
+\frac{a^2 + b^2}{b^2 + c^2} = \frac{a^2 + a c}{a c + c^2} = \frac{a (a + c)}{c (a + c)} = \frac{a}{c}
+\]
+সুতরাং,
+\[
+\left( \frac{a + b}{b + c} \right)^2 = \frac{a^2 + b^2}{b^2 + c^2}
+\]
+
+\subsection*{উদাহরণ ৪}
+দেখাও যে,
+\[
+\frac{a^2 + b^2}{a^2 - b^2} = \frac{a c + b d}{a c - b d}
+\]
+যদি, $\frac{a}{b} = \frac{c}{d}$ হয়।
+
+সমাধান:  
+মনে করি,
+\[
+\frac{a}{b} = \frac{c}{d} = k
+\]
+\[
+\therefore a = b k, \quad c = d k
+\]
+এখন,
+\[
+\frac{a^2 + b^2}{a^2 - b^2} = \frac{(b k)^2 + b^2}{(b k)^2 - b^2} = \frac{b^2 (k^2 + 1)}{b^2 (k^2 - 1)} = \frac{k^2 + 1}{k^2 - 1}
+\]
+আবার,
+\[
+\frac{a c + b d}{a c - b d} = \frac{b k \cdot d k + b \cdot d}{b k \cdot d k - b \cdot d} = \frac{b d (k^2 + 1)}{b d (k^2 - 1)} = \frac{k^2 + 1}{k^2 - 1}
+\]
+সুতরাং,
+\[
+\frac{a^2 + b^2}{a^2 - b^2} = \frac{a c + b d}{a c - b d}
+\]
+
+\subsection*{উদাহরণ ৫}
+সমাধান কর:
+\[
+\frac{1 - a x}{1 + a x} \sqrt{\frac{1 + b x}{1 - b x}} = 1, \quad \text{যেখানে } 0 < b < 2a < 2b
+\]
+
+সমাধান:  
+দেওয়া আছে,
+\[
+\frac{1 - a x}{1 + a x} \sqrt{\frac{1 + b x}{1 - b x}} = 1
+\]
+\[
+\sqrt{\frac{1 + b x}{1 - b x}} = \frac{1 + a x}{1 - a x}
+\]
+\[
+\frac{1 + b x}{1 - b x} = \frac{(1 + a x)^2}{(1 - a x)^2} \quad [\text{উভয় পক্ষকে বর্গ করে}]
+\]
+যোজন-বিয়োজন করে,
+\[
+\frac{(1 + b x) + (1 - b x)}{(1 + b x) - (1 - b x)} = \frac{(1 + a x)^2 + (1 - a x)^2}{(1 + a x)^2 - (1 - a x)^2}
+\]
+\[
+\frac{2}{2 b x} = \frac{2 (1 + a^2 x^2)}{4 a x}
+\]
+\[
+\frac{1}{b x} = \frac{1 + a^2 x^2}{2 a x}
+\]
+\[
+2 a x = b x (1 + a^2 x^2)
+\]
+\[
+x \{2 a - b (1 + a^2 x^2)\} = 0
+\]
+\[
+\therefore x = 0
+\]
+অথবা,
+\[
+2 a - b (1 + a^2 x^2) = 0
+\]
+\[
+b (1 + a^2 x^2) = 2 a
+\]
+\[
+1 + a^2 x^2 = \frac{2 a}{b}
+\]
+\[
+a^2 x^2 = \frac{2 a}{b} - 1
+\]
+\[
+x^2 = \frac{1}{a^2} \left( \frac{2 a}{b} - 1 \right)
+\]
+\[
+\therefore x = \pm \frac{1}{a} \sqrt{\frac{2 a}{b} - 1}
+\]
+নির্ণেয় সমাধান,
+\[
+x = 0, \quad \pm \frac{1}{a} \sqrt{\frac{2 a}{b} - 1}
+\]
+
+\subsection*{উদাহরণ ৬}
+যদি $\frac{\sqrt{1 + x} + \sqrt{1 - x}}{\sqrt{1 + x} - \sqrt{1 - x}} = p$ হলে, প্রমাণ কর যে,
+\[
+p^2 - \frac{2 p}{x} + 1 = 0
+\]
+
+সমাধান:  
+দেওয়া আছে,
+\[
+\frac{\sqrt{1 + x} + \sqrt{1 - x}}{\sqrt{1 + x} - \sqrt{1 - x}} = p
+\]
+যোজন-বিয়োজন করে,
+\[
+\frac{(\sqrt{1 + x} + \sqrt{1 - x}) + (\sqrt{1 + x} - \sqrt{1 - x})}{(\sqrt{1 + x} + \sqrt{1 - x}) - (\sqrt{1 + x} - \sqrt{1 - x})} = \frac{p + 1}{p - 1}
+\]
+\[
+\frac{2 \sqrt{1 + x}}{2 \sqrt{1 - x}} = \frac{p + 1}{p - 1}
+\]
+\[
+\frac{\sqrt{1 + x}}{\sqrt{1 - x}} = \frac{p + 1}{p - 1}
+\]
+\[
+\frac{1 + x}{1 - x} = \frac{(p + 1)^2}{(p - 1)^2} \quad [\text{উভয় পক্ষকে বর্গ করে}]
+\]
+যোজন-বিয়োজন করে,
+\[
+\frac{(1 + x) + (1 - x)}{(1 + x) - (1 - x)} = \frac{(p^2 + 2 p + 1) + (p^2 - 2 p + 1)}{(p^2 + 2 p + 1) - (p^2 - 2 p + 1)}
+\]
+\[
+\frac{2}{2 x} = \frac{2 (p^2 + 1)}{4 p}
+\]
+\[
+\frac{1}{x} = \frac{p^2 + 1}{2 p}
+\]
+\[
+p^2 + 1 = \frac{2 p}{x}
+\]
+\[
+\therefore p^2 - \frac{2 p}{x} + 1 = 0
+\]
+
+\subsection*{উদাহরণ ৭}
+যদি $\frac{a^3 + b^3}{a - b + c} = a (a + b)$ হলে প্রমাণ কর যে, $a, b, c$ ক্রমিক সমানুপাতী।
+
+সমাধান:  
+দেওয়া আছে,
+\[
+\frac{a^3 + b^3}{a - b + c} = a (a + b)
+\]
+\[
+\frac{(a + b)(a^2 - a b + b^2)}{a - b + c} = a (a + b)
+\]
+\[
+\frac{a^2 - a b + b^2}{a - b + c} = a \quad [\text{উভয় পক্ষকে $(a + b)$ দ্বারা ভাগ করে}]
+\]
+\[
+a^2 - a b + b^2 = a^2 - a b + a c
+\]
+\[
+b^2 = a c
+\]
+সুতরাং, $a, b, c$ ক্রমিক সমানুপাতী।
+
+\subsection*{উদাহরণ ৮}
+যদি $\frac{a + b}{b + c} = \frac{c + d}{d + a}$ হয়, তবে প্রমাণ কর যে, $c = a$ অথবা $a + b + c + d = 0$।
+
+সমাধান:  
+দেওয়া আছে,
+\[
+\frac{a + b}{b + c} = \frac{c + d}{d + a}
+\]
+\[
+\frac{a + b}{b + c} - 1 = \frac{c + d}{d + a} - 1 \quad [\text{উভয় পক্ষ থেকে ১ বিয়োগ করে}]
+\]
+\[
+\frac{a + b - b - c}{b + c} = \frac{c + d - d - a}{d + a}
+\]
+\[
+\frac{a - c}{b + c} = \frac{c - a}{d + a} = -\frac{a - c}{d + a}
+\]
+\[
+\frac{a - c}{b + c} + \frac{a - c}{d + a} = 0
+\]
+\[
+(a - c) \left( \frac{1}{b + c} + \frac{1}{d + a} \right) = 0
+\]
+\[
+(a - c) \frac{b + c + d + a}{(b + c)(d + a)} = 0
+\]
+\[
+(a - c)(a + b + c + d) = 0
+\]
+\[
+\therefore a - c = 0 \quad \text{অথবা} \quad a + b + c + d = 0
+\]
+\[
+\therefore c = a \quad \text{অথবা} \quad a + b + c + d = 0
+\]
+
+\subsection*{উদাহরণ ৯}
+যদি $\frac{x}{y + z} = \frac{y}{z + x} = \frac{z}{x + y}$ এবং $x, y, z$ সকলে পরস্পর সমান না হয়, তবে প্রমাণ কর যে, প্রতিটি অনুপাতের মান $-1$ অথবা $\frac{1}{2}$ এর সমান হবে।
+
+সমাধান:  
+মনে করি,
+\[
+\frac{x}{y + z} = \frac{y}{z + x} = \frac{z}{x + y} = k
+\]
+\[
+\therefore x = k (y + z) \quad (1)
+\]
+\[
+y = k (z + x) \quad (2)
+\]
+\[
+z = k (x + y) \quad (3)
+\]
+সমীকরণ (১) থেকে (২) বিয়োগ করে পাই,
+\[
+x - y = k (y + z - z - x)
+\]
+\[
+x - y = k (y - x)
+\]
+\[
+k (y - x) = -(y - x)
+\]
+\[
+\therefore k = -1
+\]
+আবার, সমীকরণ (১), (২) ও (৩) যোগ করে পাই,
+\[
+x + y + z = k (y + z + z + x + x + y) = 2 k (x + y + z)
+\]
+\[
+k = \frac{x + y + z}{2 (x + y + z)}
+\]
+\[
+\therefore k = \frac{1}{2}
+\]
+সুতরাং, প্রতিটি অনুপাতের মান $-1$ অথবা $\frac{1}{2}$।
+
+\subsection*{উদাহরণ ১০}
+যদি $a x = b y = c z$ হয়, তবে দেখাও যে,
+\[
+\frac{x^2}{y z} + \frac{y^2}{z x} + \frac{z^2}{x y} = \frac{b c}{a^2} + \frac{c a}{b^2} + \frac{a b}{c^2}
+\]
+
+সমাধান:  
+মনে করি,
+\[
+a x = b y = c z = k
+\]
+\[
+\therefore x = \frac{k}{a}, \quad y = \frac{k}{b}, \quad z = \frac{k}{c}
+\]
+এখন,
+\[
+\frac{x^2}{y z} + \frac{y^2}{z x} + \frac{z^2}{x y} = \frac{\left( \frac{k}{a} \right)^2}{\frac{k}{b} \cdot \frac{k}{c}} + \frac{\left( \frac{k}{b} \right)^2}{\frac{k}{c} \cdot \frac{k}{a}} + \frac{\left( \frac{k}{c} \right)^2}{\frac{k}{a} \cdot \frac{k}{b}}
+\]
+\[
+= \frac{k^2}{a^2} \cdot \frac{b c}{k^2} + \frac{k^2}{b^2} \cdot \frac{c a}{k^2} + \frac{k^2}{c^2} \cdot \frac{a b}{k^2}
+\]
+\[
+= \frac{b c}{a^2} + \frac{c a}{b^2} + \frac{a b}{c^2}
+\]
+সুতরাং,
+\[
+\frac{x^2}{y z} + \frac{y^2}{z x} + \frac{z^2}{x y} = \frac{b c}{a^2} + \frac{c a}{b^2} + \frac{a b}{c^2}
+\]
+
+\subsection*{উদাহরণ ১১}
+$a, b, c$ এবং $d$ ক্রমিক সমানুপাতিক এবং $x = \frac{10 p q}{p + q}$:
+\begin{enumerate}
+    \item দেখাও যে $\frac{a}{c} = \frac{a^2 + b^2}{b^2 + c^2}$।
+    \item প্রমাণ কর যে, $(a^2 + b^2 + c^2)(b^2 + c^2 + d^2) = (a b + b c + c d)^2$।
+    \item $\frac{x + 5 p}{x - 5 p} + \frac{x + 5 q}{x - 5 q}$ এর মান নির্ণয় কর, যেখানে $p \neq q$।
+\end{enumerate}
+
+সমাধান:  
+\begin{enumerate}
+    \item দেওয়া আছে, $a : b = b : c$ বা, $\frac{a}{b} = \frac{b}{c}$ বা, $a c = b^2$।  
+    ডানপক্ষ,
+    \[
+    \frac{a^2 + b^2}{b^2 + c^2} = \frac{a^2 + a c}{a c + c^2} = \frac{a (a + c)}{c (a + c)} = \frac{a}{c}
+    \]
+    \[
+    = \text{বামপক্ষ}
+    \]
+    \[
+    \therefore \frac{a}{c} = \frac{a^2 + b^2}{b^2 + c^2}
+    \]
+    \item দেওয়া আছে, $a, b, c, d$ ক্রমিক সমানুপাতিক।  
+    \[
+    \frac{a}{b} = \frac{b}{c} = \frac{c}{d}
+    \]
+    মনে করি,
+    \[
+    \frac{a}{b} = \frac{b}{c} = \frac{c}{d} = k
+    \]
+    \[
+    \frac{c}{d} = k \quad \text{বা} \quad c = d k
+    \]
+    \[
+    \frac{b}{c} = k \quad \text{বা} \quad b = c k = d k \cdot k = d k^2
+    \]
+    \[
+    \frac{a}{b} = k \quad \text{বা} \quad a = b k = d k^2 \cdot k = d k^3
+    \]
+    বামপক্ষ,
+    \[
+    (a^2 + b^2 + c^2)(b^2 + c^2 + d^2)
+    \]
+    \[
+    = \{(d k^3)^2 + (d k^2)^2 + (d k)^2\} \{(d k^2)^2 + (d k)^2 + d^2\}
+    \]
+    \[
+    = (d^2 k^6 + d^2 k^4 + d^2 k^2)(d^2 k^4 + d^2 k^2 + d^2)
+    \]
+    \[
+    = d^2 k^2 (k^4 + k^2 + 1) d^2 (k^4 + k^2 + 1)
+    \]
+    \[
+    = d^4 k^2 (k^4 + k^2 + 1)^2
+    \]
+    ডানপক্ষ,
+    \[
+    (a b + b c + c d)^2
+    \]
+    \[
+    = (d k^3 \cdot d k^2 + d k^2 \cdot d k + d k \cdot d)^2
+    \]
+    \[
+    = (d^2 k^5 + d^2 k^3 + d^2 k)^2
+    \]
+    \[
+    = \{d^2 k (k^4 + k^2 + 1)\}^2
+    \]
+    \[
+    = d^4 k^2 (k^4 + k^2 + 1)^2 = \text{বামপক্ষ}
+    \]
+    \[
+    \therefore (a^2 + b^2 + c^2)(b^2 + c^2 + d^2) = (a b + b c + c d)^2
+    \]
+    \item দেওয়া আছে,
+    \[
+    x = \frac{10 p q}{p + q}
+    \]
+    \[
+    \frac{x}{5 p} = \frac{2 q}{p + q}
+    \]
+    যোজন-বিয়োজন করে,
+    \[
+    \frac{x + 5 p}{x - 5 p} = \frac{2 q + p + q}{2 q - p - q} = \frac{p + 3 q}{q - p} \quad (1)
+    \]
+    আবার,
+    \[
+    x = \frac{10 p q}{p + q}
+    \]
+    \[
+    \frac{x}{5 q} = \frac{2 p}{p + q}
+    \]
+    যোজন-বিয়োজন করে,
+    \[
+    \frac{x + 5 q}{x - 5 q} = \frac{2 p + p + q}{2 p - p - q} = \frac{3 p + q}{p - q} \quad (2)
+    \]
+    (১) ও (২) নং যোগ করে পাই,
+    \[
+    \frac{x + 5 p}{x - 5 p} + \frac{x + 5 q}{x - 5 q} = \frac{p + 3 q}{q - p} + \frac{3 p + q}{p - q}
+    \]
+    \[
+    = \frac{p + 3 q}{q - p} - \frac{3 p + q}{q - p} = \frac{p + 3 q - 3 p - q}{q - p} = \frac{2 q - 2 p}{q - p}
+    \]
+    \[
+    = \frac{2 (q - p)}{q - p} = 2 \quad [\because q - p \neq 0]
+    \]
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,474 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\geometry{a4paper, margin=1in}
+\usepackage{times}
+
+\begin{document}
+
+\chapter*{Chapter 13: Solid Geometry}
+
+Solids of different shapes are always needed and used in our practical life. Among these, there are regular and irregular solids. The method of determining volumes and areas of surfaces of regular solids and compound solids constructed of two regular solids will be discussed in this chapter.
+
+At the end of this chapter, the students will be able to
+
+\begin{itemize}
+    \item draw the symbolic diagram of a solid;
+    \item determine volumes and areas of surfaces of prism, solids of pyramid shape, spheres and right circular cones;
+    \item solve problems using the knowledge of solid geometry;
+    \item measure volumes and areas of surfaces of compound solids;
+    \item apply the knowledge of solid geometry in practical areas.
+\end{itemize}
+
+\part{Basic Concepts and Definitions}
+
+\section*{Basic Concepts}
+
+Basic concepts of points, lines and planes have been discussed in secondary general geometry. In solid geometry point, lines and planes are considered as basic concepts.
+
+\begin{enumerate}
+    \item Each of length, breadth and height of a body is called a dimension of the body.
+    \item A point has no length, breadth or thickness. It is an assumption. For practical purpose, we use a dot (.) to indicate a point. It can be called a replica of position. Hence a point has no dimension. So it is zero-dimensional.
+    \item A line has length only, but no breadth and height. Hence a line is one dimensional. For example, in the figure below, $AB$ is a line.
+    \item A surface has length and breadth, but no height. Hence a surface is two-dimensional. For example, in the figure below, $ABGF$ is a surface.
+    \item A body having length, breadth and thickness is called a solid. Hence a solid is three dimensional. For example, in the figure below, $ABCDEFG$ is a body.
+\end{enumerate}
+
+Image description: A diagram showing a three-dimensional rectangular solid labeled $ABCDEFG$, with line $AB$ as an example of a one-dimensional line, surface $ABGF$ as a two-dimensional surface, and the entire solid as a three-dimensional body.
+
+\section*{Some Elementary Definition}
+
+Drawing a three-dimensional figure on a two-dimensional page or board is a bit complex. So, drawing pictures with definitions in the classroom will help the students grasp the concepts easily.
+
+\begin{enumerate}
+    \item \textbf{Plane surface}: If the straight line joining any two points on a surface lies totally on that surface, then the surface is called a plane surface or simply a plane. The upper surface of the still water of a pond is a plane. The smooth floor of a room polished with cement or mosaic is considered to be a plane. But geometrically it is not a plane, for there are high and low points on the floor. In the above picture, $ABCD$, $ADEF$, $ABGF$ all are planes.
+    
+    Observation: Unless otherwise mentioned, lines and planes in solid geometry are regarded as infinitely extended. Hence it may be inferred from the definition of a plane that if one part of a straight line lies in a plane then the other part cannot be outside it.
+    
+    \item \textbf{Curved surface}: If the straight line joining any two points on a surface does not lie wholly in the surface, then the surface is called a curved surface. The surface of a sphere is a curved surface.
+    
+    \item \textbf{Solid geometry}: The branch of mathematics which concerns with the properties of solids and surfaces, lines and points is called solid geometry. Sometimes it is called Geometry of Space or Geometry of Three Dimensions.
+    
+    \item \textbf{Coplanar straight lines}: If two or more straight lines lie in the same plane or a plane can be made to pass through them, then these straight lines are said to be coplanar. In the figure above $AB$ and $CD$ are coplanar straight lines but $EF$ is not coplanar with them.
+    
+    \item \textbf{Skew or non coplanar lines}: Straight lines which do not lie in one plane or through which a plane cannot be made to pass are called skew or noncoplanar straight lines. In the figure above, $AB$ and $EF$ are skew lines. If two pencils are tied cross-wise like a plus sign or a multiplication sign, two non-coplanar lines are formed.
+    
+    \item \textbf{Parallel Straight lines}: Two coplanar straight lines are said to be parallel, when they do not intersect each other, i.e., they have no common point. In the figure above, $AB$ and $CD$ are parallel straight lines.
+    
+    \item \textbf{Parallel planes or surfaces}: Two planes are said to be parallel when they do not intersect, that is, they do not have any common point. In the figure above $ABCD$ and $EFGH$ are parallel planes.
+    
+    \item \textbf{Line parallel to a plane}: If a plane and a straight line are such that they do not intersect though they are extended indefinitely, then the straight line is said to be parallel to the plane. In the figure above, $CD$ is parallel to plane $ABGF$.
+    
+    \item \textbf{Normal or perpendicular to a plane}: A straight line is said to be normal or perpendicular to a plane when it is perpendicular to every straight line in the plane meets it. In the figure below on left, $OP$ is normal to the plane, as it is normal to all of $AB, CD, EF$ residing on the plane.
+    
+    \item \textbf{Oblique Line}: A straight line is said to be an oblique line to a plane if it is neither parallel nor perpendicular to the plane. In the figure above on right, $MN, ST$ are oblique lines.
+    
+    \item \textbf{Vertical Line of Plane}: A straight line or a plane is said to be vertical when it is parallel to plumb line hanging freely at rest. In the figure below on left, $ABCD$ is a vertical plane and $PR$ vertical line.
+    
+    \item \textbf{Horizontal line or plane}: A plane is said to be horizontal when it is perpendicular to a vertical line. Again a straight line is said to be horizontal when it is perpendicular to a vertical line or when it lies in a horizontal plane. In the figure above on left, $ABEF$ is a horizontal plane and $PQ$ is a horizontal line.
+    
+    \item \textbf{Planar and skew quadrilateral}: A quadrilateral is said to be plane when its sides lie in the same plane. Again a quadrilateral whose sides do not lie in the same plane is called skew quadrilateral. Two adjacent sides of a skew quadrilateral lie in one plane and the other two adjacent sides lie in another plane. Hence the opposite sides of a skew quadrilateral are also skew. In the above figure on right, $ABEF$ is a planar quadrilateral and $BCFE$ is a skew quadrilateral.
+    
+    \item \textbf{Angle between two skew straight lines}: The angle between two skew straight lines is the angle between one of them and the line drawn through any point in that line parallel to other. Again if two straight lines parallel to skew straight lines are drawn at a point, then the angle formed at that point is equal to the angle between the skew straight lines.
+    
+    Let $AB$ and $CD$ be the skew lines. Take any point $O$ and through $O$, draw $OP, OQ$, parallel to $AB, CD$ respectively. Then the angle $POQ$ indicates the angle between the skew lines $AB$ and $CD$. In other words, $\angle BRQ$ also denotes the angle between $AB$ and $CD$ where $R$ is on $AB$ and $QR$ is parallel to $CD$.
+    
+    \item \textbf{Dihedral angle}: If two planes intersect in a straight line, then the angle between the two straight lines drawn from any point on the line of intersection and at right angles to the intersection line is called a dihedral angle.
+    
+    The two planes $AB$ and $CD$ intersect along the straight line $AC$. From $O$, any point on $AC$, two straight lines $OM$ in the plane $AB$ and $ON$ in the plane $CD$ are drawn such that each is perpendicular to $AC$ at $O$. Then $\angle MON$ is the dihedral angle between the plane $AB$ and $CD$. Two intersecting planes are said to be perpendicular to each other when the dihedral angle between them is a right angle.
+    
+    \item \textbf{Projection}: The projection of a point on a given line or a plane is the foot of the perpendicular drawn from the point to the line or plane. The projection of a line straight or curved on a plane is the locus of the feet of the perpendiculars drawn from all points in the given line to the given plane. It is also called orthogonal projection. In the figure, projections of a curved line $AB$ on plane $XY$ and a line $CD$ are shown as curved line $ab$ and straight line $cd$.
+\end{enumerate}
+
+Image description: Two diagrams. The left diagram shows a plane with a normal line $OP$ perpendicular to lines $AB$, $CD$, and $EF$ on the plane, a vertical plane $ABCD$, a vertical line $PR$, a horizontal plane $ABEF$, and a horizontal line $PQ$. The right diagram shows a three-dimensional figure with a planar quadrilateral $ABEF$, a skew quadrilateral $BCFE$, and oblique lines $MN$ and $ST$.
+
+Image description: A diagram illustrating the angle between skew lines $AB$ and $CD$, with point $O$ and lines $OP$ and $OQ$ parallel to $AB$ and $CD$, respectively, forming angle $POQ$, and another point $R$ on $AB$ with line $QR$ parallel to $CD$ forming angle $BRQ$.
+
+Image description: A diagram showing two planes $AB$ and $CD$ intersecting along line $AC$, with point $O$ on $AC$ and lines $OM$ and $ON$ perpendicular to $AC$ in planes $AB$ and $CD$, respectively, forming the dihedral angle $MON$.
+
+Image description: A diagram showing a curved line $AB$ and a straight line $CD$ projected onto a plane $XY$, with their projections as curved line $ab$ and straight line $cd$, respectively.
+
+\section*{Relation between two straight lines}
+
+\begin{enumerate}
+    \item Two straight lines may be coplanar in which case they must either be parallel or meet in a point.
+    \item Two straight lines may be skew in which case they will neither be parallel nor will they meet in a point.
+\end{enumerate}
+
+\section*{Axioms}
+
+\begin{enumerate}
+    \item A straight line joining any two points in a plane lies wholly in that plane, though produced indefinitely. Hence if a straight line and a plane have two common points, they will have innumerable common points along the straight line.
+    \item An infinite number of planes can be drawn through one or two given straight lines.
+\end{enumerate}
+
+\section*{Relation between a straight line and a plane}
+
+\begin{enumerate}
+    \item If a straight line is parallel to a plane, then there will be no common point between them.
+    \item If a straight line cuts a plane, then they will have one and only one point common to them.
+    \item If a straight line and a plane have two common points then the line will completely coincide with the plane
+\end{enumerate}
+
+\section*{Relation between two planes}
+
+\begin{enumerate}
+    \item If two planes are parallel then they will have no common point.
+    \item If two planes intersect each other, then they will intersect one another in a straight line and they will have innumerable common points.
+\end{enumerate}
+
+\section*{Solid}
+
+We know that a book, a brick, a box or a spherical ball is a solid and occupies some space. Again, a piece of stone or wood, a part of a brick, a fragment of coal, a lump of dried sticky soil etc are also examples of solids. But these are irregular solids.
+
+The body enclosed by plane or curved surfaces and occupying some space is called a solid. At least three straight lines are required to enclose a portion of a plane, so also four planes are required to enclose some space. These planes are the faces or the surfaces of the solid and the line in which two such planes intersect is an edge of the solid. A book or a brick has six faces and twelve edges. A cricket ball is enclosed by a curved surface.
+
+\part{Rectangular Parallelepipeds and Cubes}
+
+\section*{Volume and area of surface of uniform solids}
+
+\subsection*{1. Rectangular Parallelepiped}
+
+The solid enclosed by three pairs of parallel planes is called a parallelepiped. Each of the six planes is a parallelogram and the opposite faces are congruent. A parallelepiped has twelve edges divided into three groups.
+
+The parallelepiped of which the faces are rectangles is called a rectangular parallelepiped. The rectangular parallelepiped of which the faces are squares is called a cube. The faces of the rectangular parallelepiped and the faces of the cube in the above diagram are $ABCD$, $A'B'C'D'$, $BCC'B'$, $ADD'A'$, $ABB'A'$, $DCC'D'$ and the edges are $AB$, $A'B'$, $CD$, $C'D'$, $BC$, $B'C'$, $AD$, $A'D'$, $AA'$, $BB'$, $CC'$, $DD'$. The only diagonal shown is $BD'$, the rest have to be drawn.
+
+Let the length, breadth and height of the rectangular parallelepiped be respectively $AB = a$ units, $AD = b$ units and $AA' = c$ units.
+
+\begin{enumerate}
+    \item Area of the whole surface
+    
+    = Sum of the areas of the six faces
+    
+    = 2 (the area of the face $ABCD$ + the area of the face $ABBA$ + the area of the face $ADDA$) = 2($ab + ac + bc$) square units = 2($ab + bc + ca$) square units
+    
+    \item Volume = $AB \times AD \times AA'$ cubic units = $abc$ cubic units
+    
+    \item Diagonal
+    
+    \[
+    BD' = \sqrt{BD^2 + DD'^2} = \sqrt{AB^2 + AD^2 + DD'^2} = \sqrt{a^2 + b^2 + c^2} \text{ unit}
+    \]
+\end{enumerate}
+
+Image description: A diagram showing a rectangular parallelepiped with vertices labeled $A$, $B$, $C$, $D$, $A'$, $B'$, $C'$, $D'$, faces such as $ABCD$ and $A'B'C'D'$, edges like $AB$ and $AA'$, and diagonal $BD'$, illustrating its structure and dimensions. The diagram also includes a cube, highlighting its equal sides.
+
+\textbf{Example 1.} A rectangular parallelepiped has its length, breadth and height in the ratio $4:3:2$ and the area of its whole surface is 468 square metres; find the diagonal and the volume of it.
+
+Solution: Let the length, breadth and height be respectively $4x$, $3x$ and $2x$ metres.
+
+Then,
+
+\[
+2(4x \cdot 3x + 3x \cdot 2x + 2x \cdot 4x) = 468
+\]
+
+\[
+\text{or, } 52x^2 = 468 \text{ or, } x^2 = 9 \therefore x = 3
+\]
+
+$\therefore$ The length of the solid is 12 metres, the breadth is 9 metres and the height is 6 metres.
+
+Hence, the length of the diagonal
+
+\[
+= \sqrt{12^2 + 9^2 + 6^2} \text{ metres} = \sqrt{144 + 81 + 36} = \sqrt{261} \text{ metres} \approx 16.16 \text{ metres (approx.)}
+\]
+
+And volume = $12 \times 9 \times 6 = 648$ cubic metres
+
+\subsection*{2. Cube}
+
+For a cube, $a = b = c$, Therefore,
+
+\begin{enumerate}
+    \item Area of the whole surface = $2(a^2 + a^2 + a^2) = 6a^2$ square units
+    \item Volume = $a \cdot a \cdot a = a^3$ cubic units
+    \item Diagonal = $\sqrt{a^2 + a^2 + a^2} = \sqrt{3}a$ units
+\end{enumerate}
+
+\part{Prisms, Pyramids, and Cones}
+
+\subsection*{3. Prism}
+
+A prism is a polyhedron, bounded by two parallel polygonal faces and the other faces always being parallelograms. The parallel sides are known as bases and the sides are known as lateral faces. If all the lateral surfaces are rectangular it is called a right prism; otherwise they are called oblique prism. Practically right prisms are frequently used. The prism is named by the shape of its base. For example, triangular prism, quadrilateral prism, pentagonal prism etc.
+
+If the base is a regular polygon, the prism is called a regular prism. If the base is not a regular polygon, the prism is known as an irregular prism. So by definition all rectangular solids and cubes are prisms. Right triangular prism made of glass is used for the scattering of light.
+
+\begin{enumerate}
+    \item The area of total surfaces of a prism
+    
+    = 2 (area of the base) + area of the lateral surfaces
+    
+    = 2 (area of the base) + perimeter of the base $\times$ height
+    
+    \item Volume = area of the base $\times$ height
+\end{enumerate}
+
+Image description: A diagram showing a right triangular prism with a right-angled triangular base and rectangular lateral faces, illustrating the base, lateral surfaces, and height used for surface area and volume calculations.
+
+\textbf{Example 2.} The lengths of the sides of the base of a triangular prism are 3, 4 and 5 cm respectively and the height is 8 cm. Find the volume and area of its total surfaces.
+
+Solution: The lengths of the sides of the base of the prism are 3 cm, 4 cm and 5 cm respectively.
+
+Since $3^2 + 4^2 = 5^2$, its base is a right angled triangle whose area = $\frac{1}{2} \times 4 \times 3 = 6$ sq. cm. So, the area of all the surfaces = $2 \times 6 + (3 + 4 + 5) \times 8 = 12 + 96 = 108$ sq. cm. and volume of the prism = $6 \times 8 = 48$ cubic cm.
+
+So, the area of all the surfaces is 108 sq. cm. and the volume is 48 cubic cm.
+
+\subsection*{4. Pyramid}
+
+A solid figure with a polygonal base and triangular faces that meet at a common point is called a pyramid.
+
+The base of a pyramid is any polygon and its lateral surfaces are of any triangular shape. But if the base is a regular polygon and the lateral faces are congruent triangles, the pyramid is called regular pyramid. The regular pyramids are eye-catching. The line joining the vertex and any corner of the base is called the edge of the pyramid. The length of the perpendicular from the vertex to the base is called the height of the pyramid. Usually, a solid with a square base and four congruent triangles meeting at a point is considered as a pyramid. These pyramids are in wide use.
+
+A solid enclosed by four equilateral triangles is known as regular tetrahedron which is also a pyramid. This pyramid has $3 + 3 = 6$ edges and 4 vertices. The perpendicular from the vertex falls on the centroid of the base.
+
+\begin{enumerate}
+    \item The area of all surfaces of pyramid = Area of the base + area of the lateral surfaces
+    
+    But if the lateral surfaces are congruent triangles,
+    
+    The area of all surfaces of the pyramid = Area of the base + $\frac{1}{2}$ (perimeter of the base $\times$ slant height)
+    
+    If the height of the pyramid is $h$, radius of the inscribed circle of the base is $r$ and $l$ is its slant height, then $l = \sqrt{h^2 + r^2}$
+    
+    \item Volume = $\frac{1}{3} \times$ area of the base $\times$ height
+\end{enumerate}
+
+Image description: A diagram showing a regular pyramid with a square base and four congruent triangular lateral faces meeting at a vertex, with the height, slant height, and base dimensions labeled, alongside a regular tetrahedron with four equilateral triangular faces.
+
+\textbf{Example 3.} The height of a pyramid with a square base of side 10 cm. is 12 cm. Find its area of all surfaces and the volume.
+
+Solution: The perpendicular distance of any side of the base from the centre $r = \frac{10}{2} \text{ cm.} = 5 \text{ cm.}$, The height of the pyramid is 12 cm.
+
+Therefore, the slant height of any lateral surface = $\sqrt{h^2 + r^2} = \sqrt{12^2 + 5^2} = \sqrt{144 + 25} = \sqrt{169} = 13 \text{ cm}$.
+
+$\therefore$ The area of all the faces = $\left[10 \times 10 + \frac{1}{2} (4 \times 10) \times 13\right] \text{ sq. cm.} = 100 + 260 = 360 \text{ sq. cm}$.
+
+And its volume = $\frac{1}{3} \times (10 \times 10) \times 12 \text{ cubic cm.} = 10 \times 10 \times 4 = 400 \text{ cubic cm}$.
+
+Therefore, the area of all surfaces of the pyramid is 360 sq. cm. and the volume is 400 cubic cm.
+
+\subsection*{5. Right Circular Cone}
+
+The solid formed by a complete revolution of a right-angled triangle about one of its sides adjacent to the right angle as axis is called a right circular cone.
+
+In the figure, the right circular cone $ABC$ is formed by revolving the right-angled triangle $OAC$ about $OA$. In this case, if $\theta$ is the vertical angle $\angle OAC$ of the triangle then it is called the Semi-vertical Angle of the cone.
+
+If the circular cone has the height $OA = h$, radius of the base $OC = r$ and slant height $AC = l$, then
+
+\begin{enumerate}
+    \item Area of the curved surface = $\frac{1}{2} \times$ circumference of the base $\times$ slant height
+    
+    \[
+    = \frac{1}{2} \times 2 \pi r \times l = \pi r l \text{ square units}
+    \]
+    
+    \item Area of the whole surface = Area of the curved surface + area of base = $\pi r l + \pi r^2 = \pi r (r + l)$ square units
+    
+    \item Volume = $\frac{1}{3} \times$ area of base $\times$ height = $\frac{1}{3} \pi r^2 h$ cubic units [You will learn the method of deduction of this formula in higher classes]
+\end{enumerate}
+
+Image description: A diagram showing a right circular cone $ABC$ with a right-angled triangle $OAC$ revolved about side $OA$, where $OA = h$ (height), $OC = r$ (radius of base), $AC = l$ (slant height), and $\angle OAC = \theta$ (semi-vertical angle).
+
+\textbf{Example 4.} If a right circular cone has a height of 12 cm. and a base of diameter 10 cm., then find its slant height, the area of the curved surface and the whole surface and its volume.
+
+Solution: Radius of the base $r = \frac{10}{2} \text{ cm} = 5 \text{ cm}$
+
+Slant height $l = \sqrt{h^2 + r^2} = \sqrt{12^2 + 5^2} = 13 \text{ cm}$
+
+Area of the curved surface = $\pi r l = \pi \times 5 \times 13 = 204.2035 \text{ sq cm (approx)}$
+
+Area of the whole surface = $\pi r (l + r) = \pi \times 5 \times (13 + 5) = 282.7433 \text{ sq cm (approx)}$
+
+Volume = $\frac{1}{3} \pi r^2 h = \frac{1}{3} \pi \times 5^2 \times 12 = 314.1593 \text{ cubic cm (approx)}$
+
+\textbf{Example 8.} If the volume of a right circular cone is $V$, the area of its curved surface is $S$, radius of the base is $r$, height is $h$ and semi-vertical angle is $\alpha$. Then show that,
+
+\begin{enumerate}
+    \item $S = \frac{\pi h^2 \tan \alpha}{\cos \alpha} = \frac{\pi r^2}{\sin \alpha}$ square units.
+    \item $V = \frac{1}{3} \pi h^3 \tan^2 \alpha = \frac{\pi r^3}{3 \tan \alpha}$ cubic units.
+\end{enumerate}
+
+Solution: In the above diagram, height of the cone $OA = h$ slant height $AC = l$, radius of the base $OC = r$ the semi-vertical angle $\angle OAC = \alpha$
+
+Here slant height $l = \sqrt{h^2 + r^2}$
+
+From the diagram, it is seen that $\tan \alpha = \frac{r}{h}$
+
+\[
+\therefore r = h \tan \alpha \text{ or, } h = \frac{r}{\tan \alpha} = r \cot \alpha
+\]
+
+\begin{enumerate}
+    \item
+
+    \[
+    S = \pi r l = \pi r \sqrt{h^2 + h^2 \tan^2 \alpha} = \pi r h \sqrt{1 + \tan^2 \alpha} = \pi r h \sqrt{\sec^2 \alpha} = \pi r h \sec \alpha = \pi (h \tan \alpha) h \sec \alpha = \frac{\pi h^2 \tan \alpha}{\cos \alpha} \text{ square units}
+    \]
+
+    \[
+    \text{again, } S = \pi r h \sec \alpha = \frac{\pi r}{\cos \alpha} r \cot \alpha = \frac{\pi r^2}{\cos \alpha} \frac{\cos \alpha}{\sin \alpha} = \frac{\pi r^2}{\sin \alpha} \text{ square units}
+    \]
+
+    \item
+
+    \[
+    V = \frac{1}{3} \pi r^2 h = \frac{1}{3} \pi (h \tan \alpha)^2 h = \frac{1}{3} \pi h^3 \tan^2 \alpha = \frac{1}{3} \pi \left( \frac{r}{\tan \alpha} \right)^3 \tan^2 \alpha = \frac{\pi r^3}{3 \tan \alpha} \text{ cubic units}
+    \]
+\end{enumerate}
+
+Image description: A diagram of a right circular cone with vertex $A$, base center $O$, and base radius $OC = r$, height $OA = h$, slant height $AC = l$, and semi-vertical angle $\angle OAC = \alpha$, used to derive surface area and volume formulas.
+
+\part{Spheres and Compound Solids}
+
+\subsection*{6. Sphere}
+
+The solid formed by a complete revolution of a semi-circle about its diameter as axis is called a sphere. The centre of the semi-circle is the centre of the sphere. The surface formed by the revolution of the semi-circle about its diameter is the surface of the sphere.
+
+The centre of the sphere $CQAR$ is the point $O$, radius $OA = OB = OC$ and a plane perpendicular to $OA$ and passing through a point at a distance $h$ from the centre cuts the sphere and form the circle $QBR$. The centre of this circle is $P$ and the radius is $PB$. Then $PB$ and $OP$ are perpendicular to each other.
+
+$\therefore OB^2 = OP^2 + PB^2$
+
+$\therefore PB^2 = OB^2 - OP^2 = r^2 - h^2$
+
+If the radius of the sphere is $r$ then
+
+\begin{enumerate}
+    \item Area of the surface of the sphere = $4 \pi r^2$ sq units
+    \item Volume = $\frac{4}{3} \pi r^3$ cubic units
+    \item Radius of the circle formed by the section of a plane at a distance $h$ from the centre = $\sqrt{r^2 - h^2}$ unit
+\end{enumerate}
+
+Image description: A diagram showing a sphere $CQAR$ with center $O$, radius $OA = OB = OC = r$, and a plane perpendicular to $OA$ at distance $h$ from $O$, forming a circle $QBR$ with center $P$ and radius $PB = \sqrt{r^2 - h^2}$.
+
+\textbf{Example 5.} An iron sphere of diameter 4 cm. is flattened into a circular iron sheet of thickness $\frac{2}{3}$ cm. What is the radius of the sheet?
+
+Solution: Radius of the iron sphere = $\frac{4}{2} = 2 \text{ cm}$
+
+$\therefore$ its volume = $\frac{4}{3} \pi \times 2^3 = \frac{32}{3} \pi \text{ cubic cm}$
+
+Let, the radius of the sheet = $r$ cm; The thickness of the sheet = $\frac{2}{3}$ cm
+
+$\therefore$ Volume of the sheet = $\pi r^2 \times \frac{2}{3} \text{ cubic centimetres} = \frac{2}{3} \pi r^2$
+
+By the given condition,
+
+\[
+\frac{2}{3} \pi r^2 = \frac{32}{3} \pi \text{ or, } r^2 = 16 \text{ or, } r = 4
+\]
+
+$\therefore$ Radius of the sheet = 4 cm
+
+\textbf{Example 6.} A right circular cone, a semi-sphere and a cylinder of equal heights stand on equal bases. Show that their volumes are in the ratio $1:2:3$.
+
+Solution: Let the common height and the radius of the equal bases be $h$ and $r$ units respectively. Since the height of a semi-sphere is equal to its radius.
+
+So, volume of the cone = $\frac{1}{3} \pi r^2 h = \frac{1}{3} \pi r^3 \text{ cubic units}$
+
+Volume of the semi-sphere = $\frac{1}{2} \left( \frac{4}{3} \pi r^3 \right) = \frac{2}{3} \pi r^3 \text{ cubic units}$
+
+Volume of the cylinder = $\pi r^2 h = \pi r^3 \text{ cubic units}$
+
+$\therefore$ Required ratio = $\frac{1}{3} \pi r^3 : \frac{2}{3} \pi r^3 : \pi r^3 = \frac{1}{3} : \frac{2}{3} : 1 = 1 : 2 : 3$
+
+\textbf{Example 7.} The length, breadth and height of a rectangular block of iron are respectively 10, 8 and $5 \frac{1}{2}$ cm. How many spherical shots of radius $\frac{1}{2}$ cm. can be made by melting the block?
+
+Solution: Volume of the iron block = $10 \times 8 \times 5 \frac{1}{2} \text{ cubic cm.} = 440 \text{ cubic cm}$.
+
+Let the required number of shots = $n$
+
+$\therefore$ Volume of $n$ shots = $n \times \frac{4}{3} \pi \left( \frac{1}{2} \right)^3 = \frac{n \pi}{6} \text{ cubic cm}$
+
+By the condition of the question,
+
+\[
+\frac{n \pi}{6} = 440 \text{ or, } n = \frac{440 \times 6}{\pi} = 840.34
+\]
+
+$\therefore$ Required number of shots is 840
+
+\subsection*{7. Compound Solid}
+
+A solid body consisting of two solids is a compound solid. Examples of a few compound solids are:
+
+\begin{enumerate}
+    \item A prism placed on a rectangular solid is a compound solid when both of them have identical surface.
+    \item If the base of a triangular prism and that of a regular tetrahedron are identical, they can be used to make a compound solid.
+    \item If the radius of a hemisphere and that of the base of a cone are equal, they can form together a compound solid.
+    \item A capsule is a compound solid having two identical hemispheres at two ends of a circular cylinder with base radius equal to the radius of each hemisphere.
+\end{enumerate}
+
+In this way, two or more solids can be combined together to make a compound solid. Many beautiful architectural constructions are compound solids. The items used for exercises are made of such compound solids.
+
+\textbf{Example 9.} The length and radius of a capsule is 15 cm. and 3 cm. respectively. Find the volume and total area of the surfaces of the capsule.
+
+Solution: The length of the capsule is 15 cm. Since the two ends of the capsule are hemispherical, the length of its cylindrical part $l = 15 - (3 + 3) = 9 \text{ cm}$.
+
+Therefore, the total area of the surfaces of the capsule = area of the surfaces of two hemispheres + area of the surface of the cylinder
+
+\[
+= 2 \times \frac{1}{2} \times 4 \pi r^2 + 2 \pi r l = 4 \pi (3)^2 + 2 \pi \times 3 \times 9 = 90 \pi = 282.74 \text{ sq cm (approx)}
+\]
+
+and the volume of the capsule
+
+\[
+= 2 \times \frac{1}{2} \times \frac{4}{3} \pi r^3 + \pi r^2 l = \frac{4}{3} \pi (3)^3 + \pi (3)^2 \times 9 = 117 \pi = 367.57 \text{ cubic cm. (approx)}
+\]
+
+Image description: A diagram showing a capsule-shaped compound solid with a cylindrical middle section of length 9 cm and radius 3 cm, capped by two hemispheres of radius 3 cm, illustrating the components for surface area and volume calculations.
+
+\textbf{Example 10.} The outer diameter of a hollow iron sphere is 15 cm. and thickness is 2 cm.
+
+\begin{enumerate}
+    \item Determine the volume of the hollow portion.
+    \item If a solid sphere is made out of the iron used in the sphere mentioned, then what would be the area of the total surface of the solid sphere?
+    \item The solid sphere fits fine in a cubic box. What is the volume of the hollow space inside the box?
+\end{enumerate}
+
+Solution:
+
+\begin{enumerate}
+    \item Given, Outer diameter of the sphere is 15 cm.
+    
+    $\therefore$ Outer radius of the sphere = $\frac{15}{2} \text{ cm.} = 7.5 \text{ cm.}$ and thickness of the sphere is 2 cm.
+    
+    $\therefore$ radius of the hollow portion of the sphere = $(7.5 - 2) \text{ cm.} = 5.5 \text{ cm}$.
+    
+    $\therefore$ volume of the hollow portion of the sphere = $\frac{4}{3} \pi r^3 = \frac{4}{3} \pi \times (5.5)^3 = 696.9116 \text{ cubic cm (approx)}$
+    
+    \item Here, radius of the sphere is 7.5 cm.
+    
+    $\therefore$ Volume of the sphere = $\frac{4}{3} \pi \times (7.5)^3 = 1767.15 \text{ cubic cm. (approx)}$
+    
+    $\therefore$ Volume of the iron used in the sphere = $(1767.15 - 696.9116) = 1070.2384 \text{ cubic cm (approx)}$
+    
+    Let, radius of the solid sphere is $r$ cm.
+    
+    $\therefore$ Volume of the solid sphere = $\frac{4}{3} \pi \times r^3 \text{ cubic cm}$.
+    
+    As the iron of the hollow sphere is used to make the solid sphere, volume of the iron is equal to the solid sphere's volume.
+    
+    \[
+    \therefore \frac{4}{3} \pi \times r^3 = 1070.2384 \text{ or, } r^3 = 255.5 \text{ or, } r = 6.3454 \text{ cm}.
+    \]
+    
+    $\therefore$ Surface area of the solid sphere = $4 \pi \times (6.3454)^2 = 505.9748 \text{ sq cm (approx)}$
+    
+    \item volume of the solid sphere 6.3454 cm.
+    
+    $\therefore$ diameter of the solid sphere = $2 \times 6.3454 \text{ cm.} = 12.6908 \text{ cm}$.
+    
+    As the solid sphere fits the box, so the box's side length will be the diameter of the solid sphere. Therefore, the length is = 12.6908 cm.
+    
+    $\therefore$ Volume of the box = $(12.6908)^3 = 2043.9346 \text{ cubic cm (approx)}$
+    
+    Volume of the solid sphere = Volume of the iron in hollow sphere = 1070.2384 cubic cm (approx)
+    
+    $\therefore$ Hollow portion's volume of the box = $(2043.9346 - 1070.2384) = 973.6962 \text{ cubic cm (approx)}$
+\end{enumerate}
+
+\end{document}

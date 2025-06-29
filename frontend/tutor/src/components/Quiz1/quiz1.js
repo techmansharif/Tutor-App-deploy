@@ -178,7 +178,7 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
     প্রথমে একটি <span className="highlight-keyword">বিষয় (SUBJECT)</span> বেছে নেওয়া হবে। এরপর সহজভাবে সেটি <span className="highlight-keyword">ব্যাখ্যা (EXPLAIN)</span> করা হবে, যাতে আপনি ভালোভাবে বুঝতে পারেন।
   </p>
   <p className="study-guide-text">
-    তারপর আপনি কিছু <span className="highlight-keyword">অনুশীলন (PRACTISE)</span> করবেন, আর শেষে থাকবে কিছু <span className="highlight-keyword">কুইজ (QUIZ)</span>—যা দেখে বোঝা যাবে আপনি কতটা শিখেছেন!
+    তারপর আপনি কিছু <span className="highlight-keyword">অনুশীলন (PRACTICE)</span> করবেন, আর শেষে থাকবে কিছু <span className="highlight-keyword">কুইজ (QUIZ)</span>, যা দেখে বোঝা যাবে আপনি কতটা শিখেছেন!
   </p>
   <p className="study-guide-text">
     এভাবেই ধাপে ধাপে আপনি হয়ে উঠবেন এসএসসি পরীক্ষার জন্য পুরোপুরি প্রস্তুত!
@@ -207,7 +207,7 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
   return (
     <div className="quiz1-container">
       <div className="quiz-header">
-  <h2>Assessment</h2>
+  <h2>ASSESSMENT</h2>
 </div>
 <div className="quiz-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
   <div className="left-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>

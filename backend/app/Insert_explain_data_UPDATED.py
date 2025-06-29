@@ -204,7 +204,7 @@ def process_folder_structure(root_dir: str):
 
 if __name__ == "__main__":
     # Set the root directory to the AI Tutor folder
-    root_directory = "C:\D backup\Tutor data"  # Adjust if your folder is elsewhere
+    root_directory = "D:\Tutor\Tutor-App-deploy/backend/app\Tutor data"  # Adjust if your folder is elsewhere
     #root_directory = "C:\E backup\ tutor app deploy\Tutor data"  # Adjust if your folder is elsewhere
     if not os.path.exists(root_directory):
         print(f"Root directory '{root_directory}' not found. Please check the path.")

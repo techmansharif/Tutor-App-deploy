@@ -1,0 +1,507 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\geometry{a4paper, margin=1in}
+\usepackage{times}
+
+\begin{document}
+
+\chapter*{Chapter 12: Planar Vector}
+
+In physics, we have learnt about two types of quantities. One type is denoted only by the magnitude [quantity being measured by using addition (+) or subtraction (-) signs]. The other type requires both magnitude and direction. The first one is known as scalar and the second as vector. We shall discuss about vector quantities in this chapter.
+
+At the end of this chapter, the students will be able to
+
+\begin{itemize}
+    \item describe scalar and vector quantities;
+    \item explain scalar and vector quantities with symbols;
+    \item explain equal vector, opposite vector and position vector;
+    \item explain vector addition and rules of vector addition;
+    \item explain the subtraction of vectors;
+    \item explain the scalar multiple of vectors and a unit vector;
+    \item explain the scalar multiple of vectors and the distributive law;
+    \item solve different geometrical problems using vectors.
+\end{itemize}
+
+\part{Scalar and Vector Quantities}
+
+\section*{Scalar and Vector Quantities}
+
+Measurement of things is necessary in all spheres of our daily life. Length of a body, measure of time, amount of money, measurement of volume and temperature can be denoted by $5 \mathrm{~cm}$, 3 minutes, 12 taka, 5 litres and $6^\circ \mathrm{C}$, respectively. For these measurements, it is sufficient to state those quantities with their respective units. Again, if it is stated that a man starting from a point first travels 4 metres and then 5 metres; then to determine his distance from the starting point, it is necessary to know the direction of his motion. It is not possible to determine correctly how far the man has moved from the starting point unless the exact direction of the motion is known.
+
+The quantity which is completely described by its magnitude with a unit or + or - signs before magnitude is a Scalar Quantity. Length, mass, speed, temperature etc. are scalar quantities.
+
+The quantity which, for its complete description, requires magnitude as well as direction is a Vector Quantity. Displacement, velocity, acceleration, weight, force etc. are vector quantities.
+
+\subsection*{Geometrical Interpretation of a Vector: Directed Line Segment}
+
+If one end of a straight line is termed as the initial point and the other end as the terminal point then the straight line is called a directed line segment. The directed line segment whose initial point is $A$ and terminal point is $B$ is denoted by $\overrightarrow{AB}$. Each directed line segment is a vector quantity whose measurement is the length of the line segment (represented by $(|\overrightarrow{AB}|)$ or shortly $AB$) and whose direction is along the line $AB$ straight from $A$ to $B$.
+
+Conversely, any vector quantity can be expressed by a directed line segment where the length of the line segment is the measurement of the vector quantity and the direction represented from initial point to terminal point is the direction of the vector. Hence, vector quantity and directed line segment are the same. Directed line segments are also called Geometric Vectors. Our discussion will be limited to the vectors in a plane. By vector we shall mean Geometric Vectors.
+
+Any vector (directed line segment) which is a part of an unending straight line is called the support line or just support of the vector.
+
+Usually a vector is represented by a letter e.g. $\underline{u} = \overrightarrow{AB}$. To denote a vector, the vector is underscored and its directive line segment is adorned with a $\rightarrow$ above. $\underline{u} = \overrightarrow{AB}$ means the initial point of the vector $\underline{u}$ is $A$ and terminal point is $B$; its direction is from $A$ to $B$ and its length $|\underline{u}| = |\overrightarrow{AB}|$ is the length of the line segment $AB$.
+
+\subsection*{Equivalence of Vectors and Opposite Vector}
+
+\subsubsection*{Equal Vector}
+
+A vector $\underline{u}$ is said to be equal to another vector $\underline{v}$ if
+
+\begin{enumerate}
+    \item $|\underline{u}| = |\underline{v}|$ (Length of $\underline{u}$ is equal to length of $\underline{v}$)
+    \item Supports of $\underline{u}$ and $\underline{v}$ are same or parallel.
+    \item Directions of $\underline{u}$ and $\underline{v}$ are same.
+\end{enumerate}
+
+\[
+A \xrightarrow{\underline{u}} B \quad C \xrightarrow{\underline{v}} D
+\]
+
+It is easily understood that the definition of equivalence abides by the following rules:
+
+\begin{enumerate}
+    \item $\underline{u} = \underline{u}$
+    \item If $\underline{u} = \underline{v}$, $\underline{v} = \underline{u}$
+    \item If $\underline{u} = \underline{v}$ and $\underline{v} = \underline{w}$, $\underline{u} = \underline{w}$
+\end{enumerate}
+
+If the support lines of $\underline{u}$ and $\underline{v}$ are same or parallel then we call briefly $\underline{u}$ and $\underline{v}$ are parallel.
+
+Note: A vector can be drawn at any point which is equal to a given vector. Because if a point $P$ and a vector $\underline{u}$ are given, we draw a straight line at the point $P$ which is parallel to support line of $\underline{u}$. Now we take $PQ$ line segment to the direction of $\underline{u}$ and equal to $|\underline{u}|$. Then according to the construction, $\overrightarrow{PQ} = \underline{u}$.
+
+Image description: A diagram showing two parallel line segments $AB$ and $CD$, with vectors $\underline{u} = \overrightarrow{AB}$ and $\underline{v} = \overrightarrow{CD}$, illustrating the concept of equal vectors with the same length and direction.
+
+\subsubsection*{Opposite Vector}
+
+$\underline{v}$ is called the opposite vector of $\underline{u}$ if
+
+\begin{enumerate}
+    \item $|\underline{v}| = |\underline{u}|$
+    \item Lines of support of $\underline{u}$ and $\underline{v}$ are the same and parallel.
+    \item The direction of $\underline{v}$ is opposite of that of $\underline{u}$
+\end{enumerate}
+
+If $\underline{v}$ is an opposite vector of $\underline{u}$ then $\underline{u}$ is also opposite of $\underline{v}$. It is clear from the definition of equality that if both $\underline{v}$ then $\underline{w}$ be the opposite vectors of $\underline{u}$ then $\underline{v} = \underline{w}$. $-\underline{u}$ is the opposite vector of $\underline{u}$. If $\underline{u} = \overrightarrow{AB}$ then $-\underline{u} = \overrightarrow{BA}$.
+
+\part{Vector Addition and Subtraction}
+
+\section*{Addition of Vectors}
+
+If from the terminal point of a vector $\underline{u}$ another vector $\underline{v}$ is drawn, then $\underline{u} + \underline{v}$ denotes such a vector whose initial point is the initial point of $\underline{u}$ and terminal point is the terminal point of $\underline{v}$.
+
+Let $\overrightarrow{AB} = \underline{u}$, $\overrightarrow{BC} = \underline{v}$ be two vectors such that the terminal point of $\underline{u}$ is the initial point of $\underline{v}$ then the vector $\overrightarrow{AC}$ joining the initial point of $\underline{u}$ and the terminal point of $\underline{v}$ is called the sum of the vectors $\underline{u}$ and $\underline{v}$ and is denoted by $\underline{u} + \underline{v}$
+
+Image description: A diagram showing a triangle with vertices $A$, $B$, and $C$, where vectors $\underline{u} = \overrightarrow{AB}$ and $\underline{v} = \overrightarrow{BC}$ are drawn, and their sum $\underline{u} + \underline{v} = \overrightarrow{AC}$ is represented by the line segment from $A$ to $C$.
+
+\subsection*{Triangle Law of Addition of Vectors}
+
+In the above diagram, if $\underline{u}$ and $\underline{v}$ are not parallel to each other then $\underline{u}$, $\underline{v}$ and $\underline{u} + \underline{v}$ vectors form a triangle; hence, this addition system is called triangle law.
+
+\subsection*{Parallelogram Law of Addition of Vectors}
+
+If the magnitude and direction of two vectors $\underline{u}$ and $\underline{v}$ are denoted by the two adjacent sides of a parallelogram then the magnitude and direction of $\underline{u} + \underline{v}$ is denoted by that diagonal of the parallelogram which passes through the point of intersection of the lines denoting the two vectors. We shall prove it now.
+
+Proof: Let $\overrightarrow{OA}$ and $\overrightarrow{OB}$ denote the vectors $\underline{u}$ and $\underline{v}$ drawn from any point $O$. Draw the parallelogram $OACB$ and its diagonal $\overrightarrow{OC}$. Then the diagonal $\overrightarrow{OC}$ of the parallelogram will denote the sum of $\underline{u}$ and $\underline{v}$, i.e. $\overrightarrow{OC} = \underline{u} + \underline{v}$.
+
+In the parallelogram $OACB$, we have $OB$ and $AC$ equal and parallel. $\therefore \overrightarrow{AC} = \overrightarrow{OB} = \underline{v}$ [by transfer of vectors]
+
+$\therefore$ Using triangle law, $\underline{u} + \underline{v} = \overrightarrow{OA} + \overrightarrow{OB} = \overrightarrow{OA} + \overrightarrow{AC} = \overrightarrow{OC}$
+
+[Proved]
+
+Note: 1) The sum of two or more vectors is also said to be their resultant. The method of addition of vectors is followed in determining the resultant of forces or velocities. 2) If the two vectors are parallel, the parallelogram law is not applicable to their addition but the triangle law is applicable in all the cases.
+
+Image description: A diagram showing a parallelogram $OACB$ with vectors $\underline{u} = \overrightarrow{OA}$ and $\underline{v} = \overrightarrow{OB}$ as adjacent sides, and the diagonal $\overrightarrow{OC}$ representing the sum $\underline{u} + \underline{v}$, illustrating the parallelogram law of vector addition.
+
+\section*{Subtraction of Vectors}
+
+The subtraction of the vectors $\underline{u}$ and $\underline{v}$ is $\underline{u} - \underline{v}$ and it is equivalent to the addition of $\underline{u}$ and $-\underline{v}$ (opposite vector of $\underline{v}$) i.e. $\underline{u} + (-\underline{v})$.
+
+\subsection*{Triangle Law of Subtraction of Vectors}
+
+If the initial points of $\underline{u}$ and $\underline{v}$ are same then initial point of $\underline{u} - \underline{v}$ will be the same as the final point of $\underline{v}$ and the final point of $\underline{u} - \underline{v}$ will be the same as the final point of $\underline{u}$. In short, the difference of two vectors with same initial point is the opposite vector formed by the initial points. Therefore, if $\underline{u} = \overrightarrow{AB}$, $\underline{v} = \overrightarrow{AC}$ then $\underline{u} - \underline{v} = \overrightarrow{CB}$, i.e. $\overrightarrow{AB} - \overrightarrow{AC} = \overrightarrow{CB}$. We shall prove it now.
+
+Proof: Line segment $CA$ is produced such that $AE = CA$, parallelogram $AEFB$ is drawn. According to the parallelogram law of additions of vectors, $\overrightarrow{AE} + \overrightarrow{AB} = \overrightarrow{AF}$.
+
+Again $AFBC$ is a parallelogram, as $BF = AE = CA$ and since $BF \| AE$, then $BF \| CA$.
+
+$\therefore \overrightarrow{AF} = \overrightarrow{CB}$ (by transfer of vector), but $\overrightarrow{AE} = -\underline{v}$ and $\overrightarrow{AB} = \underline{u}$
+
+Therefore $\underline{u} - \underline{v} = \overrightarrow{CB}$ is proved.
+
+Image description: A diagram showing vectors $\underline{u} = \overrightarrow{AB}$ and $\underline{v} = \overrightarrow{AC}$ with the same initial point $A$, and the vector $\underline{u} - \underline{v} = \overrightarrow{CB}$ derived using a parallelogram $AEFB$, illustrating the triangle law of vector subtraction.
+
+\section*{Zero Vector}
+
+A vector whose absolute value is zero and whose direction cannot be determined is called a zero vector.
+
+If $\underline{u}$ is any vector, then what is the value of $\underline{u} + (-\underline{u})$ ?
+
+Let $\underline{u} = \overrightarrow{AB}$ then $-\underline{u} = \overrightarrow{BA}$.
+
+Hence, $\underline{u} - \underline{u} = \overrightarrow{AB} + \overrightarrow{BA} = \overrightarrow{AA}$ [by triangle law]
+
+But what kind of vector is $\overrightarrow{AA}$ ? Its initial point and final point are same. Hence its length is zero. i.e. $\overrightarrow{AA}$ is to be understood as the point $A$. This kind of vector (whose length is zero) is called zero vector and denoted by the symbol $\underline{0}$. This is the only vector which has no fixed direction and support line.
+
+For the introduction of zero vector we can say that $\underline{u} + (-\underline{u}) = \underline{0}$ and $\underline{u} + \underline{0} = \underline{0} + \underline{u} = \underline{u}$
+
+Virtually trial identity is involved with zero vector.
+
+\section*{Laws of Vector Addition}
+
+Just like arithmetical addition, in vector addition commutative, associative and cancellation law can be used.
+
+\subsection*{Commutative Law}
+
+For any two vectors $\underline{u}$, $\underline{v}$, we get $\underline{u} + \underline{v} = \underline{v} + \underline{u}$
+
+Proof: Let $\overrightarrow{OA} = \underline{u}$ and $\overrightarrow{OB} = \underline{v}$. Draw the parallelogram $OACB$ and its diagonal $OC$. $OA$ and $BC$ are equal and parallel. Also $OB$ and $AC$ are equal and parallel.
+
+$\therefore \overrightarrow{OC} = \overrightarrow{OA} + \overrightarrow{AC} = \underline{u} + \underline{v}$; again, $\overrightarrow{OC} = \overrightarrow{OB} + \overrightarrow{BC} = \overrightarrow{OB} + \overrightarrow{OA} = \underline{v} + \underline{u}$
+
+$\therefore \underline{u} + \underline{v} = \underline{v} + \underline{u}$ Therefore, addition of vectors obeys the commutative law.
+
+Image description: A diagram showing a parallelogram $OACB$ with vectors $\underline{u} = \overrightarrow{OA}$ and $\underline{v} = \overrightarrow{OB}$, and the diagonal $\overrightarrow{OC}$ representing both $\underline{u} + \underline{v}$ and $\underline{v} + \underline{u}$, illustrating the commutative law of vector addition.
+
+\subsection*{Associative Law of Addition of Vectors}
+
+For any three vectors $\underline{u}$, $\underline{v}$, $\underline{w}$ we have
+
+\[
+(\underline{u} + \underline{v}) + \underline{w} = \underline{u} + (\underline{v} + \underline{w})
+\]
+
+Proof: Let, $\overrightarrow{OA} = \underline{u}$, $\overrightarrow{AB} = \underline{v}$, $\overrightarrow{BC} = \underline{w}$, i.e. $\underline{v}$ is drawn from the terminal of $\underline{u}$ and $\underline{w}$ is drawn from the terminal point of $\underline{v}$. Join $O, C$ and $A, C$.
+
+Then $(\underline{u} + \underline{v}) + \underline{w} = (\overrightarrow{OA} + \overrightarrow{AB}) + \overrightarrow{BC} = \overrightarrow{OB} + \overrightarrow{BC} = \overrightarrow{OC}$
+
+Again, $\underline{u} + (\underline{v} + \underline{w}) = \overrightarrow{OA} + (\overrightarrow{AB} + \overrightarrow{BC}) = \overrightarrow{OA} + \overrightarrow{AC} = \overrightarrow{OC}$
+
+$\therefore (\underline{u} + \underline{v}) + \underline{w} = \underline{u} + (\underline{v} + \underline{w})$; Hence vector addition obeys associative law.
+
+Image description: A diagram showing points $O$, $A$, $B$, and $C$, with vectors $\underline{u} = \overrightarrow{OA}$, $\underline{v} = \overrightarrow{AB}$, and $\underline{w} = \overrightarrow{BC}$, and the line segments forming $\overrightarrow{OC}$ to illustrate the associative law of vector addition.
+
+\subsection*{Corollary 1}
+
+The sum of three vectors represented by the three sides of a triangle taken in the same order is zero. In the diagram above, $\overrightarrow{OB} + \overrightarrow{BA} + \overrightarrow{AO} = \overrightarrow{OA} + \overrightarrow{AO} = -\overrightarrow{AO} + \overrightarrow{AO} = \underline{0}$
+
+\subsection*{Cancellation Law of Addition of Vector}
+
+For any three vectors $\underline{u}$, $\underline{v}$, $\underline{w}$, if $\underline{u} + \underline{v} = \underline{u} + \underline{w}$ then, $\underline{v} = \underline{w}$
+
+Proof: As $\underline{u} + \underline{v} = \underline{u} + \underline{w}$
+
+$\therefore \underline{u} + \underline{v} + (-\underline{u}) = \underline{u} + \underline{w} + (-\underline{u})$ [Adding $-\underline{u}$ in both sides]
+
+or, $\underline{u} - \underline{u} + \underline{v} = \underline{u} - \underline{u} + \underline{w}$ i.e. $\underline{v} = \underline{w}$
+
+\part{Scalar Multiples and Unit Vectors}
+
+\section*{Scalar Multiple of a Vector}
+
+If $\underline{u}$ is any vector and $m$ is any real number, then what is understood by $m \underline{u}$ is explained here now.
+
+\begin{enumerate}
+    \item If $m = 0$ then, $m \underline{u} = \underline{0}$ or zero vector
+    \item If $m \neq 0$ then, the length of $m \underline{u}$ is equal to $|m|$ times that of $\underline{u}$ and the supports of $m \underline{u}$ are same as that of $\underline{u}$'s. And,
+    \begin{enumerate}
+        \item If $m > 0$, then direction of $m \underline{u}$ and that of $\underline{u}$ are same.
+        \item If $m < 0$, then direction of $m \underline{u}$ and that of $\underline{u}$ are opposite.
+    \end{enumerate}
+\end{enumerate}
+
+Note: 1) if $m = 0$ or $\underline{u} = \underline{0}$, then $m \underline{u} = \underline{0}$ 2) $1 \underline{u} = \underline{u}$, $(-1) \underline{u} = -\underline{u}$
+
+From the above definition, it is observed that, $m(n \underline{u}) = n(m \underline{u}) = (mn)(\underline{u})$
+
+Both $m, n > 0$, both $< 0$, any one $> 0$ and the other $< 0$, any one or both is zero - after considering all these case separately, the reality of the rule can be established. An Example of such cases is given below
+
+\[
+A \xrightarrow{\underline{u}} B \xrightarrow{\underline{u}} C \xrightarrow{\underline{u}} D \xrightarrow{\underline{u}} E \xrightarrow{\underline{u}} F \xrightarrow{\underline{u}} G
+\]
+
+Suppose, $\overrightarrow{AB} = \overrightarrow{BC} = \underline{u}$
+
+$AC$ is produced up to $G$, such thatickej $CD = DE = EF = FG = AB$.
+
+Then $\overrightarrow{AG} = \overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CD} + \overrightarrow{DE} + \overrightarrow{EF} + \overrightarrow{FG} = \underline{u} + \underline{u} + \underline{u} + \underline{u} + \underline{u} + \underline{u} = \underline{u}$
+
+Again, $\overrightarrow{AG} = \overrightarrow{AC} + \overrightarrow{CE} + \overrightarrow{EG} = 2 \underline{u} + 2 \underline{u} + 2 \underline{u} = 3(2 \underline{u})$
+
+And $\overrightarrow{AG} = \overrightarrow{AD} + \overrightarrow{DG} = 3 \underline{u} + 3 \underline{u} = 2(3 \underline{u})$
+
+$\therefore 2(3 \underline{u}) = 3(2 \underline{u}) = 2 \times 3(\underline{u})$
+
+Note: If the support lines of two vectors are alike or parallel, then one can be expressed as scalar multiple of the other.
+
+In reality, if $AB \| CD$ then, $\overrightarrow{AB} = m \overrightarrow{CD}$ where, $|m| = \frac{|\overrightarrow{AB}|}{|\overrightarrow{CD}|} = \frac{AB}{CD}$
+
+\begin{enumerate}
+    \item if $m > 0$, $\overrightarrow{AB}$ and $\overrightarrow{CD}$ are alike in direction,
+    \item if $m < 0$, $\overrightarrow{AB}$ and $\overrightarrow{CD}$ are unlike in direction,
+\end{enumerate}
+
+Image description: A diagram showing a sequence of points $A$ to $G$ along a straight line, with each segment $AB$, $BC$, $CD$, $DE$, $EF$, $FG$ equal to vector $\underline{u}$, illustrating scalar multiplication and vector addition properties.
+
+\section*{Distribution Laws Concerning Scalar Multiples of Vectors}
+
+If $m, n$ are two scalars and $\underline{u}$ and $\underline{v}$ are two vectors then
+
+\begin{enumerate}
+    \item $(m + n) \underline{u} = m \underline{u} + n \underline{u}$
+    \item $m(\underline{u} + \underline{v}) = m \underline{u} + m \underline{v}$
+\end{enumerate}
+
+\subsection*{Formula 1: $(m + n) \underline{u} = m \underline{u} + n \underline{u}$}
+
+Proof: If $m$ or $n$ is zero, then the law is obviously true.
+
+Suppose both $m$ and $n$ are both positive and $\overrightarrow{AB} = m \underline{u} \quad \therefore |\overrightarrow{AB}| = m |\underline{u}|$
+
+$AB$ is produced up to $C$ so that $|\overrightarrow{BC}| = n |\underline{u}| \quad \therefore \overrightarrow{BC} = n \underline{u}$
+
+$|\overrightarrow{AC}| = |\overrightarrow{AB}| + |\overrightarrow{BC}| = m |\underline{u}| + n |\underline{u}| = (m + n) |\underline{u}| \quad \therefore \overrightarrow{AC} = (m + n) \underline{u}$
+
+But $\overrightarrow{AC} = \overrightarrow{AB} + \overrightarrow{BC} \quad \therefore m \underline{u} + n \underline{u} = (m + n) \underline{u}$
+
+If both $m, n$ are negative, then the length of $(m + n) \underline{u}$ is $|(m + n)| |\underline{u}|$ and the direction will be opposite direction of $\underline{u}$, so the length of the vector $m \underline{u} + n \underline{u}$ will be $|m| |\underline{u}| + |n| |\underline{u}| = (|m| + |n|) |\underline{u}|$ and the direction will be opposite of $\underline{u}$. But, if $m < 0$ and $n < 0$ then, $|m| + |n| = |m + n|$. In that case, $(m + n) \underline{u} = m \underline{u} + n \underline{u}$.
+
+Lastly, if among $m$ and $n$, $m > 0$ and $n < 0$, then the length of $(m + n) \underline{u}$ will be $(|m| - |n|) |\underline{u}|$ and direction will be aligned with that of $\underline{u}$, when $|m| > |n|$ and opposite to direction of $\underline{u}$, then vector $m \underline{u} + n \underline{u}$ will be aligned in direction of $(m + n) \underline{u}$ and their lengths will be same.
+
+Image description: A diagram showing a line segment $AC$ with point $B$ such that $\overrightarrow{AB} = m \underline{u}$ and $\overrightarrow{BC} = n \underline{u}$, illustrating that $\overrightarrow{AC} = (m + n) \underline{u}$ to prove the distributive law for scalar multiples.
+
+Observation: Three points $A, B, C$ will be co-linear if and only if $\overrightarrow{AC}$ be a scalar multiple of $\overrightarrow{AB}$
+
+Remark: 1) If the support lines of two vectors are alike or parallel and their directions are alike, then the vectors are called similar vectors. 2) The vector whose length is 1 unit is called a unit vector.
+
+\subsection*{Formula 2: $m(\underline{u} + \underline{v}) = m \underline{u} + m \underline{v}$}
+
+Proof: Let, $\overrightarrow{OA} = \underline{u}$, $\overrightarrow{AB} = \underline{v}$ then $\overrightarrow{OB} = \overrightarrow{OA} + \overrightarrow{AB} = \underline{u} + \underline{v}$
+
+$OA$ is produced to $C$ such that $OC = m \cdot OA$, The straight line $CD$ drawn at $C$ and parallel to $AB$ meets the produced $OB$ at $D$. Since the triangles $OAB$ and $OCD$ are similar,
+
+Hence, $\frac{|\overrightarrow{OC}|}{|\overrightarrow{OA}|} = \frac{|\overrightarrow{OD}|}{|\overrightarrow{AB}|} = \frac{|\overrightarrow{OD}|}{|\overrightarrow{OB}|} = m$
+
+$\therefore OC = m \cdot OA, CD = m \cdot AB, OD = m \cdot OB$
+
+$\therefore \overrightarrow{CD} = m \overrightarrow{AB} = m \underline{v}$
+
+here, $\overrightarrow{OC} + \overrightarrow{CD} = \overrightarrow{OD}$
+
+or, $m(\overrightarrow{OA}) + m(\overrightarrow{AB}) = m(\overrightarrow{OB})$
+
+$\therefore m \underline{u} + m \underline{v} = m (\underline{u} + \underline{v})$
+
+Observation: This formula is true for all values of $m$.
+
+Image description: A diagram showing triangles $OAB$ and $OCD$, with $\overrightarrow{OA} = \underline{u}$, $\overrightarrow{AB} = \underline{v}$, and $\overrightarrow{OB} = \underline{u} + \underline{v}$, scaled by a factor $m$ to show $\overrightarrow{OC} = m \underline{u}$, $\overrightarrow{CD} = m \underline{v}$, and $\overrightarrow{OD} = m (\underline{u} + \underline{v})$, proving the distributive law.
+
+For ease of usage, the formulas related to Vectors are given below,
+
+\begin{enumerate}
+    \item $\underline{u} + \underline{v} = \underline{v} + \underline{u}$
+    \item $(\underline{u} + \underline{v}) + \underline{w} = \underline{u} + (\underline{v} + \underline{w})$
+    \item $\underline{u} + \underline{0} = \underline{0} + \underline{u} = \underline{u}$
+    \item $\underline{u} + (-\underline{u}) = (-\underline{u}) + \underline{u} = \underline{0}$
+    \item if $\underline{u} + \underline{v} = \underline{u} + \underline{w}$ then $\underline{v} = \underline{w}$
+    \item $m(n \underline{u}) = n(m \underline{u}) = (mn)(\underline{u})$
+    \item $0 \underline{u} = \underline{0}$
+    \item $1 \underline{u} = \underline{u}$
+    \item $(-1) \underline{u} = -\underline{u}$
+    \item $(m + n) \underline{u} = m \underline{u} + n \underline{u}$
+\end{enumerate}
+
+\part{Geometric Applications Using Vectors}
+
+\section*{Position Vector}
+
+With respect to a given point $O$ in a plane, the position of any point $P$ in the plane can be fixed by $\overrightarrow{OP}$. $\overrightarrow{OP}$ is called the position vector of $P$ with respect to $O$ and $O$ is called the vector origin.
+
+\[
+O \xrightarrow{\underline{p}} P
+\]
+
+Let $O$ be a fixed point in a plane and $A$ is another point in the same plane. The vector $\overrightarrow{OA}$ produced by joining $O$ and $A$ is called the position vector of $A$ with respect to $O$. Similarly, $\overrightarrow{OB}$ is the position vector of another point $B$ in the same plane with respect to the same point $O$.
+
+Join $A, B$; Let, $\overrightarrow{OA} = \underline{a}$, $\overrightarrow{OB} = \underline{b}$
+
+Then $\overrightarrow{OA} + \overrightarrow{AB} = \overrightarrow{OB}$ i.e. $\underline{a} + \overrightarrow{AB} = \underline{b}$
+
+$\therefore \overrightarrow{AB} = \underline{b} - \underline{a}$
+
+Thus if the position vectors of two points are known, then the vector denoted by the line joining them can be obtained by subtracting the position vector of the initial point from that of the terminal point of the vector.
+
+Observation: The position vector of a certain point may be different with respect to different vector origins. In solving a particular problem the position vector of all points of the problem are supposed with respect to the same origin.
+
+Image description: A diagram showing a point $O$ as the origin and a point $P$ with the vector $\overrightarrow{OP}$ labeled as the position vector $\underline{p}$, illustrating the concept of position vectors in a plane.
+
+\section*{Some Examples}
+
+\textbf{Example 1.} Show that,
+
+\begin{enumerate}
+    \item $-(-\underline{a}) = \underline{a}$
+    \item $-m(\underline{a}) = m(-\underline{a}) = -(m \underline{a})$ where $m$ is a scalar.
+    \item $\frac{1}{|\underline{a}|} \underline{a}$ is a unit vector whose direction is along that of $\underline{a}$
+\end{enumerate}
+
+Solution:
+
+\begin{enumerate}
+    \item According to opposite vector law, $\underline{a} + (-\underline{a}) = \underline{0}$
+
+    \[
+    \text{again, } (-\underline{a}) + (-(-\underline{a})) = \underline{0}
+    \]
+
+    \[
+    \therefore (-\underline{a}) + (-(-\underline{a})) = \underline{a} + (-\underline{a})
+    \]
+
+    \[
+    \therefore (-(-\underline{a})) = \underline{a} [\text{Cancellation law of vector addition}]
+    \]
+
+    \item
+
+    \[
+    m \underline{a} + (-m) \underline{a} = [m + (-m)] \underline{a} = 0 \underline{a} = \underline{0}
+    \]
+
+    \[
+    \therefore (-m) \underline{a} = -m \underline{a} \cdots \cdots (1)
+    \]
+
+    \[
+    \text{Again } m \underline{a} + m(-\underline{a}) = m [\underline{a} + (-\underline{a})] = m \underline{0} = \underline{0}
+    \]
+
+    \[
+    \therefore m(-\underline{a}) = -m \underline{a} \cdots \cdots (2)
+    \]
+
+    From (1) and (2), $(-m) \underline{a} = m(-\underline{a}) = -m \underline{a}$
+
+    \item As $\underline{a} \neq \underline{0}$, so $|\underline{a}| \neq 0$
+
+    Let, $\tilde{a} = \frac{1}{|\underline{a}|} \underline{a}$
+
+    Hence $|\tilde{a}| = \frac{1}{|\underline{a}|} |\underline{a}| = 1$ and direction of $\tilde{a}$ and that of $\underline{a}$ are same, so $\tilde{a}$ is a unit vector whose direction is along $\underline{a}$.
+\end{enumerate}
+
+\textbf{Example 2.} $ABCD$ is a parallelogram whose diagonals are $AC$ and $BD$.
+
+\begin{enumerate}
+    \item Express the vectors $\overrightarrow{AC}$, $\overrightarrow{BD}$ in terms of the vectors $\overrightarrow{AB}$ and $\overrightarrow{AD}$.
+    \item Express the vectors $\overrightarrow{AB}$, $\overrightarrow{AD}$ in terms of the vectors $\overrightarrow{AC}$ and $\overrightarrow{BD}$.
+\end{enumerate}
+
+Solution:
+
+\begin{enumerate}
+    \item $\overrightarrow{AC} = \overrightarrow{AD} + \overrightarrow{DC} = \overrightarrow{AD} + \overrightarrow{AB}$
+
+    Again, $\overrightarrow{AB} + \overrightarrow{BD} = \overrightarrow{AD}$, $\overrightarrow{BD} = \overrightarrow{AD} - \overrightarrow{AB}$
+
+    \item The diagonals of a parallelogram bisect each other. So,
+
+    \[
+    \overrightarrow{AB} = \overrightarrow{AO} + \overrightarrow{OB} = \frac{1}{2} \overrightarrow{AC} + \frac{1}{2} \overrightarrow{DB} = \frac{1}{2} \overrightarrow{AC} - \frac{1}{2} \overrightarrow{BD}
+    \]
+
+    and $\overrightarrow{AD} = \overrightarrow{AO} + \overrightarrow{OD} = \frac{1}{2} \overrightarrow{AC} + \frac{1}{2} \overrightarrow{BD}$
+\end{enumerate}
+
+Image description: A diagram showing a parallelogram $ABCD$ with diagonals $AC$ and $BD$ intersecting at point $O$, with vectors $\overrightarrow{AB}$, $\overrightarrow{AD}$, $\overrightarrow{AC}$, and $\overrightarrow{BD}$ labeled to illustrate their relationships.
+
+\textbf{Example 3.} With the help of vectors, prove that the line segment joining the middle points of two sides of a triangle is parallel to and half of the third side.
+
+Solution: Let $D$ and $E$ be the middle points of the sides $AB$ and $AC$ of the triangle $ABC$. $D$ and $E$ are joined. It is required to prove that $DE \| BC$ and $DE = \frac{1}{2} BC$.
+
+By the triangle law of subtraction of vectors, $\overrightarrow{AE} - \overrightarrow{AD} = \overrightarrow{DE} \cdots \cdots (1)$ and $\overrightarrow{AC} - \overrightarrow{AB} = \overrightarrow{BC}$
+
+but $\overrightarrow{AC} = 2 \overrightarrow{AE}$, $\overrightarrow{AB} = 2 \overrightarrow{AD} [\because D \text{ and } E \text{ are respectively the middle points of } AB \text{ and } AC]$
+
+$\therefore \overrightarrow{AC} - \overrightarrow{AB} = \overrightarrow{BC}$
+
+We get,
+
+\[
+2 \overrightarrow{AE} - 2 \overrightarrow{AD} = \overrightarrow{BC}, \text{ i.e. } 2 (\overrightarrow{AE} - \overrightarrow{AD}) = \overrightarrow{BC}
+\]
+
+\[
+\therefore 2 \overrightarrow{DE} = \overrightarrow{BC} [\text{from (1)}]
+\]
+
+\[
+\therefore \overrightarrow{DE} = \frac{1}{2} \overrightarrow{BC}
+\]
+
+and $|\overrightarrow{DE}| = \frac{1}{2} |\overrightarrow{BC}|$ or $DE = \frac{1}{2} BC$
+
+Therefore the lines of support of the vectors $\overrightarrow{DE}$ and $\overrightarrow{BC}$ are same or parallel. But $\overrightarrow{DE}$ and $\overrightarrow{BC}$ cannot be same. Hence the lines of support of the vectors $\overrightarrow{DE}$ and $\overrightarrow{BC}$, i.e. the lines $DE$ and $BC$ are parallel.
+
+Image description: A diagram showing triangle $ABC$ with midpoints $D$ and $E$ on sides $AB$ and $AC$, respectively, and line segment $DE$ parallel to $BC$, illustrating that $\overrightarrow{DE} = \frac{1}{2} \overrightarrow{BC}$.
+
+\textbf{Example 4.} Prove that by Vector methods that the diagonals of a parallelogram bisect each other.
+
+Solution: Let, the diagonals $AC$ and $BD$ of the parallelogram $ABCD$ intersect at $O$.
+
+Suppose, $\overrightarrow{AO} = \underline{a}$, $\overrightarrow{BO} = \underline{b}$, $\overrightarrow{OC} = \underline{c}$, $\overrightarrow{OD} = \underline{d}$
+
+It is required to prove that, $|\underline{a}| = |\underline{c}|, |\underline{b}| = |\underline{d}|$
+
+$\overrightarrow{AO} + \overrightarrow{OD} = \overrightarrow{AD}$ and $\overrightarrow{BO} + \overrightarrow{OC} = \overrightarrow{BC}$
+
+Since the opposite sides of a parallelogram are equal and parallel, $\overrightarrow{AD} = \overrightarrow{BC}$ i.e. $\overrightarrow{AO} + \overrightarrow{OD} = \overrightarrow{BO} + \overrightarrow{OC}$
+
+or, $\underline{a} + \underline{d} = \underline{b} + \underline{c}$
+
+or, $\underline{a} - \underline{c} = \underline{b} - \underline{d}$ [adding $-\underline{c} - \underline{d}$ to both sides]
+
+here the support of $\underline{a}$ and $\underline{c}$ is $AC$, $\therefore$ The support of $\underline{a} - \underline{c}$ is $AC$.
+
+The support of $\underline{b}$ and $\underline{d}$ is $BD$, $\therefore$ The support of $\underline{b} - \underline{d}$ is $BD$
+
+If $\underline{a} - \underline{c}$ and $\underline{b} - \underline{d}$ are two equal and nonzero vectors, then their lines of support are same or parallel. But $AC$ and $BD$ are two intersecting straight lines which are not parallel. Hence $\underline{a} - \underline{c}$ and $\underline{b} - \underline{d}$ are zero vectors.
+
+$\therefore \underline{a} - \underline{c} = \underline{0}$ or $\underline{a} = \underline{c}$ and $\underline{b} - \underline{d} = \underline{0} \quad \underline{b} = \underline{d}$
+
+$\therefore |\underline{a}| = |\underline{c}| \quad |\underline{b}| = |\underline{d}|$
+
+Therefore, the diagonals of a parallelogram bisect each other.
+
+Image description: A diagram showing parallelogram $ABCD$ with diagonals $AC$ and $BD$ intersecting at point $O$, with vectors $\overrightarrow{AO} = \underline{a}$, $\overrightarrow{BO} = \underline{b}$, $\overrightarrow{OC} = \underline{c}$, and $\overrightarrow{OD} = \underline{d}$, illustrating that the diagonals bisect each other.
+
+\textbf{Example 5.} Prove by vector method that the straight lines joining the middle points of the adjacent sides of a quadrilateral form a parallelogram.
+
+Solution: Let $P, Q, R, S$ be the middle points of the sides of the quadrilateral $ABCD$. Join $P$ and $Q$, $Q$ and $R$, $R$ and $S$, $S$ and $P$. It is required to prove that $PQRS$ is a parallelogram.
+
+Let, $\overrightarrow{AB} = \underline{a}$, $\overrightarrow{BC} = \underline{b}$, $\overrightarrow{CD} = \underline{c}$, $\overrightarrow{DA} = \underline{d}$
+
+Then, $\overrightarrow{PQ} = \overrightarrow{PB} + \overrightarrow{BQ} = \frac{1}{2} \overrightarrow{AB} + \frac{1}{2} \overrightarrow{BC} = \frac{1}{2} (\underline{a} + \underline{b})$
+
+Similarly, $\overrightarrow{QR} = \frac{1}{2} (\underline{b} + \underline{c})$, $\overrightarrow{RS} = \frac{1}{2} (\underline{c} + \underline{d}) \quad \overrightarrow{SP} = \frac{1}{2} (\underline{d} + \underline{a})$
+
+But $(\underline{a} + \underline{b}) + (\underline{c} + \underline{d}) = \overrightarrow{AC} + \overrightarrow{CA} = \overrightarrow{AC} - \overrightarrow{AC} = \underline{0}$
+
+i.e. $(\underline{a} + \underline{b}) = -(\underline{c} + \underline{d})$
+
+\[
+\therefore \overrightarrow{PQ} = \frac{1}{2} (\underline{a} + \underline{b}) = -\frac{1}{2} (\underline{c} + \underline{d}) = -\overrightarrow{RS} = \overrightarrow{SR}
+\]
+
+$\therefore PQ$ and $SR$ are equal and parallel.
+
+Similarly, it can be proved that $QR$ and $PS$ are equal and parallel.
+
+$\therefore PQRS$ is a parallelogram.
+
+Image description: A diagram showing quadrilateral $ABCD$ with midpoints $P$, $Q$, $R$, and $S$ on sides $AB$, $BC$, $CD$, and $DA$, respectively, forming parallelogram $PQRS$ with vectors $\overrightarrow{AB} = \underline{a}$, $\overrightarrow{BC} = \underline{b}$, $\overrightarrow{CD} = \underline{c}$, and $\overrightarrow{DA} = \underline{d}$.
+
+\end{document}

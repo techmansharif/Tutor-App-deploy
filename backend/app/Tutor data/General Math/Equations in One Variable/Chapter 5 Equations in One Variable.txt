@@ -1,0 +1,320 @@
+% Setting up the document class and necessary packages
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{titletoc}
+
+% Configuring page geometry
+\geometry{margin=1in}
+
+% Setting up font encoding
+\usepackage[T1]{fontenc}
+\usepackage{times}
+
+% Customizing section headings
+\title{Chapter 5: Equations in One Variable}
+\author{}
+\date{}
+
+% Beginning the document
+\begin{document}
+
+% Creating the title
+\maketitle
+
+% Starting the content
+\section*{Introduction to Equations in One Variable}
+
+In previous classes, students learned about equations, their usage, and solving simple equations with one variable, including forming equations from real-life problems. This chapter discusses linear and quadratic equations and identities, demonstrating their applications in solving real-life problems.
+
+At the end of the chapter, students will be able to:
+\begin{itemize}
+    \item Explain the concept of a variable.
+    \item Differentiate between an equation and an identity.
+    \item Solve linear equations.
+    \item Solve real-life problems by forming linear equations.
+    \item Solve quadratic equations and find their solution sets.
+    \item Form and solve quadratic equations based on real-life problems.
+\end{itemize}
+
+\part{Variable}
+% Defining the section for Variable
+\section*{Variable}
+
+In the equation $x + 3 = 5$, solving for the unknown quantity $x$ identifies $x$ as a variable. In $x + a = 5$, if $x$ is the variable and $a$ is a constant, $x$ is solved in terms of $a$. Conversely, if $a$ is the variable, $a = 5 - x$. Without specific instructions, $x$ is conventionally the variable. Typically, variables are denoted by $x, y, z$ (end of the alphabet), and constants by $a, b, c$ (start of the alphabet). An equation with one variable, such as $x + 3 = 5$, $x^2 - 5x + b = 0$, or $2y^2 + 5y - 3 = 0$, is called a linear or quadratic equation in one variable.
+
+For a set $S = \{x : x \in \mathbb{R}, 1 \leq x \leq 10\}$, $x$ can be any real number from 1 to 10, making $x$ a variable. A letter symbol representing an element of a set is called a variable.
+
+\subsection*{Degree of an Equation}
+
+The highest degree of a variable in an equation is its degree. Equations like $x + 1 = 5$, $2x - 1 = x + 5$, and $y + 7 = 2y - 3$ have degree 1 (linear). Equations like $x^2 + 5x + 6 = 0$, $y^2 - y = 12$, and $4x^2 - 2x = 3 - 6x$ have degree 2 (quadratic). The equation $2x^3 - x^2 - 4x + 4 = 0$ has degree 3.
+
+\part{Equation and Identity}
+% Defining the section for Equation and Identity
+\section*{Equation and Identity}
+
+\textbf{Equation:} An equation has polynomials on both sides of the equal sign, or zero on one side (usually the right). The degrees of the polynomials may differ. Solving yields a number of variable values equal to the highest degree, called roots, which satisfy the equation. For example, $x^2 - 5x + 6 = 0$ has roots 2 and 3. In $(x - 3)^2 = 0$, the root is 3 (repeated: 3, 3).
+
+\textbf{Identity:} An identity has polynomials of equal degree on both sides, satisfied by more values than the highest degree. The sides are equivalent, e.g., $(x + 1)^2 - (x - 1)^2 = 4x$ holds for all $x$. Algebraic formulas like $(a + b)^2 = a^2 + 2ab + b^2$, $(a - b)^2 = a^2 - 2ab + b^2$, $a^2 - b^2 = (a + b)(a - b)$, and $(a + b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$ are identities.
+
+Not all equations are identities, but all identities are equations. Identities use $\equiv$ instead of $=$, though $=$ is often used.
+
+\textbf{Distinctions between Equation and Identity:}
+\[
+\begin{array}{|p{6cm}|p{6cm}|}
+\hline
+\text{Equation} & \text{Identity} \\
+\hline
+\text{Two polynomials may exist on both sides, or zero on one side.} & \text{Two polynomials exist on both sides.} \\
+\text{Degree of polynomials may be unequal.} & \text{Degree of polynomials is equal.} \\
+\text{Equality holds for one or more variable values.} & \text{Equality holds for all values in the variable's set.} \\
+\text{Number of variable values equals the highest degree.} & \text{Equality holds for infinitely many values.} \\
+\text{Not all equations are identities.} & \text{All algebraic identities are equations.} \\
+\hline
+\end{array}
+\]
+
+\part{Solving Linear Equations}
+% Defining the section for Solving Linear Equations
+\section*{Solving Linear Equations}
+
+To solve linear equations, apply these rules:
+\begin{enumerate}
+    \item Adding the same number to both sides keeps them equal.
+    \item Subtracting the same number from both sides keeps them equal.
+    \item Multiplying both sides by the same number keeps them equal.
+    \item Dividing both sides by the same non-zero number keeps them equal.
+\end{enumerate}
+
+Algebraically, if $x = a$ and $c \neq 0$:
+\[
+(i) \, x + c = a + c, \quad (ii) \, x - c = a - c, \quad (iii) \, xc = ac, \quad (iv) \, \frac{x}{c} = \frac{a}{c}
+\]
+
+The transposition law states: if $a = b + c$, then $a - b = c$; if $a + c = b$, then $a = b - c$. Linear equations have degree 1 variables in numerators and constant denominators.
+
+\textbf{Example 1.} Solve: $\frac{5x}{7} - \frac{4}{5} = \frac{x}{5} - \frac{2}{7}$
+
+Solution:
+\[
+\frac{5x}{7} - \frac{4}{5} = \frac{x}{5} - \frac{2}{7}
+\]
+\[
+\frac{5x}{7} - \frac{x}{5} = \frac{4}{5} - \frac{2}{7}
+\]
+\[
+\frac{25x - 7x}{35} = \frac{28 - 10}{35}
+\]
+\[
+\frac{18x}{35} = \frac{18}{35} \implies 18x = 18 \implies x = 1
+\]
+
+\textbf{Example 2.} Solve: $(y - 1)(y + 2) = (y + 4)(y - 2)$
+
+Solution:
+\[
+y^2 + y - 2 = y^2 + 2y - 8
+\]
+\[
+y - 2 = 2y - 8 \implies y - 2y = -8 + 2 \implies -y = -6 \implies y = 6
+\]
+
+\textbf{Example 3.} Solve and find the solution set: $\frac{6x + 1}{15} - \frac{2x - 4}{7x - 1} = \frac{2x - 1}{5}$
+
+Solution:
+\[
+\frac{6x + 1}{15} - \frac{2x - 1}{5} = \frac{2x - 4}{7x - 1}
+\]
+\[
+\frac{6x + 1 - 6x + 3}{15} = \frac{2x - 4}{7x - 1}
+\]
+\[
+\frac{4}{15} = \frac{2x - 4}{7x - 1}
+\]
+\[
+15(2x - 4) = 4(7x - 1) \implies 30x - 60 = 28x - 4 \implies 2x = 56 \implies x = 28
+\]
+Solution set: $S = \{28\}$
+
+\textbf{Example 4.} Solve: $\frac{1}{x - 3} + \frac{1}{x - 4} = \frac{1}{x - 2} + \frac{1}{x - 5}$
+
+Solution:
+\[
+\frac{(x - 4) + (x - 3)}{(x - 3)(x - 4)} = \frac{(x - 5) + (x - 2)}{(x - 2)(x - 5)}
+\]
+\[
+\frac{2x - 7}{x^2 - 7x + 12} = \frac{2x - 7}{x^2 - 7x + 10}
+\]
+Since numerators are equal, set $2x - 7 = 0$:
+\[
+2x = 7 \implies x = \frac{7}{2}
+\]
+
+\part{Usage of Linear Equations}
+% Defining the section for Usage of Linear Equations
+\section*{Usage of Linear Equations}
+
+Real-life problems often require mathematical knowledge, skill, and logic. Linear equations help solve these problems smoothly, increasing student interest in mathematics. Variables represent unknown quantities, and equations are formed based on given conditions to find these quantities.
+
+\textbf{Example 5.} The units digit of a two-digit number is 2 more than the tens digit. Interchanging the digits yields a number 6 less than twice the original. Find the number.
+
+Solution: Let the tens digit be $x$. Units digit is $x + 2$. Original number: $11x + 2$. Interchanged number: $11x + 20$.
+\[
+11x + 20 = 2(11x + 2) - 6
+\]
+\[
+11x + 20 = 22x + 4 - 6 \implies 22x - 11x = 20 + 6 - 4 \implies 11x = 22 \implies x = 2
+\]
+Number: $11 \cdot 2 + 2 = 24$.
+
+\textbf{Example 6.} In a class, seating 4 students per bench leaves 3 benches vacant, but seating 3 students per bench leaves 6 students standing. Find the number of students.
+
+Solution: Let the number of students be $x$. Benches with 4 students: $\frac{x}{4} + 3$. Benches with 3 students: $\frac{x - 6}{3}$.
+\[
+\frac{x}{4} + 3 = \frac{x - 6}{3}
+\]
+\[
+3(x + 12) = 4(x - 6) \implies 3x + 36 = 4x - 24 \implies x = 60
+\]
+Number of students: 60.
+
+\textbf{Example 7.} Mr. Kabir invested Tk. 56,000, some at 12\% profit and the rest at 10\%, earning Tk. 6,400 total profit. How much was invested at 12\%?
+
+Solution: Let $x$ be invested at 12\%. Then $56000 - x$ at 10\%. Profit: $\frac{12x}{100} + \frac{10(56000 - x)}{100} = 6400$.
+\[
+12x + 560000 - 10x = 640000 \implies 2x = 80000 \implies x = 40000
+\]
+Investment at 12\%: Tk. 40,000.
+
+\part{Quadratic Equations in One Variable}
+% Defining the section for Quadratic Equations in One Variable
+\section*{Quadratic Equations in One Variable}
+
+Equations of the form $ax^2 + bx + c = 0$ ($a, b, c$ constants, $a \neq 0$) are quadratic in one variable, with the left side a second-degree polynomial and the right side typically zero.
+
+For a rectangle with area 12 cm², length $x$ cm, breadth $(x - 1)$ cm:
+\[
+x(x - 1) = 12 \implies x^2 - x - 12 = 0
+\]
+This is a quadratic equation (degree 2).
+
+In Class VIII, students factorized quadratic expressions like $x^2 + px + q$ and $ax^2 + bx + c$. Here, we solve such equations by factorization, using the law: if $ab = 0$, then $a = 0$ or $b = 0$ (or both).
+
+\textbf{Example 8.} Solve: $(x + 2)(x - 3) = 0$
+
+Solution:
+\[
+x + 2 = 0 \implies x = -2, \quad x - 3 = 0 \implies x = 3
+\]
+Solution: $x = -2, 3$.
+
+\textbf{Example 9.} Find the solution set: $y^2 = \sqrt{3} y$
+
+Solution:
+\[
+y^2 - \sqrt{3} y = 0 \implies y(y - \sqrt{3}) = 0
+\]
+\[
+y = 0, \quad y = \sqrt{3}
+\]
+Solution set: $\{0, \sqrt{3}\}$.
+
+\textbf{Example 10.} Solve and find the solution set: $x - 4 = \frac{x - 4}{x}$
+
+Solution:
+\[
+x(x - 4) = x - 4 \implies x(x - 4) - (x - 4) = 0 \implies (x - 4)(x - 1) = 0
+\]
+\[
+x = 4, \quad x = 1
+\]
+Solution set: $\{1, 4\}$.
+
+\textbf{Example 11.} Solve: $\left(\frac{x + a}{x - a}\right)^2 - 5 \left(\frac{x + a}{x - a}\right) + 6 = 0$
+
+Solution: Let $y = \frac{x + a}{x - a}$.
+\[
+y^2 - 5y + 6 = 0 \implies (y - 2)(y - 3) = 0 \implies y = 2, 3
+\]
+For $y = 2$:
+\[
+\frac{x + a}{x - a} = 2 \implies x + a = 2(x - a) \implies x = 3a
+\]
+For $y = 3$:
+\[
+\frac{x + a}{x - a} = 3 \implies x + a = 3(x - a) \implies x = 2a
+\]
+Solution: $x = 2a, 3a$.
+
+\part{Usage of Quadratic Equations}
+% Defining the section for Usage of Quadratic Equations
+\section*{Usage of Quadratic Equations}
+
+Quadratic equations solve many daily-life problems. We form equations from given conditions and solve them.
+
+\textbf{Example 12.} A proper fraction’s denominator is 4 more than its numerator. Squaring the fraction makes the denominator 40 more than the numerator. Find the fraction.
+
+Solution: Let the numerator be $x$, denominator $x + 4$. Fraction: $\frac{x}{x + 4}$. Squared: $\frac{x^2}{(x + 4)^2}$.
+\[
+(x + 4)^2 = x^2 + 8x + 16 = x^2 + 40
+\]
+\[
+8x + 16 = 40 \implies 8x = 24 \implies x = 3
+\]
+Fraction: $\frac{3}{7}$.
+
+\textbf{Example 13.} A rectangular garden (50 m by 40 m) has a path of width $x$ m inside. The area excluding the path is 1200 m². Find the path’s width.
+
+Solution:
+\[
+(50 - 2x)(40 - 2x) = 1200
+\]
+\[
+4x^2 - 180x + 2000 = 1200 \implies x^2 - 45x + 200 = 0
+\]
+\[
+(x - 5)(x - 40) = 0 \implies x = 5, 40
+\]
+Since $x < 40$, width = 5 m.
+
+\textbf{Example 14.} Shahik bought pens for Tk. 240. Buying one more pen would reduce the average cost per pen by Tk. 1. How many pens did he buy?
+
+Solution: Let Shahik buy $x$ pens. Cost per pen: $\frac{240}{x}$. With $x + 1$ pens: $\frac{240}{x + 1}$.
+\[
+\frac{240}{x + 1} = \frac{240}{x} - 1
+\]
+\[
+240x = (x + 1)(240 - x) \implies x^2 + x - 240 = 0
+\]
+\[
+(x + 16)(x - 15) = 0 \implies x = 15, -16
+\]
+Number of pens: 15.
+
+\textbf{Example 15.} In a Class IX exam, $x$ students scored 1950 in mathematics. Adding a new student’s 34 marks reduces the average by 1.
+\begin{enumerate}
+    \item Write the average marks for $x$ students and $x + 1$ students (including the new student).
+    \item Show $x^2 + 35x - 1950 = 0$.
+    \item Find $x$ and the averages.
+\end{enumerate}
+
+Solution:
+\begin{enumerate}
+    \item Average for $x$ students: $\frac{1950}{x}$. For $x + 1$ students: $\frac{1950 + 34}{x + 1} = \frac{1984}{x + 1}$.
+    \item $\frac{1950}{x} = \frac{1984}{x + 1} + 1$
+    \[
+    \frac{1950}{x} - \frac{1984}{x + 1} = 1 \implies \frac{1950(x + 1) - 1984x}{x(x + 1)} = 1
+    \]
+    \[
+    x^2 + x = 1950 - 34x \implies x^2 + 35x - 1950 = 0
+    \]
+    \item $(x + 65)(x - 30) = 0 \implies x = 30, -65$. Since $x > 0$, $x = 30$.
+    Averages: $\frac{1950}{30} = 65$, $\frac{1984}{31} = 64$.
+\end{enumerate}
+
+% Ending the document
+\end{document}

@@ -1,0 +1,259 @@
+% Setting up the document class and necessary packages
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{titletoc}
+
+% Configuring page geometry
+\geometry{margin=1in}
+
+% Setting up font encoding
+\usepackage[T1]{fontenc}
+\usepackage{times}
+
+% Customizing section headings
+\title{Chapter 14: Ratio, Similarity and Symmetry}
+\author{}
+\date{}
+
+% Beginning the document
+\begin{document}
+
+% Creating the title
+\maketitle
+
+% Starting the content
+\section*{Introduction to Ratio, Similarity, and Symmetry}
+
+Ratios compare quantities measured in the same units, a concept explored in algebra. This chapter extends to geometric ratios, similarity, and symmetry, applying these principles to triangles and polygons.
+
+At the end of this chapter, students will be able to:
+\begin{itemize}
+    \item Explain geometric ratios.
+    \item Explain the internal division of a line segment.
+    \item Verify and prove theorems related to ratios.
+    \item Verify and prove theorems related to similarity.
+    \item Explain concepts of symmetry.
+    \item Verify line and rotational symmetry of real objects practically.
+\end{itemize}
+
+\part{Properties of Ratio and Proportion}
+% Defining the section for Properties of Ratio and Proportion
+\section*{Properties of Ratio and Proportion}
+
+Key properties include:
+\begin{enumerate}
+    \item[(i)] If $a:b = x:y$ and $c:d = x:y$, then $a:b = c:d$.
+    \item[(ii)] If $a:b = b:a$, then $a = b$.
+    \item[(iii)] If $a:b = x:y$, then $b:a = y:x$ (invertendo).
+    \item[(iv)] If $a:b = x:y$, then $a:x = b:y$ (alternendo).
+    \item[(v)] If $a:b = c:d$, then $ad = bc$ (cross-multiplication).
+    \item[(vi)] If $a:b = x:y$, then $a+b:b = x+y:y$ (componendo) and $a-b:b = x-y:y$ (dividendo).
+    \item[(vii)] If $\frac{a}{b} = \frac{c}{d}$, then $\frac{a+b}{a-b} = \frac{c+d}{c-d}$ (componendo and dividendo).
+\end{enumerate}
+
+% Defining the section for Geometric Proportions
+\section*{Geometric Proportions}
+
+For triangles:
+\begin{enumerate}
+    \item If two triangles have equal heights, their bases and areas are proportional. For triangles $ABC$ and $DEF$ with bases $BC = a$, $EF = d$, and equal height $h$:
+    \[
+    \text{Area of } \triangle ABC : \text{Area of } \triangle DEF = \frac{1}{2}ah : \frac{1}{2}dh = a : d = BC : EF
+    \]
+    \item If two triangles have equal bases, their heights and areas are proportional. For triangles $ABC$ and $DEF$ with heights $AP = h$, $DQ = k$, and equal base $b$:
+    \[
+    \text{Area of } \triangle ABC : \text{Area of } \triangle DEF = \frac{1}{2}bh : \frac{1}{2}bk = h : k = AP : DQ
+    \]
+\end{enumerate}
+
+Image description: Two figures show triangles $ABC$ and $DEF$. The first illustrates equal heights with bases $BC$ and $EF$, and the second shows equal bases with heights $AP$ and $DQ$.
+
+% Defining the section for Theorems on Ratios
+\section*{Theorems on Ratios}
+
+\subsection*{Theorem 28}
+A straight line parallel to one side of a triangle intersects the other two sides or their extensions proportionally.
+
+Special Nomination: In $\triangle ABC$, line $DE \parallel BC$ intersects $AB$ and $AC$ (or their extensions) at $D$ and $E$. Prove $AD:DB = AE:EC$.
+
+Drawing: Join $BE$ and $CD$.
+
+Image description: Two figures show $\triangle ABC$ with $DE \parallel BC$. Figure 1 has $D$ and $E$ on $AB$ and $AC$; Figure 2 has $D$ and $E$ on extensions of $AB$ and $AC$. Lines $BE$ and $CD$ are drawn.
+
+Proof:
+\begin{enumerate}
+    \item Heights of $\triangle ADE$ and $\triangle BDE$ are equal, so $\frac{\triangle ADE}{\triangle BDE} = \frac{AD}{DB}$.
+    \item Heights of $\triangle ADE$ and $\triangle DEC$ are equal, so $\frac{\triangle ADE}{\triangle DEC} = \frac{AE}{EC}$.
+    \item Since $\triangle BDE = \triangle DEC$ (same base $DE$, same parallels), $\frac{\triangle ADE}{\triangle BDE} = \frac{\triangle ADE}{\triangle DEC}$.
+    \item Thus, $\frac{AD}{DB} = \frac{AE}{EC}$, or $AD:DB = AE:EC$.
+\end{enumerate}
+
+Corollaries:
+\begin{enumerate}
+    \item $\frac{AB}{AD} = \frac{AC}{AE}$, $\frac{AB}{BD} = \frac{AC}{CE}$.
+    \item A line through the midpoint of one side parallel to another bisects the third side.
+\end{enumerate}
+
+\subsection*{Theorem 29}
+If a line divides two sides or their extensions of a triangle proportionally, it is parallel to the third side.
+
+Special Nomination: In $\triangle ABC$, line $DE$ divides $AB$ and $AC$ such that $AD:DB = AE:EC$. Prove $DE \parallel BC$.
+
+Drawing: Join $BE$ and $CD$.
+
+Proof:
+\begin{enumerate}
+    \item $\frac{\triangle ADE}{\triangle BDE} = \frac{AD}{DB}$, $\frac{\triangle ADE}{\triangle DEC} = \frac{AE}{EC}$ (equal heights).
+    \item Given $AD:DB = AE:EC$, so $\frac{\triangle ADE}{\triangle BDE} = \frac{\triangle ADE}{\triangle DEC}$.
+    \item Thus, $\triangle BDE = \triangle DEC$.
+    \item Since $\triangle BDE$ and $\triangle DEC$ share base $DE$ and lie between parallels, $DE \parallel BC$.
+\end{enumerate}
+
+\subsection*{Theorem 30}
+The internal bisector of a triangle’s angle divides the opposite side in the ratio of the sides forming the angle.
+
+Special Nomination: In $\triangle ABC$, bisector $AD$ of $\angle A$ intersects $BC$ at $D$. Prove $BD:DC = BA:AC$.
+
+Drawing: Draw $CE \parallel DA$, intersecting $BA$ extended at $E$.
+
+Proof:
+\begin{enumerate}
+    \item Since $DA \parallel CE$, $\angle AEC = \angle BAD$, $\angle ACE = \angle CAD$ (corresponding angles).
+    \item Given $\angle BAD = \angle CAD$, so $\angle AEC = \angle ACE$, implying $AC = AE$.
+    \item Since $DA \parallel CE$, $\frac{BD}{DC} = \frac{BA}{AE}$ (Theorem 28).
+    \item Since $AE = AC$, $\frac{BD}{DC} = \frac{BA}{AC}$.
+\end{enumerate}
+
+\subsection*{Theorem 31}
+If a side of a triangle is divided internally such that the ratio equals that of the adjacent sides, the line from the division point to the opposite vertex bisects the angle.
+
+Special Nomination: In $\triangle ABC$, line $AD$ divides $BC$ at $D$ such that $BD:DC = BA:AC$. Prove $AD$ bisects $\angle BAC$.
+
+Drawing: Draw $CE \parallel DA$, intersecting $BA$ extended at $E$.
+
+Proof:
+\begin{enumerate}
+    \item Since $DA \parallel CE$, $BA:AE = BD:DC$ (Theorem 28).
+    \item Given $BD:DC = BA:AC$, so $BA:AE = BA:AC$, implying $AE = AC$.
+    \item Thus, $\angle ACE = \angle AEC$ (isosceles triangle).
+    \item Since $\angle AEC = \angle BAD$ (corresponding), $\angle ACE = \angle CAD$ (alternate), $\angle BAD = \angle CAD$.
+\end{enumerate}
+
+% Defining the section for Internal Division of a Line Segment
+\section*{Internal Division of a Line Segment}
+
+For points $A$, $B$ and natural numbers $m$, $n$, a unique point $X$ exists between $A$ and $B$ such that $AX:XB = m:n$.
+
+Image description: A figure shows line segment $AB$ with point $X$ dividing it internally such that $AX:XB = m:n$.
+
+\subsection*{Construction 12}
+Divide a line segment internally in a given ratio $m:n$.
+
+Drawing: At $A$ on $AB$, draw angle $\angle BAX$. On ray $AX$, mark $AE = m$, $EC = n$. Join $BC$. At $E$, draw $ED \parallel CB$, intersecting $AB$ at $D$.
+
+Proof: Since $DE \parallel BC$ in $\triangle ABC$, $AD:DB = AE:EC = m:n$ (Theorem 28).
+
+\subsection*{Example 1}
+Divide a 7 cm line segment internally in the ratio $3:2$.
+
+Solution: Draw ray $AG$, mark $AB = 7$ cm. Draw angle $\angle BAX$. On $AX$, mark $AE = 3$ cm, $EC = 2$ cm. Join $BC$. At $E$, draw $\angle AED = \angle ACB$, intersecting $AB$ at $D$. Then $AD:DB = 3:2$.
+
+\part{Similarity}
+% Defining the section for Similarity
+\section*{Similarity}
+
+Congruence is a special case of similarity. Similar polygons have equal corresponding angles and proportional sides. Equiangular polygons (e.g., rectangle $ABCD$ and square $PQRS$) have equal angles but may not be similar if side ratios differ. For triangles, equiangularity ensures similarity.
+
+Image description: Two figures show rectangle $ABCD$ and square $PQRS$, both with right angles, illustrating equiangular but non-similar polygons due to differing side ratios.
+
+\subsection*{Theorem 32}
+If two triangles are equiangular, their corresponding sides are proportional.
+
+Special Nomination: In $\triangle ABC$ and $\triangle DEF$, $\angle A = \angle D$, $\angle B = \angle E$, $\angle C = \angle F$. Prove $\frac{AB}{DE} = \frac{AC}{DF} = \frac{BC}{EF}$.
+
+Drawing: Take points $P$ on $AB$, $Q$ on $AC$ such that $AP = DE$, $AQ = DF$. Join $PQ$.
+
+Proof:
+\begin{enumerate}
+    \item In $\triangle APQ$ and $\triangle DEF$, $AP = DE$, $AQ = DF$, $\angle A = \angle D$, so $\triangle APQ \cong \triangle DEF$ (SAS). Thus, $\angle APQ = \angle ABC$, $\angle AQP = \angle ACB$.
+    \item Since $\angle APQ = \angle ABC$, $\angle AQP = \angle ACB$, $PQ \parallel BC$, so $\frac{AB}{AP} = \frac{AC}{AQ} = \frac{AB}{DE} = \frac{AC}{DF}$.
+    \item Similarly, $\frac{AB}{DE} = \frac{BC}{EF}$. Thus, $\frac{AB}{DE} = \frac{AC}{DF} = \frac{BC}{EF}$.
+\end{enumerate}
+
+\subsection*{Theorem 33}
+If two triangles’ sides are proportional, their corresponding angles are equal.
+
+Special Nomination: In $\triangle ABC$ and $\triangle DEF$, $\frac{AB}{DE} = \frac{AC}{DF} = \frac{BC}{EF}$. Prove $\angle A = \angle D$, $\angle B = \angle E$, $\angle C = \angle F$.
+
+Drawing: Take points $P$ on $AB$, $Q$ on $AC$ such that $AP = DE$, $AQ = DF$. Join $PQ$.
+
+Proof:
+\begin{enumerate}
+    \item Given $\frac{AB}{DE} = \frac{AC}{DF}$, so $\frac{AB}{AP} = \frac{AC}{AQ}$, implying $PQ \parallel BC$ (Theorem 29).
+    \item Thus, $\angle ABC = \angle APQ$, $\angle ACB = \angle AQP$, making $\triangle ABC$ and $\triangle APQ$ equiangular.
+    \item Since $\frac{AB}{DE} = \frac{BC}{EF}$, and $\frac{AB}{DE} = \frac{BC}{PQ}$, $EF = PQ$.
+    \item Thus, $\triangle APQ \cong \triangle DEF$ (SSS), so $\angle A = \angle D$, $\angle B = \angle E$, $\angle C = \angle F$.
+\end{enumerate}
+
+\subsection*{Theorem 34}
+If one angle of a triangle equals an angle of another and the sides adjacent to these angles are proportional, the triangles are similar.
+
+Special Nomination: In $\triangle ABC$ and $\triangle DEF$, $\angle A = \angle D$, $\frac{AB}{DE} = \frac{AC}{DF}$. Prove $\triangle ABC \sim \triangle DEF$.
+
+Drawing: Take points $P$ on $AB$, $Q$ on $AC$ such that $AP = DE$, $AQ = DF$. Join $PQ$.
+
+Proof:
+\begin{enumerate}
+    \item In $\triangle APQ$ and $\triangle DEF$, $AP = DE$, $AQ = DF$, $\angle A = \angle D$, so $\triangle APQ \cong \triangle DEF$ (SAS).
+    \item Given $\frac{AB}{DE} = \frac{AC}{DF}$, so $\frac{AB}{AP} = \frac{AC}{AQ}$, implying $PQ \parallel BC$.
+    \item Thus, $\angle ABC = \angle APQ = \angle E$, $\angle ACB = \angle AQP = \angle F$, and $\angle A = \angle D$, so $\triangle ABC \sim \triangle DEF$.
+\end{enumerate}
+
+\subsection*{Theorem 35}
+The ratio of areas of similar triangles equals the square of the ratio of corresponding sides.
+
+Special Nomination: For similar $\triangle ABC$ and $\triangle DEF$, prove $\triangle ABC : \triangle DEF = BC^2 : EF^2$.
+
+Drawing: Draw perpendiculars $AG$ to $BC$, $DH$ to $EF$, with $AG = h$, $DH = p$.
+
+Proof:
+\begin{enumerate}
+    \item Areas: $\triangle ABC = \frac{1}{2} \cdot BC \cdot h$, $\triangle DEF = \frac{1}{2} \cdot EF \cdot p$. Ratio:
+    \[
+    \frac{\triangle ABC}{\triangle DEF} = \frac{BC \cdot h}{EF \cdot p} = \frac{h}{p} \cdot \frac{BC}{EF}
+    \]
+    \item In $\triangle ABG$ and $\triangle DEH$, $\angle B = \angle E$, $\angle AGB = \angle DHE = 90^\circ$, so $\angle BAG = \angle EDH$. Thus, $\triangle ABG \sim \triangle DEH$, and $\frac{h}{p} = \frac{BC}{EF}$.
+    \item Therefore, $\frac{\triangle ABC}{\triangle DEF} = \frac{BC}{EF} \cdot \frac{BC}{EF} = \frac{BC^2}{EF^2}$.
+\end{enumerate}
+
+\part{Symmetry}
+% Defining the section for Symmetry
+\section*{Symmetry}
+
+Symmetry is prevalent in nature and design, used in art, architecture, and everyday objects. A figure has line symmetry if it can be folded along a line so both parts coincide.
+
+Image description: Figures show symmetrical objects like a leaf, flower, and geometric shapes, each with a dashed line indicating the line of symmetry.
+
+\subsection*{Line Symmetry of Regular Polygons}
+
+A regular polygon has equal sides and angles. An equilateral triangle (3 sides), square (4 sides), regular pentagon (5 sides), and hexagon (6 sides) have line symmetry equal to their number of sides.
+
+Image description: Figures show an equilateral triangle, square, regular pentagon, and hexagon, each with dashed lines indicating their lines of symmetry.
+
+\subsection*{Rotational Symmetry}
+
+An object has rotational symmetry if it looks identical after rotation around a fixed point (center of rotation) by a specific angle. For example, a fan with four blades has order 4 symmetry (identical after $90^\circ$ rotations). A square has order 4 (quarter turns).
+
+Image description: A figure shows a four-bladed fan in four positions after $90^\circ$, $180^\circ$, $270^\circ$, and $360^\circ$ rotations, and a square rotated by quarter turns, both illustrating rotational symmetry of order 4.
+
+\subsection*{Line and Rotational Symmetry}
+
+Shapes may have line symmetry, rotational symmetry, or both. A square has four lines of symmetry and order 4 rotational symmetry. A circle has infinite lines of symmetry and infinite rotational symmetry.
+
+% Ending the document
+\end{document}

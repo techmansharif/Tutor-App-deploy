@@ -262,7 +262,7 @@ def main():
     print("=" * 60)
     
     try:
-        process_folders_and_files("C:\D backup\data")  # Change "data" to your base directory name
+        process_folders_and_files("D:\Tutor\Tutor-App-deploy/backend/app\data")  # Change "data" to your base directory name
     except Exception as e:
         print(f"\n💥 FATAL ERROR: {str(e)}")
         print("🛑 Process stopped. Please fix the error and try again.")
