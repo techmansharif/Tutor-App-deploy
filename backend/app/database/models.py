@@ -129,6 +129,8 @@ class QuizAnswer(Base):
     is_correct = Column(Boolean)
     attempt = relationship("QuizAttempt", back_populates="answers")
     question = relationship("MCQ")
+    response_time = Column(Float, nullable=True)  # New column for time spent on question (seconds)
+
 
 
 # New QuizScore model
@@ -206,6 +208,8 @@ class Quiz1(Base):
     user = relationship("User")
     attempt = relationship("Quiz1Attempt", back_populates="answers")
     question = relationship("MCQ")
+    response_time = Column(Float, nullable=True)  # New column for time spent on question (seconds)
+
 
 # Quiz1Attempt model
 class Quiz1Attempt(Base):
@@ -254,6 +258,8 @@ class PractiseAnswer(Base):
 
     attempt = relationship("PractiseAttempt", back_populates="answers")
     question = relationship("MCQ")
+    response_time = Column(Float, nullable=True)  # New column for time spent on question (seconds)
+
     
     
     

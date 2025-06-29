@@ -2,17 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import Stopwatch from '../Stopwatch/Stopwatch';
-
-import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add this import
+import { processQuizText, MathText } from '../ProcessText/ProcessQuiz';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import ReactMarkdown from 'react-markdown';
-
-
-
 import './Practise.css';
-
 
 const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompletePractice }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -25,14 +20,12 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
   const [score, setScore] = useState(0);
   const [isAnswerIncorrect, setIsAnswerIncorrect] = useState(false);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
-  const [timerReset, setTimerReset] = useState(0); // Trigger timer reset
-  const [showCongrats, setShowCongrats] = useState(false); // Track congratulatory message
-  const [isTimerPaused, setIsTimerPaused] = useState(false); // Track timer pause state
+  const [timerReset, setTimerReset] = useState(0);
+  const [showCongrats, setShowCongrats] = useState(false);
+  const [isTimerPaused, setIsTimerPaused] = useState(false);
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
 
-  const [image1, setImage1] = useState(null); // State for correct answer image
-  const [image2, setImage2] = useState(null); // State for incorrect answer image
-
-  // Integrity score hook
   const {
     questionStartTime,
     setQuestionStartTime,
@@ -42,36 +35,34 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
     logResponseTime
   } = useIntegrityScore();
 
-  // Start timing when a new question is loaded
   useEffect(() => {
     if (currentQuestion) {
       setQuestionStartTime(Date.now());
-      setTimerReset((prev) => prev + 1); // Reset timer
-      setIsTimerPaused(false); // Ensure timer is not paused for new question
+      setTimerReset((prev) => prev + 1);
+      setIsTimerPaused(false);
     }
   }, [currentQuestion, setQuestionStartTime]);
 
-  // Fetch the first practice question on mount
   useEffect(() => {
     fetchPracticeQuestion();
   }, []);
 
-const fetchPracticeQuestion = async (submission = null) => {
+  const fetchPracticeQuestion = async (submission = null) => {
     setIsLoading(true);
     try {
-         const token = localStorage.getItem('access_token');
+      const token = localStorage.getItem('access_token');
       const response = await axios.post(
         `${API_BASE_URL}/${subject}/${topic}/${subtopic}/practise/`,
         submission,
         {
-         headers: { 
-              'user-id': user.user_id,
-              'Authorization': `Bearer ${token}`
-            }
+          headers: { 
+            'user-id': user.user_id,
+            'Authorization': `Bearer ${token}`
           }
-        );
+        }
+      );
 
-      const { question, hardness_level, message, questions_tried, number_correct,image1,image2 } = response.data;
+      const { question, hardness_level, message, questions_tried, number_correct, image1, image2 } = response.data;
       if (question) {
         setCurrentQuestion(question);
         setHardnessLevel(hardness_level);
@@ -80,10 +71,8 @@ const fetchPracticeQuestion = async (submission = null) => {
         setIsAnswerIncorrect(false);
         setShowCongrats(false);
         setIsTimerPaused(false);
-
-        setImage1(image1); // Store image1
-        setImage2(image2); // Store image2
-        // Set questionsTried and score if resuming an incomplete session
+        setImage1(image1);
+        setImage2(image2);
         if (questions_tried !== null && questions_tried !== undefined) {
           setQuestionsTried(questions_tried);
         }
@@ -93,7 +82,6 @@ const fetchPracticeQuestion = async (submission = null) => {
       } else if (message) {
         setIsComplete(true);
         setCompletionMessage(message);
-        // Set final questionsTried and score for completion
         if (questions_tried !== null && questions_tried !== undefined) {
           setQuestionsTried(questions_tried);
         }
@@ -108,10 +96,10 @@ const fetchPracticeQuestion = async (submission = null) => {
       setIsLoading(false);
     }
   };
+
   const handleAnswerSelect = async (option) => {
     setSelectedOption(option);
 
-    // Auto-submit the answer
     const responseTime = (Date.now() - questionStartTime) / 1000;
     const cheatProbability = calculateCheatProbability(responseTime);
     updateCheatScore(cheatProbability);
@@ -121,27 +109,26 @@ const fetchPracticeQuestion = async (submission = null) => {
     setIsAnswerSubmitted(true);
     setIsAnswerIncorrect(!isCorrect);
 
-    // Increment score and questionsTried if answer is correct
     if (isCorrect) {
       setScore((prev) => prev + 1);
       setQuestionsTried((prev) => prev + 1);
-      setShowCongrats(true); // Show congratulatory message
-      setIsTimerPaused(true); // Pause the stopwatch
+      setShowCongrats(true);
+      setIsTimerPaused(true);
       setTimeout(async () => {
         const submission = {
           question_id: currentQuestion.id,
           is_correct: isCorrect,
           current_hardness_level: hardnessLevel,
-          questions_tried: questionsTried + 1
+          questions_tried: questionsTried + 1,
+          response_time: responseTime
         };
         await fetchPracticeQuestion(submission);
-      }, 1500); // Wait 3 seconds before moving to next question
+      }, 1500);
     }
   };
 
   const handleTimeExpired = () => {
     if (!isAnswerSubmitted) {
-      // Treat as incorrect answer
       const responseTime = (Date.now() - questionStartTime) / 1000;
       logResponseTime(responseTime, false, currentQuestion, hardnessLevel);
       setIsAnswerSubmitted(true);
@@ -150,24 +137,24 @@ const fetchPracticeQuestion = async (submission = null) => {
   };
 
   const handleRetry = () => {
-    // Reset for retrying the same question
     setSelectedOption('');
     setIsAnswerSubmitted(false);
     setIsAnswerIncorrect(false);
-    setQuestionStartTime(Date.now()); // Reset timer for integrity score
-    setTimerReset((prev) => prev + 1); // Reset stopwatch
-    setIsTimerPaused(false); // Ensure timer is not paused
+    setQuestionStartTime(Date.now());
+    setTimerReset((prev) => prev + 1);
+    setIsTimerPaused(false);
   };
 
   const handleNextQuestion = async () => {
-    // Move to next question, count the incorrect attempt
     setQuestionsTried((prev) => prev + 1);
+    const responseTime = (Date.now() - questionStartTime) / 1000;
     const submission = {
       question_id: currentQuestion.id,
       is_correct: false,
       current_hardness_level: hardnessLevel,
-      questions_tried: questionsTried + 1
-    };
+      questions_tried: questionsTried + 1,
+      response_time: responseTime
+    }
     await fetchPracticeQuestion(submission);
   };
 
@@ -176,7 +163,6 @@ const fetchPracticeQuestion = async (submission = null) => {
   };
 
   const handleRestart = () => {
-    // Reset all relevant states to initial values
     setCurrentQuestion(null);
     setHardnessLevel(5);
     setQuestionsTried(0);
@@ -186,10 +172,9 @@ const fetchPracticeQuestion = async (submission = null) => {
     setScore(0);
     setIsAnswerIncorrect(false);
     setIsAnswerSubmitted(false);
-    setTimerReset((prev) => prev + 1); // Reset timer
+    setTimerReset((prev) => prev + 1);
     setShowCongrats(false);
     setIsTimerPaused(false);
-    // Fetch a new question to start the next part
     fetchPracticeQuestion();
   };
 
@@ -230,12 +215,12 @@ const fetchPracticeQuestion = async (submission = null) => {
   return (
     <div className="practice-quiz-container">
       <div className="quiz-header">
-         <div className="quiz-title-section">
-                  <h2>Practice</h2>
-                  <h3>{subject}</h3>
-                  <h3>{topic}</h3>
-                  <h3>{subtopic}</h3>
-         </div>
+        <div className="quiz-title-section">
+          <h2>Practice</h2>
+          <h3>{subject}</h3>
+          <h3>{topic}</h3>
+          <h3>{subtopic}</h3>
+        </div>
         <button onClick={handleRestart} className="restart-button">
           Restart Practice
         </button>
@@ -243,11 +228,11 @@ const fetchPracticeQuestion = async (submission = null) => {
       <div className="quiz-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
         <div className="left-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
           <p style={{ margin: '5px 0', fontWeight: 'normal' }}>
-  Question {questionsTried + 1}/20 |{' '}
-  <span style={{ color: 'rgb(128, 128, 128)' }}>
-    Difficulty Level: {hardnessLevel}
-  </span>
-</p>
+            Question {questionsTried + 1}/20 |{' '}
+            <span style={{ color: 'rgb(128, 128, 128)' }}>
+              Difficulty Level: {hardnessLevel}
+            </span>
+          </p>
           <p style={{ margin: '5px 0', fontWeight: 'normal' }}>Score    {score} / {questionsTried}</p>
         </div>
         <div className="right-section">
@@ -259,11 +244,11 @@ const fetchPracticeQuestion = async (submission = null) => {
           <IntegrityScore integrityScore={integrityScore} cheatScore={cheatScore} />
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: '1px' }}>
-          <span style={{ fontWeight: 'normal' , fontSize: '0.7em',color:'blue'}}>Integrity mode (helps you answer faster)</span>
-          <span style={{ fontWeight: 'normal', fontSize: '0.7em' ,color:'blue'}}>{integrityScore}%</span>
+          <span style={{ fontWeight: 'normal', fontSize: '0.7em', color:'blue'}}>Integrity mode (helps you answer faster)</span>
+          <span style={{ fontWeight: 'normal', fontSize: '0.7em', color:'blue'}}>{integrityScore}%</span>
         </div>
       </div>
-      <div className="question-container"  >
+      <div className="question-container">
         <h4><MathText>{currentQuestion.question}</MathText></h4>
         <div className="options">
           {['a', 'b', 'c', 'd'].map((option) => (
@@ -278,7 +263,7 @@ const fetchPracticeQuestion = async (submission = null) => {
                 disabled={isAnswerSubmitted && isAnswerIncorrect}
               />
               <label htmlFor={`q-${currentQuestion.id}-${option}`}>
-                {option.toUpperCase()}:<MathText>{currentQuestion[`option_${option}`]}</MathText>
+                {option.toUpperCase()}: <MathText>{currentQuestion[`option_${option}`]}</MathText>
               </label>
             </div>
           ))}
@@ -312,39 +297,37 @@ const fetchPracticeQuestion = async (submission = null) => {
       {isAnswerSubmitted && isAnswerIncorrect && (
         <div className="modal-overlay">
           <div className="modal-content">
-              <div className="feedback incorrect">
-                  <h3>Incorrect</h3>
-                  <p>Your answer was incorrect.</p>
-                  {image2 && (
-                    <img
-                      src={`data:image/png;base64,${image2}`}
-                      alt="Incorrect feedback"
-                      style={{
-                        maxWidth: '70%',
-                        maxHeight: '150px',
-                        margin: '10px 0',
-                        borderRadius: '5px',
-                        objectFit: 'contain'
-                      }}
-                    />
-                  )}
-                <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-                  <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}:  <MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
-                </p>
-                <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-                  <strong>Explanation:</strong> <MathText>{currentQuestion.explanation}</MathText>
-                </p>
+            <div className="feedback incorrect">
+              <h3>Incorrect</h3>
+              <p>Your answer was incorrect.</p>
+              {image2 && (
+                <img
+                  src={`data:image/png;base64,${image2}`}
+                  alt="Incorrect feedback"
+                  style={{
+                    maxWidth: '70%',
+                    maxHeight: '150px',
+                    margin: '10px 0',
+                    borderRadius: '5px',
+                    objectFit: 'contain'
+                  }}
+                />
+              )}
+              <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
+                <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: <MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
+              </p>
+              <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
+                <strong>Explanation:</strong> <MathText>{currentQuestion.explanation}</MathText>
+              </p>
             </div>
-            
-                <div className="action-buttons">
-                    <button onClick={handleRetry} className="retry-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                      Retry Question
-                    </button>
-                    <button onClick={handleNextQuestion} className="next-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                      Next Question
-                    </button>
-                </div>
-
+            <div className="action-buttons">
+              <button onClick={handleRetry} className="retry-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                Retry Question
+              </button>
+              <button onClick={handleNextQuestion} className="next-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                Next Question
+              </button>
+            </div>
           </div>
         </div>
       )}

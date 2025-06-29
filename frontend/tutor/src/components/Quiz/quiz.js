@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
-import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add this import
+import { processQuizText, MathText } from '../ProcessText/ProcessQuiz';
 import Stopwatch from '../Stopwatch/Stopwatch';
 import './quiz.css';
 
@@ -20,16 +20,10 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
   const [showCongrats, setShowCongrats] = useState(false);
   const [isTimerPaused, setIsTimerPaused] = useState(false);
   const [attemptId, setAttemptId] = useState(null);
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [completionDate, setCompletionDate] = useState('');
 
-    const [image1, setImage1] = useState(null); // State for correct answer image
-    const [image2, setImage2] = useState(null); // State for incorrect answer image
-  
-
-// 1. Add this new state variable with your other useState declarations:
-const [completionDate, setCompletionDate] = useState('');
-
-
-  // Integrity score hook
   const {
     questionStartTime,
     setQuestionStartTime,
@@ -39,7 +33,6 @@ const [completionDate, setCompletionDate] = useState('');
     logResponseTime
   } = useIntegrityScore();
 
-  // Start timing when a new question is loaded
   useEffect(() => {
     if (currentQuestion) {
       setQuestionStartTime(Date.now());
@@ -48,28 +41,26 @@ const [completionDate, setCompletionDate] = useState('');
     }
   }, [currentQuestion, setQuestionStartTime]);
 
-  // Fetch the first quiz question on mount
   useEffect(() => {
     fetchQuizQuestion();
   }, []);
 
-const fetchQuizQuestion = async (submission = null) => {
+  const fetchQuizQuestion = async (submission = null) => {
     setIsLoading(true);
     try {
-         const token = localStorage.getItem('access_token');
+      const token = localStorage.getItem('access_token');
       const response = await axios.post(
         `${API_BASE_URL}/${subject}/${topic}/${subtopic}/quiz/`,
         submission,
         {
-           headers: { 
-              'user-id': user.user_id,
-              'Authorization': `Bearer ${token}`
-            }
+          headers: { 
+            'user-id': user.user_id,
+            'Authorization': `Bearer ${token}`
           }
-        );
+        }
+      );
 
-
-      const { question, hardness_level, message, attempt_id, questions_tried, correct_answers,image1,image2 } = response.data;
+      const { question, hardness_level, message, attempt_id, questions_tried, correct_answers, image1, image2 } = response.data;
       if (question) {
         setCurrentQuestion(question);
         setHardnessLevel(hardness_level);
@@ -79,10 +70,8 @@ const fetchQuizQuestion = async (submission = null) => {
         setIsAnswerIncorrect(false);
         setShowCongrats(false);
         setIsTimerPaused(false);
-
-        setImage1(image1); // Store image1
-        setImage2(image2); // Store image2
-        // Set questions tried and score if provided
+        setImage1(image1);
+        setImage2(image2);
         if (questions_tried !== undefined && questions_tried !== null) {
           setQuestionsTried(questions_tried);
         }
@@ -92,8 +81,6 @@ const fetchQuizQuestion = async (submission = null) => {
       } else if (message) {
         setIsComplete(true);
         setCompletionMessage(message);
-
-                // Add this line to capture completion date:
         const now = new Date();
         const formattedDate = now.toLocaleDateString('en-GB', { 
           day: '2-digit', 
@@ -101,9 +88,7 @@ const fetchQuizQuestion = async (submission = null) => {
           year: 'numeric' 
         }).replace(/ /g, '-').toUpperCase();
         setCompletionDate(formattedDate);
-
         setAttemptId(attempt_id);
-        // Set questions tried and score if provided
         if (questions_tried !== undefined && questions_tried !== null) {
           setQuestionsTried(questions_tried);
         }
@@ -122,7 +107,6 @@ const fetchQuizQuestion = async (submission = null) => {
   const handleAnswerSelect = async (option) => {
     setSelectedOption(option);
 
-    // Auto-submit the answer
     const responseTime = (Date.now() - questionStartTime) / 1000;
     const cheatProbability = calculateCheatProbability(responseTime);
     updateCheatScore(cheatProbability);
@@ -132,16 +116,15 @@ const fetchQuizQuestion = async (submission = null) => {
     setIsAnswerSubmitted(true);
     setIsAnswerIncorrect(!isCorrect);
 
-    // Prepare submission
-    const submission = {
-      question_id: currentQuestion.id,
-      is_correct: isCorrect,
-      current_hardness_level: hardnessLevel,
-      questions_tried: questionsTried + 1,
-      attempt_id: attemptId
-    };
+      const submission = {
+        question_id: currentQuestion.id,
+        is_correct: isCorrect,
+        current_hardness_level: hardnessLevel,
+        questions_tried: questionsTried + 1,
+        attempt_id: attemptId,
+        response_time: responseTime
+      };
 
-    // Increment score and questionsTried
     setQuestionsTried((prev) => prev + 1);
     if (isCorrect) {
       setScore((prev) => prev + 1);
@@ -151,8 +134,6 @@ const fetchQuizQuestion = async (submission = null) => {
         await fetchQuizQuestion(submission);
       }, 1500);
     }
-    // For incorrect answers, do not fetch new question immediately
-    // Let handleNextQuestion trigger the fetch
   };
 
   const handleTimeExpired = () => {
@@ -162,13 +143,14 @@ const fetchQuizQuestion = async (submission = null) => {
       setIsAnswerSubmitted(true);
       setIsAnswerIncorrect(true);
 
-      const submission = {
-        question_id: currentQuestion.id,
-        is_correct: false,
-        current_hardness_level: hardnessLevel,
-        questions_tried: questionsTried + 1,
-        attempt_id: attemptId
-      };
+        const submission = {
+          question_id: currentQuestion.id,
+          is_correct: false,
+          current_hardness_level: hardnessLevel,
+          questions_tried: questionsTried + 1,
+          attempt_id: attemptId,
+          response_time: responseTime
+        };
       setQuestionsTried((prev) => prev + 1);
       fetchQuizQuestion(submission);
     }
@@ -184,13 +166,15 @@ const fetchQuizQuestion = async (submission = null) => {
   };
 
   const handleNextQuestion = async () => {
+    const responseTime = (Date.now() - questionStartTime) / 1000;
     const submission = {
-      question_id: currentQuestion.id,
-      is_correct: false,
-      current_hardness_level: hardnessLevel,
-      questions_tried: questionsTried,
-      attempt_id: attemptId
-    };
+        question_id: currentQuestion.id,
+        is_correct: false,
+        current_hardness_level: hardnessLevel,
+        questions_tried: questionsTried,
+        attempt_id: attemptId,
+        response_time: responseTime
+      };
     await fetchQuizQuestion(submission);
   };
 

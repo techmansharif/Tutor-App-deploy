@@ -66,6 +66,7 @@ class PracticeQuizAnswerSubmission(BaseModel):
     is_correct: bool
     current_hardness_level: int
     questions_tried: int
+    response_time: Optional[float] = None  # NEW FIELD
 
 
 
@@ -92,3 +93,4 @@ class QuizAnswerSubmission(BaseModel):
     current_hardness_level: int
     questions_tried: int
     attempt_id: int
+    response_time: Optional[float] = None  # NEW FIELD
