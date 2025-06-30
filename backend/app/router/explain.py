@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends, HTTPException, Header, Request,Backgroun
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy import select, update
-
 from typing import Optional
 from datetime import datetime
 from ..database.session import SessionLocal
@@ -17,6 +16,8 @@ from google import genai
 from google.genai import types
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
+
+import re
 
 # Import JWT utils
 from ..jwt_utils import get_user_from_token
@@ -77,7 +78,7 @@ async def get_async_db():
 client = genai.Client(api_key=api_key)
 MODEL="gemini-2.5-flash"
 
-def generate_gemini_response(prompt: str,system_instruction:str="", temperature: float = 0.2) -> str:
+def generate_gemini_response(prompt: str,system_instruction:str="", temperature: float = 0.2,image_base64: Optional[str] = None) -> str:
     """
     Generate response using Gemini API
     
@@ -88,10 +89,35 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
     Returns:
         Generated text response
     """
+    # Build contents list
+    contents = []
+    
+    # Add image if provided
+    if image_base64:
+        image_bytes = base64.b64decode(image_base64)
+        image_part = types.Part.from_bytes(
+            data=image_bytes, 
+            mime_type="image/jpeg"  # Adjust if you have different image types
+        )
+        contents.append(image_part)
+    # else:
+    #     contents.append("no image exists")
+    #  response = client.models.generate_content(
+    #         model=MODEL,
+    #         contents=contents,
+    #         config=types.GenerateContentConfig(
+    #             thinking_config=types.ThinkingConfig(thinking_budget=-1),
+    #             system_instruction="explain image if it exist or  write no image here ",  # Move this OUTSIDE config
+    #             temperature=temperature
+    #         )
+            
+    #     )
+    # Add text prompt
+    contents.append(prompt)
    
     response = client.models.generate_content(
             model=MODEL,
-            contents=[prompt],
+            contents=contents,
             config=types.GenerateContentConfig(
                 thinking_config=types.ThinkingConfig(thinking_budget=-1),
                 system_instruction=system_instruction,  # Move this OUTSIDE config
@@ -99,6 +125,7 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
             )
             
         )
+   
     # response=r"$$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56 $$"
     
     return response.text.strip()
@@ -167,7 +194,7 @@ async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks:
             
             # Generate AI response using thread pool (keep this sync call in executor)
             loop = asyncio.get_event_loop()
-            generated_answer = await loop.run_in_executor(executor, generate_gemini_response, prompt, system_instruction, 0.3)
+            generated_answer = await loop.run_in_executor(executor, generate_gemini_response, prompt, system_instruction, 0.3,next_image_data)
             
             # Store pre-generated response in database using async update
             await db.execute(
@@ -229,14 +256,15 @@ async def get_image_data_from_chunk(chunk: str, subtopic_id: int,db: AsyncSessio
             return None  # No lines in the chunk
 
         first_line = lines[0].strip()  # e.g., "\subsection*{Union of Sets}" or "\section*{Introduction}" or "\textbf{Key Concepts}"
-
+        match = re.match(r'\\(section|subsection|textbf)\*?\{([^}]*)\}', first_line)
         # Clean the first line by removing LaTeX commands (\section, \subsection, \textbf) and braces
-        description = first_line
-        # Remove common LaTeX commands and their variants (with or without *)
-        for cmd in ["\\section*", "\\section", "\\subsection*", "\\subsection", "\\textbf"]:
-            description = description.replace(cmd, "")
-        # Remove braces and any remaining LaTeX markup
-        description = description.replace("{", "").replace("}", "").strip()  # e.g., "Union of Sets"
+
+        # # Remove braces and any remaining LaTeX markup
+        if match:
+            description = match.group(2).strip()  # e.g., "সম্পাদ্য ১ ধাপ ১" or "Introduction"
+        else:
+            # Fallback: Remove braces and keep the line as is
+            description = first_line.replace("{", "").replace("}", "").strip()
 
         if description:
             # Query the Diagram table for an image where the description contains the cleaned first line (case-insensitive)
@@ -496,13 +524,13 @@ Your teaching approach:
 
 async def generate_ai_response_and_update_progress(prompt: str,system_instruction:str, query: str, answer_text: str, 
                                            progress: UserProgress, chunk_index: int, 
-                                           explain_query: ExplainQuery,user_id: int, subtopic_id: int,db: AsyncSession) -> str:
+                                           explain_query: ExplainQuery,user_id: int, subtopic_id: int,db: AsyncSession, image_data: Optional[str] = None) -> str:
 
     
     # Generate response
     # Run Gemini API call in threadpool
     loop = asyncio.get_event_loop()
-    answer = await loop.run_in_executor(executor, generate_gemini_response, prompt,system_instruction, 0.3)
+    answer = await loop.run_in_executor(executor, generate_gemini_response, prompt,system_instruction, 0.3,image_data)
     
 
  
@@ -710,7 +738,7 @@ async def post_explain(
     
     prompt, system_instruction =  build_prompt(query, chat_memory, context, selected_chunk, subject)
     answer =await generate_ai_response_and_update_progress(prompt,system_instruction, query, explain_query.query, 
-                                                                progress, chunk_index, explain_query, user_id, subtopic_obj.id,db)
+                                                                progress, chunk_index, explain_query, user_id, subtopic_obj.id,db,image_data)
     
 
     # Start background generation for next continue
