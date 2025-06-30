@@ -54,7 +54,12 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
     axios
       .get(`${API_BASE_URL}/subjects/`)
       .then((response) => {
-        setSubjects(response.data);
+        // setSubjects(response.data);
+        const filteredSubjects = response.data.filter(subject => 
+        !['Higher Math', 'General Math', 'quiz1', 'data'].includes(subject.name)
+      );
+      
+      setSubjects(filteredSubjects);
       })
       .catch((err) => {
         console.error('Error fetching subjects:', err);
@@ -67,7 +72,13 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
       axios
         .get(`${API_BASE_URL}/${selectedSubject}/topics/`)
         .then((response) => {
-          setTopics(response.data);
+          let sortedTopics;
+          if  (selectedSubject !== "English") {
+              sortedTopics = response.data.sort((a, b) => a.name.localeCompare(b.name, 'bn', { numeric: true }));
+            } else {
+              sortedTopics=response.data;
+            }
+          setTopics(sortedTopics);
           setSelectedTopic('');
           setProgressData([]);
           setShowGraph(false);
@@ -296,7 +307,7 @@ axios
   if (!hasCompletedQuiz1) {
     return (
       <div className="dashboard-container">
-        <h2>Welcome to Your Learning Dashboard</h2>
+        <h2>Your Progress</h2>
         <div className="alert alert-info">
           <h3>🧠 Complete Quiz 1 to Get Started</h3>
           <p>Quiz 1 helps us understand your current level and customize your learning experience.</p>
@@ -315,7 +326,7 @@ axios
 
   return (
     <div className="dashboard-container">
-      <h2>🎓 Your Learning Dashboard</h2>
+      <h2>🎓 Your Progress</h2>
       <div className="welcome-section">
         <p>Welcome back, <strong>{user.name}</strong>! Track your progress and continue your learning journey.</p>
       </div>
