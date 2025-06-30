@@ -58,7 +58,6 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
         const filteredSubjects = response.data.filter(subject => 
         !['Higher Math', 'General Math', 'quiz1', 'data'].includes(subject.name)
       );
-      
       setSubjects(filteredSubjects);
       })
       .catch((err) => {
