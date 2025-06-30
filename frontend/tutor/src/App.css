@@ -76,7 +76,7 @@ footer {
   display: flex;
   justify-content: flex-start;
   width: 100%;
-  max-width: 800px;
+  /* max-width: 800px; */
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 5px; /* Match selection container border-radius */

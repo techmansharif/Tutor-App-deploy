@@ -9,7 +9,7 @@
 
 .audio-controls {
   display: flex;
-  gap: 15px;
+  gap: 55px;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
@@ -18,7 +18,7 @@
 
 .audio-settings {
   display: flex;
-  gap: 10px;
+  gap: 40px;
   justify-content: center;
 }
 
@@ -173,7 +173,7 @@
 /* Mobile responsive section */
 @media (max-width: 480px) {
   .audio-controls {
-    gap: 10px;
+    gap: 40px;
     padding: 0 10px;
   }
   
