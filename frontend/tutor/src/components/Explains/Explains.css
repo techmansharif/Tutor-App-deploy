@@ -13,6 +13,7 @@
   line-height: 1.6;
   overflow-x: auto;
    min-height: 500px; /* Desktop default */
+   overflow-wrap: break-word;
 }
 
 /* Chat-like container */

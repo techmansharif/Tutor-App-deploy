@@ -2,6 +2,7 @@ import React, { useState, useEffect,Suspense,lazy } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import Login from './components/Login/Login';
+import Signup from './components/Signup/Signup';
 import UserInfo from './components/Login/UserInfo'; // Added import
 
 import axios from 'axios';
@@ -14,7 +15,6 @@ const PracticeQuiz = lazy(() => import('./components/Practise/Practise'));
 const Quiz = lazy(() => import('./components/Quiz/quiz'));
 const Welcome = lazy(() => import('./components/Welcome/Welcome'));
 const Dashboard = lazy(() => import('./components/Dashboard/Dashboard'));
-// 1. Add this import at the top with other lazy imports
 const Revise = lazy(() => import('./components/Revise/Revise'));
 
 function App() {
@@ -152,10 +152,23 @@ const onSelectionChange = (values) => {
     }
   };
 
+  const onSwitchToSignup = () => {
+    setQuizStage('signup');
+  }
+  const onSwitchToLogin = () =>{
+    setQuizStage('login')
+  }
   const renderCurrentStage = () => {
     if (!user) {
-      return (
-    <Login API_BASE_URL={API_BASE_URL}/>
+      return quizStage ==='login' ? (
+    <Login API_BASE_URL={API_BASE_URL}
+      onSwitchToSignup={onSwitchToSignup}
+    />
+  ):(
+    <Signup API_BASE_URL={API_BASE_URL}
+      onSwitchToLogin = {onSwitchToLogin}
+      setToken={setToken}
+    />
   );
     }
      return (
@@ -240,7 +253,7 @@ const renderNavigationButtons = () => {
               ASSESSMENT
               <div style={{ fontSize: '0.8em' }}>Initial skill check</div>
         </button> */}
-        <button 
+        {/* <button 
           onClick={() => handleStageChange('selection')} 
           className={`nav-button ${quizStage === 'selection' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
@@ -261,9 +274,10 @@ const renderNavigationButtons = () => {
         <button 
           onClick={() => handleStageChange('practice')} 
           className={`nav-button ${quizStage === 'practice' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
-          disabled={shouldDisableButtons}
-        > <div className="button-left"><i className="bi bi-journal-bookmark-fill m-1"></i></div> 
-          <div className="button-right">PRACTICE  </div>
+          disabled={shouldDisableButtons} >
+          <div className="button-top-row">
+         <div className="button-left"><i className="bi bi-journal-bookmark-fill m-1"></i></div> 
+          <div className="button-right">PRACTICE  </div></div>
           <div style={{ display: 'flex', alignItems: 'center',textAlign:'center', fontSize: '0.8em' }}>Practise the subject</div> 
         </button>
         
@@ -291,8 +305,79 @@ const renderNavigationButtons = () => {
   > <i className="bi bi-file-bar-graph-fill m-1"></i>   
     PROGRESS 
     <div style={{ fontSize: '0.8em' }}>Your scoreboard</div>
-</button>
+</button> */}
+      <button
+        onClick={() => handleStageChange('selection')}
+        className={`nav-button ${quizStage === 'selection' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+        disabled={shouldDisableButtons}
+      >
+        <div className="top-row">
+          <i className="bi bi-book-half"></i>
+          <span>SUBJECT</span>
+        </div>
+        <div className="subtext">Select a subject</div>
+      </button>
 
+      <button
+        onClick={() => handleStageChange('explains')}
+        className={`nav-button ${quizStage === 'explains' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+        disabled={shouldDisableButtons}
+      >
+        <div className="top-row">
+          <i className="bi bi-file-earmark-richtext"></i>
+          <span>EXPLAIN</span>
+        </div>
+        <div className="subtext">Tutors you the subject</div>
+      </button>
+
+      <button
+        onClick={() => handleStageChange('practice')}
+        className={`nav-button ${quizStage === 'practice' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+        disabled={shouldDisableButtons}
+      >
+        <div className="top-row">
+          <i className="bi bi-journal-bookmark-fill"></i>
+          <span>PRACTICE</span>
+        </div>
+        <div className="subtext">Practise the subject</div>
+      </button>
+
+      <button
+        onClick={() => handleStageChange('quiz')}
+        className={`nav-button ${quizStage === 'quiz' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
+        disabled={shouldDisableButtons}
+      >
+        <div className="top-row">
+          <i className="bi bi-pencil-fill"></i>
+          <span>QUIZ</span>
+        </div>
+        <div className="subtext">Check your progress</div>
+      </button>
+
+      <button
+        onClick={() => handleStageChange('revise')}
+        className={`nav-button ${quizStage === 'revise' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
+        disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
+      >
+        <div className="top-row">
+          <i className="bi bi-list-task"></i>
+          <span>REVISE</span>
+        </div>
+        <div className="subtext">Review failed questions</div>
+      </button>
+
+      <button
+        onClick={() => handleStageChange('dashboard')}
+        className={`nav-button ${quizStage === 'dashboard' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
+        disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
+      >
+        <div className="top-row">
+          <i className="bi bi-file-bar-graph-fill"></i>
+          <span>PROGRESS</span>
+        </div>
+        <div className="subtext">Your scoreboard</div>
+      </button>
+ 
       </div>
     </div>
   );
@@ -328,9 +413,9 @@ const renderNavigationButtons = () => {
         
             {renderCurrentStage()}
               {renderNavigationButtons()}
-            <div className="status-bar">
+            {/* <div className="status-bar">
                     <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
-            </div>
+            </div> */}
           
       </main>
       <footer className="bg-gray-200 p-2 text-center">
