@@ -28,9 +28,6 @@ A simple authentication website using FastAPI and Google OAuth.
 
 The application is configured with the following OAuth parameters:
 
-- Client ID: 1000335296683-phd1pcr5m6jqvgdj3p6rps2ugk0dqv8t.apps.googleusercontent.com
-- Client Secret: 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
-- Redirect URI: http://localhost:9090/auth/google/callback
 
 ## Features
 
