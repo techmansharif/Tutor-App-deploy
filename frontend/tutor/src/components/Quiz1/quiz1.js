@@ -178,7 +178,7 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
     প্রথমে একটি <span className="highlight-keyword">বিষয় (SUBJECT)</span> বেছে নেওয়া হবে। এরপর সহজভাবে সেটি <span className="highlight-keyword">ব্যাখ্যা (EXPLAIN)</span> করা হবে, যাতে আপনি ভালোভাবে বুঝতে পারেন।
   </p>
   <p className="study-guide-text">
-    তারপর আপনি কিছু <span className="highlight-keyword">অনুশীলন (PRACTISE)</span> করবেন, আর শেষে থাকবে কিছু <span className="highlight-keyword">কুইজ (QUIZ)</span>—যা দেখে বোঝা যাবে আপনি কতটা শিখেছেন!
+    তারপর আপনি কিছু <span className="highlight-keyword">অনুশীলন (PRACTICE)</span> করবেন, আর শেষে থাকবে কিছু <span className="highlight-keyword">কুইজ (QUIZ)</span>, যা দেখে বোঝা যাবে আপনি কতটা শিখেছেন!
   </p>
   <p className="study-guide-text">
     এভাবেই ধাপে ধাপে আপনি হয়ে উঠবেন এসএসসি পরীক্ষার জন্য পুরোপুরি প্রস্তুত!

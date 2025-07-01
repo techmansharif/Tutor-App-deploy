@@ -10,7 +10,9 @@ import UserInfo from './components/Login/UserInfo'; // Added import
 
 import axios from 'axios';
 import './App.css';
+
 // Lazy load the heavy components
+const LoadingScreen = lazy(() => import('./components/LoadingScreen/LoadingScreen')) ;
 const Quiz1 = lazy(() => import('./components/Quiz1/quiz1'));
 const Selection = lazy(() => import('./components/Selection/Selection'));
 const Explains = lazy(() => import('./components/Explains/Explains'));
@@ -303,7 +305,8 @@ const renderNavigationButtons = () => {
 };
 
   if (loading) {
-    return <div className="text-center mt-10">Loading...</div>;
+    // return <div className="text-center mt-10">Loading...</div>;
+    <LoadingScreen />
   }
 
   return (
@@ -332,9 +335,9 @@ const renderNavigationButtons = () => {
         
             {renderCurrentStage()}
               {renderNavigationButtons()}
-            <div className="status-bar">
+            {/* <div className="status-bar">
                     <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
-            </div>
+            </div> */}
           
       </main>
       <footer className="bg-gray-200 p-2 text-center">
