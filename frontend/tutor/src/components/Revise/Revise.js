@@ -353,7 +353,13 @@ const handleAnswerSelect = (option) => {
       <div className="revise-container">
         <div className="completion-content">
           <h2>Revision Complete!</h2>
-          <p className="completion-message">You have reviewed all {totalQuestions} failed questions.</p>
+           {totalQuestions === 0 ? (
+          <p className="completion-message">You have no questions to review!</p>
+        ) : (
+          <p className="completion-message">
+            You have reviewed all {totalQuestions} failed questions.
+          </p>
+        )}
           <button onClick={handleRestart} className="restart-button">
             Restart Revision
           </button>
