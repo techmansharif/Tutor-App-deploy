@@ -296,3 +296,11 @@ class ReviseShownQuestion(Base):
     
     session = relationship("ReviseSession", back_populates="shown_questions")
     question = relationship("MCQ")
+
+    class UserInteraction(Base):
+        __tablename__ = "user_interactions"
+        id = Column(Integer, primary_key=True, autoincrement=True)
+        user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+        interaction_type = Column(String, nullable=False)
+        details = Column(String)
+        created_at = Column(DateTime(timezone=True), server_default=func.now())

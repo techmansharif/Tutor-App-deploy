@@ -20,7 +20,7 @@ from .router.quizzes import router as quizzes_router
 from .router.dashboard import router as dashboard_router
 from .router.explain import router as explains_router
 from .router.revise import router as revise_router 
-
+from .router.user_interactions import router as interactions_router 
 from fastapi import Request
 from starlette.middleware.sessions import SessionMiddleware
 
