@@ -70,7 +70,13 @@ useEffect(() => {
         },
         withCredentials: true
       });
-      setTopics(response.data);
+      let sortedTopics;
+          if  (selectedSubject !== "English") {
+              sortedTopics = response.data.sort((a, b) => a.name.localeCompare(b.name, 'bn', { numeric: true }));
+            } else {
+              sortedTopics=response.data;
+            }
+          setTopics(sortedTopics);
     } catch (error) {
       console.error('Error fetching topics:', error);
     }
@@ -250,7 +256,7 @@ const handleAnswerSelect = (option) => {
     return (
       <div className="revise-container">
         <div className="revise-header">
-          <h2>Revision Mode</h2>
+          <h2>REIVISION</h2>
         </div>
         <p className="revise-description">Review questions you answered incorrectly in your recent practice and quiz sessions.</p>
         
@@ -333,7 +339,7 @@ const handleAnswerSelect = (option) => {
               onClick={() => startRevision('random')}
               className="start-button random-button"
             >
-              Start Random Revision
+              Start All Revision
             </button>
           </div>
         </div>
@@ -349,7 +355,7 @@ const handleAnswerSelect = (option) => {
           <h2>Revision Complete!</h2>
           <p className="completion-message">You have reviewed all {totalQuestions} failed questions.</p>
           <button onClick={handleRestart} className="restart-button">
-            Restart Revise
+            Restart Revision
           </button>
         </div>
       </div>
@@ -374,7 +380,7 @@ const handleAnswerSelect = (option) => {
       <div className="revise-header">
         <div className="revise-title-section">
            <button onClick={handleRestart} className="restart-button">
-          Restart Revise
+          Restart Revision
         </button>
           <h2>Revision Mode</h2>
           {mode === 'subject' && selectedSubject && (
