@@ -132,7 +132,8 @@ const fetchPracticeQuestion = async (submission = null) => {
           question_id: currentQuestion.id,
           is_correct: isCorrect,
           current_hardness_level: hardnessLevel,
-          questions_tried: questionsTried + 1
+          questions_tried: questionsTried + 1,
+          response_time: responseTime
         };
         await fetchPracticeQuestion(submission);
       }, 1500); // Wait 3 seconds before moving to next question
@@ -166,7 +167,8 @@ const fetchPracticeQuestion = async (submission = null) => {
       question_id: currentQuestion.id,
       is_correct: false,
       current_hardness_level: hardnessLevel,
-      questions_tried: questionsTried + 1
+      questions_tried: questionsTried + 1,
+      response_time: responseTime
     };
     await fetchPracticeQuestion(submission);
   };
