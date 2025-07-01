@@ -328,9 +328,9 @@ const renderNavigationButtons = () => {
         
             {renderCurrentStage()}
               {renderNavigationButtons()}
-            <div className="status-bar">
+            {/* <div className="status-bar">
                     <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
-            </div>
+            </div> */}
           
       </main>
       <footer className="bg-gray-200 p-2 text-center">

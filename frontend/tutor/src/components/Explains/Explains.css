@@ -410,16 +410,6 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
   background-color: #f0f0f0;
   border-radius: 5px;
 } */
- .button-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 15px;
-  flex-wrap: nowrap;
-  width: 100%;
-  padding: 0 10px;
-    gap: 5px; /* Add small gap between elements */
-}
 
 .button-with-text {
   display: flex;
