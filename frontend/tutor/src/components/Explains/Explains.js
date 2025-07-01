@@ -260,8 +260,7 @@ const stopAllAudio = () => {
         ))}
         {isExplainLoading && (
           <div className="loading-component">
-            <div className="loading-spinner-component"></div>
-            <p>Loading explanation...</p>
+            <LoadingScreen />
           </div>
         )}
       </div>
