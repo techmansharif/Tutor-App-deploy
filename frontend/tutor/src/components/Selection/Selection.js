@@ -47,7 +47,13 @@ const [selectedSubtopic, setSelectedSubtopic] = useState(initialValues?.selected
             headers: { 'user-id': user.user_id },
             withCredentials: true
           });
-          setTopics(response.data);
+          let sortedTopics;
+          if  (selectedSubject !== "English") {
+              sortedTopics = response.data.sort((a, b) => a.name.localeCompare(b.name, 'bn', { numeric: true }));
+            } else {
+              sortedTopics=response.data;
+            }
+          setTopics(sortedTopics);
         } catch (error) {
           console.error('Error fetching topics:', error);
           alert('Error fetching topics. Please try again.');

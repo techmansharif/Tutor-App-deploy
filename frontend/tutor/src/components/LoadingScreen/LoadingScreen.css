@@ -26,7 +26,7 @@
 }
 
 .loading-text {
-  color: #FFFFFF; /* Tailwind's text-white */
+  color: black; /* Tailwind's text-white */
   font-size: 1.25rem; /* Tailwind's text-xl */
   font-weight: 600; /* Tailwind's font-semibold */
   animation: fadeInOut 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
