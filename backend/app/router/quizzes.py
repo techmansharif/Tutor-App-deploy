@@ -119,7 +119,8 @@ async def quiz1(
             hardness_level=submission.current_hardness_level,
             is_correct=submission.is_correct,
             user_answer=question.correct_option if submission.is_correct else "incorrect",
-            correct_answer=question.correct_option
+            correct_answer=question.correct_option,
+            response_time=submission.response_time
         )
         db.add(quiz_answer)
         db.commit()
@@ -287,7 +288,8 @@ async def quiz(
             question_id=submission.question_id,
             user_answer=question.correct_option if submission.is_correct else "incorrect",
             correct_answer=question.correct_option,
-            is_correct=submission.is_correct
+            is_correct=submission.is_correct,
+            response_time=submission.response_time
         )
         db.add(quiz_answer)
         db.commit()
@@ -557,7 +559,8 @@ async def practice_quiz(
         practise_answer = PractiseAnswer(
             attempt_id=practise_attempt.id,
             question_id=submission.question_id,
-            is_correct=submission.is_correct
+            is_correct=submission.is_correct,
+            response_time=submission.response_time
         )
         db.add(practise_answer)
         db.commit()
