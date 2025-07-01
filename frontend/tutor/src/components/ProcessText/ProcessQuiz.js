@@ -20,6 +20,9 @@ export const processQuizText = (text) => {
 const bengaliToEnglish = {'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
 processed = processed.replace(/[০-৯]/g, (match) => bengaliToEnglish[match] || match);
 
+// Convert LaTeX inline delimiters \(...\) to KaTeX format $...$
+processed = processed.replace(/\\\((.*?)\\\)/g, '$$$1$$');
+
 //logarithm 
 // ADD THESE TWO LINES HERE:
 // First convert LaTeX inline delimiters to KaTeX format
@@ -32,8 +35,9 @@ processed = processed.replace(/(?<!\$)(\\log_[\d\{][^,\s\$]*)(?!\$)/g, '$$$1$$')
 // Wrap mathematical expressions with LaTeX commands
 processed = processed.replace(/([\d.]+\s*\\leq\s*[\d.]+\s*<\s*[\d.]+)/g, '$$$1$$');
   
-  // Wrap LaTeX symbols and expressions in math delimiters
-  processed = processed.replace(/(\\neq|\\times|\\frac\{[^}]+\}\{[^}]+\})/g, '$$$1$$');
+  // Wrap LaTeX symbols and expressions in math delimiters (only if not already wrapped)
+  processed = processed.replace(/(?<!\$)(\\neq|\\times|\\frac\{[^}]+\}\{[^}]+\})(?!\$)/g, '$$$1$$');
+  // Convert simple fractions to KaTeX format for better display;
   // Convert simple fractions to KaTeX format for better display
   processed = processed.replace(/([a-zA-Z₀-₉]+)\/([a-zA-Z₀-₉]+)/g, (match, num, den) => {
     // Convert back subscripts for KaTeX
@@ -52,7 +56,10 @@ processed = processed.replace(/([\d.]+\s*\\leq\s*[\d.]+\s*<\s*[\d.]+)/g, '$$$1$$
   
   // Wrap equations in KaTeX delimiters
   processed = processed.replace(/(\d*[a-zA-Z₀-₉]\s*[+\-]\s*\d*[a-zA-Z₀-₉]\s*=\s*\d+)/g, '$$$1$$');
-  
+    // Wrap standalone degree expressions at the very end
+  processed = processed.replace(/(?<!\$)(\d+)\s*(\^\\circ|°)(?![^$]*\$)/g, String.raw`$$$1^\circ$$`);
+   // ADD THIS DEBUG LINE
+  console.log('Processed text:', processed);
   return processed;
 };
 
