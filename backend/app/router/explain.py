@@ -1,4 +1,7 @@
+
 from fastapi import APIRouter, Depends, HTTPException, Header, Request,BackgroundTasks
+from fastapi.responses import StreamingResponse
+import json 
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy import select, update
@@ -130,6 +133,23 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
     
     return response.text.strip()
 
+async def generate_gemini_response_stream(prompt: str, system_instruction: str = "", temperature: float = 0.2):
+    """Generate streaming response using Gemini API"""
+    response = client.models.generate_content_stream(
+        model=MODEL,
+        contents=[prompt],
+        config=types.GenerateContentConfig(
+            thinking_config=types.ThinkingConfig(thinking_budget=-1),
+            system_instruction=system_instruction,
+            temperature=temperature
+        )
+    )
+    full_text = ""
+    for chunk in response:
+        if chunk.text:
+            full_text += chunk.text
+            yield chunk.text
+    yield f"[COMPLETE]{full_text}"  # Send full text at end for DB update
 # Dependency to get DB session
 def get_db():
     db = SessionLocal()
@@ -524,43 +544,46 @@ Your teaching approach:
 
 async def generate_ai_response_and_update_progress(prompt: str,system_instruction:str, query: str, answer_text: str, 
                                            progress: UserProgress, chunk_index: int, 
-                                           explain_query: ExplainQuery,user_id: int, subtopic_id: int,db: AsyncSession, image_data: Optional[str] = None) -> str:
-
+                                           explain_query: ExplainQuery,user_id: int, subtopic_id: int,db: AsyncSession, 
+                                           image_data: Optional[str] = None):  # Add image parameter
     
-    # Generate response
-    # Run Gemini API call in threadpool
-    loop = asyncio.get_event_loop()
-    answer = await loop.run_in_executor(executor, generate_gemini_response, prompt,system_instruction, 0.3,image_data)
-    
-
- 
-    # NEW: Update UserProgress with new chunk_index and chat_memory
- 
-
-    # When updating:
-    new_pair = {"question": explain_query.query, "answer": answer}
-    chat_memory_updated = progress.chat_memory + [new_pair] 
-    
-    if len(chat_memory_updated) > 30:
-        chat_memory_updated = chat_memory_updated[-30:]  # Keep only last 30
-
-   
-    # Use async update instead of object modification
-    await db.execute(
-        update(UserProgress)
-        .filter(
-            UserProgress.user_id == user_id,
-            UserProgress.subtopic_id == subtopic_id
+    async def stream_generator():
+        full_answer = ""
+        async for chunk in generate_gemini_response_stream(prompt, system_instruction, 0.3):
+            if chunk.startswith("[COMPLETE]"):
+                # Extract full text for DB update
+                full_answer = chunk[10:]  # Remove [COMPLETE] prefix
+            else:
+                yield f"data: {json.dumps({'content': chunk})}\n\n"
+        
+        # Update database after streaming completes
+        new_pair = {"question": explain_query.query, "answer": full_answer}
+        chat_memory_updated = progress.chat_memory + [new_pair] 
+        
+        if len(chat_memory_updated) > 30:
+            chat_memory_updated = chat_memory_updated[-30:]
+       
+        await db.execute(
+            update(UserProgress)
+            .filter(
+                UserProgress.user_id == user_id,
+                UserProgress.subtopic_id == subtopic_id
+            )
+            .values(
+                chat_memory=chat_memory_updated,
+                chunk_index=chunk_index,
+                last_updated=datetime.utcnow()
+            )
         )
-        .values(
-            chat_memory=chat_memory_updated,
-            chunk_index=chunk_index,
-            last_updated=datetime.utcnow()
-        )
-    )
-    await db.commit()
-
-    return answer
+        await db.commit()
+        
+        # Send image at the end if exists
+        if image_data:
+            yield f"data: {json.dumps({'image': image_data})}\n\n"
+        
+        yield f"data: {json.dumps({'status': 'complete'})}\n\n"
+    
+    return StreamingResponse(stream_generator(), media_type="text/event-stream")
 
 
 
@@ -737,11 +760,14 @@ async def post_explain(
 
     
     prompt, system_instruction =  build_prompt(query, chat_memory, context, selected_chunk, subject)
-    answer =await generate_ai_response_and_update_progress(prompt,system_instruction, query, explain_query.query, 
-                                                                progress, chunk_index, explain_query, user_id, subtopic_obj.id,db,image_data)
-    
+    # Pass image_data to the streaming function
+    response = await generate_ai_response_and_update_progress(
+    prompt, system_instruction, query, explain_query.query, 
+    progress, chunk_index, explain_query, user_id, subtopic_obj.id, db,
+    image_data=image_data  # Pass the image
+    )
 
-    # Start background generation for next continue
+# Start background generation for next continue
     background_tasks.add_task(
     pre_generate_continue_response,
     user_id,
@@ -749,7 +775,5 @@ async def post_explain(
     chunks,
     subject
 )
-    
-    return ExplainResponse(answer=answer,image=image_data)
 
-
+    return response
