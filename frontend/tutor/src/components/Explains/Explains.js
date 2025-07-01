@@ -277,7 +277,7 @@ const Explains = ({
                   className="secondary-button-component"
                   disabled={explainFinished}
                 >
-                  আরও সহজ করে বলুন
+                  আরও সহজে বলুন
                 </button>
               </div>
               <div className="button-with-text">

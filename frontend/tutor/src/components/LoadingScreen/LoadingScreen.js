@@ -4,15 +4,15 @@ import './LoadingScreen.css';
 // Sample data for text and images
 const loadingItems = [
   {
-    text: "Preparing your experience...",
+    text: "একটু অপেক্ষা করুন...",
     image: "/FacialExpression/john/dreamy.png",  
   },
   {
-    text: "Almost there...",
+    text: "আরও একটু অপেক্ষা করুন...",
     image: "/FacialExpression/hashi/dreamy.png",
   },
   {
-    text: "Just a moment...",
+    text: "প্রায় পৌছিয়ে গিয়েছি!",
     image: "/FacialExpression/harriet/dreamy.png",
   },
 ];
