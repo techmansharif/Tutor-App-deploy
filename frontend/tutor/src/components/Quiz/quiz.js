@@ -3,6 +3,7 @@ import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add this import
 import Stopwatch from '../Stopwatch/Stopwatch';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import './quiz.css';
 
 const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) => {
@@ -203,7 +204,7 @@ const fetchQuizQuestion = async (submission = null) => {
   if (isComplete) {
     return (
       <div className="practice-quiz-container">
-        <h2>Assessment Complete</h2>
+        <h2>Quiz Complete</h2>
        
           <p style={{ textAlign: 'center'}}>
         {completionDate}
@@ -225,7 +226,7 @@ const fetchQuizQuestion = async (submission = null) => {
       <div className="practice-quiz-container">
         <div className="loading">
           <div className="loading-spinner"></div>
-          <p>Loading quiz question...</p>
+          <LoadingScreen />
         </div>
       </div>
     );
@@ -235,7 +236,7 @@ const fetchQuizQuestion = async (submission = null) => {
   <div className="practice-quiz-container">
  <div className="quiz-header">
          <div className="quiz-title-section">
-                  <h2>Quiz</h2>
+                  <h2 style={{ color: 'blue' }}><i className="bi bi-pencil-fill"></i>  QUIZ</h2>
                   <h3>{subject}</h3>
                   <h3>{topic}</h3>
                   <h3>{subtopic}</h3>
