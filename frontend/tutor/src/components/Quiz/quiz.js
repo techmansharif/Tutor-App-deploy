@@ -21,16 +21,9 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
   const [showCongrats, setShowCongrats] = useState(false);
   const [isTimerPaused, setIsTimerPaused] = useState(false);
   const [attemptId, setAttemptId] = useState(null);
-
-    const [image1, setImage1] = useState(null); // State for correct answer image
-    const [image2, setImage2] = useState(null); // State for incorrect answer image
-  
-
-// 1. Add this new state variable with your other useState declarations:
-const [completionDate, setCompletionDate] = useState('');
-
-
-  // Integrity score hook
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [completionDate, setCompletionDate] = useState('');
   const {
     questionStartTime,
     setQuestionStartTime,
@@ -139,7 +132,8 @@ const fetchQuizQuestion = async (submission = null) => {
       is_correct: isCorrect,
       current_hardness_level: hardnessLevel,
       questions_tried: questionsTried + 1,
-      attempt_id: attemptId
+      attempt_id: attemptId,
+      response_time: responseTime
     };
 
     // Increment score and questionsTried
@@ -168,7 +162,8 @@ const fetchQuizQuestion = async (submission = null) => {
         is_correct: false,
         current_hardness_level: hardnessLevel,
         questions_tried: questionsTried + 1,
-        attempt_id: attemptId
+        attempt_id: attemptId,
+        response_time: responseTime
       };
       setQuestionsTried((prev) => prev + 1);
       fetchQuizQuestion(submission);
@@ -185,12 +180,14 @@ const fetchQuizQuestion = async (submission = null) => {
   };
 
   const handleNextQuestion = async () => {
+    const responseTime = (Date.now() - questionStartTime) / 1000;
     const submission = {
       question_id: currentQuestion.id,
       is_correct: false,
       current_hardness_level: hardnessLevel,
       questions_tried: questionsTried,
-      attempt_id: attemptId
+      attempt_id: attemptId,
+      response_time: responseTime
     };
     await fetchQuizQuestion(submission);
   };

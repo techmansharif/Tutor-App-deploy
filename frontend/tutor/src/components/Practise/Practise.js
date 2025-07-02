@@ -8,11 +8,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import ReactMarkdown from 'react-markdown';
-
-
-
 import './Practise.css';
-
 
 const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompletePractice }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -46,7 +42,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
   useEffect(() => {
     if (currentQuestion) {
       setQuestionStartTime(Date.now());
-      setTimerReset((prev) => prev + 1); // Reset timer
+      setTimerReset((prev) => prev + 1); 
       setIsTimerPaused(false); // Ensure timer is not paused for new question
     }
   }, [currentQuestion, setQuestionStartTime]);
@@ -132,7 +128,8 @@ const fetchPracticeQuestion = async (submission = null) => {
           question_id: currentQuestion.id,
           is_correct: isCorrect,
           current_hardness_level: hardnessLevel,
-          questions_tried: questionsTried + 1
+          questions_tried: questionsTried + 1,
+          response_time: responseTime
         };
         await fetchPracticeQuestion(submission);
       }, 1500); // Wait 3 seconds before moving to next question
@@ -162,11 +159,13 @@ const fetchPracticeQuestion = async (submission = null) => {
   const handleNextQuestion = async () => {
     // Move to next question, count the incorrect attempt
     setQuestionsTried((prev) => prev + 1);
+    const responseTime = (Date.now() - questionStartTime) / 1000;
     const submission = {
       question_id: currentQuestion.id,
       is_correct: false,
       current_hardness_level: hardnessLevel,
-      questions_tried: questionsTried + 1
+      questions_tried: questionsTried + 1,
+      response_time: responseTime
     };
     await fetchPracticeQuestion(submission);
   };
