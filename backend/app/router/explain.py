@@ -1,8 +1,8 @@
-##
 from fastapi import APIRouter, Depends, HTTPException, Header, Request,BackgroundTasks
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy import select, update
+
 from typing import Optional
 from datetime import datetime
 from ..database.session import SessionLocal
@@ -17,8 +17,6 @@ from google import genai
 from google.genai import types
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
-
-import re
 
 # Import JWT utils
 from ..jwt_utils import get_user_from_token
@@ -51,7 +49,11 @@ if DATABASE_URL is None:
     DATABASE_URL = os.getenv("DATABASE_URL")
     print(DATABASE_URL)
     
-async_database_url = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://")
+# Simply replace psycopg2 with asyncpg
+async_database_url = DATABASE_URL.replace("postgresql+psycopg2://", "postgresql+asyncpg://")
+
+print(f"Original DATABASE_URL: {DATABASE_URL}")
+print(f"Async DATABASE_URL: {async_database_url}")
 # ADD THIS: Async database engine
 async_engine = create_async_engine(
      async_database_url,  # Replace with your DB URL
@@ -79,7 +81,7 @@ async def get_async_db():
 client = genai.Client(api_key=api_key)
 MODEL="gemini-2.5-flash"
 
-def generate_gemini_response(prompt: str,system_instruction:str="", temperature: float = 0.2,image_base64: Optional[str] = None) -> str:
+def generate_gemini_response(prompt: str,system_instruction:str="", temperature: float = 0.2) -> str:
     """
     Generate response using Gemini API
     
@@ -90,35 +92,10 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
     Returns:
         Generated text response
     """
-    # Build contents list
-    contents = []
-    
-    # Add image if provided
-    if image_base64:
-        image_bytes = base64.b64decode(image_base64)
-        image_part = types.Part.from_bytes(
-            data=image_bytes, 
-            mime_type="image/jpeg"  # Adjust if you have different image types
-        )
-        contents.append(image_part)
-    # else:
-    #     contents.append("no image exists")
-    #  response = client.models.generate_content(
-    #         model=MODEL,
-    #         contents=contents,
-    #         config=types.GenerateContentConfig(
-    #             thinking_config=types.ThinkingConfig(thinking_budget=-1),
-    #             system_instruction="explain image if it exist or  write no image here ",  # Move this OUTSIDE config
-    #             temperature=temperature
-    #         )
-            
-    #     )
-    # Add text prompt
-    contents.append(prompt)
    
     response = client.models.generate_content(
             model=MODEL,
-            contents=contents,
+            contents=[prompt],
             config=types.GenerateContentConfig(
                 thinking_config=types.ThinkingConfig(thinking_budget=-1),
                 system_instruction=system_instruction,  # Move this OUTSIDE config
@@ -126,7 +103,6 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
             )
             
         )
-   
     # response=r"$$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56 $$"
     
     return response.text.strip()
@@ -195,7 +171,7 @@ async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks:
             
             # Generate AI response using thread pool (keep this sync call in executor)
             loop = asyncio.get_event_loop()
-            generated_answer = await loop.run_in_executor(executor, generate_gemini_response, prompt, system_instruction, 0.3,next_image_data)
+            generated_answer = await loop.run_in_executor(executor, generate_gemini_response, prompt, system_instruction, 0.3)
             
             # Store pre-generated response in database using async update
             await db.execute(
@@ -257,15 +233,14 @@ async def get_image_data_from_chunk(chunk: str, subtopic_id: int,db: AsyncSessio
             return None  # No lines in the chunk
 
         first_line = lines[0].strip()  # e.g., "\subsection*{Union of Sets}" or "\section*{Introduction}" or "\textbf{Key Concepts}"
-        match = re.match(r'\\(section|subsection|textbf)\*?\{([^}]*)\}', first_line)
-        # Clean the first line by removing LaTeX commands (\section, \subsection, \textbf) and braces
 
-        # # Remove braces and any remaining LaTeX markup
-        if match:
-            description = match.group(2).strip()  # e.g., "সম্পাদ্য ১ ধাপ ১" or "Introduction"
-        else:
-            # Fallback: Remove braces and keep the line as is
-            description = first_line.replace("{", "").replace("}", "").strip()
+        # Clean the first line by removing LaTeX commands (\section, \subsection, \textbf) and braces
+        description = first_line
+        # Remove common LaTeX commands and their variants (with or without *)
+        for cmd in ["\\section*", "\\section", "\\subsection*", "\\subsection", "\\textbf"]:
+            description = description.replace(cmd, "")
+        # Remove braces and any remaining LaTeX markup
+        description = description.replace("{", "").replace("}", "").strip()  # e.g., "Union of Sets"
 
         if description:
             # Query the Diagram table for an image where the description contains the cleaned first line (case-insensitive)
@@ -432,7 +407,7 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
     if subject =='গণিত' or subject == "উচ্চতর গণিত":
         system_instruction =r"""
         আপনি একজন শিক্ষাগত সহকারী। আপনার কাজ হল বাংলাদেশের ৯-১০ শ্রেণির শিক্ষার্থীদের সহজ ও ধাপে ধাপে শেখানো। আপনার বাক্যগুলো সহজ হতে হবে।
-         আপনি  পাঠের অংশটি  সহজে ব্যাখ্যা করবেন এবং তথ্যে থাকা উদাহরণ অংক সহজে ভেঙে ভেঙে বুঝবেন |
+
 আপনার শিক্ষা পদ্ধতি:
 1. তথ্য মজার এবং আকর্ষণীয় উপায়ে ব্যাখ্যা করুন
 2. ব্যাখ্যাটি আকর্ষণীয় করুন, প্রয়োজনে গল্প ব্যবহার করুন
@@ -447,7 +422,10 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
    $$\frac{a + b}{c - d} = \frac{10}{5}$$, $$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56$$ ,
      $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
 - Tally mark : 
+       - $\text{|||}$ for 3
       -  $\text{||||}$ for 4
+       - $\cancel{\text{||||}}$ for 5,
+      -  $\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\text{||}$ for 12 
      -   follow above pattern for tally mark represent 5 by $\cancel{\text{||||}}$ for number below 5 write as   $\text{||}$ for 2 , $\text{||||}$ for 4 etc
       -  for number above 5 break into group of 5 like 9=5+4 so in tally it is $\cancel{\text{||||}}$   $\text{||||}$ 
         18 is 5+5+5+3 so write it as  $\cancel{\text{||||}}$  $\cancel{\text{||||}}$  $\cancel{\text{||||}}$ $\text{|||}$ 
@@ -492,20 +470,14 @@ Your teaching approach:
         
         
     if subject == 'গণিত' or subject == "উচ্চতর গণিত":
-        prompt = f"""
-        ব্যবহারকারী:
-        {query}
+        prompt = f"""ব্যবহারকারীর প্রশ্ন:
+{query}
 
 সাম্প্রতিক কথোপকথনের ইতিহাস:
 {memory_text}
 
-এই অংশটি পাঠ্যপুস্তক থেকে নেওয়া হয়েছে। 
-পাঠের অংশ:
-{context if context else chunks}
-
- এটি  ধাপে ধাপে ভেঙে বুঝাও। উদাহরণ থাকলে সেটিও সহজ করে উপস্থাপন করো।
-
-"""
+প্রাসঙ্গিক তথ্য:
+{context if context else chunks}"""
     else:
         prompt = f"""User Input:
     {query}
@@ -525,13 +497,13 @@ Your teaching approach:
 
 async def generate_ai_response_and_update_progress(prompt: str,system_instruction:str, query: str, answer_text: str, 
                                            progress: UserProgress, chunk_index: int, 
-                                           explain_query: ExplainQuery,user_id: int, subtopic_id: int,db: AsyncSession, image_data: Optional[str] = None) -> str:
+                                           explain_query: ExplainQuery,user_id: int, subtopic_id: int,db: AsyncSession) -> str:
 
     
     # Generate response
     # Run Gemini API call in threadpool
     loop = asyncio.get_event_loop()
-    answer = await loop.run_in_executor(executor, generate_gemini_response, prompt,system_instruction, 0.3,image_data)
+    answer = await loop.run_in_executor(executor, generate_gemini_response, prompt,system_instruction, 0.3)
     
 
  
@@ -739,7 +711,7 @@ async def post_explain(
     
     prompt, system_instruction =  build_prompt(query, chat_memory, context, selected_chunk, subject)
     answer =await generate_ai_response_and_update_progress(prompt,system_instruction, query, explain_query.query, 
-                                                                progress, chunk_index, explain_query, user_id, subtopic_obj.id,db,image_data)
+                                                                progress, chunk_index, explain_query, user_id, subtopic_obj.id,db)
     
 
     # Start background generation for next continue
@@ -752,4 +724,3 @@ async def post_explain(
 )
     
     return ExplainResponse(answer=answer,image=image_data)
-
