@@ -331,7 +331,7 @@ const stopAllAudio = () => {
                   className="secondary-button-component"
                   disabled={explainFinished}
                 >
-                  আরও সহজে বলুন
+                  আরও সহজে <br />বলুন
                 </button>
               </div>
               <div className="button-with-text">
