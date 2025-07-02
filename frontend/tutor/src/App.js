@@ -252,7 +252,7 @@ const renderNavigationButtons = () => {
           disabled={shouldDisableButtons}
         >
           SUBJECT
-          <div style={{ fontSize: '0.8em' }}>Select a subject</div>
+          <div style={{ fontSize: '0.8em' }}>একটি বিষয় নির্বাচন করুন/div>
         </button>
         
         <button 
@@ -261,7 +261,7 @@ const renderNavigationButtons = () => {
           disabled={shouldDisableButtons}
         > 
           EXPLAIN  
-          <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div>
+          <div style={{ fontSize: '0.8em' }}>Tবিষয়টি শিখুন</div>
         </button>
         
         <button 
@@ -270,7 +270,7 @@ const renderNavigationButtons = () => {
           disabled={shouldDisableButtons}
         >
           PRACTICE  
-          <div style={{ fontSize: '0.8em' }}>Practise the subject</div> 
+          <div style={{ fontSize: '0.8em' }}> বিষয়টির অনুশীলন করুন</div> 
         </button>
         
         <button 
@@ -279,7 +279,7 @@ const renderNavigationButtons = () => {
           disabled={shouldDisableButtons}
         > 
           QUIZ  
-          <div style={{ fontSize: '0.8em' }}>Check your progress </div>
+          <div style={{ fontSize: '0.8em' }}> আপনার অগ্রগতি যাচাই করুন </div>
         </button>
       
       <button 
@@ -288,7 +288,7 @@ const renderNavigationButtons = () => {
         disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
       >
         REVISE
-        <div style={{ fontSize: '0.8em' }}>Review failed questions</div>
+        <div style={{ fontSize: '0.8em' }}>ভুল প্রশ্নগুলো পর্যালোচনা করুন</div>
       </button>
         <button 
     onClick={() => handleStageChange('dashboard')} 
@@ -296,7 +296,7 @@ const renderNavigationButtons = () => {
     disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
   >
     PROGRESS 
-    <div style={{ fontSize: '0.8em' }}>Your scoreboard</div>
+    <div style={{ fontSize: '0.8em' }}>আপনার স্কোরবোর্ড</div>
 </button>
 
       </div>
