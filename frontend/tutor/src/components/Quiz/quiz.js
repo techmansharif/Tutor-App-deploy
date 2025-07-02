@@ -223,7 +223,7 @@ const fetchQuizQuestion = async (submission = null) => {
       <div className="practice-quiz-container">
         <div className="loading">
           <div className="loading-spinner"></div>
-          <LoadingScreen />
+            <p>Loading Quiz question...</p>
         </div>
       </div>
     );
