@@ -1,8 +1,5 @@
 
-
-
-#####################################
-
+###
 from fastapi import FastAPI, Depends, HTTPException, Header, Query,status
 from sqlalchemy.orm import Session
 from typing import List,Optional
@@ -16,6 +13,7 @@ from .schemas.selections import SelectionRequest
 from prometheus_client import Counter, Histogram, make_asgi_app
 from sqlalchemy.sql import func
 from pydantic import BaseModel
+
 from .router.quizzes import router as quizzes_router
 from .router.dashboard import router as dashboard_router
 from .router.explain import router as explains_router
@@ -38,7 +36,6 @@ from sentence_transformers import SentenceTransformer
 from pylatexenc.latex2text import LatexNodes2Text
 
 from jose import jwt
-
 import secrets
 from urllib.parse import urlencode
 import requests
@@ -72,7 +69,7 @@ REQUEST_LATENCY = Histogram(
     buckets=[0.01, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0]
 )
 
-app = FastAPI(title="AITutor Quiz Webapp")
+app = FastAPI(title="BRIM AI TUTOR")
 
 
 # Mount Prometheus metrics endpoint
@@ -142,6 +139,8 @@ REDIRECT_URI = "http://localhost:8000/auth/google/callback"
 GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth"
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
+
+
 SECRET_KEY = JWT_SECRET_KEY
 
 
@@ -159,8 +158,6 @@ app.add_middleware(
 )
 
 
-
-
 # Routes
 # AFTER
 @app.get("/api/user")
@@ -174,10 +171,12 @@ async def get_user(authorization: Optional[str] = Header(None)):
     except:
         return {"user": None}
     
+
+
 @app.get("/login")
 async def login():
-    # Create a signed JWT state token
-    
+  # Create a signed JWT state tokenAdd commentMore actions
+
     state_data = {
         "exp": datetime.utcnow() + timedelta(minutes=5),
         "nonce": secrets.token_hex(8)
@@ -194,6 +193,7 @@ async def login():
     auth_url = f"{GOOGLE_AUTH_URL}?{urlencode(params)}"
     return RedirectResponse(auth_url)
 
+
 @app.get("/auth/google/callback")
 async def auth_callback(request: Request):
     code = request.query_params.get("code")
@@ -205,7 +205,7 @@ async def auth_callback(request: Request):
     
     # Verify state parameter
     state_param = request.query_params.get("state")
-       
+    
     try:
         # Verify the JWT state token
        
@@ -278,18 +278,16 @@ async def auth_callback(request: Request):
         )
         
 
-        
-        # Redirect to frontend with token as query parameter
-        frontend_url = f"http://localhost:3000?token={jwt_token}"
-        return RedirectResponse(url=frontend_url)
+        frontend_url = f"https://brimai-test-v1.web.app?token={jwt_token}"
+        return RedirectResponse(frontend_url)
     finally:
         db.close()
+
 
 # AFTER
 @app.post("/logout")
 async def logout():
     return {"message": "Logged out successfully"}
-
 
 
 
@@ -420,6 +418,7 @@ app.include_router(dashboard_router)
 app.include_router(explains_router)
 app.include_router(revise_router)
 
+app.include_router(revise_router)
 # @app.on_event("startup")
 # async def startup_event():
 #     Base.metadata.create_all(bind=engine)

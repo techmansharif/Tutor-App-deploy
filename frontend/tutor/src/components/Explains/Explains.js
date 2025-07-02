@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import { processExplanation, preprocessMath, postprocessMath } from '../ProcessText/ProcessExplain';
 import './Explains.css';
 import remarkMath from 'remark-math';
@@ -25,9 +26,9 @@ const Explains = ({
   const [userQuery, setUserQuery] = useState('');
   const initialFetchRef = useRef(false);
   const explanationContainerRef = useRef(null);
-  const [previousHistoryLength, setPreviousHistoryLength] = useState(0);
+  const [previousHistoryLength, setPreviousHistoryLength] = useState(0); // Add this
   const [newlyAddedIndices, setNewlyAddedIndices] = useState(new Set());
-  const [explainAgainIndices, setExplainAgainIndices] = useState(new Set());
+ const [explainAgainIndices, setExplainAgainIndices] = useState(new Set());
 
   useEffect(() => {
     if (!initialFetchRef.current) {
@@ -45,69 +46,73 @@ const Explains = ({
     };
   }, []);
 
-  useEffect(() => {
-    if (explanationContainerRef.current && explanationHistory.length > previousHistoryLength) {
+useEffect(() => {
+  if (explanationContainerRef.current && explanationHistory.length > previousHistoryLength) {
     // Only scroll when new content is added (not during loading)
-      if (!isExplainLoading) {
-        const container = explanationContainerRef.current;
-        const entries = container.querySelectorAll('.explanation-entry');
-
-        if (entries.length > 0) {
+    if (!isExplainLoading) {
+      const container = explanationContainerRef.current;
+      const entries = container.querySelectorAll('.explanation-entry');
+      
+      if (entries.length > 0) {
         // Scroll to the start of the newest entry
-          const newestEntry = entries[entries.length - 1];
+        const newestEntry = entries[entries.length - 1];
         const container = explanationContainerRef.current;
-          const containerRect = container.getBoundingClientRect();
-          const entryRect = newestEntry.getBoundingClientRect();
-          const scrollOffset = entryRect.top - containerRect.top;
+        const containerRect = container.getBoundingClientRect();
+        const entryRect = newestEntry.getBoundingClientRect();
+        const scrollOffset = entryRect.top - containerRect.top;
 
-          container.scrollTo({
-            top: container.scrollTop + scrollOffset,
-            behavior: 'smooth'
-          });
-        }
-
-        setPreviousHistoryLength(explanationHistory.length);
+        container.scrollTo({
+          top: container.scrollTop + scrollOffset,
+          behavior: 'smooth'
+        });
       }
+      
+      setPreviousHistoryLength(explanationHistory.length);
     }
-  }, [explanationHistory, isExplainLoading, previousHistoryLength]);
+  }
+}, [explanationHistory, isExplainLoading, previousHistoryLength]);
 
-  const stopAllAudio = () => {
-    window.speechSynthesis.cancel();
-  };
+
+
+const stopAllAudio = () => {
+  window.speechSynthesis.cancel();
+};
 
   const fetchExplain = async (query, isInitial = false, isExplainAgain = false) => {
     setIsExplainLoading(true);
-    if (!isInitial && explanationContainerRef.current) {
-      setTimeout(() => {
-        const container = explanationContainerRef.current;
-        container.scrollTo({
-          top: container.scrollHeight,
-          behavior: 'smooth'
-        });
-      }, 100);
-    }
-    try {
-      const token = localStorage.getItem('access_token');
-      const response = await axios.post(
-        `${API_BASE_URL}/${selectedSubject}/${selectedTopic}/${selectedSubtopic}/explains/`,
-        { query, is_initial: isInitial },
-        {
-          headers: {
-            'user-id': user.user_id,
-            'Authorization': `Bearer ${token}`
-          }
+     // Add this scroll logic right after setting loading to true
+  if (!isInitial && explanationContainerRef.current) {
+    setTimeout(() => {
+      const container = explanationContainerRef.current;
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 100); // Small delay to ensure loading component is rendered
+  }
+    try  {
+    const token = localStorage.getItem('access_token');
+    const response = await axios.post(
+      `${API_BASE_URL}/${selectedSubject}/${selectedTopic}/${selectedSubtopic}/explains/`,
+      { query, is_initial: isInitial },
+      {
+        headers: { 
+          'user-id': user.user_id,
+          'Authorization': `Bearer ${token}`
         }
-      );
-
+      }
+    );
+      
       if (response.data.answer === "Congratulations, you have mastered the topic!") {
         setExplainFinished(true);
         setExplanationHistory((prev) => {
-          const newHistory = [...prev, { text: response.data.answer, image: response.data.image }];
-          if (!isExplainAgain) {
-            setNewlyAddedIndices(new Set([newHistory.length - 1]));
-          }
-          return newHistory;
-        });
+  const newHistory = [...prev, { text: response.data.answer, image: response.data.image }];
+  if (!isExplainAgain) { // CHANGED - only mark as newest if not "explain again"
+    setNewlyAddedIndices(new Set([newHistory.length - 1]));
+  }
+  return newHistory;
+});
+          
       } else if (response.data.initial_response && isInitial) {
         // Handle initial response with previous answers from chat_memory
         const answers = response.data.initial_response.map(answer => ({
@@ -116,18 +121,18 @@ const Explains = ({
         }));
         setExplanationHistory((prev) => [...prev, ...answers]);
       } else {
-        setExplanationHistory((prev) => {
-          const newHistory = [...prev, { text: response.data.answer, image: response.data.image }];
-          if (isExplainAgain) {
-            setExplainAgainIndices(new Set([newHistory.length - 1]));
-            setNewlyAddedIndices(new Set());
-          } else {
-            setNewlyAddedIndices(new Set([newHistory.length - 1]));
-            setExplainAgainIndices(new Set());
-          }
-          return newHistory;
-        });
-      }
+  setExplanationHistory((prev) => {
+    const newHistory = [...prev, { text: response.data.answer, image: response.data.image}];
+    if (isExplainAgain) {
+      setExplainAgainIndices(new Set([newHistory.length - 1]));
+      setNewlyAddedIndices(new Set()); // Clear previous newest entries
+    } else if (!isExplainAgain) {
+      setNewlyAddedIndices(new Set([newHistory.length - 1]));
+      setExplainAgainIndices(new Set()); // Clear previous explain-again entries
+    }
+    return newHistory;
+  });
+}
     } catch (error) {
       console.error('Error fetching explanation:', error);
       alert('Error fetching explanation. Please try again.');
@@ -157,6 +162,7 @@ const Explains = ({
   };
 
   const handleCustomQuery = () => {
+  
     if (userQuery.trim()) {
       stopAllAudio();
       trackInteraction(INTERACTION_TYPES.CUSTOM_QUERY_SUBMITTED, {
@@ -198,35 +204,30 @@ const Explains = ({
         ref={explanationContainerRef}
       >
         {explanationHistory.map((entry, index) => (
-          <div
-            key={index}
-            className={`explanation-entry ${newlyAddedIndices.has(index) ? 'newest-entry' : ''} ${explainAgainIndices.has(index) ? 'explain-again-entry' : ''}`}
-          >
-            <div className="audio-player-container">
-              <AudioPlayer text={processExplanation(entry.text)} />
-            </div>
+      <div key={index} className={`explanation-entry ${newlyAddedIndices.has(index) ? 'newest-entry' : ''} ${explainAgainIndices.has(index) ? 'explain-again-entry' : ''}`}>
+               <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>
             <ReactMarkdown
               children={preprocessMath(processExplanation(entry.text))}
               remarkPlugins={[remarkGfm, remarkMath]}
               rehypePlugins={[
   // Custom plugin to restore pipes BEFORE KaTeX processing
-                () => (tree) => {
-                  const visit = (node) => {
-                    if (node.type === 'text' && node.value) {
-                      node.value = postprocessMath(node.value);
-                    }
-                    if (node.children) {
-                      node.children.forEach(visit);
-                    }
-                  };
-                  visit(tree);
-                },
+  () => (tree) => {
+    const visit = (node) => {
+      if (node.type === 'text' && node.value) {
+        node.value = postprocessMath(node.value);
+      }
+      if (node.children) {
+        node.children.forEach(visit);
+      }
+    };
+    visit(tree);
+  },
   // Now KaTeX processes the restored content
-                [rehypeKatex, {
-                  throwOnError: false,
-                  strict: false
-                }]
-              ]}
+  [rehypeKatex, {
+    throwOnError: false,
+    strict: false
+  }]
+]}
               components={{
                 table: ({ node, ...props }) => (
                   <div className="table-container">
@@ -267,15 +268,15 @@ const Explains = ({
           </div>
         )}
       </div>
-
-      <div className="explain-controls-component">
-        {explainFinished ? (
-          <button onClick={onProceedToPractice} className="primary-button-component">
-            Start Practice
-          </button>
-        ) : (
-          <>
-            <div className="button-row">
+      
+    <div className="explain-controls-component">
+  {explainFinished ? (
+    <button onClick={onProceedToPractice} className="primary-button-component">
+      Start Practice
+    </button>
+  ) : (
+    <> 
+      <div className="button-row">
               <div className="refresh-button-group">
                 <button onClick={handleRefresh} className="restart-button-component">
                   <svg
@@ -317,27 +318,29 @@ const Explains = ({
                   পরবর্তী অংশে যান
                 </button>
               </div>
-            </div>
-            <div className="custom-query-container">
-              <textarea
-                value={userQuery}
-                onChange={(e) => setUserQuery(e.target.value)}
-                placeholder="Ask a question..."
-                className="custom-query-input"
-                rows="1"
-                onInput={(e) => {
-                  e.target.style.height = 'auto';
-                  e.target.style.height = e.target.scrollHeight + 'px';
-                }}
-              />
-              <button onClick={handleCustomQuery} className="custom-query-button">
-                Ask AI
-              </button>
-            </div>
-          </>
-        )}
       </div>
-    </div>
+
+      <div className="custom-query-container">
+        <textarea
+          value={userQuery}
+          onChange={(e) => setUserQuery(e.target.value)}
+          placeholder="Ask a question..."
+          className="custom-query-input"
+          rows="1"
+          onInput={(e) => {
+            e.target.style.height = 'auto';
+            e.target.style.height = e.target.scrollHeight + 'px';
+          }}
+        />
+        <button onClick={handleCustomQuery} className="custom-query-button">
+          Ask AI
+        </button>
+      </div>
+    </>
+  )}
+</div>
+</div>
+    
   );
 };
 

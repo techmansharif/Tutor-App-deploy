@@ -26,9 +26,8 @@ const [selectedSubtopic, setSelectedSubtopic] = useState(initialValues?.selected
     
     // Filter out unwanted subjects
     const filteredSubjects = response.data.filter(subject => 
-      !['Higher Math', 'General Math', 'quiz1','data'].includes(subject.name)
+      !['Higher Math', 'General Math', 'quiz1'].includes(subject.name)
     );
-    
     
     setSubjects(filteredSubjects);
   } catch (error) {
@@ -55,7 +54,6 @@ const [selectedSubtopic, setSelectedSubtopic] = useState(initialValues?.selected
               sortedTopics=response.data;
             }
           setTopics(sortedTopics);
-          // setTopics(response.data);
         } catch (error) {
           console.error('Error fetching topics:', error);
           alert('Error fetching topics. Please try again.');

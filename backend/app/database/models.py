@@ -131,6 +131,8 @@ class QuizAnswer(Base):
     question = relationship("MCQ")
     response_time = Column(Float, nullable=True)  # New column for time spent on question (seconds)
 
+
+
 # New QuizScore model
 class QuizScore(Base):
     __tablename__ = "quiz_scores"
@@ -296,7 +298,6 @@ class ReviseShownQuestion(Base):
     
     session = relationship("ReviseSession", back_populates="shown_questions")
     question = relationship("MCQ")
-
 class UserInteraction(Base):
     __tablename__ = "user_interactions"
     id = Column(Integer, primary_key=True, autoincrement=True)

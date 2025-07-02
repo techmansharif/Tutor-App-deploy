@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import Stopwatch from '../Stopwatch/Stopwatch';
+<<<<<<< HEAD
 
+=======
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
+>>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
 import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add this import
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -223,8 +227,9 @@ const fetchPracticeQuestion = async (submission = null) => {
     return (
       <div className="practice-quiz-container">
         <div className="loading">
-          <div className="loading-spinner"></div>
-          <p>Loading practice question...</p>
+          {/* <div className="loading-spinner"></div>
+          <p>Loading practice question...</p> */}
+          <LoadingScreen />
         </div>
       </div>
     );
@@ -233,7 +238,11 @@ const fetchPracticeQuestion = async (submission = null) => {
   return (
     <div className="practice-quiz-container">
       <div className="quiz-header">
+<<<<<<< HEAD
          <div className="quiz-title-section" style={{ color: 'green' }}>
+=======
+         <div className="quiz-title-section">
+>>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
                   <h2><i className="bi bi-journal-bookmark-fill" ></i> PRACTICE</h2>
                   <h3>{subject}</h3>
                   <h3>{topic}</h3>

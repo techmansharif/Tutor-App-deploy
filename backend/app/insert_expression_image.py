@@ -68,5 +68,5 @@ def populate_facial_expressions(folder_path: str):
 
 if __name__ == "__main__":
     # Set the root directory to the facial expressions folder
-    root_directory =  "C:/E backup/tutor app deploy/Facial Expression" # Adjust if your folder is elsewhere
+    root_directory =   "C:/E backup/tutor app deploy/Facial Expression" # Adjust if your folder is elsewhere
     populate_facial_expressions(root_directory)

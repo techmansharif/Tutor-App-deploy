@@ -51,7 +51,7 @@ useEffect(() => {
       
       // Filter out unwanted subjects like in Selection.js
       const filteredSubjects = response.data.filter(subject => 
-        !['Higher Math', 'General Math', 'quiz1', 'data'].includes(subject.name)
+        !['Higher Math', 'General Math', 'quiz1'].includes(subject.name)
       );
       
       setSubjects(filteredSubjects);
@@ -256,7 +256,7 @@ const handleAnswerSelect = (option) => {
     return (
       <div className="revise-container">
         <div className="revise-header">
-          <h2>REVISION MODE</h2>
+          <h2>REIVISION</h2>
         </div>
         <p className="revise-description">Review questions you answered incorrectly in your recent practice and quiz sessions.</p>
         
@@ -353,7 +353,7 @@ const handleAnswerSelect = (option) => {
       <div className="revise-container">
         <div className="completion-content">
           <h2>Revision Complete!</h2>
-          {totalQuestions === 0 ? (
+           {totalQuestions === 0 ? (
           <p className="completion-message">You have no questions to review!</p>
         ) : (
           <p className="completion-message">
@@ -361,7 +361,7 @@ const handleAnswerSelect = (option) => {
           </p>
         )}
           <button onClick={handleRestart} className="restart-button">
-            Restart Revise
+            Restart Revision
           </button>
         </div>
       </div>
@@ -388,9 +388,7 @@ const handleAnswerSelect = (option) => {
            <button onClick={handleRestart} className="restart-button">
           Restart Revision
         </button>
-          
-          <h2 style={{marginTop: '1em'}}> REVISION</h2>
-
+          <h2>Revision Mode</h2>
           {mode === 'subject' && selectedSubject && (
             <>
               <h3>{selectedSubject}</h3>
@@ -400,7 +398,6 @@ const handleAnswerSelect = (option) => {
           )}
         </div>
       </div>
-      
       
       <div className="revise-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <p style={{ margin: '5px 0', fontWeight: 'normal' }}>

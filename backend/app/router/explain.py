@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends, HTTPException, Header, Request,Backgroun
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy import select, update
-
 from typing import Optional
 from datetime import datetime
 from ..database.session import SessionLocal
@@ -17,7 +16,9 @@ from google import genai
 from google.genai import types
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
+
 import re
+
 # Import JWT utils
 from ..jwt_utils import get_user_from_token
 
@@ -88,7 +89,7 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
     Returns:
         Generated text response
     """
-   # Build contents listAdd commentMore actions
+    # Build contents list
     contents = []
     
     # Add image if provided
@@ -113,7 +114,7 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
     #     )
     # Add text prompt
     contents.append(prompt)
-
+   
     response = client.models.generate_content(
             model=MODEL,
             contents=contents,
@@ -124,6 +125,7 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
             )
             
         )
+   
     # response=r"$$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56 $$"
     
     return response.text.strip()
@@ -192,7 +194,7 @@ async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks:
             
             # Generate AI response using thread pool (keep this sync call in executor)
             loop = asyncio.get_event_loop()
-            generated_answer = await loop.run_in_executor(executor, generate_gemini_response, prompt, system_instruction, 0.3, next_image_data)
+            generated_answer = await loop.run_in_executor(executor, generate_gemini_response, prompt, system_instruction, 0.3,next_image_data)
             
             # Store pre-generated response in database using async update
             await db.execute(
@@ -256,14 +258,8 @@ async def get_image_data_from_chunk(chunk: str, subtopic_id: int,db: AsyncSessio
         first_line = lines[0].strip()  # e.g., "\subsection*{Union of Sets}" or "\section*{Introduction}" or "\textbf{Key Concepts}"
         match = re.match(r'\\(section|subsection|textbf)\*?\{([^}]*)\}', first_line)
         # Clean the first line by removing LaTeX commands (\section, \subsection, \textbf) and braces
-        # description = first_line
-        # # Remove common LaTeX commands and their variants (with or without *)
-        # for cmd in ["\\section*", "\\section", "\\subsection*", "\\subsection", "\\textbf"]:
-        #     description = description.replace(cmd, "")
-        # # Remove braces and any remaining LaTeX markup
-        # description = description.replace("{", "").replace("}", "").strip()  # e.g., "Union of Sets"
 
-        # # Remove braces and any remaining LaTeX markupAdd commentMore actions
+        # # Remove braces and any remaining LaTeX markup
         if match:
             description = match.group(2).strip()  # e.g., "সম্পাদ্য ১ ধাপ ১" or "Introduction"
         else:
@@ -528,13 +524,13 @@ Your teaching approach:
 
 async def generate_ai_response_and_update_progress(prompt: str,system_instruction:str, query: str, answer_text: str, 
                                            progress: UserProgress, chunk_index: int, 
-                                           explain_query: ExplainQuery,user_id: int, subtopic_id: int,db: AsyncSession,image_data: Optional[str]=None) -> str:
+                                           explain_query: ExplainQuery,user_id: int, subtopic_id: int,db: AsyncSession, image_data: Optional[str] = None) -> str:
 
     
     # Generate response
     # Run Gemini API call in threadpool
     loop = asyncio.get_event_loop()
-    answer = await loop.run_in_executor(executor, generate_gemini_response, prompt,system_instruction, 0.3, image_data)
+    answer = await loop.run_in_executor(executor, generate_gemini_response, prompt,system_instruction, 0.3,image_data)
     
 
  
@@ -755,5 +751,4 @@ async def post_explain(
 )
     
     return ExplainResponse(answer=answer,image=image_data)
-
 

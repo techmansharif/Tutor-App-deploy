@@ -10,7 +10,7 @@
   font-family: 'Arial', sans-serif;
   color: #333;
   margin-bottom: 20px;
-  min-height:500px; /* may need to be deleted */
+  min-height: 500px;
 }
 
 .dashboard-container h2 {
@@ -519,6 +519,10 @@
     height: 350px;
     padding: 15px;
   }
+    .stat-number {
+    border: 2px solid #667eea;
+    background-color: rgba(102, 126, 234, 0.1);
+  }
 }
 
 @media (max-width: 480px) {
@@ -562,4 +566,9 @@
   .subtopic-name {
     font-size: 0.9rem;
   }
+   .stat-number {
+    border: 2px solid #667eea;
+    background-color: rgba(102, 126, 234, 0.1);
+  }
+
 }

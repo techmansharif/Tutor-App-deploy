@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './Stopwatch.css';
 
 const Stopwatch = ({ reset, onTimeExpired, pause, initialTime = 60 }) => {
-  const [time, setTime] = useState(initialTime); // Start at initialTime
+
+   const [time, setTime] = useState(() => initialTime); // Use function to ensure proper initialization
+ 
 
   useEffect(() => {
     setTime(initialTime); // Reset time when reset prop changes
   }, [reset, initialTime]);
-
+console.log(time)
   useEffect(() => {
     if (pause || time <= 0) {
       return; // Do not run timer if paused or time is up

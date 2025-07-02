@@ -218,11 +218,12 @@ const AudioPlayer = ({ text }) => {
   };
 
   // Handle play
-  const handlePlay = () => {
-    if (!isPlaying) {
-      speakText();
-    }
-  };
+// To this:
+const handlePlay = () => {
+  if (!isPlaying) {
+    speakText();
+  }
+};
 
   // Handle pause
   const handlePause = () => {
