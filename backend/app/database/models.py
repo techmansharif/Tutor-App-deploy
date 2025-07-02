@@ -129,6 +129,8 @@ class QuizAnswer(Base):
     is_correct = Column(Boolean)
     attempt = relationship("QuizAttempt", back_populates="answers")
     question = relationship("MCQ")
+    response_time = Column(Float, nullable=True)  # New column for time spent on question (seconds)
+
 
 
 # New QuizScore model
@@ -167,15 +169,12 @@ class UserProgress(Base):
     chunk_index = Column(Integer, default=0, nullable=False)  # Tracks current chunk
     chat_memory = Column(JSONB, default=list, nullable=False)  # Stores question-answer pairs
     
-    # 🚀 NEW: Pre-generation columns for continue responses
+     # 🚀 NEW: Pre-generation columns for continue responses
     next_continue_response = Column(Text, nullable=True)  # Pre-generated AI response
     next_continue_image = Column(Text, nullable=True)     # Base64 encoded image
     next_response_chunk_index = Column(Integer, nullable=True)  # Which chunk this response is for
     
     last_updated = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-    
-    
-    
     user = relationship("User", back_populates="progress")
     subtopic = relationship("Subtopic")
 
@@ -209,6 +208,8 @@ class Quiz1(Base):
     user = relationship("User")
     attempt = relationship("Quiz1Attempt", back_populates="answers")
     question = relationship("MCQ")
+    response_time = Column(Float, nullable=True)  # New column for time spent on question (seconds)
+
 
 # Quiz1Attempt model
 class Quiz1Attempt(Base):
@@ -257,6 +258,8 @@ class PractiseAnswer(Base):
 
     attempt = relationship("PractiseAttempt", back_populates="answers")
     question = relationship("MCQ")
+    response_time = Column(Float, nullable=True)  # New column for time spent on question (seconds)
+
     
     
     
@@ -268,8 +271,8 @@ class FacialExpression(Base):
     facial_expression = Column(String, nullable=False)
     image = Column(LargeBinary, nullable=False)
     
-
-
+    
+# Add this to your models.py file
 
 class ReviseSession(Base):
     __tablename__ = "revise_sessions"
@@ -297,3 +300,10 @@ class ReviseShownQuestion(Base):
     
     session = relationship("ReviseSession", back_populates="shown_questions")
     question = relationship("MCQ")
+class UserInteraction(Base):
+    __tablename__ = "user_interactions"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    interaction_type = Column(String, nullable=False)
+    details = Column(String)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
