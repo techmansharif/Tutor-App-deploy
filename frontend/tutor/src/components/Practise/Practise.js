@@ -219,9 +219,9 @@ const fetchPracticeQuestion = async (submission = null) => {
     return (
       <div className="practice-quiz-container">
         <div className="loading">
-          {/* <div className="loading-spinner"></div>
-          <p>Loading practice question...</p> */}
-          <LoadingScreen />
+          <div className="loading-spinner"></div>
+          <p>Loading practice question...</p>
+          {/* <LoadingScreen /> */}
         </div>
       </div>
     );
