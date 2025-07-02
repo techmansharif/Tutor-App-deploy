@@ -7,7 +7,9 @@
   padding-bottom: 75px; /* prevent extra scroll room */
   margin-bottom: 0; /* just in case */
   font-family: Arial, sans-serif;
-  overflow: hidden; /* Prevent scrolling beyond content */
+  max-height: 100dvh; /* Use dynamic viewport height */
+  overflow-y: auto;
+  /* overflow: hidden; Prevent scrolling beyond content */
    
 }
 

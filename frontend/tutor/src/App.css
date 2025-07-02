@@ -89,7 +89,7 @@ footer {
 
 .navigation-buttons {
   display: flex;
-  gap: 8px; /* Increase gap for better spacing */
+  gap: 14px; /* Increase gap for better spacing */
   white-space: nowrap;
   justify-content: flex-start;
   flex-wrap: nowrap;
