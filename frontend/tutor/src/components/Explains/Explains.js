@@ -77,9 +77,9 @@ const stopAllAudio = () => {
   window.speechSynthesis.cancel();
 };
 
-  const fetchExplain = async (query, isInitial = false, isExplainAgain = false) => {
-    setIsExplainLoading(true);
-     // Add this scroll logic right after setting loading to true
+const fetchExplain = async (query, isInitial = false, isExplainAgain = false) => {
+  setIsExplainLoading(true);
+  // Add this scroll logic right after setting loading to true
   if (!isInitial && explanationContainerRef.current) {
     setTimeout(() => {
       const container = explanationContainerRef.current;
@@ -89,57 +89,128 @@ const stopAllAudio = () => {
       });
     }, 100); // Small delay to ensure loading component is rendered
   }
-    try  {
-    const token = localStorage.getItem('access_token');
-    const response = await axios.post(
+  
+  const token = localStorage.getItem('access_token');
+  
+  // First, try a regular request to check if it's a streaming response
+  try {
+    const response = await fetch(
       `${API_BASE_URL}/${selectedSubject}/${selectedTopic}/${selectedSubtopic}/explains/`,
-      { query, is_initial: isInitial },
       {
-        headers: { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
           'user-id': user.user_id,
           'Authorization': `Bearer ${token}`
-        }
+        },
+        body: JSON.stringify({ query, is_initial: isInitial })
       }
     );
+
+    // Check if it's a streaming response
+    if (response.headers.get('content-type')?.includes('text/event-stream')) {
+      // Handle streaming response
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let accumulatedText = '';
+      let imageData = null;
+      let entryIndex = -1;
+
+      // Add placeholder entry for streaming content
+      setExplanationHistory((prev) => {
+        const newHistory = [...prev, { text: '', image: null }];
+        entryIndex = newHistory.length - 1;
+        if (isExplainAgain) {
+          setExplainAgainIndices(new Set([entryIndex]));
+          setNewlyAddedIndices(new Set());
+        } else {
+          setNewlyAddedIndices(new Set([entryIndex]));
+          setExplainAgainIndices(new Set());
+        }
+        return newHistory;
+      });
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6));
+              
+              if (data.content) {
+                // Accumulate text content
+                accumulatedText += data.content;
+                // Update the entry with accumulated text
+                setExplanationHistory((prev) => {
+                  const newHistory = [...prev];
+                  newHistory[entryIndex] = { text: accumulatedText, image: imageData };
+                  return newHistory;
+                });
+              } else if (data.image) {
+                // Store image data
+                imageData = data.image;
+                // Update with image
+                setExplanationHistory((prev) => {
+                  const newHistory = [...prev];
+                  newHistory[entryIndex] = { text: accumulatedText, image: imageData };
+                  return newHistory;
+                });
+              } else if (data.status === 'complete') {
+                // Streaming complete
+                break;
+              }
+            } catch (e) {
+              console.error('Error parsing SSE data:', e);
+            }
+          }
+        }
+      }
+    } else {
+      // Handle regular JSON response (pre-generated, errors, etc.)
+      const data = await response.json();
       
-      if (response.data.answer === "Congratulations, you have mastered the topic!") {
+      if (data.answer === "Congratulations, you have mastered the topic!") {
         setExplainFinished(true);
         setExplanationHistory((prev) => {
-  const newHistory = [...prev, { text: response.data.answer, image: response.data.image }];
-  if (!isExplainAgain) { // CHANGED - only mark as newest if not "explain again"
-    setNewlyAddedIndices(new Set([newHistory.length - 1]));
-  }
-  return newHistory;
-});
-          
-      } else if (response.data.initial_response && isInitial) {
+          const newHistory = [...prev, { text: data.answer, image: data.image }];
+          if (!isExplainAgain) {
+            setNewlyAddedIndices(new Set([newHistory.length - 1]));
+          }
+          return newHistory;
+        });
+      } else if (data.initial_response && isInitial) {
         // Handle initial response with previous answers from chat_memory
-        const answers = response.data.initial_response.map(answer => ({
+        const answers = data.initial_response.map(answer => ({
           text: answer,
           image: null
         }));
         setExplanationHistory((prev) => [...prev, ...answers]);
       } else {
-  setExplanationHistory((prev) => {
-    const newHistory = [...prev, { text: response.data.answer, image: response.data.image}];
-    if (isExplainAgain) {
-      setExplainAgainIndices(new Set([newHistory.length - 1]));
-      setNewlyAddedIndices(new Set()); // Clear previous newest entries
-    } else if (!isExplainAgain) {
-      setNewlyAddedIndices(new Set([newHistory.length - 1]));
-      setExplainAgainIndices(new Set()); // Clear previous explain-again entries
+        setExplanationHistory((prev) => {
+          const newHistory = [...prev, { text: data.answer, image: data.image}];
+          if (isExplainAgain) {
+            setExplainAgainIndices(new Set([newHistory.length - 1]));
+            setNewlyAddedIndices(new Set());
+          } else if (!isExplainAgain) {
+            setNewlyAddedIndices(new Set([newHistory.length - 1]));
+            setExplainAgainIndices(new Set());
+          }
+          return newHistory;
+        });
+      }
     }
-    return newHistory;
-  });
-}
-    } catch (error) {
-      console.error('Error fetching explanation:', error);
-      alert('Error fetching explanation. Please try again.');
-    } finally {
-      setIsExplainLoading(false);
-    }
-  };
-
+  } catch (error) {
+    console.error('Error fetching explanation:', error);
+    alert('Error fetching explanation. Please try again.');
+  } finally {
+    setIsExplainLoading(false);
+  }
+};
   const handleContinueExplain = () => {
       stopAllAudio();
           trackInteraction(INTERACTION_TYPES.CONTINUE_CLICKED, {
