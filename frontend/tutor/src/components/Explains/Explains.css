@@ -4,7 +4,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  padding-bottom: 30; /* prevent extra scroll room */
+  padding-bottom: 75px; /* prevent extra scroll room */
   margin-bottom: 0; /* just in case */
   font-family: Arial, sans-serif;
    
