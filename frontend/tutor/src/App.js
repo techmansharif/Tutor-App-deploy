@@ -252,7 +252,7 @@ const renderNavigationButtons = () => {
           disabled={shouldDisableButtons}
         >
           SUBJECT
-          <div style={{ fontSize: '0.8em' }}>একটি বিষয় নির্বাচন করুন/div>
+          <div style={{ fontSize: '0.8em' }}>একটি বিষয় নির্বাচন করুন </div>
         </button>
         
         <button 
