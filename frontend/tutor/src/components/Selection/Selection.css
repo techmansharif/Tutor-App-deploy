@@ -5,12 +5,7 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-<<<<<<< HEAD
   min-height:500px;
-=======
-
-    min-height: 500px;
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
 }
 .selection-component-container h2 {
   color: #1a6c7b;

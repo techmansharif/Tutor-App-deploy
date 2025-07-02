@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
-import LoadingScreen from '../LoadingScreen/LoadingScreen';
+//import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import { processExplanation, preprocessMath, postprocessMath } from '../ProcessText/ProcessExplain';
 import './Explains.css';
 import remarkMath from 'remark-math';

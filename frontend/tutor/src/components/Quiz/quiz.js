@@ -26,9 +26,6 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
     const [completionDate, setCompletionDate] = useState('');
 
 
-// 1. Add this new state variable with your other useState declarations:
-const [completionDate, setCompletionDate] = useState('');
-
 
   // Integrity score hook
   const {
@@ -57,13 +54,8 @@ const [completionDate, setCompletionDate] = useState('');
 const fetchQuizQuestion = async (submission = null) => {
     setIsLoading(true);
     try {
-<<<<<<< HEAD
         const token = localStorage.getItem('access_token');
         const response = await axios.post(
-=======
-         const token = localStorage.getItem('access_token');
-      const response = await axios.post(
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
         `${API_BASE_URL}/${subject}/${topic}/${subtopic}/quiz/`,
         submission,
         {
@@ -99,10 +91,6 @@ const fetchQuizQuestion = async (submission = null) => {
         setIsComplete(true);
         setCompletionMessage(message);
 
-<<<<<<< HEAD
-=======
-                // Add this line to capture completion date:
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
         const now = new Date();
         const formattedDate = now.toLocaleDateString('en-GB', { 
           day: '2-digit', 
@@ -216,11 +204,7 @@ const fetchQuizQuestion = async (submission = null) => {
   if (isComplete) {
     return (
       <div className="practice-quiz-container">
-<<<<<<< HEAD
-        <h2>Assessment Complete</h2>
-=======
         <h2>Quiz Complete</h2>
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
        
           <p style={{ textAlign: 'center'}}>
         {completionDate}

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Login.css';
 
-const Login = ({API_BASE_URL, onSwitchToSignup }) => {
+const Login = ({API_BASE_URL }) => {
  
   const handleLogin = () => {
     window.location.href = `${API_BASE_URL}/login`;

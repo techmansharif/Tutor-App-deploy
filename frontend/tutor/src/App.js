@@ -1,30 +1,16 @@
-<<<<<<< HEAD
-import React, { useState, useEffect,Suspense,lazy } from 'react';
+//import React, { useState, useEffect,Suspense,lazy } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-=======
 // a small change
 
 //this is for testing out updates
 
 import React, { useState, useEffect,Suspense,lazy } from 'react';
 
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
-
 import Login from './components/Login/Login';
 import UserInfo from './components/Login/UserInfo'; // Added import
 
 import axios from 'axios';
 import './App.css';
-// Lazy load the heavy components
-const Quiz1 = lazy(() => import('./components/Quiz1/quiz1'));
-const Selection = lazy(() => import('./components/Selection/Selection'));
-const Explains = lazy(() => import('./components/Explains/Explains'));
-const PracticeQuiz = lazy(() => import('./components/Practise/Practise'));
-const Quiz = lazy(() => import('./components/Quiz/quiz'));
-const Welcome = lazy(() => import('./components/Welcome/Welcome'));
-const Dashboard = lazy(() => import('./components/Dashboard/Dashboard'));
-// 1. Add this import at the top with other lazy imports
-const Revise = lazy(() => import('./components/Revise/Revise'));
 
 // Lazy load the heavy components
 const LoadingScreen = lazy(() => import('./components/LoadingScreen/LoadingScreen')) ;
@@ -45,7 +31,6 @@ function App() {
   const [selectedValues, setSelectedValues] = useState({selectedSubject: '',selectedTopic: '', selectedSubtopic: '' });
   // BEFORE - Add this state
 const [token, setToken] = useState(null);
-<<<<<<< HEAD
   const API_BASE_URL = 'http://localhost:8000';
   
   //const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
@@ -56,18 +41,6 @@ useEffect(() => {
   const urlParams = new URLSearchParams(window.location.search);
   const tokenFromUrl = urlParams.get('token');
   
-=======
-  // const API_BASE_URL = 'http://localhost:8000';
-  
-  const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
-
-// AFTER - useEffect for fetching user
-useEffect(() => {
-  // Check if token is in URL (from OAuth callback)
-  const urlParams = new URLSearchParams(window.location.search);
-  const tokenFromUrl = urlParams.get('token');
-  
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
   if (tokenFromUrl) {
     localStorage.setItem('access_token', tokenFromUrl);
     setToken(tokenFromUrl);
@@ -78,11 +51,7 @@ useEffect(() => {
       setToken(storedToken);
     }
   }
-<<<<<<< HEAD
 }, [token]);
-=======
-}, []);
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
 
 // Add new useEffect for token changes
 useEffect(() => {
@@ -266,12 +235,8 @@ const renderNavigationButtons = () => {
   if (!user) return null;
 
   const selectionsComplete = areSelectionsComplete();
- const shouldDisableButtons = (quizStage === 'selection' && !selectionsComplete) || quizStage === 'welcome' || quizStage === 'quiz1';
-<<<<<<< HEAD
- // const shouldDisableButtons=false;
-=======
-
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
+ //const shouldDisableButtons = (quizStage === 'selection' && !selectionsComplete) || quizStage === 'welcome' || quizStage === 'quiz1';
+ const shouldDisableButtons=false;
   return (
     <div className='navigation-button-container'>
       <div className="navigation-buttons">
@@ -286,11 +251,7 @@ const renderNavigationButtons = () => {
           onClick={() => handleStageChange('selection')} 
           className={`nav-button ${quizStage === 'selection' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
-<<<<<<< HEAD
         > <i className="bi bi-book-half m-1"></i> 
-=======
-        >
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
           SUBJECT
           <div style={{ fontSize: '0.8em' }}>Select a subject</div>
         </button>
@@ -299,7 +260,6 @@ const renderNavigationButtons = () => {
           onClick={() => handleStageChange('explains')}  
           className={`nav-button ${quizStage === 'explains' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
-<<<<<<< HEAD
         > <i className="bi bi-file-earmark-richtext m-1"></i> 
           EXPLAIN  
           <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div>
@@ -319,27 +279,6 @@ const renderNavigationButtons = () => {
           className={`nav-button ${quizStage === 'quiz' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
         > <i className="bi bi-pencil-fill m-1"></i> 
-=======
-        > 
-          EXPLAIN  
-          <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div>
-        </button>
-        
-        <button 
-          onClick={() => handleStageChange('practice')} 
-          className={`nav-button ${quizStage === 'practice' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
-          disabled={shouldDisableButtons}
-        >
-          PRACTICE  
-          <div style={{ fontSize: '0.8em' }}>Practise the subject</div> 
-        </button>
-        
-        <button 
-          onClick={() => handleStageChange('quiz')} 
-          className={`nav-button ${quizStage === 'quiz' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
-          disabled={shouldDisableButtons}
-        > 
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
           QUIZ  
           <div style={{ fontSize: '0.8em' }}>Check your progress </div>
         </button>
@@ -348,11 +287,7 @@ const renderNavigationButtons = () => {
         onClick={() => handleStageChange('revise')} 
         className={`nav-button ${quizStage === 'revise' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
         disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
-<<<<<<< HEAD
       > <i className="bi bi-list-task m-1"></i>  
-=======
-      >
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
         REVISE
         <div style={{ fontSize: '0.8em' }}>Review failed questions</div>
       </button>
@@ -360,11 +295,7 @@ const renderNavigationButtons = () => {
     onClick={() => handleStageChange('dashboard')} 
     className={`nav-button ${quizStage === 'dashboard' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
     disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
-<<<<<<< HEAD
   > <i className="bi bi-file-bar-graph-fill m-1"></i>   
-=======
-  >
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
     PROGRESS 
     <div style={{ fontSize: '0.8em' }}>Your scoreboard</div>
 </button>

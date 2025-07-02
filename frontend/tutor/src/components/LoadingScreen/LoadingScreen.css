@@ -18,11 +18,7 @@
 .loading-image {
   margin: 0 auto 1rem;
   width: 8rem; /* Tailwind's w-32 */
-<<<<<<< HEAD
   height: 8rem; 
-=======
-  /* height: 8rem; Tailwind's h-32 */
->>>>>>> c267197c36173a1ba12cba19fa9e8a1f53936c4b
   overflow: hidden;
   /* object-fit: cover; */
   /* border-radius: 9999px; Tailwind's rounded-full */
