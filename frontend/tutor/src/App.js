@@ -44,7 +44,7 @@ useEffect(() => {
       setToken(storedToken);
     }
   }
-}, []);
+}, [token]);
 
 // Add new useEffect for token changes
 useEffect(() => {
@@ -228,8 +228,8 @@ const renderNavigationButtons = () => {
   if (!user) return null;
 
   const selectionsComplete = areSelectionsComplete();
- //const shouldDisableButtons = (quizStage === 'selection' && !selectionsComplete) || quizStage === 'welcome' || quizStage === 'quiz1';
-  const shouldDisableButtons=false;
+ const shouldDisableButtons = (quizStage === 'selection' && !selectionsComplete) || quizStage === 'welcome' || quizStage === 'quiz1';
+ // const shouldDisableButtons=false;
   return (
     <div className='navigation-button-container'>
       <div className="navigation-buttons">

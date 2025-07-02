@@ -163,6 +163,7 @@ const fetchPracticeQuestion = async (submission = null) => {
   const handleNextQuestion = async () => {
     // Move to next question, count the incorrect attempt
     setQuestionsTried((prev) => prev + 1);
+    const responseTime = (Date.now() - questionStartTime) / 1000;
     const submission = {
       question_id: currentQuestion.id,
       is_correct: false,
