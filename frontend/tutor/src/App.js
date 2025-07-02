@@ -296,7 +296,7 @@ const renderNavigationButtons = () => {
     disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
   >
     PROGRESS 
-    <div style={{ fontSize: '0.8em' }}> অগ্রগত </div>
+    <div style={{ fontSize: '0.8em' }}> অগ্রগতি </div>
 </button>
 
       </div>
