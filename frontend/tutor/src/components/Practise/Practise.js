@@ -56,8 +56,9 @@ const fetchPracticeQuestion = async (submission = null) => {
     setIsLoading(true);
     try {
          const token = localStorage.getItem('access_token');
+          const encodedSubtopic = encodeURIComponent(subtopic);
       const response = await axios.post(
-        `${API_BASE_URL}/${subject}/${topic}/${subtopic}/practise/`,
+        `${API_BASE_URL}/${subject}/${topic}/${encodedSubtopic}/practise/`,
         submission,
         {
          headers: { 

@@ -49,10 +49,12 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
 
 const fetchQuizQuestion = async (submission = null) => {
     setIsLoading(true);
+    const encodedSubtopic = encodeURIComponent(subtopic);
     try {
          const token = localStorage.getItem('access_token');
+          const encodedSubtopic = encodeURIComponent(subtopic);
       const response = await axios.post(
-        `${API_BASE_URL}/${subject}/${topic}/${subtopic}/quiz/`,
+         `${API_BASE_URL}/${subject}/${topic}/${encodedSubtopic }/quiz/`,
         submission,
         {
            headers: { 
