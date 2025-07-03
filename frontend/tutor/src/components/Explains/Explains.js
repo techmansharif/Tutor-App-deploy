@@ -91,8 +91,15 @@ const stopAllAudio = () => {
   }
     try  {
     const token = localStorage.getItem('access_token');
+
+
+      // URL encode the path parameters to handle special characters
+      const encodedSubject = encodeURIComponent(selectedSubject);
+      const encodedTopic = encodeURIComponent(selectedTopic);
+      const encodedSubtopic = encodeURIComponent(selectedSubtopic);
+
     const response = await axios.post(
-      `${API_BASE_URL}/${selectedSubject}/${selectedTopic}/${selectedSubtopic}/explains/`,
+      `${API_BASE_URL}/${encodedSubject}/${encodedTopic}/${encodedSubtopic}/explains/`,
       { query, is_initial: isInitial },
       {
         headers: { 
