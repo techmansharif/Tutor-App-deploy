@@ -303,25 +303,28 @@ const fetchExplain = async (query, isInitial = false, isExplainAgain = false) =>
       <div key={index} className={`explanation-entry ${newlyAddedIndices.has(index) ? 'newest-entry' : ''} ${explainAgainIndices.has(index) ? 'explain-again-entry' : ''}`}>
                <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>
             <ReactMarkdown
-              children={preprocessMath(processExplanation(entry.text))}
+              children={(processExplanation(entry.text))}
               remarkPlugins={[remarkGfm, remarkMath]}
               rehypePlugins={[
   // Custom plugin to restore pipes BEFORE KaTeX processing
-  () => (tree) => {
-    const visit = (node) => {
-      if (node.type === 'text' && node.value) {
-        node.value = postprocessMath(node.value);
-      }
-      if (node.children) {
-        node.children.forEach(visit);
-      }
-    };
-    visit(tree);
-  },
+  // () => (tree) => {
+  //   const visit = (node) => {
+  //     if (node.type === 'text' && node.value) {
+  //       node.value = postprocessMath(node.value);
+  //     }
+  //     if (node.children) {
+  //       node.children.forEach(visit);
+  //     }
+  //   };
+  //   visit(tree);
+  // },
   // Now KaTeX processes the restored content
   [rehypeKatex, {
     throwOnError: false,
-    strict: false
+    strict: false,
+     trust: true,           // For complex expressions
+  displayMode: false,    // For inline math
+  output: 'html'         // Better compatibility
   }]
 ]}
               components={{

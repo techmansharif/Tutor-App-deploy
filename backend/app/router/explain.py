@@ -450,7 +450,7 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
   #  print(f"gemini api will get this \n the chatmemory:{chat_memory}\n\n chunk is {chunks}")
     if subject =='গণিত' or subject == "উচ্চতর গণিত":
         system_instruction =r"""
-      আপনি বাংলাদেশের ৯-১০ শ্রেণির শিক্ষাগত সহকারী। সহজ ভাষায় ধাপে ধাপে শেখান।
+      আপনি বাংলাদেশের ৯-১০ শ্রেণির শিক্ষাগত সহকারী। সহজ ভাষায় ধাপে ধাপে পাঠের অংশ শেখান।
 
 পদ্ধতি:
 1. মজার ও আকর্ষণীয় ব্যাখ্যা, প্রয়োজনে গল্প
@@ -460,15 +460,11 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
    - ইনলাইন: $x = 5$, $x^2 = 25$ 
    - সমীকরণ: $\frac{a + b}{c - d} = \frac{10}{5}$, $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
    - LaTeX: $\sin^2\theta + \cos^2\theta = 1$
-5. ট্যালি: $\text{||||}$(৪), $\cancel{\text{||||}}$(৫), ৯=$\cancel{\text{||||}}$ $\text{||||}$, ১৮=$\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\text{|||}$
+5. ট্যালি: $\text{||||}$(4), $\cancel{\text{||||}}$(5), 9=$\cancel{\text{||||}}$ $\text{||||}$, 18=$\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\text{|||}$
 6. টেবিল উদাহরণ:
    |নাম|বয়স|শ্রেণী|
    |---|---|---|
    |রহিম|14|নবম|
-   
-   |পণ্য|পরিমাণ|মূল্য|মোট|
-   |:---|---:|:---:|---:|
-   |কলম|5|10|50|
    
    |সূত্র|উদাহরণ|ফলাফল|
    |:---|:---:|---:|
@@ -502,7 +498,7 @@ Your teaching approach:
 পাঠের অংশ:
 {context if context else chunks}
 
- এটি  ধাপে ধাপে ভেঙে বুঝাও। উদাহরণ থাকলে সেটিও সহজ করে উপস্থাপন করো।
+পাঠের অংশ ধাপে ধাপে ভেঙে বুঝাও। উদাহরণ থাকলে সেটিও সহজ করে উপস্থাপন করো।
 
 """
     else:
