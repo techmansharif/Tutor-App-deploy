@@ -160,7 +160,7 @@ def get_db():
 
 
 
-async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks: list, subject: str):
+async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks: list, subject: str,topic:str=""):
     """
     Pre-generate the next continue response and store it in the database
     """
@@ -210,7 +210,7 @@ async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks:
                 
             # Build prompt for the next chunk
             continue_query = ""
-            prompt, system_instruction = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject)
+            prompt, system_instruction = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject,topic)
             
             # Generate AI response using thread pool (keep this sync call in executor)
             loop = asyncio.get_event_loop()
@@ -439,7 +439,7 @@ async def process_query_logic(query: str, subject: str, chunks: list, chunk_inde
 
 
 
-def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) ->  tuple[str, str]:
+def build_prompt(query: str, chat_memory: list, context, chunks, subject: str,topic:str) ->  tuple[str, str]:
       # NEW: Prepare memory_text from UserProgress.chat_memory
     memory_text = "\n\n".join([
         f"User: {pair['question']}\nAssistant: {pair['answer']}"
@@ -693,7 +693,8 @@ async def post_explain(
     user_id,
     subtopic_obj.id,
     chunks,
-    subject
+    subject,
+    topic
 )
         current_dir = os.getcwd()
         filename = os.path.join(current_dir, "explain_raw_text.txt")
@@ -735,7 +736,7 @@ async def post_explain(
 
 
     
-    prompt, system_instruction =  build_prompt(query, chat_memory, context, selected_chunk, subject)
+    prompt, system_instruction =  build_prompt(query, chat_memory, context, selected_chunk, subject,topic)
     # Pass image_data to the streaming function
     response = await generate_ai_response_and_update_progress(
     prompt, system_instruction, query, explain_query.query, 
@@ -749,7 +750,8 @@ async def post_explain(
     user_id,
     subtopic_obj.id,
     chunks,
-    subject
+    subject,
+    topic
 )
 
     return response

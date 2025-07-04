@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef,memo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
@@ -21,6 +21,7 @@ const Explains = ({
 }) => {
   const [explanationHistory, setExplanationHistory] = useState([]);
   const [isExplainLoading, setIsExplainLoading] = useState(false);
+  const [nextId, setNextId] = useState(1);
   const [explainFinished, setExplainFinished] = useState(false);
   const [userQuery, setUserQuery] = useState('');
   const initialFetchRef = useRef(false);
@@ -28,6 +29,20 @@ const Explains = ({
   const [previousHistoryLength, setPreviousHistoryLength] = useState(0); // Add this
   const [newlyAddedIndices, setNewlyAddedIndices] = useState(new Set());
  const [explainAgainIndices, setExplainAgainIndices] = useState(new Set());
+
+
+const createProcessedEntry = (text, image = null, isNewest = false, isExplainAgain = false) => {
+  const entry = {
+    id: nextId,
+    text,
+    processedText: processExplanation(text),
+    image,
+    isNewest,
+    isExplainAgain
+  };
+  setNextId(prev => prev + 1);
+  return entry;
+};
 
   useEffect(() => {
     if (!initialFetchRef.current) {
@@ -116,19 +131,20 @@ const fetchExplain = async (query, isInitial = false, isExplainAgain = false) =>
       let imageData = null;
       let entryIndex = -1;
 
-      // Add placeholder entry for streaming content
-      setExplanationHistory((prev) => {
-        const newHistory = [...prev, { text: '', image: null }];
-        entryIndex = newHistory.length - 1;
-        if (isExplainAgain) {
-          setExplainAgainIndices(new Set([entryIndex]));
-          setNewlyAddedIndices(new Set());
-        } else {
-          setNewlyAddedIndices(new Set([entryIndex]));
-          setExplainAgainIndices(new Set());
-        }
-        return newHistory;
-      });
+    // Add placeholder entry for streaming content
+    setExplanationHistory((prev) => {
+      const entry = createProcessedEntry('', null, !isExplainAgain, isExplainAgain);
+      const newHistory = [...prev, entry];
+      entryIndex = newHistory.length - 1;
+      if (isExplainAgain) {
+        setExplainAgainIndices(new Set([entryIndex]));
+        setNewlyAddedIndices(new Set());
+      } else {
+        setNewlyAddedIndices(new Set([entryIndex]));
+        setExplainAgainIndices(new Set());
+      }
+      return newHistory;
+    });
 
       while (true) {
         const { done, value } = await reader.read();
@@ -146,20 +162,32 @@ const fetchExplain = async (query, isInitial = false, isExplainAgain = false) =>
                 // Accumulate text content
                 accumulatedText += data.content;
                 // Update the entry with accumulated text
-                setExplanationHistory((prev) => {
-                  const newHistory = [...prev];
-                  newHistory[entryIndex] = { text: accumulatedText, image: imageData };
-                  return newHistory;
-                });
+            // Update the entry with accumulated text
+             // Update with image
+setExplanationHistory((prev) => {
+  const newHistory = [...prev];
+  newHistory[entryIndex] = {
+    ...newHistory[entryIndex],
+    text: accumulatedText,
+    processedText: processExplanation(accumulatedText),
+    image: imageData
+  };
+  return newHistory;
+});
               } else if (data.image) {
-                // Store image data
-                imageData = data.image;
-                // Update with image
-                setExplanationHistory((prev) => {
-                  const newHistory = [...prev];
-                  newHistory[entryIndex] = { text: accumulatedText, image: imageData };
-                  return newHistory;
-                });
+  // Store image data
+  imageData = data.image;
+  // Update with image
+  setExplanationHistory((prev) => {
+    const newHistory = [...prev];
+    newHistory[entryIndex] = {
+      ...newHistory[entryIndex],
+      text: accumulatedText,
+      processedText: processExplanation(accumulatedText),
+      image: imageData
+    };
+    return newHistory;
+  });
               } else if (data.status === 'complete') {
                 // Streaming complete
                 break;
@@ -174,35 +202,36 @@ const fetchExplain = async (query, isInitial = false, isExplainAgain = false) =>
       // Handle regular JSON response (pre-generated, errors, etc.)
       const data = await response.json();
       
-      if (data.answer === "Congratulations, you have mastered the topic!") {
-        setExplainFinished(true);
-        setExplanationHistory((prev) => {
-          const newHistory = [...prev, { text: data.answer, image: data.image }];
-          if (!isExplainAgain) {
-            setNewlyAddedIndices(new Set([newHistory.length - 1]));
-          }
-          return newHistory;
-        });
-      } else if (data.initial_response && isInitial) {
-        // Handle initial response with previous answers from chat_memory
-        const answers = data.initial_response.map(answer => ({
-          text: answer,
-          image: null
-        }));
-        setExplanationHistory((prev) => [...prev, ...answers]);
-      } else {
-        setExplanationHistory((prev) => {
-          const newHistory = [...prev, { text: data.answer, image: data.image}];
-          if (isExplainAgain) {
-            setExplainAgainIndices(new Set([newHistory.length - 1]));
-            setNewlyAddedIndices(new Set());
-          } else if (!isExplainAgain) {
-            setNewlyAddedIndices(new Set([newHistory.length - 1]));
-            setExplainAgainIndices(new Set());
-          }
-          return newHistory;
-        });
-      }
+  if (data.answer === "Congratulations, you have mastered the topic!") {
+  setExplainFinished(true);
+  setExplanationHistory((prev) => {
+    const entry = createProcessedEntry(data.answer, data.image, !isExplainAgain, false);
+    const newHistory = [...prev, entry];
+    if (!isExplainAgain) {
+      setNewlyAddedIndices(new Set([newHistory.length - 1]));
+    }
+    return newHistory;
+  });
+} else if (data.initial_response && isInitial) {
+  // Handle initial response with previous answers from chat_memory
+  const answers = data.initial_response.map(answer => 
+    createProcessedEntry(answer, null, false, false)
+  );
+  setExplanationHistory((prev) => [...prev, ...answers]);
+} else {
+  setExplanationHistory((prev) => {
+    const entry = createProcessedEntry(data.answer, data.image, !isExplainAgain, isExplainAgain);
+    const newHistory = [...prev, entry];
+    if (isExplainAgain) {
+      setExplainAgainIndices(new Set([newHistory.length - 1]));
+      setNewlyAddedIndices(new Set());
+    } else if (!isExplainAgain) {
+      setNewlyAddedIndices(new Set([newHistory.length - 1]));
+      setExplainAgainIndices(new Set());
+    }
+    return newHistory;
+  });
+}
     }
   } catch (error) {
     console.error('Error fetching explanation:', error);
@@ -247,20 +276,77 @@ const fetchExplain = async (query, isInitial = false, isExplainAgain = false) =>
   };
 
   const handleRefresh = () => {
-    trackInteraction(INTERACTION_TYPES.REFRESH_CLICKED, {
-    subject: selectedSubject,
-    topic: selectedTopic,
-    subtopic: selectedSubtopic,
-    historyLength: explanationHistory.length
-  }, user.user_id, API_BASE_URL);
-    setExplanationHistory([]);
-    setExplainFinished(false);
-      setPreviousHistoryLength(0); // Add this line
-        setNewlyAddedIndices(new Set()); // Add this
-  setExplainAgainIndices(new Set()); // Add this
-    fetchExplain("refresh");
-  };
+  trackInteraction(INTERACTION_TYPES.REFRESH_CLICKED, {
+  subject: selectedSubject,
+  topic: selectedTopic,
+  subtopic: selectedSubtopic,
+  historyLength: explanationHistory.length
+}, user.user_id, API_BASE_URL);
+  setExplanationHistory([]);
+  setExplainFinished(false);
+    setPreviousHistoryLength(0);
+      setNewlyAddedIndices(new Set());
+setExplainAgainIndices(new Set());
+  setNextId(1); // Add this line
+  fetchExplain("refresh");
+};
 
+  // Memoized component for individual entries
+  const ExplanationEntry = memo(({ entry, selectedSubject }) => {
+    return (
+      <div className={`explanation-entry ${entry.isNewest ? 'newest-entry' : ''} ${entry.isExplainAgain ? 'explain-again-entry' : ''}`}>
+        <div className="audio-player-container">
+          <AudioPlayer text={entry.processedText} />
+        </div>
+        <ReactMarkdown
+          children={entry.processedText}
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[
+            [rehypeKatex, {
+              throwOnError: false,
+              strict: false,
+              trust: true,
+              displayMode: false,
+              output: 'html'
+            }]
+          ]}
+          components={{
+            table: ({node, ...props}) => (
+              <div className="table-container">
+                <table {...props} className="markdown-table" />
+              </div>
+            ),
+            code: ({node, inline, className, children, ...props}) => {
+              return inline ? (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              ) : (
+                <div className="code-block-container">
+                  <pre>
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  </pre>
+                </div>
+              );
+            }
+          }}
+        />
+        {entry.image && (
+          <div className="explanation-image-component">
+            <img
+              src={`data:image/png;base64,${entry.image}`}
+              alt="Explanation diagram"
+              style={{ maxWidth: '100%', marginTop: '20px' }}
+            />
+          </div>
+        )}
+      </div>
+    );
+  });
+
+  ExplanationEntry.displayName = 'ExplanationEntry';
   return (
     <div className="explains-component-container">
  <div className="explains-header-compact">
@@ -300,67 +386,13 @@ const fetchExplain = async (query, isInitial = false, isExplainAgain = false) =>
   ref={explanationContainerRef}
 >
         {explanationHistory.map((entry, index) => (
-      <div key={index} className={`explanation-entry ${newlyAddedIndices.has(index) ? 'newest-entry' : ''} ${explainAgainIndices.has(index) ? 'explain-again-entry' : ''}`}>
-               <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>
-            <ReactMarkdown
-              children={(processExplanation(entry.text))}
-              remarkPlugins={[remarkGfm, remarkMath]}
-              rehypePlugins={[
-  // Custom plugin to restore pipes BEFORE KaTeX processing
-  // () => (tree) => {
-  //   const visit = (node) => {
-  //     if (node.type === 'text' && node.value) {
-  //       node.value = postprocessMath(node.value);
-  //     }
-  //     if (node.children) {
-  //       node.children.forEach(visit);
-  //     }
-  //   };
-  //   visit(tree);
-  // },
-  // Now KaTeX processes the restored content
-  [rehypeKatex, {
-    throwOnError: false,
-    strict: false,
-     trust: true,           // For complex expressions
-  displayMode: false,    // For inline math
-  output: 'html'         // Better compatibility
-  }]
-]}
-              components={{
-                table: ({node, ...props}) => (
-                  <div className="table-container">
-                    <table {...props} className="markdown-table" />
-                  </div>
-                ), 
-                             code: ({node, inline, className, children, ...props}) => {
-                  return inline ? (
-                    <code className={className} {...props}>
-                      {children}
-                    </code>
-                  ) : (
-                    <div className="code-block-container">
-                      <pre>
-                        <code className={className} {...props}>
-                          {children}
-                        </code>
-                      </pre>
-                    </div>
-                  );
-                }
-              }}
-            />
-            {entry.image && (
-              <div className="explanation-image-component">
-                <img
-                  src={`data:image/png;base64,${entry.image}`}
-                  alt="Explanation diagram"
-                  style={{ maxWidth: '100%', marginTop: '20px' }}
-                />
-              </div>
-            )}
-          </div>
+          <ExplanationEntry 
+            key={entry.id} 
+            entry={entry} 
+            selectedSubject={selectedSubject} 
+          />
         ))}
+
         {isExplainLoading && (
           <div className="loading-component">
             <div className="loading-spinner-component"></div>
