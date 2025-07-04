@@ -74,6 +74,9 @@ async def get_async_db():
             yield session
         finally:
             await session.close()
+
+
+
 # Create client
 client = genai.Client(api_key=api_key)
 MODEL="gemini-2.5-flash"
@@ -89,6 +92,8 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
     Returns:
         Generated text response
     """
+
+
     # Build contents list
     contents = []
     
@@ -119,7 +124,7 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
             model=MODEL,
             contents=contents,
             config=types.GenerateContentConfig(
-                thinking_config=types.ThinkingConfig(thinking_budget=-1),
+                thinking_config=types.ThinkingConfig(thinking_budget=0),
                 system_instruction=system_instruction,  # Move this OUTSIDE config
                 temperature=temperature
             )
@@ -127,7 +132,7 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
         )
    
     # response=r"$$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56 $$"
-    
+   
     return response.text.strip()
 
 # Dependency to get DB session
@@ -430,51 +435,27 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
   #  print(f"gemini api will get this \n the chatmemory:{chat_memory}\n\n chunk is {chunks}")
     if subject =='গণিত' or subject == "উচ্চতর গণিত":
         system_instruction =r"""
-        আপনি একজন শিক্ষাগত সহকারী। আপনার কাজ হল বাংলাদেশের ৯-১০ শ্রেণির শিক্ষার্থীদের সহজ ও ধাপে ধাপে শেখানো। আপনার বাক্যগুলো সহজ হতে হবে।
-         আপনি  পাঠের অংশটি  সহজে ব্যাখ্যা করবেন এবং তথ্যে থাকা উদাহরণ অংক সহজে ভেঙে ভেঙে বুঝবেন |
-আপনার শিক্ষা পদ্ধতি:
-1. তথ্য মজার এবং আকর্ষণীয় উপায়ে ব্যাখ্যা করুন
-2. ব্যাখ্যাটি আকর্ষণীয় করুন, প্রয়োজনে গল্প ব্যবহার করুন
-3. সাম্প্রতিক কথোপকথনের স্মৃতি ব্যবহার করে উত্তরটি ব্যক্তিগত করুন
-4. সব টেক্সট, শিরোনাম এবং তালিকার জন্য মার্কডাউন ব্যবহার করুন
-5. গাণিতিক প্রকাশ:
-   - ইনলাইন গণিত: একক ডলার চিহ্নে আবদ্ধ করুন
-     উদাহরণ:  $x = 5$  ,  $x^2 = 25$ 
-   - সমীকরণ: Enclose in double dollar signs
-    উদাহরণ:
-   $$ \frac{a}{b} $$
-   $$\frac{a + b}{c - d} = \frac{10}{5}$$, $$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56$$ ,
-     $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
-- Tally mark : 
-      -  $\text{||||}$ for 4
-     -   follow above pattern for tally mark represent 5 by $\cancel{\text{||||}}$ for number below 5 write as   $\text{||}$ for 2 , $\text{||||}$ for 4 etc
-      -  for number above 5 break into group of 5 like 9=5+4 so in tally it is $\cancel{\text{||||}}$   $\text{||||}$ 
-        18 is 5+5+5+3 so write it as  $\cancel{\text{||||}}$  $\cancel{\text{||||}}$  $\cancel{\text{||||}}$ $\text{|||}$ 
-   - সঠিক LaTeX syntax নিশ্চিত করুন
-     $$\sin^2\theta + \cos^2\theta = 1$$
-     
-6. প্রয়োজনে সারসংক্ষেপ বা তুলনামূলক বিশ্লেষণের জন্য Markdown টেবিল ব্যবহার করুন
-Basic Table (বেসিক টেবিল):
-|নাম | বয়স | শ্রেণী |
-|-----|------|--------|
-| রহিম | 14 | নবম |
-| করিম | 15 | দশম |
-| সালমা | 14 | নবম |
-Table with Alignment (সারিবদ্ধ টেবিল):
-| পণ্য | পরিমাণ | মূল্য (টাকা) | মোট |
-|:-----|-------:|:------------:|----:|
-| কলম | 5 | 10 | 50 |
-| খাতা | 3 | 40 | 120 |
-| রাবার | 2 | 5 | 10 |
-| **সর্বমোট** | | | **180** |
-Math in Tables (টেবিলে গণিত):
-| সূত্র | উদাহরণ | ফলাফল |
-|:------|:------:|-------:|
-| বর্গ | $x^2$ যখন $x=5$ | $25$ |
-| বর্গমূল | $\sqrt{16}$ | $4$ |
-| ভগ্নাংশ | $\frac{10}{2}$ | $5$ |
+        আপনি বাংলাদেশের ৯-১০ শ্রেণির শিক্ষাগত সহকারী। সহজ ভাষায় ধাপে ধাপে পাঠের অংশ শেখান।
 
-লক্ষ্য: শিক্ষার্থীরা যেন আনন্দের সাথে এবং সহজে বিষয়টি বুঝতে পারে।
+পদ্ধতি:
+1. মজার ও আকর্ষণীয় ব্যাখ্যা, প্রয়োজনে গল্প
+2. কথোপকথনের স্মৃতি ব্যবহার করে ব্যক্তিগতকরণ  
+3. মার্কডাউন ব্যবহার করুন
+4. গাণিতিক প্রকাশ:
+   - ইনলাইন: $x = 5$, $x^2 = 25$ 
+   - সমীকরণ: $\frac{a + b}{c - d} = \frac{10}{5}$, $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
+   - LaTeX: $\sin^2\theta + \cos^2\theta = 1$
+5. ট্যালি: $\text{||||}$(4), $\cancel{\text{||||}}$(5), 9=$\cancel{\text{||||}}$ $\text{||||}$, 18=$\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\text{|||}$
+6. টেবিল উদাহরণ:
+   |নাম|বয়স|শ্রেণী|
+   |---|---|---|
+   |রহিম|14|নবম|
+   
+   |সূত্র|উদাহরণ|ফলাফল|
+   |:---|:---:|---:|
+   |বর্গ|$x^2$ যখন $x=5$|$25$|
+
+লক্ষ্য: আনন্দের সাথে সহজে শেখানো।
         """
     elif subject=="English":
         system_instruction = r"""You are an educational assistant tasked with creating a step-by-step learning guide for a user. Your sentences should be simple.
@@ -502,7 +483,7 @@ Your teaching approach:
 পাঠের অংশ:
 {context if context else chunks}
 
- এটি  ধাপে ধাপে ভেঙে বুঝাও। উদাহরণ থাকলে সেটিও সহজ করে উপস্থাপন করো।
+ পাঠের অংশ  ধাপে ধাপে ভেঙে বুঝাও। উদাহরণ থাকলে সেটিও সহজ করে উপস্থাপন করো।
 
 """
     else:
