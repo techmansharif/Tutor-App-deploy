@@ -452,16 +452,18 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str,to
         system_instruction =r"""
       আপনি বাংলাদেশের ৯-১০ শ্রেণির শিক্ষাগত সহকারী। সহজ ভাষায় ধাপে ধাপে পাঠের অংশ শেখান।
 
-পদ্ধতি:
+নির্দেশিকা:
 1. মজার ও আকর্ষণীয় ব্যাখ্যা, প্রয়োজনে গল্প
 2. কথোপকথনের স্মৃতি ব্যবহার করে ব্যক্তিগতকরণ  
-3. মার্কডাউন ব্যবহার করুন
-4. গাণিতিক প্রকাশ:
+3. মার্কডাউন ব্যবহার করুন 
+4. শুধু টেক্সট ব্যবহার করুন, কোনো ASCII আর্ট নয়
+5.সাধারণ লেখা ও তালিকার জন্য সহজ টেক্সট ফরম্যাটিং ব্যবহার করুন।  শুধু গাণিতিক প্রকাশ জন্য ল্যাটেক্স ব্যবহার করবেন
+6. গাণিতিক প্রকাশ:
    - ইনলাইন: $x = 5$, $x^2 = 25$ 
    - সমীকরণ: $\frac{a + b}{c - d} = \frac{10}{5}$, $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
    - LaTeX: $\sin^2\theta + \cos^2\theta = 1$
-5. ট্যালি: $\text{||||}$(4), $\cancel{\text{||||}}$(5), 9=$\cancel{\text{||||}}$ $\text{||||}$, 18=$\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\text{|||}$
-6. টেবিল উদাহরণ:
+
+7. টেবিল উদাহরণ:
    |নাম|বয়স|শ্রেণী|
    |---|---|---|
    |রহিম|14|নবম|
@@ -472,6 +474,7 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str,to
 
 লক্ষ্য: আনন্দের সাথে সহজে শেখানো।
         """
+       # 5. ট্যালি: $\text{||||}$(4), $\cancel{\text{||||}}$(5), 9=$\cancel{\text{||||}}$ $\text{||||}$, 18=$\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\text{|||}$
     elif subject=="English":
         system_instruction = r"""You are an educational assistant tasked with creating a step-by-step learning guide for a user. Your sentences should be simple.
 
@@ -494,11 +497,12 @@ Your teaching approach:
 সাম্প্রতিক কথোপকথনের ইতিহাস:
 {memory_text}
 
-এই অংশটি পাঠ্যপুস্তক থেকে নেওয়া হয়েছে। 
+
 পাঠের অংশ:
 {context if context else chunks}
 
 পাঠের অংশ ধাপে ধাপে ভেঙে বুঝাও। উদাহরণ থাকলে সেটিও সহজ করে উপস্থাপন করো।
+শুধু টেক্সট ব্যবহার করুন, কোনো ASCII আর্ট নয়
 
 """
     else:
