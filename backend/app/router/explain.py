@@ -19,7 +19,8 @@ from google import genai
 from google.genai import types
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
-
+import asyncio
+from concurrent.futures import Future
 import re
 
 # Import JWT utils
@@ -133,19 +134,29 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
     
     return response.text.strip()
 
-async def generate_gemini_response_stream(prompt: str, system_instruction: str = "", temperature: float = 0.2):
+async def generate_gemini_response_stream(prompt: str, system_instruction: str = "", temperature: float = 0.2,image_base64: Optional[str] = None):
     """Generate streaming response using Gemini API"""
-    import asyncio
-    from concurrent.futures import Future
+
     
     queue = asyncio.Queue()
     loop = asyncio.get_event_loop()  # Get loop reference BEFORE thread
     
     def _stream_in_thread(event_loop):  # Accept loop parameter
+        # Add image if provided
+        contents = []
+        if image_base64:
+            image_bytes = base64.b64decode(image_base64)
+            image_part = types.Part.from_bytes(
+                data=image_bytes, 
+                mime_type="image/jpeg"
+            )
+            contents.append(image_part)
+        # Add text prompt
+        contents.append(prompt)
         try:
             response = client.models.generate_content_stream(
                 model=MODEL,
-                contents=[prompt],
+                contents=contents,
                 config=types.GenerateContentConfig(
                     thinking_config=types.ThinkingConfig(thinking_budget=-1),
                     system_instruction=system_instruction,
@@ -552,7 +563,7 @@ async def generate_ai_response_and_update_progress(prompt: str,system_instructio
     
     async def stream_generator():
         full_answer = ""
-        async for chunk in generate_gemini_response_stream(prompt, system_instruction, 0.3):
+        async for chunk in generate_gemini_response_stream(prompt, system_instruction, 0.3, image_data):
             if chunk.startswith("[COMPLETE]"):
                 # Extract full text for DB update
                 full_answer = chunk[10:]  # Remove [COMPLETE] prefix
