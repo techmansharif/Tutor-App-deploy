@@ -89,7 +89,12 @@ useEffect(() => {
 
 
 const stopAllAudio = () => {
-  window.speechSynthesis.cancel();
+  // Stop all audio players - they'll handle their own cleanup
+  const audioElements = document.querySelectorAll('audio');
+  audioElements.forEach(audio => {
+    audio.pause();
+    audio.currentTime = 0;
+  });
 };
 
 const fetchExplain = async (query, isInitial = false, isExplainAgain = false) => {
@@ -296,7 +301,7 @@ setExplainAgainIndices(new Set());
     return (
       <div className={`explanation-entry ${entry.isNewest ? 'newest-entry' : ''} ${entry.isExplainAgain ? 'explain-again-entry' : ''}`}>
         <div className="audio-player-container">
-          <AudioPlayer text={entry.processedText} />
+          <AudioPlayer text={"hi how are you"} API_BASE_URL={API_BASE_URL} user={user} />
         </div>
         <ReactMarkdown
           children={entry.processedText}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './AudioPlayer.css';
 import { numberToWords, preprocessText, detectLanguage } from './PreprocessAudio';
 
-const AudioPlayer = ({ text }) => {
+const AudioPlayer = ({ text, API_BASE_URL,user }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [speechInstance, setSpeechInstance] = useState(null);
@@ -11,44 +11,59 @@ const AudioPlayer = ({ text }) => {
   const [speechRate, setSpeechRate] = useState(1);
 
 
-  // Handle text-to-speech
-  const speakText = () => {
-    if ('speechSynthesis' in window) {
-      // Stop any ongoing speech
-      window.speechSynthesis.cancel();
+ // Handle text-to-speech using streaming API
+  const speakText = async () => {
+    try {
+      const token = localStorage.getItem('access_token');
+      const user_id = user.user_id;;
+      
+      const response = await fetch(`${API_BASE_URL}/audio/stream/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'user-id': user_id,
+          'Authorization': `Bearer ${token}`
+        },
+       body: JSON.stringify({
+  text: preprocessText(text),
+  language_code: "auto",
+  voice_gender: "FEMALE",
+  audio_encoding: "MP3"
+})
+      });
 
-      const processedText = preprocessText(text);
-      const utterance = new SpeechSynthesisUtterance(processedText);
-      const lang = detectLanguage(text);
-      utterance.lang = lang;
+      if (!response.ok) throw new Error('Audio generation failed');
 
-      // Set selected voice
-      if (selectedVoice) {
-        utterance.voice = selectedVoice;
-      } else {
-        const availableVoices = window.speechSynthesis.getVoices();
-        const voice = availableVoices.find((v) => v.lang === lang) || 
-                     availableVoices.find((v) => v.lang.includes(lang.split('-')[0]));
-        if (voice) utterance.voice = voice;
-      }
+      const audioBlob = await response.blob();
+      console.log('Audio blob:', audioBlob);
+console.log('Blob size:', audioBlob.size);
+console.log('Blob type:', audioBlob.type);
+      const audioUrl = URL.createObjectURL(audioBlob);
+      console.log('Audio URL:', audioUrl);
+      const audio = new Audio(audioUrl);
+      
 
-      // Adjust for natural speech
-      utterance.pitch = 1;
-      utterance.rate = speechRate;
-      utterance.volume = 1;
-
-      utterance.onend = () => {
+      audio.onerror = (e) => {
+  console.error('Audio error:', e);
+  console.error('Audio error details:', audio.error);
+};
+audio.onloadstart = () => console.log('Audio load started');
+audio.oncanplay = () => console.log('Audio can play');
+audio.onloadeddata = () => console.log('Audio data loaded');
+      audio.onended = () => {
         setIsPlaying(false);
         setIsPaused(false);
         setSpeechInstance(null);
+        URL.revokeObjectURL(audioUrl);
       };
 
-      setSpeechInstance(utterance);
-      window.speechSynthesis.speak(utterance);
+      setSpeechInstance(audio);
+      await audio.play();
       setIsPlaying(true);
       setIsPaused(false);
-    } else {
-      alert('Text-to-speech is not supported in this browser.');
+    } catch (error) {
+      console.error('Audio playback failed:', error);
+      alert('Audio playback failed. Please try again.');
     }
   };
 
@@ -60,49 +75,36 @@ const handlePlay = () => {
   }
 };
 
-  // Handle pause
-  const handlePause = () => {
-    if (isPlaying && !isPaused) {
-      window.speechSynthesis.pause();
+const handlePause = () => {
+    if (isPlaying && !isPaused && speechInstance) {
+      speechInstance.pause();
       setIsPaused(true);
     }
   };
-
   // Handle stop
-  const handleStop = () => {
-    if (isPlaying) {
-      window.speechSynthesis.cancel();
+const handleStop = () => {
+    if (isPlaying && speechInstance) {
+      speechInstance.pause();
+      speechInstance.currentTime = 0;
       setIsPlaying(false);
       setIsPaused(false);
       setSpeechInstance(null);
     }
   };
-
   // Handle speak again
   const handleSpeakAgain = () => {
     handleStop();
     speakText();
   };
 
-  // Load voices when component mounts
+  // Cleanup on unmount
   useEffect(() => {
-    const loadVoices = () => {
-      const availableVoices = window.speechSynthesis.getVoices();
-      setVoices(availableVoices);
-      // Set default voice based on language
-      const lang = detectLanguage(text);
-      const defaultVoice = availableVoices.find((v) => v.lang === lang) || 
-                         availableVoices.find((v) => v.lang.includes(lang.split('-')[0]));
-      if (defaultVoice) setSelectedVoice(defaultVoice);
-    };
-
-    loadVoices();
-    window.speechSynthesis.onvoiceschanged = loadVoices;
-
     return () => {
-      window.speechSynthesis.cancel();
+      if (speechInstance) {
+        speechInstance.pause();
+      }
     };
-  }, [text]);
+  }, [speechInstance]);
 
   return (
    <div className="audio-player-container">
