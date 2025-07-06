@@ -135,21 +135,44 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
 
 async def generate_gemini_response_stream(prompt: str, system_instruction: str = "", temperature: float = 0.2):
     """Generate streaming response using Gemini API"""
-    response = client.models.generate_content_stream(
-        model=MODEL,
-        contents=[prompt],
-        config=types.GenerateContentConfig(
-            thinking_config=types.ThinkingConfig(thinking_budget=-1),
-            system_instruction=system_instruction,
-            temperature=temperature
-        )
-    )
-    full_text = ""
-    for chunk in response:
-        if chunk.text:
-            full_text += chunk.text
-            yield chunk.text
-    yield f"[COMPLETE]{full_text}"  # Send full text at end for DB update
+    import asyncio
+    from concurrent.futures import Future
+    
+    queue = asyncio.Queue()
+    loop = asyncio.get_event_loop()  # Get loop reference BEFORE thread
+    
+    def _stream_in_thread(event_loop):  # Accept loop parameter
+        try:
+            response = client.models.generate_content_stream(
+                model=MODEL,
+                contents=[prompt],
+                config=types.GenerateContentConfig(
+                    thinking_config=types.ThinkingConfig(thinking_budget=-1),
+                    system_instruction=system_instruction,
+                    temperature=temperature
+                )
+            )
+            full_text = ""
+            for chunk in response:
+                if chunk.text:
+                    full_text += chunk.text
+                    asyncio.run_coroutine_threadsafe(queue.put(chunk.text), event_loop)
+            # Signal completion with full text
+            asyncio.run_coroutine_threadsafe(queue.put(f"[COMPLETE]{full_text}"), event_loop)
+        except Exception as e:
+            asyncio.run_coroutine_threadsafe(queue.put(f"[ERROR]{str(e)}"), event_loop)
+        finally:
+            asyncio.run_coroutine_threadsafe(queue.put(None), event_loop)  # End signal
+    
+    # Start streaming in executor with loop parameter
+    loop.run_in_executor(executor, _stream_in_thread, loop)  # Pass loop as argument
+      # ADD THIS PART:
+    # Yield chunks as they arrive
+    while True:
+        chunk = await queue.get()
+        if chunk is None:  # End signal
+            break
+        yield chunk
 # Dependency to get DB session
 def get_db():
     db = SessionLocal()
