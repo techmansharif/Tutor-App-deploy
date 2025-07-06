@@ -1,12 +1,15 @@
 {
   "hosting": {
-    "public": "public",
-    "rewrites": [],
-    "redirects": [
+    "public": "build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
       {
-        "source": "/tutorSSC",
-        "destination": "https://brimai-test-v1.web.app/",
-        "type": 301
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   }
