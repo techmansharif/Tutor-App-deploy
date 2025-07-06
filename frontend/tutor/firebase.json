@@ -4,7 +4,7 @@
     "rewrites": [],
     "redirects": [
       {
-        "source": "/tutuirSSC",
+        "source": "/tutorSSC",
         "destination": "https://brimai-test-v1.web.app/",
         "type": 301
       }
