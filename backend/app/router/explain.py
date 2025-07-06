@@ -314,7 +314,7 @@ async def get_image_data_from_chunk(chunk: str, subtopic_id: int,db: AsyncSessio
             result = await db.execute(
                 select(Diagram).filter(
                     Diagram.subtopic_id == subtopic_id,
-                    func.lower(Diagram.description).contains(func.lower(description))
+                   func.lower(Diagram.description) == func.lower(description)
                 )
             )
             diagram = result.scalar_one_or_none()
