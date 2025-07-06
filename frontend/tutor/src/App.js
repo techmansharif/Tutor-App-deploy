@@ -253,7 +253,7 @@ const renderNavigationButtons = () => {
           disabled={shouldDisableButtons}
         > <i className="bi bi-book-half m-1"></i> 
           SUBJECT
-          <div style={{ fontSize: '0.8em' }}>Select a subject</div>
+          <div style={{ fontSize: '0.8em' }}> বিষয় বাছাই </div>
         </button>
         
         <button 
@@ -262,16 +262,16 @@ const renderNavigationButtons = () => {
           disabled={shouldDisableButtons}
         > <i className="bi bi-file-earmark-richtext m-1"></i> 
           EXPLAIN  
-          <div style={{ fontSize: '0.8em' }}>Tutors you the subject</div>
+          <div style={{ fontSize: '0.8em' }}> সহজভাবে শেখা </div>
         </button>
         
         <button 
           onClick={() => handleStageChange('practice')} 
           className={`nav-button ${quizStage === 'practice' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
           disabled={shouldDisableButtons}
-        > <div className="button-left"><i className="bi bi-journal-bookmark-fill m-1"></i></div> 
-          <div className="button-right">PRACTICE  </div>
-          <div style={{ display: 'flex', alignItems: 'center',textAlign:'center', fontSize: '0.8em' }}>Practise the subject</div> 
+        >
+          PRACTICE  
+          <div style={{ fontSize: '0.8em' }}> বিষয় চর্চা </div> 
         </button>
         
         <button 
@@ -280,7 +280,7 @@ const renderNavigationButtons = () => {
           disabled={shouldDisableButtons}
         > <i className="bi bi-pencil-fill m-1"></i> 
           QUIZ  
-          <div style={{ fontSize: '0.8em' }}>Check your progress </div>
+          <div style={{ fontSize: '0.8em' }}> কতদূর শিখলাম </div>
         </button>
       
       <button 
@@ -289,7 +289,7 @@ const renderNavigationButtons = () => {
         disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
       > <i className="bi bi-list-task m-1"></i>  
         REVISE
-        <div style={{ fontSize: '0.8em' }}>Review failed questions</div>
+        <div style={{ fontSize: '0.8em' }}> ভুল সংশোধন </div>
       </button>
         <button 
     onClick={() => handleStageChange('dashboard')} 
@@ -297,7 +297,7 @@ const renderNavigationButtons = () => {
     disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
   > <i className="bi bi-file-bar-graph-fill m-1"></i>   
     PROGRESS 
-    <div style={{ fontSize: '0.8em' }}>Your scoreboard</div>
+    <div style={{ fontSize: '0.8em' }}> অগ্রগতি </div>
 </button>
 
       </div>

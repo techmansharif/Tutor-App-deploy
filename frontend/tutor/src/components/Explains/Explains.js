@@ -9,7 +9,6 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import 'katex/dist/katex.min.css';
-import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import { trackInteraction, INTERACTION_TYPES } from '../../utils/trackInteractions';
 
 const Explains = ({
@@ -34,10 +33,10 @@ const Explains = ({
     if (!initialFetchRef.current) {
       initialFetchRef.current = true;
       trackInteraction(INTERACTION_TYPES.EXPLAIN_PAGE_LOADED, {
-      subject: selectedSubject,
-      topic: selectedTopic,
-      subtopic: selectedSubtopic
-    }, user.user_id, API_BASE_URL);
+        subject: selectedSubject,
+        topic: selectedTopic,
+        subtopic: selectedSubtopic
+      }, user.user_id, API_BASE_URL);
       fetchExplain("explain", true);
     }
 
@@ -92,8 +91,15 @@ const stopAllAudio = () => {
   }
     try  {
     const token = localStorage.getItem('access_token');
+
+    
+      // URL encode the path parameters to handle special characters
+      const encodedSubject = encodeURIComponent(selectedSubject);
+      const encodedTopic = encodeURIComponent(selectedTopic);
+      const encodedSubtopic = encodeURIComponent(selectedSubtopic);
+
     const response = await axios.post(
-      `${API_BASE_URL}/${selectedSubject}/${selectedTopic}/${selectedSubtopic}/explains/`,
+        `${API_BASE_URL}/${encodedSubject}/${encodedTopic}/${encodedSubtopic}/explains/`,
       { query, is_initial: isInitial },
       {
         headers: { 
@@ -152,13 +158,8 @@ const stopAllAudio = () => {
   };
 
   const handleExplainAgain = () => {
-    stopAllAudio();
-    trackInteraction(INTERACTION_TYPES.EXPLAIN_AGAIN_CLICKED, {
-      subject: selectedSubject,
-      topic: selectedTopic,
-      subtopic: selectedSubtopic
-    }, user.user_id, API_BASE_URL);
-    fetchExplain("explain", false, true);
+      stopAllAudio();
+    fetchExplain("explain",false,true);
   };
 
   const handleCustomQuery = () => {
@@ -306,7 +307,7 @@ const stopAllAudio = () => {
                   className="secondary-button-component"
                   disabled={explainFinished}
                 >
-                  আরও সহজে বলুন
+                  আরও সহজে <br />বলুন
                 </button>
               </div>
               <div className="button-with-text">

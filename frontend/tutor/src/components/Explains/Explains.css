@@ -4,7 +4,12 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  padding-bottom: 75px; /* prevent extra scroll room */
+  margin-bottom: 0; /* just in case */
   font-family: Arial, sans-serif;
+  max-height: 100dvh; /* Use dynamic viewport height */
+  overflow-y: auto;
+  /* overflow: hidden; Prevent scrolling beyond content */
    
 }
 
@@ -306,7 +311,7 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
 /* NEWLY ADDED - Green styling for newly added entries */
 .explanation-entry.newest-entry {
   border-left: 4px solid #28a745; /* Green border matching button */
-  background-color: #FFD966; /* Light green background */
+  background-color: #FFE49F; /* Light green background */
 }
 
 /* Add this after the existing .newest-entry class */
@@ -428,7 +433,7 @@ background-color:#f8f9fa ; /* CHANGED - Light grey background instead of #f8f9fa
 }
 
 .refresh-button-group {
-  margin-left: auto; /* This pushes the refresh button to the right */
+  margin-left: 0; 
 }
 
 .button-label-1{

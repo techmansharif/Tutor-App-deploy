@@ -417,8 +417,8 @@ app.include_router(dashboard_router)
 # Updated function to handle various LaTeX commands in the first line
 app.include_router(explains_router)
 app.include_router(revise_router)
+app.include_router(interactions_router)
 
-app.include_router(revise_router)
 # @app.on_event("startup")
 # async def startup_event():
 #     Base.metadata.create_all(bind=engine)

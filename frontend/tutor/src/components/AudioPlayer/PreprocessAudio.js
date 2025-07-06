@@ -460,7 +460,6 @@
 // };
 
 
-
 import MarkdownIt from 'markdown-it';
 
 // English number to words conversion
@@ -686,29 +685,29 @@ const processMathExpression = (expr, language = 'en-US') => {
   const isEnglish = language === 'en-US';
   const symbols = isEnglish ? mathSymbols : banglaMathSymbols;
 
-  // Handle single-letter variables (e.g., x, y, z)
-  if (!isEnglish) {
-    expr = expr.replace(/(^|\s)([xyz])(\s|$)/gi, '$1এক্স$3');
-    expr = expr.replace(/(^|\s)([abc])(\s|$)/gi, '$1$2$3');
-  }
+  // // Handle single-letter variables (e.g., x, y, z)
+  // if (!isEnglish) {
+  //   expr = expr.replace(/(^|\s)([xyz])(\s|$)/gi, '$1এক্স$3');
+  //   expr = expr.replace(/(^|\s)([abc])(\s|$)/gi, '$1$2$3');
+  // }
 
-  // Handle LaTeX fractions (e.g., \frac{1}{2})
-  expr = expr.replace(/\\frac\{(\d+)\}\{(\d+)\}/g, (match, num, denom) => {
-    if (isEnglish) {
-      return `${numberToWords(parseInt(num))} divided by ${numberToWords(parseInt(denom))}`;
-    } else {
-      return `${convertEnglishNumberToBanglaWords(parseInt(num))} দ্বারা ${convertEnglishNumberToBanglaWords(parseInt(denom))}`;
-    }
-  });
+  // // Handle LaTeX fractions (e.g., \frac{1}{2})
+  // expr = expr.replace(/\\frac\{(\d+)\}\{(\d+)\}/g, (match, num, denom) => {
+  //   if (isEnglish) {
+  //     return `${numberToWords(parseInt(num))} divided by ${numberToWords(parseInt(denom))}`;
+  //   } else {
+  //     return `${convertEnglishNumberToBanglaWords(parseInt(num))} দ্বারা ${convertEnglishNumberToBanglaWords(parseInt(denom))}`;
+  //   }
+  // });
 
-  // Handle simple fractions (e.g., 1/2)
-  expr = expr.replace(/(\d+)\/(\d+)/g, (match, num, denom) => {
-    if (isEnglish) {
-      return `${numberToWords(parseInt(num))} divided by ${numberToWords(parseInt(denom))}`;
-    } else {
-      return `${convertEnglishNumberToBanglaWords(parseInt(num))} দ্বারা ${convertEnglishNumberToBanglaWords(parseInt(denom))}`;
-    }
-  });
+  // // Handle simple fractions (e.g., 1/2)
+  // expr = expr.replace(/(\d+)\/(\d+)/g, (match, num, denom) => {
+  //   if (isEnglish) {
+  //     return `${numberToWords(parseInt(num))} divided by ${numberToWords(parseInt(denom))}`;
+  //   } else {
+  //     return `${convertEnglishNumberToBanglaWords(parseInt(num))} দ্বারা ${convertEnglishNumberToBanglaWords(parseInt(denom))}`;
+  //   }
+  // });
 
   if (isEnglish) {
     expr = expr.replace(/\$([a-zA-Z])\^2\$/g, '$1 squared');
@@ -766,7 +765,7 @@ const processMathExpression = (expr, language = 'en-US') => {
       expr = expr.replace(/([=<>])\s*-\s*(\d+)/g, '$1 minus $2');
     } else if (symbol === '\\+') {
       expr = expr.replace(/(\d+)\s*\+\s*(\d+)/g, '$1 plus $2');
-    } else if (symbol !== '-' && symbol !== '\\times' && symbol !== '×') {
+    } else if (symbol !== '-') {
       const escapedSymbol = symbol.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
       expr = expr.replace(new RegExp(escapedSymbol, 'g'), ` ${symbols[symbol]} `);
     }

@@ -325,14 +325,11 @@ axios
   return (
     <div className="dashboard-container">
       <h2>🎓 PROGRESS</h2>
-      <div className="welcome-section">
-        <p>Welcome back, <strong>{user.name}</strong>! Track your progress and continue your learning journey.</p>
-      </div>
       
       {error && <p className="error">⚠️ {error}</p>}
       
       <div className="selection-section">
-        <h3> Select Your Learning Path</h3>
+        <h4>  আপনার অগ্রগতি দেখুন! </h4>
         <div className="selection-group">
           <label htmlFor="subject">Subject:</label>
           <select

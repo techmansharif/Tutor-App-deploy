@@ -8,11 +8,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import ReactMarkdown from 'react-markdown';
-
-
-
 import './Practise.css';
-
 
 const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompletePractice }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -46,7 +42,7 @@ const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onComplete
   useEffect(() => {
     if (currentQuestion) {
       setQuestionStartTime(Date.now());
-      setTimerReset((prev) => prev + 1); // Reset timer
+      setTimerReset((prev) => prev + 1); 
       setIsTimerPaused(false); // Ensure timer is not paused for new question
     }
   }, [currentQuestion, setQuestionStartTime]);
@@ -60,8 +56,9 @@ const fetchPracticeQuestion = async (submission = null) => {
     setIsLoading(true);
     try {
          const token = localStorage.getItem('access_token');
+          const encodedSubtopic = encodeURIComponent(subtopic);
       const response = await axios.post(
-        `${API_BASE_URL}/${subject}/${topic}/${subtopic}/practise/`,
+        `${API_BASE_URL}/${subject}/${topic}/${encodedSubtopic}/practise/`,
         submission,
         {
          headers: { 
@@ -223,9 +220,9 @@ const fetchPracticeQuestion = async (submission = null) => {
     return (
       <div className="practice-quiz-container">
         <div className="loading">
-          {/* <div className="loading-spinner"></div>
-          <p>Loading practice question...</p> */}
-          <LoadingScreen />
+          <div className="loading-spinner"></div>
+          <p>Loading practice question...</p>
+          {/* <LoadingScreen /> */}
         </div>
       </div>
     );

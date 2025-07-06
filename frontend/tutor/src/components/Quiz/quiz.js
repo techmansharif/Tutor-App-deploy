@@ -53,10 +53,12 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
 
 const fetchQuizQuestion = async (submission = null) => {
     setIsLoading(true);
+    const encodedSubtopic = encodeURIComponent(subtopic);
     try {
-        const token = localStorage.getItem('access_token');
-        const response = await axios.post(
-        `${API_BASE_URL}/${subject}/${topic}/${subtopic}/quiz/`,
+         const token = localStorage.getItem('access_token');
+          const encodedSubtopic = encodeURIComponent(subtopic);
+      const response = await axios.post(
+         `${API_BASE_URL}/${subject}/${topic}/${encodedSubtopic }/quiz/`,
         submission,
         {
            headers: { 
@@ -226,7 +228,7 @@ const fetchQuizQuestion = async (submission = null) => {
       <div className="practice-quiz-container">
         <div className="loading">
           <div className="loading-spinner"></div>
-          <LoadingScreen />
+            <p>Loading Quiz question...</p>
         </div>
       </div>
     );
