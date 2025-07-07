@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './UserInfo.css';
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 
 const UserInfo = ({ user, setUser, setSelectedValues, API_BASE_URL }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to toggle dropdown
@@ -19,14 +19,14 @@ const handleLogout = () => {
     .then(() => {
       localStorage.removeItem('access_token');
       setUser(null);
-      Navigate('/welcome')
+      navigate('/welcome')
       setSelectedValues({ selectedSubject: '', selectedTopic: '', selectedSubtopic: '' });
     })
     .catch(error => {
       console.error('Error logging out:', error);
       localStorage.removeItem('access_token');
       setUser(null);
-      Navigate('/welcome')
+      navigate('/welcome')
       setSelectedValues({ selectedSubject: '', selectedTopic: '', selectedSubtopic: '' });
     });
 };
