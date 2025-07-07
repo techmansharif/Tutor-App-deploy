@@ -151,6 +151,7 @@ GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
 SECRET_KEY = JWT_SECRET_KEY
 
 
+security = HTTPBearer()
 
 # Add CORS middleware for React frontend
 app.add_middleware(
