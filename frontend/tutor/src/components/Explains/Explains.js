@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
-//import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import { processExplanation, preprocessMath, postprocessMath } from '../ProcessText/ProcessExplain';
 import './Explains.css';
 import remarkMath from 'remark-math';
@@ -10,6 +10,7 @@ import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import 'katex/dist/katex.min.css';
 import { trackInteraction, INTERACTION_TYPES } from '../../utils/trackInteractions';
+import { useNavigate } from 'react-router-dom';
 
 const Explains = ({
   selectedSubject,
@@ -17,7 +18,7 @@ const Explains = ({
   selectedSubtopic,
   user,
   API_BASE_URL,
-  onProceedToPractice
+  //onProceedToPractice
 }) => {
   const [explanationHistory, setExplanationHistory] = useState([]);
   const [isExplainLoading, setIsExplainLoading] = useState(false);
@@ -28,7 +29,7 @@ const Explains = ({
   const [previousHistoryLength, setPreviousHistoryLength] = useState(0); // Add this
   const [newlyAddedIndices, setNewlyAddedIndices] = useState(new Set());
  const [explainAgainIndices, setExplainAgainIndices] = useState(new Set());
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (!initialFetchRef.current) {
       initialFetchRef.current = true;
@@ -272,7 +273,7 @@ const stopAllAudio = () => {
       
     <div className="explain-controls-component">
   {explainFinished ? (
-    <button onClick={onProceedToPractice} className="primary-button-component">
+    <button onClick={() => navigate('/practice')} className="primary-button-component">
       Start Practice
     </button>
   ) : (

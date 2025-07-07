@@ -5,8 +5,9 @@ import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add t
 import Stopwatch from '../Stopwatch/Stopwatch';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import './quiz.css';
+import { useNavigate } from 'react-router-dom';
 
-const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) => {
+const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [hardnessLevel, setHardnessLevel] = useState(5);
   const [questionsTried, setQuestionsTried] = useState(0);
@@ -24,7 +25,7 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
     const [image1, setImage1] = useState(null); // State for correct answer image
     const [image2, setImage2] = useState(null); // State for incorrect answer image
     const [completionDate, setCompletionDate] = useState('');
-
+  const navigate = useNavigate();
 
 
   // Integrity score hook
@@ -198,7 +199,8 @@ const fetchQuizQuestion = async (submission = null) => {
   };
 
   const handleCompleteQuiz = () => {
-    onCompleteQuiz();
+    //onCompleteQuiz();
+    navigate('/selection');
   };
 
   const integrityScore = 100 - cheatScore;

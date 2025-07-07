@@ -1,8 +1,9 @@
 import React from 'react';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({API_BASE_URL }) => {
- 
+  const navigate = useNavigate();
   const handleLogin = () => {
     window.location.href = `${API_BASE_URL}/login`;
   };

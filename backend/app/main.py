@@ -1,6 +1,9 @@
 
 ###
-from fastapi import FastAPI, Depends, HTTPException, Header, Query,status
+from fastapi import FastAPI, Depends, HTTPException, status, Header
+from fastapi import Security
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from typing import List,Optional
 from datetime import datetime
@@ -28,7 +31,7 @@ from fastapi.responses import RedirectResponse
 
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from .database.models import Subject, Topic, Subtopic, User, Explain
 import faiss
@@ -49,7 +52,7 @@ import time
 from .jwt_utils import create_access_token, get_user_from_token,JWT_SECRET_KEY
 from datetime import timedelta
 
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
+#load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -84,7 +87,20 @@ async def add_prometheus_metrics(request: Request, call_next):
     path = request.url.path
 
     # Process the request
+    # try:
     response = await call_next(request)
+    # except Exception as e:
+    #     logger.error(f"Error processing request {method} {path}: {e}")
+    #     response = JSONResponse(
+    #         status_code=500,
+    #         content={"detail": "Internal Server Error"},
+    #         headers={
+    #             "Access-Control-Allow-Origin": "http://localhost:3000",
+    #             "Access-Control-Allow-Credentials": "true",
+    #             "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    #             "Access-Control-Allow-Headers": "*",
+    #         }
+    #     )
 
     # Calculate latency
     duration = time.time() - start_time
@@ -103,6 +119,7 @@ async def add_prometheus_metrics(request: Request, call_next):
 
     return response
 
+app.add_middleware(SessionMiddleware, secret_key="abcd")
 
 Base.metadata.create_all(bind=engine)
 
@@ -143,6 +160,7 @@ GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
 
 SECRET_KEY = JWT_SECRET_KEY
 
+security = HTTPBearer()
 
 
 # Add CORS middleware for React frontend
@@ -278,8 +296,8 @@ async def auth_callback(request: Request):
         )
         
 
-        frontend_url = f"https://brimai-test-v1.web.app?token={jwt_token}"
-        return RedirectResponse(frontend_url)
+        frontend_url =  f"http://localhost:3000?token={jwt_token}"
+        return RedirectResponse(url=frontend_url)
     finally:
         db.close()
 
@@ -411,13 +429,33 @@ async def select_subject_topic_subtopic(
     
     return {"message": f"Selected subject: {selection.subject}, topic: {selection.topic}, subtopic: {selection.subtopic if selection.subtopic else 'None'}", "selection_id": user_selection.id}
 
+# Quiz1 status endpoint
+@app.get("/quiz1/status/")
+async def get_quiz1_status(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    db: Session = Depends(get_db),
+    request: Request = None
+):  
+    try:
+        token = credentials.credentials
+        user_data = get_user_from_token(f"Bearer {token}")  # or just token depending on your method
+        user_id = user_data["id"]
+    except Exception as e:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    quiz1_attempt = db.query(Quiz1Attempt).filter(
+        Quiz1Attempt.user_id == user_id,
+        Quiz1Attempt.completed_at.isnot(None)
+    ).first()
+
+    return {"completed": quiz1_attempt is not None}
+
 app.include_router(quizzes_router)
 
 app.include_router(dashboard_router)
 # Updated function to handle various LaTeX commands in the first line
 app.include_router(explains_router)
 app.include_router(revise_router)
-app.include_router(interactions_router)
 
 # @app.on_event("startup")
 # async def startup_event():
