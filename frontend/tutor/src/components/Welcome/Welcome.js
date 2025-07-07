@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Stopwatch from '../Stopwatch/Stopwatch';
 import './Welcome.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Welcome = ({ user, API_BASE_URL, onStartQuiz }) => {
   const navigate = useNavigate();

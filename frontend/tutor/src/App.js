@@ -214,9 +214,9 @@ useEffect(() => {
 
 
 
-  const onQuiz1Complete = () => {
-    setQuizStage('selection');
-  };
+  // const onQuiz1Complete = () => {
+  //   setQuizStage('selection');
+  // };
 
   const onSelectionSubmit = useCallback((values) => {
     setSelectedValues(values);
