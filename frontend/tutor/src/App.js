@@ -287,6 +287,14 @@ function App() {
               }
             />
             <Route
+              path="/revise/:subject/:topic/:subtopic"
+              element={
+                <ProtectedRoute user={user} token={token}>
+                  <Revise user={user} API_BASE_URL={API_BASE_URL} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/dashboard"
               element={
                 <ProtectedRoute user={user} token={token}>

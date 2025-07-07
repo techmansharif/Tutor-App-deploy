@@ -435,7 +435,8 @@ const handleAnswerSelect = (option) => {
       </div>
 
       {showExplanation && (
-        <div className="explanation-box">
+        <div className='modal-overlay'>
+        <div className="modal-content">
           <div className={`feedback ${isCorrect ? 'correct' : 'incorrect'}`}>
             <h3>{isCorrect ? 'Correct!' : 'Incorrect'}</h3>
             <p>{isCorrect ? 'Well done! You selected the right answer.' : 'Your answer was incorrect.'}</p>
@@ -457,6 +458,7 @@ const handleAnswerSelect = (option) => {
               Next Question
             </button>
           </div>
+        </div>
         </div>
       )}
     </div>

@@ -5,9 +5,10 @@ import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add t
 import Stopwatch from '../Stopwatch/Stopwatch';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import './quiz.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic }) => {
+const Quiz = ({ user, API_BASE_URL }) => {
+  const { subject, topic, subtopic } = useParams();
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [hardnessLevel, setHardnessLevel] = useState(5);
   const [questionsTried, setQuestionsTried] = useState(0);
@@ -54,7 +55,6 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic }) => {
 
 const fetchQuizQuestion = async (submission = null) => {
     setIsLoading(true);
-    const encodedSubtopic = encodeURIComponent(subtopic);
     try {
         const token = localStorage.getItem('access_token');
         const encodedSubject = encodeURIComponent(subject);
@@ -338,10 +338,10 @@ const fetchQuizQuestion = async (submission = null) => {
     />
   )}
   <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-    <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}:<MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
+    <strong>Correct Answer- </strong> {currentQuestion.correct_option.toUpperCase()}:<MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
   </p>
   <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-    <strong>Explanation:</strong> <MathText>{currentQuestion.explanation}</MathText>
+    <strong>Explanation- </strong> <MathText>{currentQuestion.explanation}</MathText>
   </p>
 </div>
 <div className="action-buttons">
