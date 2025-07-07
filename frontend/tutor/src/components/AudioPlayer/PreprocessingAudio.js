@@ -184,7 +184,7 @@ const cleanSpecialCharacters = (text) => {
     .replace(/--+/g, ', ')
     // Remove or replace special characters
     .replace(/[|]/g, ' ')
-    .replace(/[<>]/g, '')
+    // .replace(/[<>]/g, '')
     .replace(/[@#%^&]/g, '')
     // Fix common issues
     .replace(/\s*:\s*/g, ': ')

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import './AudioPlayer.css';
+import { preprocessForTTS } from './PreprocessingAudio.js';
 
 const AudioPlayer = ({ text, user, API_BASE_URL }) => {
   // Audio player states
@@ -247,6 +248,10 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
     try {
       const token = localStorage.getItem('access_token');
 
+       const processedText = preprocessForTTS(text, 'auto');
+      console.log('Original text:', text);
+      console.log('Processed text:', processedText);
+
       const response = await fetch(`${API_BASE_URL}/stream-audio/`, {
         method: 'POST',
         headers: {
@@ -255,7 +260,7 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          text: text,
+          text:processedText,
           chunk_size: 300
         })
       });
