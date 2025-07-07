@@ -21,7 +21,7 @@ from .router.dashboard import router as dashboard_router
 from .router.explain import router as explains_router
 from .router.revise import router as revise_router 
 from .router.user_interactions import router as interactions_router 
-from .router.audio import router as audio_router
+from .router.audio_stream import router as audio_router
 
 from fastapi import Request
 from starlette.middleware.sessions import SessionMiddleware

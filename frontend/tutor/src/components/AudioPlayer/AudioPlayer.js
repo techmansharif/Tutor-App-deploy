@@ -6,6 +6,8 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
+  const [isPlaybackEnabled, setIsPlaybackEnabled] = useState(false);
+  const [isPlaybackLocked, setIsPlaybackLocked] = useState(false); // 🆕 Prevent race conditions
   
   // Background streaming states (hidden from user)
   const [isStreaming, setIsStreaming] = useState(false);
@@ -24,6 +26,7 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
   const pausedAtRef = useRef(0);
   const startTimeRef = useRef(0);
   const isPlaybackActiveRef = useRef(false);
+  const isLiveStreamingModeRef = useRef(false);
   const eventSourceRef = useRef(null);
 
   // Initialize Web Audio API
@@ -36,8 +39,12 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
     }
   }, []);
 
-  // Stop all active audio sources
+  // 🔧 IMPROVED: Stop all active audio sources with proper cleanup
   const stopAllAudioSources = () => {
+    // First, stop accepting new playback
+    isPlaybackActiveRef.current = false;
+    
+    // Then stop all existing sources
     activeSourcesRef.current.forEach(source => {
       try {
         source.stop();
@@ -47,7 +54,18 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
       }
     });
     activeSourcesRef.current = [];
-    isPlaybackActiveRef.current = false;
+    
+    // Clear the chunk queue to prevent any pending chunks from playing
+    chunkQueueRef.current = [];
+  };
+
+  // 🆕 NEW: Async version that ensures complete cleanup
+  const stopAllAudioSourcesComplete = () => {
+    return new Promise((resolve) => {
+      stopAllAudioSources();
+      // Small delay to ensure Web Audio API has time to clean up
+      setTimeout(resolve, 50);
+    });
   };
 
   // Convert base64 to ArrayBuffer
@@ -67,12 +85,14 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
       const arrayBuffer = base64ToArrayBuffer(audioData);
       const audioBuffer = await audioContextRef.current.decodeAudioData(arrayBuffer);
       
-      // Store chunk for playback
+      // 🔄 ALWAYS store chunk (background streaming never stops)
       audioBufferRef.current.push(audioBuffer);
       setHasAudioReady(true);
+      setIsPlaybackEnabled(true);
       
-      // If playing live (first play), add to queue and play
-      if (isPlaybackActiveRef.current && !isPaused) {
+      // 🔧 FIXED: Only add to playback queue if in live streaming mode
+      // This prevents interference with cached playback while keeping background streaming active
+      if (isPlaybackActiveRef.current && !isPaused && isLiveStreamingModeRef.current) {
         chunkQueueRef.current.push(audioBuffer);
         
         // Start playing if this is the first chunk
@@ -128,10 +148,10 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
   };
 
   // Play from specific position (for pause/resume)
-  const playFromPosition = (startPosition = 0) => {
+  const playFromPosition = async (startPosition = 0) => {
     if (audioBufferRef.current.length === 0) return;
 
-    stopAllAudioSources();
+    await stopAllAudioSourcesComplete(); // 🔧 Ensure cleanup completes
     isPlaybackActiveRef.current = true;
 
     let currentPosition = 0;
@@ -168,6 +188,14 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
     setIsPaused(false);
     isPlaybackActiveRef.current = false;
     pausedAtRef.current = 0;
+    
+    // If streaming is still active, we can resume live mode
+    // Only if user hasn't manually stopped (this handles cached playback completion)
+    if (isStreaming && hasStarted) {
+      isLiveStreamingModeRef.current = true; // Resume live streaming mode
+    } else {
+      isLiveStreamingModeRef.current = false; // Exit live mode completely
+    }
   };
 
   // Handle streaming events
@@ -276,7 +304,7 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
   // 🎵 MAIN BUTTON FUNCTIONS
 
   // Play/Pause toggle
-  const handlePlayPause = () => {
+  const handlePlayPause = async () => {
     initAudioContext();
 
     if (!hasStarted) {
@@ -285,6 +313,7 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
       setIsPlaying(true);
       setIsPaused(false);
       isPlaybackActiveRef.current = true;
+      isLiveStreamingModeRef.current = true;
       pausedAtRef.current = 0;
       
       // Start background streaming
@@ -297,48 +326,81 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
       const currentTime = audioContextRef.current.currentTime;
       pausedAtRef.current = currentTime - startTimeRef.current;
       
-      stopAllAudioSources();
+      await stopAllAudioSourcesComplete(); // 🔧 Ensure cleanup completes
       setIsPlaying(false);
       setIsPaused(true);
+      isLiveStreamingModeRef.current = false;
       
     } else {
       // Currently paused or stopped - resume/play
       setIsPlaying(true);
       setIsPaused(false);
+      isLiveStreamingModeRef.current = false;
       
       if (hasAudioReady) {
         // Play from paused position
         startTimeRef.current = audioContextRef.current.currentTime - pausedAtRef.current;
-        playFromPosition(pausedAtRef.current);
+        await playFromPosition(pausedAtRef.current);
       }
     }
   };
 
   // Stop playback
-  const handleStop = () => {
-    stopAllAudioSources();
+  const handleStop = async () => {
+    await stopAllAudioSourcesComplete(); // 🔧 Ensure cleanup completes
     setIsPlaying(false);
     setIsPaused(false);
+    isLiveStreamingModeRef.current = false; // Exit live mode (but streaming continues)
     pausedAtRef.current = 0;
-    chunkQueueRef.current = [];
   };
 
-  // Restart from beginning
-  const handleRestart = () => {
-    if (audioBufferRef.current.length === 0) {
-      // No audio ready yet, start streaming and play
-      handlePlayPause();
+  // 🆕 FIXED: Race condition-free playback from beginning using cached chunks
+  const handlePlayback = async () => {
+    // 🔧 FIXED: Prevent rapid clicks (debouncing)
+    if (isPlaybackLocked || audioBufferRef.current.length === 0) {
+      console.warn('Playback locked or no cached audio available');
       return;
     }
 
-    stopAllAudioSources();
-    setIsPlaying(true);
-    setIsPaused(false);
-    pausedAtRef.current = 0;
-    
-    initAudioContext();
-    startTimeRef.current = audioContextRef.current.currentTime;
-    playFromPosition(0);
+    // Lock the button to prevent race conditions
+    setIsPlaybackLocked(true);
+
+    try {
+      // 1. Ensure complete cleanup of any current playback
+      await stopAllAudioSourcesComplete();
+
+      // 2. Switch to cached playback mode (prevents live interference)
+      isLiveStreamingModeRef.current = false;
+      
+      // 3. Reset playback state
+      pausedAtRef.current = 0;
+      
+      // 4. Set UI state
+      setIsPlaying(true);
+      setIsPaused(false);
+      
+      // 5. Initialize audio context
+      initAudioContext();
+      
+      // 6. Queue ALL cached chunks for playback
+      chunkQueueRef.current = [...audioBufferRef.current];
+      
+      // 7. Start cached playback
+      isPlaybackActiveRef.current = true;
+      playNextChunk();
+
+    } catch (error) {
+      console.error('Error during playback:', error);
+      // Reset states on error
+      setIsPlaying(false);
+      setIsPaused(false);
+      isPlaybackActiveRef.current = false;
+    } finally {
+      // 8. Unlock button after a short delay
+      setTimeout(() => {
+        setIsPlaybackLocked(false);
+      }, 300);
+    }
   };
 
   // Determine button states
@@ -380,11 +442,12 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
           </svg>
         </button>
 
-        {/* Restart Button */}
+        {/* 🔧 FIXED: Playback Button - Race condition free */}
         <button
-          onClick={handleRestart}
-          className="audio-button speak-again-button"
-          title="Restart from beginning"
+          onClick={handlePlayback}
+          disabled={!isPlaybackEnabled || isPlaybackLocked}
+          className={`audio-button playback-button ${(!isPlaybackEnabled || isPlaybackLocked) ? 'disabled' : ''}`}
+          title={isPlaybackLocked ? "Processing..." : "Play from beginning"}
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
             <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
@@ -406,6 +469,8 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
         {isPaused && 'Paused'}
         {!isPlaying && !isPaused && hasAudioReady && hasStarted && 'Stopped'}
         {streamStatus === 'completed' && !isPlaying && ' • Complete'}
+        {isLiveStreamingModeRef.current && ' • Live'}
+        {isPlaybackLocked && ' • Processing...'}
       </div>
 
       {/* Language info when available */}

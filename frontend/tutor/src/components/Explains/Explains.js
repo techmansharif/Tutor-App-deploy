@@ -301,7 +301,7 @@ setExplainAgainIndices(new Set());
     return (
       <div className={`explanation-entry ${entry.isNewest ? 'newest-entry' : ''} ${entry.isExplainAgain ? 'explain-again-entry' : ''}`}>
         <div className="audio-player-container">
-          <AudioPlayer text={"hi how are you"} API_BASE_URL={API_BASE_URL} user={user} />
+          <AudioPlayer text={processExplanation(entry.text)} API_BASE_URL={API_BASE_URL} user={user} />
         </div>
         <ReactMarkdown
           children={entry.processedText}
