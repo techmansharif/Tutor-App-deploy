@@ -10,14 +10,15 @@ import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import 'katex/dist/katex.min.css';
 import { trackInteraction, INTERACTION_TYPES } from '../../utils/trackInteractions';
+import { useNavigate } from 'react-router-dom';
 
 const Explains = ({
   selectedSubject,
   selectedTopic,
   selectedSubtopic,
-  user, 
+  user,
   API_BASE_URL,
-  onProceedToPractice
+  //onProceedToPractice
 }) => {
   const [explanationHistory, setExplanationHistory] = useState([]);
   const [isExplainLoading, setIsExplainLoading] = useState(false);
@@ -28,7 +29,7 @@ const Explains = ({
   const [previousHistoryLength, setPreviousHistoryLength] = useState(0); // Add this
   const [newlyAddedIndices, setNewlyAddedIndices] = useState(new Set());
  const [explainAgainIndices, setExplainAgainIndices] = useState(new Set());
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (!initialFetchRef.current) {
       initialFetchRef.current = true;
@@ -39,7 +40,7 @@ const Explains = ({
       }, user.user_id, API_BASE_URL);
       fetchExplain("explain", true);
     }
-    
+
     return () => {
       // Cleanup logic if needed
     };
@@ -158,12 +159,7 @@ const stopAllAudio = () => {
   };
 
   const handleExplainAgain = () => {
-    stopAllAudio();
-    trackInteraction(INTERACTION_TYPES.EXPLAIN_AGAIN_CLICKED, {
-      subject: selectedSubject,
-      topic: selectedTopic,
-      subtopic: selectedSubtopic
-    }, user.user_id, API_BASE_URL);
+      stopAllAudio();
     fetchExplain("explain",false,true);
   };
 
@@ -191,50 +187,24 @@ const stopAllAudio = () => {
   }, user.user_id, API_BASE_URL);
     setExplanationHistory([]);
     setExplainFinished(false);
-      setPreviousHistoryLength(0); // Add this line
-        setNewlyAddedIndices(new Set()); // Add this
-  setExplainAgainIndices(new Set()); // Add this
+    setPreviousHistoryLength(0);
+    setNewlyAddedIndices(new Set());
+    setExplainAgainIndices(new Set());
     fetchExplain("refresh");
   };
 
   return (
     <div className="explains-component-container">
- <div className="explains-header-compact">
-  <h2 className="subject">{selectedSubject}</h2>
-  <h2 className="topic">{selectedTopic}</h2>
-  <h2 className="subtopic">{selectedSubtopic}</h2>
-</div>
+      <div className="explains-header-compact">
+        <h2 className="subject">{selectedSubject}</h2>
+        <h2 className="topic">{selectedTopic}</h2>
+        <h2 className="subtopic">{selectedSubtopic}</h2>
+      </div>
 
-{/* 
-<div className="button-row">
-<div className="button-with-text">
-  <button onClick={handleContinueExplain} className="primary-button-component"  disabled={explainFinished}>
-   পরবর্তী অংশে যান
-  </button>
-
-</div>
-
-<div className="button-with-text">
-  <button onClick={handleExplainAgain} className="secondary-button-component" disabled={explainFinished}>
-    নতুনভাবে ও <br/> সহজ করে বলুন(AI)
-  </button>
- 
-</div>
-
-  <div className="refresh-button-group">
-    <button onClick={handleRefresh} className="restart-button-component">
-      <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18A2 2 0 0 0 3.54 21H20.46A2 2 0 0 0 22.18 18L13.71 3.86A2 2 0 0 0 10.29 3.86Z" stroke="#FF0000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-      <span className="button-text">Refresh <br/>Screen</span>
-    </button>
-  </div>
-</div>
- */}
-    <div
-  className={`explanation-content-component chat-container ${selectedSubject.toLowerCase() === 'english' ? 'english-subject' : ''}`}
-  ref={explanationContainerRef}
->
+      <div
+        className={`explanation-content-component chat-container ${selectedSubject.toLowerCase() === 'english' ? 'english-subject' : ''}`}
+        ref={explanationContainerRef}
+      >
         {explanationHistory.map((entry, index) => (
       <div key={index} className={`explanation-entry ${newlyAddedIndices.has(index) ? 'newest-entry' : ''} ${explainAgainIndices.has(index) ? 'explain-again-entry' : ''}`}>
                <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>
@@ -261,12 +231,12 @@ const stopAllAudio = () => {
   }]
 ]}
               components={{
-                table: ({node, ...props}) => (
+                table: ({ node, ...props }) => (
                   <div className="table-container">
                     <table {...props} className="markdown-table" />
                   </div>
-                ), 
-                             code: ({node, inline, className, children, ...props}) => {
+                ),
+                code: ({ node, inline, className, children, ...props }) => {
                   return inline ? (
                     <code className={className} {...props}>
                       {children}
@@ -303,7 +273,7 @@ const stopAllAudio = () => {
       
     <div className="explain-controls-component">
   {explainFinished ? (
-    <button onClick={onProceedToPractice} className="primary-button-component">
+    <button onClick={() => navigate('/practice/:subject/:topic/:subtopic')} className="primary-button-component">
       Start Practice
     </button>
   ) : (

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { MathText } from '../ProcessText/ProcessQuiz';
 import './Revise.css';
 import Stopwatch from '../Stopwatch/Stopwatch';
+import { data, useNavigate } from 'react-router-dom';
 
 const Revise = ({ user, API_BASE_URL }) => {
   const [mode, setMode] = useState(null); // null, 'subject', 'random'
@@ -25,6 +26,7 @@ const Revise = ({ user, API_BASE_URL }) => {
  
   const [timerReset, setTimerReset] = useState(0); // Trigger timer reset
   const [isTimerPaused, setIsTimerPaused] = useState(false); // Track timer pause state
+  const navigate = useNavigate();
   // Fetch subjects on mount and check for existing session
   useEffect(() => {
     fetchSubjects();
@@ -51,7 +53,7 @@ useEffect(() => {
       
       // Filter out unwanted subjects like in Selection.js
       const filteredSubjects = response.data.filter(subject => 
-        !['Higher Math', 'General Math', 'quiz1'].includes(subject.name)
+        !['Higher Math', 'General Math', 'quiz1', 'data'].includes(subject.name)
       );
       
       setSubjects(filteredSubjects);
@@ -256,7 +258,7 @@ const handleAnswerSelect = (option) => {
     return (
       <div className="revise-container">
         <div className="revise-header">
-          <h2>REIVISION</h2>
+          <h2 style={{ textAlign: 'center', width: '100%' }}>REVISION</h2>
         </div>
         <p className="revise-description">Review questions you answered incorrectly in your recent practice and quiz sessions.</p>
         
@@ -383,12 +385,11 @@ const handleAnswerSelect = (option) => {
   // Question screen
   return (
     <div className="revise-container">
-      <div className="revise-header">
-        <div className="revise-title-section">
-           <button onClick={handleRestart} className="restart-button">
-          Restart Revision
-        </button>
-          <h2>Revision Mode</h2>
+      <div className="revise-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ flex: 1 }}></div>
+        
+        <div className="revise-title-section" style={{ flex: 1, textAlign: 'center' }}>
+          <h2>REVISION</h2>
           {mode === 'subject' && selectedSubject && (
             <>
               <h3>{selectedSubject}</h3>
@@ -396,6 +397,11 @@ const handleAnswerSelect = (option) => {
               <h3>{selectedSubtopic}</h3>
             </>
           )}
+        </div>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <button onClick={handleRestart} className="restart-button">
+            Cancel <br />Revision
+          </button>
         </div>
       </div>
       
@@ -435,11 +441,11 @@ const handleAnswerSelect = (option) => {
             <p>{isCorrect ? 'Well done! You selected the right answer.' : 'Your answer was incorrect.'}</p>
             
             <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-              <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}: <MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
+              <strong>Correct Answer-</strong> {currentQuestion.correct_option.toUpperCase()}: <MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
             </p>
             
             <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-              <strong>Explanation:</strong> <MathText>{currentQuestion.explanation}</MathText>
+              <strong>Explanation-</strong> <MathText>{currentQuestion.explanation}</MathText>
             </p>
           </div>
           

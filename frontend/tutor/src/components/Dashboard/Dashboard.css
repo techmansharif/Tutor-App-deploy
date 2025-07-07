@@ -53,7 +53,7 @@
 }
 
 .alert-info {
-  background: rgba(33, 150, 243, 0.9);
+  background: rgba(250, 213, 102, 0.9);
   border: 1px solid rgba(33, 150, 243, 0.3);
   color: white;
   backdrop-filter: blur(10px);

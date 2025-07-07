@@ -5,8 +5,9 @@ import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add t
 import Stopwatch from '../Stopwatch/Stopwatch';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import './quiz.css';
+import { useNavigate } from 'react-router-dom';
 
-const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) => {
+const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [hardnessLevel, setHardnessLevel] = useState(5);
   const [questionsTried, setQuestionsTried] = useState(0);
@@ -21,9 +22,13 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
   const [showCongrats, setShowCongrats] = useState(false);
   const [isTimerPaused, setIsTimerPaused] = useState(false);
   const [attemptId, setAttemptId] = useState(null);
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
-  const [completionDate, setCompletionDate] = useState('');
+    const [image1, setImage1] = useState(null); // State for correct answer image
+    const [image2, setImage2] = useState(null); // State for incorrect answer image
+    const [completionDate, setCompletionDate] = useState('');
+  const navigate = useNavigate();
+
+
+  // Integrity score hook
   const {
     questionStartTime,
     setQuestionStartTime,
@@ -51,10 +56,12 @@ const fetchQuizQuestion = async (submission = null) => {
     setIsLoading(true);
     const encodedSubtopic = encodeURIComponent(subtopic);
     try {
-         const token = localStorage.getItem('access_token');
-          const encodedSubtopic = encodeURIComponent(subtopic);
+        const token = localStorage.getItem('access_token');
+        const encodedSubject = encodeURIComponent(subject);
+        const encodedTopic = encodeURIComponent(topic);
+        const encodedSubtopic = encodeURIComponent(subtopic);
       const response = await axios.post(
-         `${API_BASE_URL}/${subject}/${topic}/${encodedSubtopic }/quiz/`,
+         `${API_BASE_URL}/${encodedSubject}/${encodedTopic}/${encodedSubtopic }/quiz/`,
         submission,
         {
            headers: { 
@@ -89,7 +96,6 @@ const fetchQuizQuestion = async (submission = null) => {
         setIsComplete(true);
         setCompletionMessage(message);
 
-                // Add this line to capture completion date:
         const now = new Date();
         const formattedDate = now.toLocaleDateString('en-GB', { 
           day: '2-digit', 
@@ -195,7 +201,8 @@ const fetchQuizQuestion = async (submission = null) => {
   };
 
   const handleCompleteQuiz = () => {
-    onCompleteQuiz();
+    //onCompleteQuiz();
+    navigate('/selection');
   };
 
   const integrityScore = 100 - cheatScore;
