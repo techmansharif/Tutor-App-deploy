@@ -2,25 +2,29 @@ import React, { useState, useRef, useCallback } from 'react';
 import './AudioPlayer.css';
 
 const AudioPlayer = ({ text, user, API_BASE_URL }) => {
-
+  // Audio player states
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+  
+  // Background streaming states (hidden from user)
   const [isStreaming, setIsStreaming] = useState(false);
   const [streamStatus, setStreamStatus] = useState('idle');
   const [streamInfo, setStreamInfo] = useState(null);
   const [chunks, setChunks] = useState([]);
-  const [totalChunks, setTotalChunks] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [hasAudioReady, setHasAudioReady] = useState(false);
-  
-  const eventSourceRef = useRef(null);
+
+  // Audio management refs
   const audioContextRef = useRef(null);
   const audioBufferRef = useRef([]);
-  const chunkQueueRef = useRef([]);
-  const isAutoPlayingRef = useRef(false);
-  
-  // 🆕 NEW: Track all active audio sources for proper cleanup
   const activeSourcesRef = useRef([]);
-  const playbackTimeoutRef = useRef(null);
+  const chunkQueueRef = useRef([]);
+  
+  // Playback position tracking for pause/resume
+  const pausedAtRef = useRef(0);
+  const startTimeRef = useRef(0);
   const isPlaybackActiveRef = useRef(false);
+  const eventSourceRef = useRef(null);
 
   // Initialize Web Audio API
   const initAudioContext = useCallback(() => {
@@ -32,28 +36,17 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
     }
   }, []);
 
-  // 🆕 NEW: Stop all active audio sources immediately
+  // Stop all active audio sources
   const stopAllAudioSources = () => {
-    // Stop all currently playing sources
     activeSourcesRef.current.forEach(source => {
       try {
         source.stop();
         source.disconnect();
       } catch (error) {
-        // Source might already be stopped, ignore error
+        // Source might already be stopped
       }
     });
-    
-    // Clear the active sources array
     activeSourcesRef.current = [];
-    
-    // Clear any pending timeouts
-    if (playbackTimeoutRef.current) {
-      clearTimeout(playbackTimeoutRef.current);
-      playbackTimeoutRef.current = null;
-    }
-    
-    // Reset playback state
     isPlaybackActiveRef.current = false;
   };
 
@@ -68,22 +61,23 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
     return bytes.buffer;
   };
 
-  // Process audio chunks during streaming
+  // Process audio chunks from streaming
   const processAudioChunk = async (audioData) => {
     try {
       const arrayBuffer = base64ToArrayBuffer(audioData);
       const audioBuffer = await audioContextRef.current.decodeAudioData(arrayBuffer);
       
-      // Store for potential replay
+      // Store chunk for playback
       audioBufferRef.current.push(audioBuffer);
       setHasAudioReady(true);
       
-      // Only auto-play if real-time mode is active and playback is still active
-      if (isAutoPlayingRef.current && isPlaybackActiveRef.current) {
+      // If playing live (first play), add to queue and play
+      if (isPlaybackActiveRef.current && !isPaused) {
         chunkQueueRef.current.push(audioBuffer);
         
-        // If this is the first chunk, start playing immediately
+        // Start playing if this is the first chunk
         if (audioBufferRef.current.length === 1) {
+          startTimeRef.current = audioContextRef.current.currentTime;
           playNextChunk();
         }
       }
@@ -93,19 +87,16 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
     }
   };
 
-  // 🔧 FIXED: Play chunks with proper source management
+  // Play audio chunks sequentially
   const playNextChunk = () => {
-    // Check if playback should continue
     if (chunkQueueRef.current.length === 0 || !isPlaybackActiveRef.current) {
-      // If no more chunks, mark playback as complete
-      if (chunkQueueRef.current.length === 0) {
-        setIsPlaying(false);
-        isAutoPlayingRef.current = false;
-        isPlaybackActiveRef.current = false;
+      // If no more chunks and not streaming anymore, playback complete
+      if (chunkQueueRef.current.length === 0 && !isStreaming) {
+        handlePlaybackComplete();
       }
       return;
     }
-    
+
     const audioBuffer = chunkQueueRef.current.shift();
     
     try {
@@ -113,33 +104,21 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
       source.buffer = audioBuffer;
       source.connect(audioContextRef.current.destination);
       
-      // 🆕 NEW: Track this source for cleanup
+      // Track source for cleanup
       activeSourcesRef.current.push(source);
       
-      // Play immediately
-      const startTime = audioContextRef.current.currentTime;
-      source.start(startTime);
+      // Start playing immediately
+      source.start(audioContextRef.current.currentTime);
       
-      // 🆕 NEW: Clean up source when it ends and continue to next
+      // Continue to next chunk when this one ends
       source.onended = () => {
-        // Remove this source from active sources
         const index = activeSourcesRef.current.indexOf(source);
         if (index > -1) {
           activeSourcesRef.current.splice(index, 1);
         }
         
-        // Continue to next chunk if playback is still active
         if (isPlaybackActiveRef.current) {
           playNextChunk();
-        }
-      };
-      
-      // 🆕 NEW: Handle source errors
-      source.onerror = (error) => {
-        console.error('Audio source error:', error);
-        const index = activeSourcesRef.current.indexOf(source);
-        if (index > -1) {
-          activeSourcesRef.current.splice(index, 1);
         }
       };
       
@@ -148,7 +127,50 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
     }
   };
 
-  // Handle Server-Sent Events
+  // Play from specific position (for pause/resume)
+  const playFromPosition = (startPosition = 0) => {
+    if (audioBufferRef.current.length === 0) return;
+
+    stopAllAudioSources();
+    isPlaybackActiveRef.current = true;
+
+    let currentPosition = 0;
+    
+    // Find which chunks to play based on start position
+    for (let i = 0; i < audioBufferRef.current.length; i++) {
+      const chunkDuration = audioBufferRef.current[i].duration;
+      
+      if (currentPosition + chunkDuration > startPosition) {
+        // This chunk contains our start position
+        const offsetInChunk = startPosition - currentPosition;
+        
+        // Queue remaining chunks starting from this position
+        for (let j = i; j < audioBufferRef.current.length; j++) {
+          chunkQueueRef.current.push(audioBufferRef.current[j]);
+        }
+        
+        // Start playback (with offset for first chunk if needed)
+        if (offsetInChunk > 0) {
+          // For simplicity, we'll start from the beginning of the chunk
+          // In a more advanced implementation, you'd crop the audio buffer
+        }
+        playNextChunk();
+        break;
+      }
+      
+      currentPosition += chunkDuration;
+    }
+  };
+
+  // Handle playback completion
+  const handlePlaybackComplete = () => {
+    setIsPlaying(false);
+    setIsPaused(false);
+    isPlaybackActiveRef.current = false;
+    pausedAtRef.current = 0;
+  };
+
+  // Handle streaming events
   const handleStreamEvent = (event) => {
     try {
       const data = JSON.parse(event.data);
@@ -167,61 +189,34 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
           
         case 'audio_chunk':
           setChunks(prev => [...prev, data]);
-          setTotalChunks(data.chunk_id);
           processAudioChunk(data.audio_data);
           break;
           
         case 'complete':
           setStreamStatus('completed');
           setIsStreaming(false);
-          console.log(`Streaming completed: ${data.total_chunks} chunks, ${data.total_bytes} bytes`);
+          console.log(`Streaming completed: ${data.total_chunks} chunks`);
           break;
           
         case 'error':
           setStreamStatus('error');
           setIsStreaming(false);
-          isAutoPlayingRef.current = false;
-          isPlaybackActiveRef.current = false;
           console.error('Streaming error:', data.message);
           break;
-          
-        default:
-          console.log('Unknown event type:', data.type);
       }
     } catch (error) {
-      console.error('Error parsing SSE data:', error);
+      console.error('Error parsing stream event:', error);
     }
   };
 
-  // Start streaming (no playback)
-  const startStreaming = async () => {
-    if (!text || !text.trim()) {
-      console.warn('No text provided for audio streaming');
-      return;
-    }
-
-    // 🔧 FIXED: Stop any existing playback first
-    stopAllAudioSources();
+  // Start background streaming (only called once)
+  const startBackgroundStreaming = async () => {
+    if (!text || !text.trim() || isStreaming) return;
 
     setIsStreaming(true);
     setStreamStatus('connecting');
-    setChunks([]);
-    setTotalChunks(0);
-    setHasAudioReady(false);
-    setIsPlaying(false);
-    
-    // Clear all audio data
-    audioBufferRef.current = [];
-    chunkQueueRef.current = [];
-    isAutoPlayingRef.current = false;
-    isPlaybackActiveRef.current = false;
 
     try {
-      // Close existing connection
-      if (eventSourceRef.current) {
-        eventSourceRef.current.close();
-      }
-
       const token = localStorage.getItem('access_token');
 
       const response = await fetch(`${API_BASE_URL}/stream-audio/`, {
@@ -257,8 +252,7 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
               if (line.startsWith('data: ')) {
                 const eventData = line.slice(6);
                 if (eventData.trim()) {
-                  const mockEvent = { data: eventData };
-                  handleStreamEvent(mockEvent);
+                  handleStreamEvent({ data: eventData });
                 }
               }
             }
@@ -279,171 +273,146 @@ const AudioPlayer = ({ text, user, API_BASE_URL }) => {
     }
   };
 
-  // 🆕 NEW: Start real-time playback during streaming
-  const startRealtimePlayback = () => {
-    // Don't start if already playing
-    if (isPlaybackActiveRef.current) {
-      return;
-    }
+  // 🎵 MAIN BUTTON FUNCTIONS
 
+  // Play/Pause toggle
+  const handlePlayPause = () => {
     initAudioContext();
-    isAutoPlayingRef.current = true;
-    isPlaybackActiveRef.current = true;
-    setIsPlaying(true);
-    
-    // If we already have chunks, start playing them
-    if (audioBufferRef.current.length > 0) {
-      chunkQueueRef.current = [...audioBufferRef.current];
-      playNextChunk();
+
+    if (!hasStarted) {
+      // First play - start streaming and playback
+      setHasStarted(true);
+      setIsPlaying(true);
+      setIsPaused(false);
+      isPlaybackActiveRef.current = true;
+      pausedAtRef.current = 0;
+      
+      // Start background streaming
+      startBackgroundStreaming();
+      
+      // Audio will start playing when first chunk arrives via processAudioChunk
+      
+    } else if (isPlaying && !isPaused) {
+      // Currently playing - pause it
+      const currentTime = audioContextRef.current.currentTime;
+      pausedAtRef.current = currentTime - startTimeRef.current;
+      
+      stopAllAudioSources();
+      setIsPlaying(false);
+      setIsPaused(true);
+      
+    } else {
+      // Currently paused or stopped - resume/play
+      setIsPlaying(true);
+      setIsPaused(false);
+      
+      if (hasAudioReady) {
+        // Play from paused position
+        startTimeRef.current = audioContextRef.current.currentTime - pausedAtRef.current;
+        playFromPosition(pausedAtRef.current);
+      }
     }
   };
 
-  // 🆕 NEW: Play completed audio
-  const playCompletedAudio = () => {
+  // Stop playback
+  const handleStop = () => {
+    stopAllAudioSources();
+    setIsPlaying(false);
+    setIsPaused(false);
+    pausedAtRef.current = 0;
+    chunkQueueRef.current = [];
+  };
+
+  // Restart from beginning
+  const handleRestart = () => {
     if (audioBufferRef.current.length === 0) {
-      console.warn('No audio to play');
+      // No audio ready yet, start streaming and play
+      handlePlayPause();
       return;
     }
 
-    // 🔧 FIXED: Stop any existing playback first
     stopAllAudioSources();
-
-    initAudioContext();
-    isPlaybackActiveRef.current = true;
     setIsPlaying(true);
+    setIsPaused(false);
+    pausedAtRef.current = 0;
     
-    // Queue all chunks and start playback
-    chunkQueueRef.current = [...audioBufferRef.current];
-    playNextChunk();
+    initAudioContext();
+    startTimeRef.current = audioContextRef.current.currentTime;
+    playFromPosition(0);
   };
 
-  // 🔧 FIXED: Properly stop streaming
-  const stopStreaming = () => {
-    if (eventSourceRef.current) {
-      eventSourceRef.current.close();
-      eventSourceRef.current = null;
-    }
-    
-    // Stop all audio playback
-    stopAllAudioSources();
-    
-    setIsStreaming(false);
-    setStreamStatus('stopped');
-    setIsPlaying(false);
-    isAutoPlayingRef.current = false;
-    isPlaybackActiveRef.current = false;
-    chunkQueueRef.current = [];
-  };
-
-  // 🔧 FIXED: Properly stop playback only
-  const stopPlayback = () => {
-    stopAllAudioSources();
-    
-    setIsPlaying(false);
-    isAutoPlayingRef.current = false;
-    isPlaybackActiveRef.current = false;
-    chunkQueueRef.current = [];
-  };
-
-  // Get status color
-  const getStatusColor = () => {
-    switch (streamStatus) {
-      case 'connecting': return '#orange';
-      case 'streaming': return '#green';
-      case 'completed': return '#blue';
-      case 'error': return '#red';
-      case 'stopped': return '#gray';
-      default: return '#gray';
-    }
-  };
+  // Determine button states
+  const isStopDisabled = !isPlaying && !isPaused;
+  const showPauseIcon = isPlaying && !isPaused;
 
   return (
     <div className="audio-player-container">
       <div className="audio-controls">
-        {/* Stream button */}
+        
+        {/* Play/Pause Button */}
         <button
-          onClick={startStreaming}
-          disabled={isStreaming}
-          className={`audio-button stream-button ${isStreaming ? 'streaming' : ''}`}
-          title="Start streaming audio"
+          onClick={handlePlayPause}
+          className={`audio-button play-button ${isPlaying ? 'playing' : ''}`}
+          title={showPauseIcon ? "Pause" : "Play"}
         >
-          📡
+          {showPauseIcon ? (
+            // Pause icon
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+            </svg>
+          ) : (
+            // Play icon
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          )}
         </button>
 
-        {/* Real-time play button */}
+        {/* Stop Button */}
         <button
-          onClick={startRealtimePlayback}
-          disabled={!isStreaming || isAutoPlayingRef.current}
-          className={`audio-button realtime-button ${isAutoPlayingRef.current ? 'active' : ''}`}
-          title="Play audio as it streams"
+          onClick={handleStop}
+          disabled={isStopDisabled}
+          className={`audio-button stop-button ${isStopDisabled ? 'disabled' : ''}`}
+          title="Stop"
         >
-          🔴
-        </button>
-
-        {/* Play completed audio button */}
-        <button
-          onClick={playCompletedAudio}
-          disabled={!hasAudioReady || (isPlaying && !isAutoPlayingRef.current)}
-          className={`audio-button play-button ${isPlaying && !isAutoPlayingRef.current ? 'playing' : ''}`}
-          title="Play completed audio"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="white"
-            width="20px"
-            height="20px"
-          >
-            <path d="M8 5v14l11-7z"/>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+            <rect x="6" y="6" width="12" height="12"/>
           </svg>
         </button>
 
-        {/* Stop streaming button */}
+        {/* Restart Button */}
         <button
-          onClick={stopStreaming}
-          disabled={!isStreaming}
-          className="audio-button stop-stream-button"
-          title="Stop streaming"
+          onClick={handleRestart}
+          className="audio-button speak-again-button"
+          title="Restart from beginning"
         >
-          🛑
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+            <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+          </svg>
         </button>
 
-        {/* Stop playback button */}
-        <button
-          onClick={stopPlayback}
-          disabled={!isPlaying && !isAutoPlayingRef.current}
-          className="audio-button stop-play-button"
-          title="Stop playback"
-        >
-          ⏹️
-        </button>
       </div>
 
-      {/* Status indicator */}
+      {/* Status indicator - minimal */}
       <div className="stream-status-compact" style={{ 
-        fontSize: '12px', 
-        color: getStatusColor(), 
+        fontSize: '11px', 
+        color: '#666',
         marginTop: '5px',
         textAlign: 'center'
       }}>
-        {streamStatus === 'idle' && hasAudioReady && 'Ready to play'}
-        {streamStatus === 'connecting' && 'Connecting...'}
-        {streamStatus === 'streaming' && `Streaming (${chunks.length} chunks)`}
-        {streamStatus === 'completed' && `Complete (${totalChunks} chunks)`}
-        {streamStatus === 'error' && 'Error occurred'}
-        {streamStatus === 'stopped' && 'Stopped'}
-        
-        {/* Playback status */}
-        {isAutoPlayingRef.current && ' • 🔴 Live'}
-        {isPlaying && !isAutoPlayingRef.current && ' • ▶️ Playing'}
-        {activeSourcesRef.current.length > 0 && ` • ${activeSourcesRef.current.length} sources`}
+        {!hasStarted && 'Ready to play'}
+        {hasStarted && !hasAudioReady && 'Loading...'}
+        {isPlaying && !isPaused && 'Playing'}
+        {isPaused && 'Paused'}
+        {!isPlaying && !isPaused && hasAudioReady && hasStarted && 'Stopped'}
+        {streamStatus === 'completed' && !isPlaying && ' • Complete'}
       </div>
 
-      {/* Language info */}
+      {/* Language info when available */}
       {streamInfo && (
         <div className="stream-info-compact" style={{ 
-          fontSize: '11px', 
-          color: '#666', 
+          fontSize: '10px', 
+          color: '#999', 
           marginTop: '2px',
           textAlign: 'center'
         }}>

@@ -1,183 +1,219 @@
+/* Audio Player Styles - Simplified Standard Player */
 .audio-player-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  background-color: transparent;
-  border-radius: 5px;
+  align-items: center;
+  margin: 10px 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .audio-controls {
   display: flex;
-  gap: 15px;
+  gap: 12px;
   justify-content: center;
   align-items: center;
-  flex-wrap: nowrap;
-  min-height: 60px;
-}
-
-.audio-settings {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
 }
 
 .audio-button {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 100px;
+  padding: 8px;
+  border: none;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.play-button {
-  background-color: green; 
-  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 50px;
   height: 50px;
-  border-radius: 50%;
-  padding: 0;
-  min-width: 50px;
-  min-height: 50px;
-  flex-shrink: 0;
+  position: relative;
 }
 
-.play-button:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
+.audio-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Play/Pause Button */
+.play-button {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+}
+
+.play-button:hover:not(.disabled) {
+  background: linear-gradient(135deg, #218838 0%, #1ba085 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
 }
 
 .play-button.playing {
-  background-color: grey;
-  position: relative;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  min-width: 50px;
-  min-height: 50px;
-  flex-shrink: 0;
+  background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
+  animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); box-shadow: 0 0 15px rgba(220, 53, 69, 0.5); }
-  50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(220, 53, 69, 0.8); }
-  100% { transform: scale(1); box-shadow: 0 0 15px rgba(220, 53, 69, 0.5); }
+.play-button.playing:hover {
+  background: linear-gradient(135deg, #e8690b 0%, #c82333 100%);
+  box-shadow: 0 4px 12px rgba(253, 126, 20, 0.4);
 }
 
-@keyframes bounceBars {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
-
-.speaker-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-/* Update stop button styles: */
+/* Stop Button */
 .stop-button {
-  background-color: orange;
+  background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
   color: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  padding: 0;
-  min-width: 50px;
-  min-height: 50px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.stop-button:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
+.stop-button:hover:not(.disabled) {
+  background: linear-gradient(135deg, #c82333 0%, #d91a72 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
 }
 
-
-
+/* Restart Button */
 .speak-again-button {
-  background-color: grey;
+  background: linear-gradient(135deg, #17a2b8 0%, #6610f2 100%);
   color: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  padding: 0;
-  min-width: 50px;
-  min-height: 50px;
-  flex-shrink: 0;
-  position: relative;
 }
 
-.speak-again-button:not(:disabled) {
-  background-color: #28a745;
+.speak-again-button:hover:not(.disabled) {
+  background: linear-gradient(135deg, #138496 0%, #520dc2 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(23, 162, 184, 0.4);
 }
 
-.speak-again-button:disabled {
-  background-color: #6c757d;
+/* Disabled State */
+.audio-button.disabled {
+  opacity: 0.4;
   cursor: not-allowed;
+  transform: none !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
 }
 
-.speak-again-button::after {
-  content: '';
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2"><path d="M6 6 L12 12 L6 18 Z M12 6 L18 12 L12 18 Z"/><line x1="20" y1="4" x2="20" y2="20"/></svg>') no-repeat center;
-  background-size: contain;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scaleX(-1);
+.audio-button.disabled:hover {
+  transform: none !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
 }
 
-.voice-select,
-.speed-select {
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: white;
-  font-size: 14px;
+/* Status Text */
+.stream-status-compact {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  min-height: 16px;
 }
 
-.restart-button-component {
-  background-color: #28a745;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  width: 50px;
-  height: 50px;
-  box-sizing: border-box;
+.stream-info-compact {
+  font-style: italic;
+  min-height: 14px;
 }
 
-.restart-button-component:hover {
-  background-color: red;
+/* Pulse animation for playing state */
+@keyframes pulse {
+  0% { 
+    opacity: 1; 
+    box-shadow: 0 4px 12px rgba(253, 126, 20, 0.4);
+  }
+  50% { 
+    opacity: 0.8; 
+    box-shadow: 0 4px 20px rgba(253, 126, 20, 0.6);
+  }
+  100% { 
+    opacity: 1; 
+    box-shadow: 0 4px 12px rgba(253, 126, 20, 0.4);
+  }
 }
 
-/* Mobile responsive section */
-@media (max-width: 480px) {
+/* Loading state for play button */
+.play-button.loading {
+  background: linear-gradient(135deg, #6c757d 0%, #adb5bd 100%);
+  animation: pulse 1.5s infinite;
+}
+
+/* Button active/pressed state */
+.audio-button:active:not(.disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Focus state for accessibility */
+.audio-button:focus {
+  outline: 2px solid rgba(0, 123, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
   .audio-controls {
     gap: 10px;
-    padding: 0 10px;
   }
   
-  .audio-player-container {
-    padding: 8px;
+  .audio-button {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .audio-button svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .audio-controls {
+    gap: 8px;
+  }
+  
+  .audio-button {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .audio-button svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .stream-status-compact {
+    font-size: 10px;
+  }
+  
+  .stream-info-compact {
+    font-size: 9px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .audio-button {
+    border: 2px solid;
+  }
+  
+  .play-button {
+    border-color: #28a745;
+  }
+  
+  .stop-button {
+    border-color: #dc3545;
+  }
+  
+  .speak-again-button {
+    border-color: #17a2b8;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .audio-button {
+    transition: none;
+  }
+  
+  .play-button.playing {
+    animation: none;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { 
+      opacity: 1; 
+    }
   }
 }
