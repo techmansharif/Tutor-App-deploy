@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 import Stopwatch from '../Stopwatch/Stopwatch';
 import './Welcome.css';
 import React, { useState, useEffect } from 'react';
