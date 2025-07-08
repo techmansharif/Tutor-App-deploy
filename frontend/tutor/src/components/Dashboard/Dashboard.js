@@ -27,10 +27,13 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
   const [selectedSubject, setSelectedSubject] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('');
   const [progressData, setProgressData] = useState([]);
+  const [totalQuizAttempts, setTotalQuizAttempts] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [hasCompletedQuiz1, setHasCompletedQuiz1] = useState(true);
   const [showGraph, setShowGraph] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [analyticsData, setAnalyticsData] = useState([]);
 
   useEffect(() => {
     const checkQuiz1Status = async () => {
@@ -70,6 +73,7 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
           setTopics(response.data);
           setSelectedTopic('');
           setProgressData([]);
+          setTotalQuizAttempts(0);
           setShowGraph(false);
         })
         .catch((err) => {
@@ -80,6 +84,7 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
       setTopics([]);
       setSelectedTopic('');
       setProgressData([]);
+      setTotalQuizAttempts(0);
       setShowGraph(false);
     }
   }, [selectedSubject, API_BASE_URL]);
@@ -103,6 +108,7 @@ axios
             quiz_taken: subtopic.quiz_taken
           }));
           setProgressData(transformedData);
+          setTotalQuizAttempts(response.data.total_quiz_attempts || 0);
           setLoading(false);
           setError(null);
         })
@@ -110,10 +116,12 @@ axios
           console.error('Error fetching progress:', err);
           setError('Failed to load progress data.');
           setProgressData([]);
+          setTotalQuizAttempts(0);
           setLoading(false);
         });
     } else {
       setProgressData([]);
+      setTotalQuizAttempts(0);
       setShowGraph(false);
     }
   }, [selectedSubject, selectedTopic, user.user_id, API_BASE_URL]);
@@ -136,6 +144,29 @@ axios
     }
   };
 
+  const fetchAnalyticsData = async () => {
+    if (selectedSubject && selectedTopic) {
+      try {
+        const token = localStorage.getItem('access_token');
+        const response = await axios.get(
+          `${API_BASE_URL}/analytics/${selectedSubject}/${selectedTopic}/`,
+          {
+            headers: { 
+              'user-id': user.user_id,
+              'Authorization': `Bearer ${token}`
+            }
+          }
+        );
+        setAnalyticsData(response.data.analytics);
+        setShowAnalytics(true);
+        setShowGraph(false); // Hide graph when showing analytics
+      } catch (err) {
+        console.error('Error fetching analytics:', err);
+        setError('Failed to load analytics data.');
+      }
+    }
+  };
+
   const getOverallProgress = () => {
     if (progressData.length === 0) return 0;
     const totalProgress = progressData.reduce((sum, item) => sum + item.completion_percentage, 0);
@@ -147,11 +178,29 @@ axios
   };
 
   const getQuizzesTaken = () => {
-    return progressData.filter(item => item.quiz_taken).length;
+    return totalQuizAttempts;
   };
 
   const getSortedProgressData = () => {
     return [...progressData].sort((a, b) => b.completion_percentage - a.completion_percentage);
+  };
+
+  // Helper function to format time in seconds to minutes and seconds
+  const formatTime = (seconds) => {
+    if (seconds <= 0) return 'N/A';
+    
+    if (seconds < 60) {
+      return `${seconds}s`;
+    }
+    
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.round(seconds % 60);
+    
+    if (remainingSeconds === 0) {
+      return `${minutes} min`;
+    } else {
+      return `${minutes} min ${remainingSeconds}s`;
+    }
   };
 
   const chartData = {
@@ -412,16 +461,38 @@ axios
               ))}
             </div>
             
-            <button 
-              className="graph-toggle-button"
-              onClick={() => setShowGraph(!showGraph)}
-            >
-              {showGraph ? 'Hide Graph' : 'See Graph'}
-            </button>
+            <div className="button-group">
+              <button 
+                className="graph-toggle-button"
+                onClick={() => {
+                  setShowGraph(true);
+                  setShowAnalytics(false); // Hide analytics when showing graph
+                }}
+              >
+                Graph
+              </button>
+              
+              <button 
+                className="analytics-toggle-button"
+                onClick={fetchAnalyticsData}
+              >
+                Analytics
+              </button>
+            </div>
           </div>
           
           {showGraph && (
             <div className="chart-section">
+              <div className="chart-header">
+                <h4>Progress Graph</h4>
+                <button 
+                  className="close-graph-button"
+                  onClick={() => setShowGraph(false)}
+                >
+                  ✕ Close
+                </button>
+              </div>
+              
               <div className="chart-container">
                 <Bar data={chartData} options={chartOptions} />
               </div>
@@ -439,6 +510,43 @@ axios
                   <span className="legend-color not-started"></span>
                   <span><strong>Not Started (0%)</strong></span>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {showAnalytics && (
+            <div className="analytics-section">
+              <div className="analytics-header">
+                <h4> Response Time Analytics</h4>
+                <button 
+                  className="close-analytics-button"
+                  onClick={() => setShowAnalytics(false)}
+                >
+                  ✕ Close
+                </button>
+              </div>
+              
+              <div className="analytics-table-container">
+                <table className="analytics-table">
+                  <thead>
+                    <tr>
+                      <th>Subtopic Name</th>
+                      <th>Quiz Date</th>
+                      <th>Avg Response<br />Time(sec)</th>
+                      <th>Total Response<br />Time(sec)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {analyticsData.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.subtopic_name}</td>
+                        <td>{item.quiz_date || 'No quiz taken'}</td>
+                        <td>{formatTime(item.average_response_time)}</td>
+                        <td>{formatTime(item.total_response_time)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           )}

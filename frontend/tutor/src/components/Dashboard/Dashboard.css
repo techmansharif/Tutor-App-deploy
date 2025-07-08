@@ -10,7 +10,6 @@
   font-family: 'Arial', sans-serif;
   color: #333;
   margin-bottom: 20px;
-  min-height:500px; /* may need to be deleted */
 }
 
 .dashboard-container h2 {
@@ -296,6 +295,14 @@
   white-space: nowrap;
 }
 
+/* NEW: Button group for Analytics */
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: center;
+}
+
 .graph-toggle-button {
   padding: 12px 30px;
   background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
@@ -315,8 +322,163 @@
   background: linear-gradient(135deg, #218838 0%, #1ca085 100%);
 }
 
+/* NEW: Analytics Styles */
+.analytics-toggle-button {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.analytics-toggle-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}
+
+.analytics-section {
+  margin-top: 30px;
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+.analytics-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: 600;
+  flex: 1;
+  text-align: center;
+}
+
+.close-analytics-button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.close-analytics-button:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
+.analytics-table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.analytics-table th,
+.analytics-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.analytics-table th {
+  background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+  font-weight: bold;
+  color: #495057;
+  font-size: 1.1rem;
+  position: sticky;
+  top: 0;
+  border-bottom: 2px solid #667eea;
+}
+
+.analytics-table tr:hover {
+  background-color: rgba(102, 126, 234, 0.05);
+  transform: translateY(-1px);
+  transition: all 0.3s ease;
+}
+
+.analytics-table td:nth-child(3),
+.analytics-table td:nth-child(4) {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.analytics-table td:first-child {
+  font-weight: 600;
+  color: #333;
+}
+
+.analytics-table td:nth-child(2) {
+  color: #666;
+  font-style: italic;
+}
+
 .chart-section {
   margin-top: 30px;
+}
+
+/* NEW: Chart header styles (similar to analytics header) */
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+.chart-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: 600;
+  flex: 1;
+  text-align: center;
+}
+
+/* NEW: Close graph button styles (similar to analytics close button) */
+.close-graph-button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.close-graph-button:hover {
+  background: #c82333;
+  transform: translateY(-1px);
 }
 
 .chart-container {
@@ -421,12 +583,12 @@
 }
 
 /* Enhanced button animations */
-.dashboard-button, .stat-box, .graph-toggle-button {
+.dashboard-button, .stat-box, .graph-toggle-button, .analytics-toggle-button {
   position: relative;
   overflow: hidden;
 }
 
-.dashboard-button::before, .graph-toggle-button::before {
+.dashboard-button::before, .graph-toggle-button::before, .analytics-toggle-button::before {
   content: '';
   position: absolute;
   top: 0;
@@ -437,7 +599,7 @@
   transition: left 0.5s;
 }
 
-.dashboard-button:hover::before, .graph-toggle-button:hover::before {
+.dashboard-button:hover::before, .graph-toggle-button:hover::before, .analytics-toggle-button:hover::before {
   left: 100%;
 }
 
@@ -509,6 +671,11 @@
     white-space: nowrap;
   }
   
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
   .legend {
     gap: 20px;
     flex-direction: column;
@@ -518,6 +685,28 @@
   .chart-container {
     height: 350px;
     padding: 15px;
+  }
+  
+  .analytics-table {
+    font-size: 14px;
+  }
+  
+  .analytics-table th,
+  .analytics-table td {
+    padding: 10px;
+  }
+  
+  .analytics-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  /* NEW: Chart header responsive styles */
+  .chart-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
   }
 }
 
@@ -561,5 +750,18 @@
   
   .subtopic-name {
     font-size: 0.9rem;
+  }
+  
+  .analytics-table {
+    font-size: 12px;
+  }
+  
+  .analytics-table th,
+  .analytics-table td {
+    padding: 8px;
+  }
+  
+  .analytics-section {
+    padding: 15px;
   }
 }
