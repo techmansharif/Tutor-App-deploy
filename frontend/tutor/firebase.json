@@ -3,15 +3,8 @@
     "public": "build",
     "ignore": [
       "firebase.json",
-      "*/.",
-      "*/node_modules/*"
-    ],
-    "redirects": [
-      {
-        "source": "/tutorSSC",
-        "destination": "https://brimai-test-v1.web.app/",
-        "type": 301
-      }
+      "**/.*",
+      "**/node_modules/**"
     ],
     "rewrites": [
       {
