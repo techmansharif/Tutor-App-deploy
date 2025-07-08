@@ -119,7 +119,7 @@ async def add_prometheus_metrics(request: Request, call_next):
 
     return response
 
-app.add_middleware(SessionMiddleware, secret_key="abcd")
+# app.add_middleware(SessionMiddleware, secret_key="abcd")
 
 Base.metadata.create_all(bind=engine)
 
@@ -429,20 +429,44 @@ async def select_subject_topic_subtopic(
     
     return {"message": f"Selected subject: {selection.subject}, topic: {selection.topic}, subtopic: {selection.subtopic if selection.subtopic else 'None'}", "selection_id": user_selection.id}
 
-# Quiz1 status endpoint
+# @app.get("/quiz1/status/")
+# async def get_quiz1_status(
+#     credentials: HTTPAuthorizationCredentials = Depends(security),
+#     db: Session = Depends(get_db),
+#     request: Request = None
+# ):  
+#     try:
+#         token = credentials.credentials
+#         user_data = get_user_from_token(f"Bearer {token}")  # or just token depending on your method
+#         user_id = user_data["id"]
+#     except Exception as e:
+#         raise HTTPException(status_code=401, detail="Invalid token")
+
+#     quiz1_attempt = db.query(Quiz1Attempt).filter(
+#         Quiz1Attempt.user_id == user_id,
+#         Quiz1Attempt.completed_at.isnot(None)
+#     ).first()
+
+#     return {"completed": quiz1_attempt is not None}
+
 @app.get("/quiz1/status/")
 async def get_quiz1_status(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_db),
-    request: Request = None
-):  
+    user_id: int = Header(...),
+    authorization: Optional[str] = Header(None),
+    db: Session = Depends(get_db)
+):
     try:
-        token = credentials.credentials
-        user_data = get_user_from_token(f"Bearer {token}")  # or just token depending on your method
-        user_id = user_data["id"]
-    except Exception as e:
-        raise HTTPException(status_code=401, detail="Invalid token")
-
+        user_data = get_user_from_token(authorization)
+        if user_data.get("id") != user_id:
+            raise HTTPException(status_code=401, detail="Unauthorized: Invalid token")
+    except:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
+    
+    # Validate user
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
+    
     quiz1_attempt = db.query(Quiz1Attempt).filter(
         Quiz1Attempt.user_id == user_id,
         Quiz1Attempt.completed_at.isnot(None)
@@ -456,7 +480,7 @@ app.include_router(dashboard_router)
 # Updated function to handle various LaTeX commands in the first line
 app.include_router(explains_router)
 app.include_router(revise_router)
-
+app.include_router(interactions_router)
 # @app.on_event("startup")
 # async def startup_event():
 #     Base.metadata.create_all(bind=engine)

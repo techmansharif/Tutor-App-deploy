@@ -151,6 +151,7 @@ function App() {
           .get(`${API_BASE_URL}/quiz1/status/`, {
             headers: {
               Authorization: `Bearer ${token}`,
+              user_id: userData.user_id.toString(),
             },
             withCredentials: true,
           })
