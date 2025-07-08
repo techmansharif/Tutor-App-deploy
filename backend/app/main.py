@@ -1,9 +1,6 @@
 
-###trying router redeploy
-from fastapi import FastAPI, Depends, HTTPException, status, Header, Query
-from fastapi import Security
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi.responses import JSONResponse
+###
+from fastapi import FastAPI, Depends, HTTPException, Header, Query,status
 from sqlalchemy.orm import Session
 from typing import List,Optional
 from datetime import datetime
@@ -151,7 +148,6 @@ GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
 SECRET_KEY = JWT_SECRET_KEY
 
 
-security = HTTPBearer()
 
 # Add CORS middleware for React frontend
 app.add_middleware(
@@ -418,27 +414,6 @@ async def select_subject_topic_subtopic(
     db.refresh(user_selection)
     
     return {"message": f"Selected subject: {selection.subject}, topic: {selection.topic}, subtopic: {selection.subtopic if selection.subtopic else 'None'}", "selection_id": user_selection.id}
-
-# Quiz1 status endpoint
-@app.get("/quiz1/status/")
-async def get_quiz1_status(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_db),
-    request: Request = None
-):  
-    try:
-        token = credentials.credentials
-        user_data = get_user_from_token(f"Bearer {token}")  # or just token depending on your method
-        user_id = user_data["id"]
-    except Exception as e:
-        raise HTTPException(status_code=401, detail="Invalid token")
-
-    quiz1_attempt = db.query(Quiz1Attempt).filter(
-        Quiz1Attempt.user_id == user_id,
-        Quiz1Attempt.completed_at.isnot(None)
-    ).first()
-
-    return {"completed": quiz1_attempt is not None}
 
 app.include_router(quizzes_router)
 

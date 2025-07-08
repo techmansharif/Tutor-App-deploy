@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Selection.css';
-import { useNavigate } from 'react-router-dom';
 
 const Selection = ({ user, API_BASE_URL, onSelectionSubmit,  onSelectionChange, initialValues }) => {
   const [subjects, setSubjects] = useState([]);
@@ -14,25 +13,20 @@ const Selection = ({ user, API_BASE_URL, onSelectionSubmit,  onSelectionChange, 
 const [selectedSubject, setSelectedSubject] = useState(initialValues?.selectedSubject || '');
 const [selectedTopic, setSelectedTopic] = useState(initialValues?.selectedTopic || '');
 const [selectedSubtopic, setSelectedSubtopic] = useState(initialValues?.selectedSubtopic || '');
-const navigate = useNavigate();
+
 
   // Fetch subjects when the component mounts
   useEffect(() => {
     const fetchSubjects = async () => {
      try {
-      if (!user?.user_id) {
-          alert('User ID is missing. Please log in again.');
-          navigate('/login');
-          return;
-        }
-      const response = await axios.get(`${API_BASE_URL}/subjects/`, {
+    const response = await axios.get(`${API_BASE_URL}/subjects/`, {
       headers: { 'user-id': user.user_id },
       withCredentials: true
     });
     
     // Filter out unwanted subjects
     const filteredSubjects = response.data.filter(subject => 
-      !['Higher Math', 'General Math', 'quiz1', 'data'].includes(subject.name)
+      !['Higher Math', 'General Math', 'quiz1'].includes(subject.name)
     );
     
     setSubjects(filteredSubjects);
@@ -67,7 +61,7 @@ const navigate = useNavigate();
       };
       fetchTopics();
     }
-  }, [selectedSubject, API_BASE_URL, user.user_id, navigate]);
+  }, [selectedSubject, API_BASE_URL, user.user_id]);
 
   // Fetch subtopics when a topic is selected
   useEffect(() => {
@@ -120,10 +114,6 @@ useEffect(() => {
 
       // Notify App.js of the confirmed selection
       onSelectionSubmit({ selectedSubject, selectedTopic, selectedSubtopic });
-      localStorage.setItem(
-        'selectedValues',
-        JSON.stringify({ selectedSubject, selectedTopic, selectedSubtopic })
-      );
     } catch (error) {
       console.error('Error during selection:', error);
       alert('Error during selection. Please try again.');
@@ -133,9 +123,6 @@ useEffect(() => {
   return (
     <div className="selection-component-container">
       <h2>Please Select</h2>
-      <div className="select-item-text">
-        Please select an item below
-      </div>
       <form onSubmit={handleConfirmSelection}>
         <div className="selection-group-component">
           <label>Subject</label>
@@ -201,6 +188,14 @@ useEffect(() => {
             ))}
           </select>
         </div>
+        
+       {/* <div style={{ marginTop: '20px', fontSize: '1.1em', fontWeight: 'normal', alignItems: 'center', textAlign:'center' }}>
+  Please select an item below
+</div> */}
+       <div class="select-item-text">
+  Please select an item below
+</div>
+
       </form>
     </div>
   );

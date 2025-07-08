@@ -1,34 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Stopwatch from '../Stopwatch/Stopwatch';
 import './Welcome.css';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const Welcome = ({ user, API_BASE_URL, onStartQuiz }) => {
-  const navigate = useNavigate();
-  const [token, setToken] = useState('');
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem('access_token');
-    if (storedToken) setToken(storedToken);
-  }, []);
-
-  const handleStartQuiz = async () => {
-    try {
-      await axios.post(`${API_BASE_URL}/quiz1/`, {}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          user_id: user.id,  
-        },
-        withCredentials: true,
-      });
-
-      // Navigate to quiz1 on success
-      navigate('/quiz1');
-    } catch (error) {
-      console.error('Failed to start quiz1:', error);
-      alert('Error starting quiz. Please try again.');
-    }
+  const handleStartQuiz = () => {
+    onStartQuiz(); // Move to quiz1
   };
 
   return (
@@ -39,7 +15,7 @@ const Welcome = ({ user, API_BASE_URL, onStartQuiz }) => {
        প্রশ্নগুলো খুবই সহজ আর মজাদার!
       </p>
       <button
-        onClick={handleStartQuiz()}
+        onClick={handleStartQuiz}
         className="start-button"
       >
         Press here to start!

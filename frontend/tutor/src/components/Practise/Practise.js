@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback  } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import Stopwatch from '../Stopwatch/Stopwatch';
@@ -11,10 +10,7 @@ import 'katex/dist/katex.min.css';
 import ReactMarkdown from 'react-markdown';
 import './Practise.css';
 
-
-const PracticeQuiz = ({ user, API_BASE_URL}) => {
-  const { subject, topic, subtopic } = useParams();
-  const navigate = useNavigate();
+const PracticeQuiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompletePractice }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [hardnessLevel, setHardnessLevel] = useState(5);
   const [questionsTried, setQuestionsTried] = useState(0);
@@ -31,6 +27,7 @@ const PracticeQuiz = ({ user, API_BASE_URL}) => {
 
   const [image1, setImage1] = useState(null); // State for correct answer image
   const [image2, setImage2] = useState(null); // State for incorrect answer image
+
   // Integrity score hook
   const {
     questionStartTime,
@@ -50,77 +47,64 @@ const PracticeQuiz = ({ user, API_BASE_URL}) => {
     }
   }, [currentQuestion, setQuestionStartTime]);
 
-  const fetchPracticeQuestion = useCallback(async (submission = null) => {
-  setIsLoading(true);
-  try {
-    const token = localStorage.getItem('access_token');
-    const encodedSubject = encodeURIComponent(subject);
-    const encodedTopic = encodeURIComponent(topic);
-    const encodedSubtopic = encodeURIComponent(subtopic);
-
-  const url = `${API_BASE_URL}/${encodedSubject}/${encodedTopic}/${encodedSubtopic}/practise/`;
-
-    const response = await axios.post(
-      url,submission,
-      {
-        headers: {
-          'user-id': user.user_id,
-          'Authorization': `Bearer ${token}`
-        }
-      }
-    );
-
-    const {
-      question,
-      hardness_level,
-      message,
-      questions_tried,
-      number_correct,
-      image1,
-      image2
-    } = response.data;
-
-    if (question) {
-      setCurrentQuestion(question);
-      setHardnessLevel(hardness_level);
-      setSelectedOption('');
-      setIsAnswerSubmitted(false);
-      setIsAnswerIncorrect(false);
-      setShowCongrats(false);
-      setIsTimerPaused(false);
-      setImage1(image1);
-      setImage2(image2);
-
-      if (questions_tried !== null && questions_tried !== undefined) {
-        setQuestionsTried(questions_tried);
-      }
-      if (number_correct !== null && number_correct !== undefined) {
-        setScore(number_correct);
-      }
-    } else if (message) {
-      setIsComplete(true);
-      setCompletionMessage(message);
-      if (questions_tried !== null && questions_tried !== undefined) {
-        setQuestionsTried(questions_tried);
-      }
-      if (number_correct !== null && number_correct !== undefined) {
-        setScore(number_correct);
-      }
-    }
-  } catch (error) {
-    console.error('Error fetching practice question:', error);
-    alert('Error fetching practice question. Please try again.');
-  } finally {
-    setIsLoading(false);
-  }
-}, [API_BASE_URL, subject, topic, subtopic, user.user_id]);
-
   // Fetch the first practice question on mount
   useEffect(() => {
     fetchPracticeQuestion();
-  }, [fetchPracticeQuestion]);
+  }, []);
 
+const fetchPracticeQuestion = async (submission = null) => {
+    setIsLoading(true);
+    try {
+         const token = localStorage.getItem('access_token');
+          const encodedSubtopic = encodeURIComponent(subtopic);
+      const response = await axios.post(
+        `${API_BASE_URL}/${subject}/${topic}/${encodedSubtopic}/practise/`,
+        submission,
+        {
+         headers: { 
+              'user-id': user.user_id,
+              'Authorization': `Bearer ${token}`
+            }
+          }
+        );
 
+      const { question, hardness_level, message, questions_tried, number_correct,image1,image2 } = response.data;
+      if (question) {
+        setCurrentQuestion(question);
+        setHardnessLevel(hardness_level);
+        setSelectedOption('');
+        setIsAnswerSubmitted(false);
+        setIsAnswerIncorrect(false);
+        setShowCongrats(false);
+        setIsTimerPaused(false);
+
+        setImage1(image1); // Store image1
+        setImage2(image2); // Store image2
+        // Set questionsTried and score if resuming an incomplete session
+        if (questions_tried !== null && questions_tried !== undefined) {
+          setQuestionsTried(questions_tried);
+        }
+        if (number_correct !== null && number_correct !== undefined) {
+          setScore(number_correct);
+        }
+      } else if (message) {
+        setIsComplete(true);
+        setCompletionMessage(message);
+        // Set final questionsTried and score for completion
+        if (questions_tried !== null && questions_tried !== undefined) {
+          setQuestionsTried(questions_tried);
+        }
+        if (number_correct !== null && number_correct !== undefined) {
+          setScore(number_correct);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching practice question:', error);
+      alert('Error fetching practice question. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const handleAnswerSelect = async (option) => {
     setSelectedOption(option);
 
@@ -188,7 +172,7 @@ const PracticeQuiz = ({ user, API_BASE_URL}) => {
   };
 
   const handleCompletePractice = () => {
-     navigate(`/quiz/${subject}/${topic}/${subtopic}`);
+    onCompletePractice();
   };
 
   const handleRestart = () => {
@@ -346,10 +330,10 @@ const PracticeQuiz = ({ user, API_BASE_URL}) => {
                     />
                   )}
                 <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-                  <strong>Correct Answer- </strong> {currentQuestion.correct_option.toUpperCase()}:  <MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
+                  <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}:  <MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
                 </p>
                 <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-                  <strong>Explanation- </strong> <MathText>{currentQuestion.explanation}</MathText>
+                  <strong>Explanation:</strong> <MathText>{currentQuestion.explanation}</MathText>
                 </p>
             </div>
             

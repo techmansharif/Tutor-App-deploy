@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
-import { useNavigate } from 'react-router-dom';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-const Dashboard = ({ user, API_BASE_URL}) => {
+const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
   const [subjects, setSubjects] = useState([]);
   const [topics, setTopics] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState('');
@@ -32,7 +31,7 @@ const Dashboard = ({ user, API_BASE_URL}) => {
   const [error, setError] = useState(null);
   const [hasCompletedQuiz1, setHasCompletedQuiz1] = useState(true);
   const [showGraph, setShowGraph] = useState(false);
-  const navigate = useNavigate();
+
   useEffect(() => {
     const checkQuiz1Status = async () => {
       try {
@@ -140,7 +139,7 @@ axios
 
   const handleStartLearning = () => {
     if (selectedSubject && selectedTopic) {
-      navigate('/selection');
+      onGoToSelection();
     } else {
       setError('Please select both a subject and a topic.');
     }
@@ -313,7 +312,7 @@ axios
           <p>It consists of 10 questions from various subjects and topics.</p>
           <button 
             className="dashboard-button" 
-            onClick={() => navigate('/quiz1')}
+            onClick={() => window.location.hash = '#quiz1'}
             style={{ marginTop: '15px' }}
           >
             Take Quiz 1 Now
