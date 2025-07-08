@@ -1,39 +1,15 @@
 export const processExplanation = (text) => {
    let processed = text;
    console.log(processed);
-//      processed= String.raw`|সূত্র | উদাহরণ | ফলাফল |
-// |:------|:------:|-------:|
-// | বর্গ | $x^2$ যখন $x=5$ | $25$ |
-// | বর্গমূল | $\sqrt{16}$ | $4$ |
-// | ভগ্নাংশ | $\frac{10}{2}$ | $5$ |
+//      processed= String.raw`
+
+
+//     *   $\frac{a+b}{b} \times \frac{b}{a-b} = \frac{a+b}{a-b}$
+//     *   $\frac{c+d}{d} \times \frac{d}{c-d} = \frac{c+d}{c-d}$
 // `;
+//     *   বাম পাশে: $\frac{a+b}{b} \times \frac{b}{a-b} = \frac{a+b}{a-b}$
+//     *   ডান পাশে: $\frac{c+d}{d} \times \frac{d}{c-d} = \frac{c+d}{c-d}$
 
-
-    // Split long math expressions containing multiple \text{|} or \cancel{\text{|}} parts
-   processed = processed.replace(/\$([^$]*)\$/g, (match, mathContent) => {
-     // Find all \text{|+} and \cancel{\text{|+}} patterns
-     const patterns = mathContent.match(/\\cancel\{\\text\{\|+\}\}|\\text\{\|+\}/g);
-     
-     if (patterns && patterns.length > 1) {
-       // Split into separate math expressions
-       return patterns.map(pattern => `$${pattern}$`).join(' ');
-     }
-     
-     // Return original if no splitting needed
-     return match;
-   });   // Split long math expressions containing multiple \text{|} or \cancel{\text{|}} parts
-   processed = processed.replace(/\$([^$]*)\$/g, (match, mathContent) => {
-     // Find all \text{|+} and \cancel{\text{|+}} patterns
-     const patterns = mathContent.match(/\\cancel\{\\text\{\|+\}\}|\\text\{\|+\}/g);
-     
-     if (patterns && patterns.length > 1) {
-       // Split into separate math expressions
-       return patterns.map(pattern => `$${pattern}$`).join(' ');
-     }
-     
-     // Return original if no splitting needed
-     return match;
-   });
 
 
     // console.log(processed);
@@ -43,12 +19,15 @@ export const processExplanation = (text) => {
 
 export const preprocessMath = (text) => {
   // Replace | with placeholder inside $...$ and $$...$$ expressions
-  return text.replace(/(\$\$?[^$]*\$\$?)/g, (match) => {
-    return match.replace(/\|/g, '{{PIPE}}');
-  });
-};
+//   return text.replace(/(\$\$?[^$]*\$\$?)/g, (match) => {
+//     return match.replace(/\|/g, '{{PIPE}}');
+//   });
+// };
+return text
+}
 
 export const postprocessMath = (text) => {
   // Restore | symbols back for KaTeX
-  return text.replace(/\{\{PIPE\}\}/g, '|');
+  // return text.replace(/\{\{PIPE\}\}/g, '|');
+  return text 
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef,memo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
@@ -21,6 +21,7 @@ const Explains = ({
 }) => {
   const [explanationHistory, setExplanationHistory] = useState([]);
   const [isExplainLoading, setIsExplainLoading] = useState(false);
+  const [nextId, setNextId] = useState(1);
   const [explainFinished, setExplainFinished] = useState(false);
   const [userQuery, setUserQuery] = useState('');
   const initialFetchRef = useRef(false);
@@ -28,6 +29,20 @@ const Explains = ({
   const [previousHistoryLength, setPreviousHistoryLength] = useState(0); // Add this
   const [newlyAddedIndices, setNewlyAddedIndices] = useState(new Set());
  const [explainAgainIndices, setExplainAgainIndices] = useState(new Set());
+
+
+const createProcessedEntry = (text, image = null, isNewest = false, isExplainAgain = false) => {
+  const entry = {
+    id: nextId,
+    text,
+    processedText: processExplanation(text),
+    image,
+    isNewest,
+    isExplainAgain
+  };
+  setNextId(prev => prev + 1);
+  return entry;
+};
 
   useEffect(() => {
     if (!initialFetchRef.current) {
@@ -74,12 +89,17 @@ useEffect(() => {
 
 
 const stopAllAudio = () => {
-  window.speechSynthesis.cancel();
+  // Stop all audio players - they'll handle their own cleanup
+  const audioElements = document.querySelectorAll('audio');
+  audioElements.forEach(audio => {
+    audio.pause();
+    audio.currentTime = 0;
+  });
 };
 
-  const fetchExplain = async (query, isInitial = false, isExplainAgain = false) => {
-    setIsExplainLoading(true);
-     // Add this scroll logic right after setting loading to true
+const fetchExplain = async (query, isInitial = false, isExplainAgain = false) => {
+  setIsExplainLoading(true);
+  // Add this scroll logic right after setting loading to true
   if (!isInitial && explanationContainerRef.current) {
     setTimeout(() => {
       const container = explanationContainerRef.current;
@@ -89,64 +109,146 @@ const stopAllAudio = () => {
       });
     }, 100); // Small delay to ensure loading component is rendered
   }
-    try  {
-    const token = localStorage.getItem('access_token');
-
-
-      // URL encode the path parameters to handle special characters
+  
+  const token = localStorage.getItem('access_token');
+   // URL encode the path parameters to handle special characters
       const encodedSubject = encodeURIComponent(selectedSubject);
       const encodedTopic = encodeURIComponent(selectedTopic);
       const encodedSubtopic = encodeURIComponent(selectedSubtopic);
-
-    const response = await axios.post(
+  
+  // First, try a regular request to check if it's a streaming response
+  try {
+    const response = await fetch(
       `${API_BASE_URL}/${encodedSubject}/${encodedTopic}/${encodedSubtopic}/explains/`,
-      { query, is_initial: isInitial },
       {
-        headers: { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
           'user-id': user.user_id,
           'Authorization': `Bearer ${token}`
-        }
+        },
+        body: JSON.stringify({ query, is_initial: isInitial })
       }
     );
-      
-      if (response.data.answer === "Congratulations, you have mastered the topic!") {
-        setExplainFinished(true);
-        setExplanationHistory((prev) => {
-  const newHistory = [...prev, { text: response.data.answer, image: response.data.image }];
-  if (!isExplainAgain) { // CHANGED - only mark as newest if not "explain again"
-    setNewlyAddedIndices(new Set([newHistory.length - 1]));
-  }
+
+    // Check if it's a streaming response
+    if (response.headers.get('content-type')?.includes('text/event-stream')) {
+      // Handle streaming response
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let accumulatedText = '';
+      let imageData = null;
+      let entryIndex = -1;
+
+    // Add placeholder entry for streaming content
+    setExplanationHistory((prev) => {
+      const entry = createProcessedEntry('', null, !isExplainAgain, isExplainAgain);
+      const newHistory = [...prev, entry];
+      entryIndex = newHistory.length - 1;
+      if (isExplainAgain) {
+        setExplainAgainIndices(new Set([entryIndex]));
+        setNewlyAddedIndices(new Set());
+      } else {
+        setNewlyAddedIndices(new Set([entryIndex]));
+        setExplainAgainIndices(new Set());
+      }
+      return newHistory;
+    });
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6));
+              
+              if (data.content) {
+                // Accumulate text content
+                accumulatedText += data.content;
+                // Update the entry with accumulated text
+            // Update the entry with accumulated text
+             // Update with image
+setExplanationHistory((prev) => {
+  const newHistory = [...prev];
+  newHistory[entryIndex] = {
+    ...newHistory[entryIndex],
+    text: accumulatedText,
+    processedText: processExplanation(accumulatedText),
+    image: imageData
+  };
   return newHistory;
 });
-          
-      } else if (response.data.initial_response && isInitial) {
-        // Handle initial response with previous answers from chat_memory
-        const answers = response.data.initial_response.map(answer => ({
-          text: answer,
-          image: null
-        }));
-        setExplanationHistory((prev) => [...prev, ...answers]);
-      } else {
+              } else if (data.image) {
+  // Store image data
+  imageData = data.image;
+  // Update with image
   setExplanationHistory((prev) => {
-    const newHistory = [...prev, { text: response.data.answer, image: response.data.image}];
+    const newHistory = [...prev];
+    newHistory[entryIndex] = {
+      ...newHistory[entryIndex],
+      text: accumulatedText,
+      processedText: processExplanation(accumulatedText),
+      image: imageData
+    };
+    return newHistory;
+  });
+              } else if (data.status === 'complete') {
+                // Streaming complete
+                break;
+              }
+            } catch (e) {
+              console.error('Error parsing SSE data:', e);
+            }
+          }
+        }
+      }
+    } else {
+      // Handle regular JSON response (pre-generated, errors, etc.)
+      const data = await response.json();
+      
+  if (data.answer === "Congratulations, you have mastered the topic!") {
+  setExplainFinished(true);
+  setExplanationHistory((prev) => {
+    const entry = createProcessedEntry(data.answer, data.image, !isExplainAgain, false);
+    const newHistory = [...prev, entry];
+    if (!isExplainAgain) {
+      setNewlyAddedIndices(new Set([newHistory.length - 1]));
+    }
+    return newHistory;
+  });
+} else if (data.initial_response && isInitial) {
+  // Handle initial response with previous answers from chat_memory
+  const answers = data.initial_response.map(answer => 
+    createProcessedEntry(answer, null, false, false)
+  );
+  setExplanationHistory((prev) => [...prev, ...answers]);
+} else {
+  setExplanationHistory((prev) => {
+    const entry = createProcessedEntry(data.answer, data.image, !isExplainAgain, isExplainAgain);
+    const newHistory = [...prev, entry];
     if (isExplainAgain) {
       setExplainAgainIndices(new Set([newHistory.length - 1]));
-      setNewlyAddedIndices(new Set()); // Clear previous newest entries
+      setNewlyAddedIndices(new Set());
     } else if (!isExplainAgain) {
       setNewlyAddedIndices(new Set([newHistory.length - 1]));
-      setExplainAgainIndices(new Set()); // Clear previous explain-again entries
+      setExplainAgainIndices(new Set());
     }
     return newHistory;
   });
 }
-    } catch (error) {
-      console.error('Error fetching explanation:', error);
-      alert('Error fetching explanation. Please try again.');
-    } finally {
-      setIsExplainLoading(false);
     }
-  };
-
+  } catch (error) {
+    console.error('Error fetching explanation:', error);
+    alert('Error fetching explanation. Please try again.');
+  } finally {
+    setIsExplainLoading(false);
+  }
+};
   const handleContinueExplain = () => {
       stopAllAudio();
           trackInteraction(INTERACTION_TYPES.CONTINUE_CLICKED, {
@@ -183,20 +285,77 @@ const stopAllAudio = () => {
   };
 
   const handleRefresh = () => {
-    trackInteraction(INTERACTION_TYPES.REFRESH_CLICKED, {
-    subject: selectedSubject,
-    topic: selectedTopic,
-    subtopic: selectedSubtopic,
-    historyLength: explanationHistory.length
-  }, user.user_id, API_BASE_URL);
-    setExplanationHistory([]);
-    setExplainFinished(false);
-      setPreviousHistoryLength(0); // Add this line
-        setNewlyAddedIndices(new Set()); // Add this
-  setExplainAgainIndices(new Set()); // Add this
-    fetchExplain("refresh");
-  };
+  trackInteraction(INTERACTION_TYPES.REFRESH_CLICKED, {
+  subject: selectedSubject,
+  topic: selectedTopic,
+  subtopic: selectedSubtopic,
+  historyLength: explanationHistory.length
+}, user.user_id, API_BASE_URL);
+  setExplanationHistory([]);
+  setExplainFinished(false);
+    setPreviousHistoryLength(0);
+      setNewlyAddedIndices(new Set());
+setExplainAgainIndices(new Set());
+  setNextId(1); // Add this line
+  fetchExplain("refresh");
+};
 
+  // Memoized component for individual entries
+  const ExplanationEntry = memo(({ entry, selectedSubject }) => {
+    return (
+      <div className={`explanation-entry ${entry.isNewest ? 'newest-entry' : ''} ${entry.isExplainAgain ? 'explain-again-entry' : ''}`}>
+        <div className="audio-player-container">
+          <AudioPlayer text={processExplanation(entry.text)} API_BASE_URL={API_BASE_URL} user={user} />
+        </div>
+        <ReactMarkdown
+          children={entry.processedText}
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[
+            [rehypeKatex, {
+              throwOnError: false,
+              strict: false,
+              trust: true,
+              displayMode: false,
+              output: 'html'
+            }]
+          ]}
+          components={{
+            table: ({node, ...props}) => (
+              <div className="table-container">
+                <table {...props} className="markdown-table" />
+              </div>
+            ),
+            code: ({node, inline, className, children, ...props}) => {
+              return inline ? (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              ) : (
+                <div className="code-block-container">
+                  <pre>
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  </pre>
+                </div>
+              );
+            }
+          }}
+        />
+        {entry.image && (
+          <div className="explanation-image-component">
+            <img
+              src={`data:image/png;base64,${entry.image}`}
+              alt="Explanation diagram"
+              style={{ maxWidth: '100%', marginTop: '20px' }}
+            />
+          </div>
+        )}
+      </div>
+    );
+  });
+
+  ExplanationEntry.displayName = 'ExplanationEntry';
   return (
     <div className="explains-component-container">
  <div className="explains-header-compact">
@@ -236,64 +395,13 @@ const stopAllAudio = () => {
   ref={explanationContainerRef}
 >
         {explanationHistory.map((entry, index) => (
-      <div key={index} className={`explanation-entry ${newlyAddedIndices.has(index) ? 'newest-entry' : ''} ${explainAgainIndices.has(index) ? 'explain-again-entry' : ''}`}>
-               <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>
-            <ReactMarkdown
-              children={preprocessMath(processExplanation(entry.text))}
-              remarkPlugins={[remarkGfm, remarkMath]}
-              rehypePlugins={[
-  // Custom plugin to restore pipes BEFORE KaTeX processing
-  () => (tree) => {
-    const visit = (node) => {
-      if (node.type === 'text' && node.value) {
-        node.value = postprocessMath(node.value);
-      }
-      if (node.children) {
-        node.children.forEach(visit);
-      }
-    };
-    visit(tree);
-  },
-  // Now KaTeX processes the restored content
-  [rehypeKatex, {
-    throwOnError: false,
-    strict: false
-  }]
-]}
-              components={{
-                table: ({node, ...props}) => (
-                  <div className="table-container">
-                    <table {...props} className="markdown-table" />
-                  </div>
-                ), 
-                             code: ({node, inline, className, children, ...props}) => {
-                  return inline ? (
-                    <code className={className} {...props}>
-                      {children}
-                    </code>
-                  ) : (
-                    <div className="code-block-container">
-                      <pre>
-                        <code className={className} {...props}>
-                          {children}
-                        </code>
-                      </pre>
-                    </div>
-                  );
-                }
-              }}
-            />
-            {entry.image && (
-              <div className="explanation-image-component">
-                <img
-                  src={`data:image/png;base64,${entry.image}`}
-                  alt="Explanation diagram"
-                  style={{ maxWidth: '100%', marginTop: '20px' }}
-                />
-              </div>
-            )}
-          </div>
+          <ExplanationEntry 
+            key={entry.id} 
+            entry={entry} 
+            selectedSubject={selectedSubject} 
+          />
         ))}
+
         {isExplainLoading && (
           <div className="loading-component">
             <div className="loading-spinner-component"></div>
