@@ -200,7 +200,7 @@ const fetchQuizQuestion = async (submission = null) => {
 
   const handleCompleteQuiz = () => {
     //onCompleteQuiz();
-    navigate('/selection');
+    navigate('/select');
   };
 
   const integrityScore = 100 - cheatScore;
@@ -219,7 +219,7 @@ const fetchQuizQuestion = async (submission = null) => {
         <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Final Difficulty Level: {hardnessLevel}</p>
         <div style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Integrity Level<span style={{ fontSize: '0.9em', color: '#666' }}>(helps you answer faster)</span>: {integrityScore}%</div>
         <button onClick={handleCompleteQuiz} className="primary-button">
-          Return to Selection
+          Return to Subject Selection
         </button>
       </div>
     );

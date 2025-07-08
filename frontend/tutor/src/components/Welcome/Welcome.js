@@ -38,7 +38,7 @@ const Welcome = ({ user, API_BASE_URL, onStartQuiz }) => {
        প্রশ্নগুলো খুবই সহজ আর মজাদার!
       </p>
       <button
-        onClick={handleStartQuiz()}
+        onClick={onStartQuiz}
         className="start-button"
       >
         Press here to start!

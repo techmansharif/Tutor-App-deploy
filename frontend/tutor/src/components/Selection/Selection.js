@@ -42,7 +42,7 @@ const navigate = useNavigate();
   }
 };
     fetchSubjects();
-  }, [API_BASE_URL, user.user_id]);
+  }, [API_BASE_URL, user.user_id, navigate]);
 
   // Fetch topics when a subject is selected
   useEffect(() => {
