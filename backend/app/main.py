@@ -53,7 +53,7 @@ from .jwt_utils import create_access_token, get_user_from_token, JWT_SECRET_KEY
 from datetime import timedelta
 
 
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
+#load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -283,6 +283,7 @@ async def auth_callback(request: Request):
         
 
         frontend_url = f"https://brimai-test-v1.web.app?token={jwt_token}"
+        #frontend_url=f"http://localhost:3000?token={jwt_token}"
         return RedirectResponse(frontend_url)
     finally:
         db.close()
@@ -414,6 +415,32 @@ async def select_subject_topic_subtopic(
     db.refresh(user_selection)
     
     return {"message": f"Selected subject: {selection.subject}, topic: {selection.topic}, subtopic: {selection.subtopic if selection.subtopic else 'None'}", "selection_id": user_selection.id}
+
+# Quiz1 status endpoint
+@app.get("/quiz1/status/")
+async def get_quiz1_status(
+    user_id: int = Header(...),
+    authorization: Optional[str] = Header(None),
+    db: Session = Depends(get_db)
+):
+    try:
+        user_data = get_user_from_token(authorization)
+        if user_data.get("id") != user_id:
+            raise HTTPException(status_code=401, detail="Unauthorized: Invalid token")
+    except:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
+    
+    # Validate user
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
+    
+    quiz1_attempt = db.query(Quiz1Attempt).filter(
+        Quiz1Attempt.user_id == user_id,
+        Quiz1Attempt.completed_at.isnot(None)
+    ).first()
+
+    return {"completed": quiz1_attempt is not None}
 
 app.include_router(quizzes_router)
 

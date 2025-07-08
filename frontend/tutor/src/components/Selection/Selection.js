@@ -36,7 +36,7 @@ const [selectedSubtopic, setSelectedSubtopic] = useState(initialValues?.selected
   }
 };
     fetchSubjects();
-  }, [API_BASE_URL, user.user_id]);
+  }, [API_BASE_URL, user.user_id, navigate]);
 
   // Fetch topics when a subject is selected
   useEffect(() => {
@@ -61,7 +61,7 @@ const [selectedSubtopic, setSelectedSubtopic] = useState(initialValues?.selected
       };
       fetchTopics();
     }
-  }, [selectedSubject, API_BASE_URL, user.user_id]);
+  }, [selectedSubject, API_BASE_URL, user, navigate]);
 
   // Fetch subtopics when a topic is selected
   useEffect(() => {
@@ -103,7 +103,7 @@ useEffect(() => {
 
     try {
       // Make the selection API call
-      await axios.post(
+      const response = await axios.post(
         `${API_BASE_URL}/select/`,
         { subject: selectedSubject, topic: selectedTopic, subtopic: selectedSubtopic },
         {
@@ -114,9 +114,29 @@ useEffect(() => {
 
       // Notify App.js of the confirmed selection
       onSelectionSubmit({ selectedSubject, selectedTopic, selectedSubtopic });
+      
+      // Store selections in localStorage
+      localStorage.setItem(
+        'selectedValues',
+        JSON.stringify({ selectedSubject, selectedTopic, selectedSubtopic })
+      );
+      // Navigate to Explains route
+      //navigate('/explains');
     } catch (error) {
       console.error('Error during selection:', error);
-      alert('Error during selection. Please try again.');
+      if (error.response) {
+
+        alert(`Error: ${error.response.status} - ${error.response.data.message || 'Server error'}`);
+
+      } else if (error.request) {
+
+        alert('Network error: Unable to reach the server. Please check your connection or server status.');
+
+      } else {
+
+        alert(`Error: ${error.message}`);
+
+      }
     }
   };
 
@@ -189,13 +209,9 @@ useEffect(() => {
           </select>
         </div>
         
-       {/* <div style={{ marginTop: '20px', fontSize: '1.1em', fontWeight: 'normal', alignItems: 'center', textAlign:'center' }}>
-  Please select an item below
-</div> */}
-       <div class="select-item-text">
-  Please select an item below
-</div>
-
+       {/* <button type="submit" className="selection-submit-button">
+           Confirm Selection
+        </button> */} 
       </form>
     </div>
   );

@@ -303,7 +303,7 @@ const stopAllAudio = () => {
       
     <div className="explain-controls-component">
   {explainFinished ? (
-    <button onClick={onProceedToPractice} className="primary-button-component">
+    <button onClick={() => navigate(`/practice/{encodedSubject}/{encodedTopic}/{encodedSubtopic}`)} className="primary-button-component">
       Start Practice
     </button>
   ) : (

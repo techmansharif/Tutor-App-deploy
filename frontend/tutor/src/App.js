@@ -1,18 +1,13 @@
-// a small change
-
-//this is for testing out updates
-
-import React, { useState, useEffect,Suspense,lazy } from 'react';
-
-
+import React, { useState, useEffect, Suspense, lazy, useCallback } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import Login from './components/Login/Login';
-import UserInfo from './components/Login/UserInfo'; // Added import
-
+import UserInfo from './components/Login/UserInfo';
 import axios from 'axios';
 import './App.css';
 
 // Lazy load the heavy components
-const LoadingScreen = lazy(() => import('./components/LoadingScreen/LoadingScreen')) ;
+const LoadingScreen = lazy(() => import('./components/LoadingScreen/LoadingScreen'));
 const Quiz1 = lazy(() => import('./components/Quiz1/quiz1'));
 const Selection = lazy(() => import('./components/Selection/Selection'));
 const Explains = lazy(() => import('./components/Explains/Explains'));
@@ -20,329 +15,387 @@ const PracticeQuiz = lazy(() => import('./components/Practise/Practise'));
 const Quiz = lazy(() => import('./components/Quiz/quiz'));
 const Welcome = lazy(() => import('./components/Welcome/Welcome'));
 const Dashboard = lazy(() => import('./components/Dashboard/Dashboard'));
-// 1. Add this import at the top with other lazy imports
 const Revise = lazy(() => import('./components/Revise/Revise'));
+
+// Protected Route component
+const ProtectedRoute = ({ user, token, children, redirectTo }) => {
+  if (!user || !token) {
+    return <Navigate to={redirectTo || '/login'} replace />;
+  }
+  return children;
+};
+
+// Navigation buttons component (moved outside App to use useNavigate correctly)
+const NavigationButtons = ({ selectionsComplete, onProceedToPractice }) => {
+  const navigate = useNavigate();
+  const currentPath = window.location.pathname;
+  const { selectedSubject, selectedTopic, selectedSubtopic } = selectionsComplete;
+  // Disable REVISE and PROGRESS on /welcome and /quiz1
+  const isEarlyStage = ['/welcome', '/quiz1'].includes(currentPath);
+
+  return (
+    <div className="navigation-button-container">
+      <div className="navigation-buttons">
+        <button
+          onClick={() => navigate('/select')}
+          className={`nav-button ${currentPath === '/select' ? 'nav-button-active' : ''}`}
+        >
+          SUBJECT
+          <div style={{ fontSize: '0.8em' }}> বিষয় বাছাই </div>
+        </button>
+        <button
+          onClick={() => (selectionsComplete ? navigate(`/explains/${selectedSubject}/${selectedTopic}/${selectedSubtopic}`) : navigate('/select'))}
+          className={`nav-button ${currentPath === `/explains/${selectedSubject}/${selectedTopic}/${selectedSubtopic}` ? 'nav-button-active' : ''} ${
+            !selectionsComplete ? 'nav-button-disabled' : ''
+          }`}
+          disabled={!selectionsComplete}
+        >
+          EXPLAIN
+          <div style={{ fontSize: '0.8em' }}> সহজভাবে শেখা </div>
+        </button>
+        <button
+          onClick={() => (selectionsComplete ? onProceedToPractice() : navigate('/select'))}
+          className={`nav-button ${currentPath === `/practice/${selectedSubject}/${selectedTopic}/${selectedSubtopic}` ? 'nav-button-active' : ''}  ${
+            !selectionsComplete ? 'nav-button-disabled' : ''
+          }`}
+          disabled={!selectionsComplete}
+        >
+          PRACTICE
+          <div style={{ fontSize: '0.8em' }}> বিষয় চর্চা </div>
+        </button>
+        <button
+          onClick={() => (selectionsComplete ? navigate(`/quiz/${selectedSubject}/${selectedTopic}/${selectedSubtopic}`) : navigate('/select'))}
+          className={`nav-button ${currentPath === `/quiz/${selectedSubject}/${selectedTopic}/${selectedSubtopic}` ? 'nav-button-active' : ''} ${
+            !selectionsComplete ? 'nav-button-disabled' : ''
+          }`}
+          disabled={!selectionsComplete}
+        >
+          QUIZ
+          <div style={{ fontSize: '0.8em' }}> কতদূর শিখলাম </div>
+        </button>
+        <button
+          onClick={() => navigate('/revise')}
+          className={`nav-button ${currentPath === '/revise' ? 'nav-button-active' : ''} ${
+            isEarlyStage ? 'nav-button-disabled' : ''
+          }`}
+          disabled={isEarlyStage}
+        >
+          REVISE
+          <div style={{ fontSize: '0.8em' }}> ভুল সংশোধন </div>
+        </button>
+        <button
+          onClick={() => navigate('/dashboard')}
+          className={`nav-button ${currentPath === '/dashboard' ? 'nav-button-active' : ''} ${
+            isEarlyStage ? 'nav-button-disabled' : ''
+          }`}
+          disabled={isEarlyStage}
+        >
+          PROGRESS
+          <div style={{ fontSize: '0.8em' }}> অগ্রগতি </div>
+        </button>
+      </div>
+    </div>
+  );
+};
 
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [quizStage, setQuizStage] = useState('welcome');
-  const [selectedValues, setSelectedValues] = useState({selectedSubject: '',selectedTopic: '', selectedSubtopic: '' });
-  // BEFORE - Add this state
-const [token, setToken] = useState(null);
-  // const API_BASE_URL = 'http://localhost:8000';
-  
+  const [selectedValues, setSelectedValues] = useState({
+    selectedSubject: '',
+    selectedTopic: '',
+    selectedSubtopic: '',
+  });
+  const [hasCompletedQuiz1, setHasCompletedQuiz1] = useState(null);
+  const [token, setToken] = useState(null);
+  const [hasRedirected, setHasRedirected] = useState(false);
+  //const API_BASE_URL = 'http://localhost:8000';
   const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
+  const navigate = useNavigate();
+ 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get('token');
 
-// AFTER - useEffect for fetching user
-useEffect(() => {
-  // Check if token is in URL (from OAuth callback)
-  const urlParams = new URLSearchParams(window.location.search);
-  const tokenFromUrl = urlParams.get('token');
-  
-  if (tokenFromUrl) {
-    localStorage.setItem('access_token', tokenFromUrl);
-    setToken(tokenFromUrl);
-    window.history.replaceState({}, document.title, window.location.pathname);
-  } else {
-    const storedToken = localStorage.getItem('access_token');
-    if (storedToken) {
-      setToken(storedToken);
+    if (tokenFromUrl) {
+      localStorage.setItem('access_token', tokenFromUrl);
+      setToken(tokenFromUrl);
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else {
+      const storedToken = localStorage.getItem('access_token');
+      if (storedToken) {
+        setToken(storedToken);
+      }
     }
-  }
-}, []);
+  }, []);
 
-// Add new useEffect for token changes
-useEffect(() => {
-  if (token) {
+ useEffect(() => {
+  if (token && !hasRedirected) {
     fetch(`${API_BASE_URL}/api/user`, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       }
     })
-    .then(response => response.json())
-    .then(data => {
-      setUser({
-        email: data.user.email,
-        user_id: data.user.id,
-        picture: data.user.picture,
-        name: data.user.name
+      .then((response) => response.json())
+      .then((data) => {
+        const userData = {
+          email: data.user.email,
+          user_id: data.user.id,
+          picture: data.user.picture,
+          name: data.user.name,
+        };
+        setUser(userData);
+
+        // Check Quiz1 completion status
+        axios
+          .get(`${API_BASE_URL}/quiz1/status/`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              user_id: userData.user_id.toString(),
+            },
+            withCredentials: true,
+          })
+          .then((response) => {
+            setHasCompletedQuiz1(response.data.completed);
+            setLoading(false);
+
+            // Redirect only on first login
+            const currentPath = window.location.pathname;
+            const shouldRedirect =
+              currentPath === '/' || currentPath === '/login';
+
+            if (shouldRedirect) {
+              navigate(response.data.completed ? '/select' : '/welcome');
+              setHasRedirected(true);
+            }
+          })
+          .catch((err) => {
+            console.error('Error checking Quiz1 status:', err);
+            setHasCompletedQuiz1(true);
+            navigate('/select');
+            setHasRedirected(true);
+          })
+          .finally(() => setLoading(false));
+      })
+      .catch((error) => {
+        console.log('Error with token');
+        localStorage.removeItem('access_token');
+        setToken(null);
+        setUser(null);
+        setLoading(false);
       });
-      if (data.user) {
-        console.log('User Email:', data.user.email);
-        console.log('User ID:', data.user.id);
-        console.log('user name', data.user.name);
-      }
-      setLoading(false);
-    })
-    .catch(error => {
-      console.log("Error with token")
-      localStorage.removeItem('access_token');
-      setToken(null);
-      setUser(null);
-      setLoading(false);
-    });
-  } else {
+  } else if (!token) {
     setLoading(false);
   }
-}, [token]);
-// Add this after your existing useEffect that fetches user
-useEffect(() => {
-  const savedStage = localStorage.getItem('quizStage');
-  const savedValues = localStorage.getItem('selectedValues');
-  console.log('Restored stage:', savedStage);
-  console.log('Restored values:', savedValues);
-  
-  if (savedStage && user) setQuizStage(savedStage);
-  if (savedValues) {
-    try {
-      const parsed = JSON.parse(savedValues);
-      console.log('Parsed values:', parsed);
-      setSelectedValues(parsed);
-    } catch (error) {
-      console.error('Error parsing saved values:', error);
+}, [token, hasRedirected, navigate]);
+
+  useEffect(() => {
+    const savedValues = localStorage.getItem('selectedValues');
+    if (savedValues) {
+      try {
+        const parsed = JSON.parse(savedValues);
+        setSelectedValues(parsed);
+      } catch (error) {
+        console.error('Error parsing saved values:', error);
+      }
     }
-  }
-}, [user]);
-useEffect(() => {
-  if (user) localStorage.setItem('quizStage', quizStage);
-}, [quizStage, user]);
+  }, []);
+   
+  // const onSelectionSubmit = (values) => {
+  //   setSelectedValues(values);
+  //   localStorage.setItem('selectedValues', JSON.stringify(values));
+  // };
+  const onSelectionSubmit = useCallback((values) => {
+    setSelectedValues(values);
+    localStorage.setItem('selectedValues', JSON.stringify(values));
+  }, []);
 
-useEffect(() => {
-  // Only save if values are not empty
-  if (selectedValues.selectedSubject && selectedValues.selectedTopic && selectedValues.selectedSubtopic) {
-    localStorage.setItem('selectedValues', JSON.stringify(selectedValues));
-  }
-}, [selectedValues]);
+  // const onSelectionChange = (values) => {
+  //   setSelectedValues(values);
+  // };
+const onSelectionChange = useCallback((values) => {
+    setSelectedValues((prev) => {
+      // Only update if values have changed to avoid infinite loop
+      if (
+        prev.selectedSubject !== values.selectedSubject ||
+        prev.selectedTopic !== values.selectedTopic ||
+        prev.selectedSubtopic !== values.selectedSubtopic
+      ) {
+        return values;
+      }
+      return prev;
+    });
+  }, []);
 
+  const onProceedToPractice = () => {
+    const { selectedSubject, selectedTopic, selectedSubtopic } = selectedValues;
+    if (selectedSubject && selectedTopic && selectedSubtopic) {
+      navigate(`/practice/${selectedSubject}/${selectedTopic}/${selectedSubtopic}`);
+    } else {
+      navigate('/select');
+    }
+  };
+  // const onCompletePractice = () => {
+  //   navigate('/quiz');
+  // };
 
+  // const onCompleteQuiz = () => {
+  //   setSelectedValues({ selectedSubject: '', selectedTopic: '', selectedSubtopic: '' });
+  //   localStorage.removeItem('selectedValues');
+  //   navigate('/selection');
+  // };
 
   const onQuiz1Complete = () => {
-    setQuizStage('selection');
+    setHasCompletedQuiz1(true);
+    navigate('/select');
   };
-
-  const onSelectionSubmit = (values) => {
-    setSelectedValues(values);
-    setQuizStage('explains');  // Add this line
-  };
-const onSelectionChange = (values) => {
-  setSelectedValues(values);
-};
-  const onProceedToPractice = () => {
-    setQuizStage('practice');
-  };
-
-  const onCompletePractice = () => {
-    setQuizStage('quiz');
-  };
-
-  const onCompleteQuiz = () => {
-    setSelectedValues({ selectedSubject: '', selectedTopic: '', selectedSubtopic: '' });
-    setQuizStage('selection');
-  };
-
-  const areSelectionsComplete = () => {
-    return (
-      selectedValues.selectedSubject &&
-      selectedValues.selectedTopic &&
-      selectedValues.selectedSubtopic
-    );
-  };
-
-  const handleStageChange = (stage) => {
-    if (['explains', 'practice', 'quiz'].includes(stage) && !areSelectionsComplete()) {
-      setQuizStage('selection');
-    } else {
-      setQuizStage(stage);
-    }
-  };
-
-  const renderCurrentStage = () => {
-    if (!user) {
-      return (
-    <Login API_BASE_URL={API_BASE_URL}/>
-  );
-    }
-     return (
-    <Suspense fallback={<div className="text-center mt-10">Loading...</div>}>
-      {(() => {
-
-    switch (quizStage) {
-      case 'welcome':
-        return <Welcome user={user} API_BASE_URL={API_BASE_URL} onStartQuiz={() => setQuizStage('quiz1')} />;
-      case 'quiz1':
-        return <Quiz1 user={user} API_BASE_URL={API_BASE_URL} onCompleteQuiz={onQuiz1Complete} />;
-      case 'selection':
-        return (
-          <Selection user={user} API_BASE_URL={API_BASE_URL} onSelectionSubmit={onSelectionSubmit} onSelectionChange={onSelectionChange}  initialValues={selectedValues} />
-        );
-      case 'explains':
-        return (
-          <Explains
-            selectedSubject={selectedValues.selectedSubject}
-            selectedTopic={selectedValues.selectedTopic}
-            selectedSubtopic={selectedValues.selectedSubtopic}
-            user={user}
-            API_BASE_URL={API_BASE_URL}
-            onProceedToPractice={onProceedToPractice}
-          />
-        );
-      case 'practice':
-        return (
-          <PracticeQuiz
-            user={user}
-            API_BASE_URL={API_BASE_URL}
-            subject={selectedValues.selectedSubject}
-            topic={selectedValues.selectedTopic}
-            subtopic={selectedValues.selectedSubtopic}
-            onCompletePractice={onCompletePractice}
-          />
-        );
-      case 'quiz':
-        return (
-          <Quiz
-            user={user}
-            API_BASE_URL={API_BASE_URL}
-            subject={selectedValues.selectedSubject}
-            topic={selectedValues.selectedTopic}
-            subtopic={selectedValues.selectedSubtopic}
-            onCompleteQuiz={onCompleteQuiz}
-          />
-          
-        );
-        // 2. Add 'revise' case to your switch statement in renderCurrentStage():
-      case 'revise':
-        return <Revise user={user} API_BASE_URL={API_BASE_URL} />;
-
-        case 'dashboard':
-          return (
-            <Dashboard 
-              user={user} 
-              API_BASE_URL={API_BASE_URL} 
-              onGoToSelection={() => setQuizStage('selection')}
-            />
-          );
-      default:
-        return <Quiz1 user={user} API_BASE_URL={API_BASE_URL} onCompleteQuiz={onQuiz1Complete} />;
-    }   })()}
-    </Suspense>
-  );
-  };
-
-const renderNavigationButtons = () => {
-  if (!user) return null;
-
-  const selectionsComplete = areSelectionsComplete();
- const shouldDisableButtons = (quizStage === 'selection' && !selectionsComplete) || quizStage === 'welcome' || quizStage === 'quiz1';
-
-  return (
-    <div className='navigation-button-container'>
-      <div className="navigation-buttons">
-        {/* <button 
-              onClick={() => handleStageChange('quiz1')} 
-              className={`nav-button ${quizStage === 'quiz1' ? 'nav-button-active' : ''}`}
-            >
-              ASSESSMENT
-              <div style={{ fontSize: '0.8em' }}>Initial skill check</div>
-        </button> */}
-        <button 
-          onClick={() => handleStageChange('selection')} 
-          className={`nav-button ${quizStage === 'selection' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
-          disabled={shouldDisableButtons}
-        >
-          SUBJECT
-          <div style={{ fontSize: '0.8em' }}> বিষয় বাছাই </div>
-        </button>
-        
-        <button 
-          onClick={() => handleStageChange('explains')}  
-          className={`nav-button ${quizStage === 'explains' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
-          disabled={shouldDisableButtons}
-        > 
-          EXPLAIN  
-          <div style={{ fontSize: '0.8em' }}> সহজভাবে শেখা </div>
-        </button>
-        
-        <button 
-          onClick={() => handleStageChange('practice')} 
-          className={`nav-button ${quizStage === 'practice' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
-          disabled={shouldDisableButtons}
-        >
-          PRACTICE  
-          <div style={{ fontSize: '0.8em' }}> বিষয় চর্চা </div> 
-        </button>
-        
-        <button 
-          onClick={() => handleStageChange('quiz')} 
-          className={`nav-button ${quizStage === 'quiz' ? 'nav-button-active' : ''} ${shouldDisableButtons ? 'nav-button-disabled' : ''}`}
-          disabled={shouldDisableButtons}
-        > 
-          QUIZ  
-          <div style={{ fontSize: '0.8em' }}> কতদূর শিখলাম </div>
-        </button>
-      
-      <button 
-        onClick={() => handleStageChange('revise')} 
-        className={`nav-button ${quizStage === 'revise' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
-        disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
-      >
-        REVISE
-        <div style={{ fontSize: '0.8em' }}> ভুল সংশোধন </div>
-      </button>
-        <button 
-    onClick={() => handleStageChange('dashboard')} 
-    className={`nav-button ${quizStage === 'dashboard' ? 'nav-button-active' : ''} ${(quizStage === 'welcome' || quizStage === 'quiz1') ? 'nav-button-disabled' : ''}`}
-    disabled={quizStage === 'welcome' || quizStage === 'quiz1'}
-  >
-    PROGRESS 
-    <div style={{ fontSize: '0.8em' }}> অগ্রগতি </div>
-</button>
-
-      </div>
-    </div>
-  );
-};
-
+  
   if (loading) {
-    // return <div className="text-center mt-10">Loading...</div>;
-    <LoadingScreen />
+    return (
+      <Suspense fallback={<div className="text-center mt-10">Loading...</div>}>
+        <LoadingScreen />
+      </Suspense>
+    );
   }
 
   return (
     <div className="App min-h-screen flex flex-col">
       <header className="App-header bg-gray-800 text-white p-4 text-center">
-       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop:'10px' }}>
-        <h1 className="text-3xl">BRIM AI TUTOR</h1>
-        <p
-          style={{ marginTop: '5px', color: 'rgb(15, 15, 15)' }}
-          className="text-xs"
-        >
-          SSC Exam, <span style={{ fontStyle: 'italic' }}>Limited Test Edition</span>
-        </p>
-      </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '10px' }}>
+          <h1 className="text-3xl">BRIM AI TUTOR</h1>
+          <p style={{ marginTop: '5px', color: 'rgb(15, 15, 15)' }} className="text-xs">
+            SSC Exam, <span style={{ fontStyle: 'italic' }}>Limited Test Edition</span>
+          </p>
+        </div>
         {user && (
-    <UserInfo
-      user={user}
-      setUser={setUser}
-      setQuizStage={setQuizStage}
-      setSelectedValues={setSelectedValues}
-      API_BASE_URL={API_BASE_URL}
-    />
-  )}
+          <UserInfo
+            user={user}
+            setUser={setUser}
+            setSelectedValues={setSelectedValues}
+            API_BASE_URL={API_BASE_URL}
+          />
+        )}
       </header>
-      <main className={`flex-grow p-4 main-content-${quizStage}`}>
-        
-            {renderCurrentStage()}
-              {renderNavigationButtons()}
-            {/* <div className="status-bar">
-                    <p>Status: {user ? `Logged in as ${user.email}` : 'Not logged in'}</p>
-            </div> */}
-          
+
+      <main className={`flex-grow p-4 main-content-${window.location.pathname.slice(1) || 'welcome'}`}>
+        <Suspense fallback={<div className="text-center mt-10">Loading...</div>}>
+          <Routes>
+            <Route path="/login" element={<Login API_BASE_URL={API_BASE_URL} />} />
+            <Route 
+              path="/welcome"
+              element={
+                <ProtectedRoute user={user} token={token} redirectTo={hasCompletedQuiz1 ? '/select' : '/login'}>
+                  <Welcome
+                    user={user}
+                    API_BASE_URL={API_BASE_URL}
+                    onStartQuiz={() => {
+                      //console.log("Timer expired! Starting quiz...");
+                      navigate('/quiz1'); // or use another logic
+                    }}
+                  />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/quiz1"
+              element={
+                <ProtectedRoute user={user} token={token} redirectTo={hasCompletedQuiz1 ? '/select' : '/welcome'}>
+                  <Quiz1 user={user} API_BASE_URL={API_BASE_URL} setHasCompletedQuiz1={setHasCompletedQuiz1} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/select"
+              element={
+                <ProtectedRoute user={user} token={token}>
+                  <Selection
+                    user={user}
+                    API_BASE_URL={API_BASE_URL}
+                    onSelectionSubmit={onSelectionSubmit}
+                    onSelectionChange={onSelectionChange}
+                    initialValues={selectedValues}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/explains/:subject/:topic/:subtopic"
+              element={
+                <ProtectedRoute user={user} token={token}>
+                  <Explains
+                    selectedSubject={selectedValues.selectedSubject}
+                    selectedTopic={selectedValues.selectedTopic}
+                    selectedSubtopic={selectedValues.selectedSubtopic}
+                    user={user}
+                    API_BASE_URL={API_BASE_URL}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/practice/:subject/:topic/:subtopic"
+              element={
+                <ProtectedRoute user={user} token={token}>
+                  <PracticeQuiz
+                    user={user}
+                    API_BASE_URL={API_BASE_URL}
+                    {...selectedValues}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/quiz/:subject/:topic/:subtopic"
+              element={
+                <ProtectedRoute user={user} token={token}>
+                  <Quiz
+                    user={user}
+                    API_BASE_URL={API_BASE_URL}
+                    subject={selectedValues.selectedSubject}
+                    topic={selectedValues.selectedTopic}
+                    subtopic={selectedValues.selectedSubtopic}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/revise"
+              element={
+                <ProtectedRoute user={user} token={token}>
+                  <Revise user={user} API_BASE_URL={API_BASE_URL} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute user={user} token={token}>
+                  <Dashboard user={user} API_BASE_URL={API_BASE_URL} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/"
+              element={
+                user && token ? (
+                  <Navigate to={hasCompletedQuiz1 ? '/select' : '/quiz1'} replace />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+          </Routes>
+          {user && token && (
+            <NavigationButtons
+              selectionsComplete={selectedValues.selectedSubject && selectedValues.selectedTopic && selectedValues.selectedSubtopic} 
+              onProceedToPractice={onProceedToPractice}
+            />
+          )}
+        </Suspense>
       </main>
-      <footer className="bg-gray-200 p-2 text-center">
-        
-      </footer>
+      <footer className="bg-gray-200 p-2 text-center"></footer>
     </div>
   );
 }
