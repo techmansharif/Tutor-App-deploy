@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy, useCallback } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import {Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 import Login from './components/Login/Login';
 import UserInfo from './components/Login/UserInfo';
@@ -98,7 +98,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (token && !hasRedirected) {
+    if (token) {
       fetch(`${API_BASE_URL}/api/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -280,14 +280,6 @@ function App() {
             />
             <Route
               path="/revise"
-              element={
-                <ProtectedRoute user={user} token={token}>
-                  <Revise user={user} API_BASE_URL={API_BASE_URL} />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/revise/:subject/:topic/:subtopic"
               element={
                 <ProtectedRoute user={user} token={token}>
                   <Revise user={user} API_BASE_URL={API_BASE_URL} />
