@@ -28,7 +28,7 @@ const Explains = ({
   const [previousHistoryLength, setPreviousHistoryLength] = useState(0); // Add this
   const [newlyAddedIndices, setNewlyAddedIndices] = useState(new Set());
  const [explainAgainIndices, setExplainAgainIndices] = useState(new Set());
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (!initialFetchRef.current) {
       initialFetchRef.current = true;

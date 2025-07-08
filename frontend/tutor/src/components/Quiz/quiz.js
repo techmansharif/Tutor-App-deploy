@@ -24,6 +24,7 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) 
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
   const [completionDate, setCompletionDate] = useState('');
+  const navigate = useNavigate();
   const {
     questionStartTime,
     setQuestionStartTime,
