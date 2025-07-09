@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import useNavigate from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import Stopwatch from '../Stopwatch/Stopwatch';
