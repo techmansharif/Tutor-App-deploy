@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - test
     paths:
       - "backend/**"
 
@@ -38,7 +39,7 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy fastapi-tutor-app-backend \
+          gcloud run deploy ${{ github.ref == 'refs/heads/main' && 'fastapi-tutor-app-backend' || 'brim-tutor-test' }} \
             --source . \
             --region asia-south1 \
             --platform managed \
