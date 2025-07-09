@@ -48,5 +48,10 @@ jobs:
             --memory 2Gi \
             --project ${{ secrets.GCLOUD_PROJECT_ID }} \
             --add-cloudsql-instances tutor-app-460518:asia-south1:postgres-bd \
-            --set-env-vars "CLIENT_ID=${{ secrets.CLIENT_ID }},CLIENT_SECRET=${{ secrets.CLIENT_SECRET }},DATABASE_URL=${{ secrets.DATABASE_URL }},GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" \
+            --set-env-vars "CLIENT_ID=${{ secrets.CLIENT_ID }},
+                            CLIENT_SECRET=${{ secrets.CLIENT_SECRET }},
+                            DATABASE_URL=${{ secrets.DATABASE_URL }},
+                            GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}, 
+                            REDIRECT_URI=${{ github.ref == 'refs/heads/main' && secrets.REDIRECT_URI_PRODUCTION || secrets.REDIRECT_URI_TEST }},
+                            FRONTEND_URL=${{ github.ref == 'refs/heads/main' && secrets.FRONTEND_URL_PRODUCTION || secrets.FRONTEND_URL_TEST }}" \
             --verbosity=debug

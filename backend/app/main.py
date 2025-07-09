@@ -139,7 +139,9 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 #REDIRECT_URI = "http://localhost:8000/auth/google/callback"
-REDIRECT_URI = "https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app/auth/google/callback"
+#REDIRECT_URI = "https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app/auth/google/callback"
+REDIRECT_URI = os.getenv("REDIRECT_URI", "http://localhost:8000/auth/google/callback")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth"
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
@@ -282,7 +284,7 @@ async def auth_callback(request: Request):
         )
         
 
-        frontend_url = f"https://brimai-test-v1.web.app?token={jwt_token}"
+        frontend_url = f"{FRONTEND_URL}?token={jwt_token}"
         #frontend_url=f"http://localhost:3000?token={jwt_token}"
         return RedirectResponse(frontend_url)
     finally:
