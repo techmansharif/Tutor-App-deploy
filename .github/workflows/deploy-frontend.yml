@@ -30,6 +30,7 @@ jobs:
       - name: Build React App
         env:
           CI: false  # Ignore ESLint errors in CI
+          BRIM_API_BASE_URL_PRODUCTION: ${{ secrets.BRIM_API_BASE_URL_PRODUCTION }}
         run: npm run build
 
       - name: Deploy to Firebase Hosting

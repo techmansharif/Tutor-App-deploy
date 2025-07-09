@@ -110,7 +110,10 @@ function App() {
   const [token, setToken] = useState(null);
   const [hasRedirected, setHasRedirected] = useState(false);
   //const API_BASE_URL = 'http://localhost:8000';
-  const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
+  //const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
+
+  const API_BASE_URL = process.env.BRIM_API_BASE_URL_PRODUCTION || 'http://localhost:8000';
+
   const navigate = useNavigate();
  
   useEffect(() => {
