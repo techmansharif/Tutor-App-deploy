@@ -55,7 +55,7 @@ const NavigationButtons = ({ selectionsComplete, onProceedToPractice }) => {
         </button>
         <button
           onClick={() => (selectionsComplete ? onProceedToPractice() : navigate('/select'))}
-          className={`nav-button ${currentPath === `/practice/${selectedSubject}/${selectedTopic}/${selectedSubtopic}` ? 'nav-button-active' : ''}  ${
+          className={`nav-button ${currentPath.includes('/practice/') ? 'nav-button-active' : ''}  ${
             !selectionsComplete ? 'nav-button-disabled' : ''
           }`}
           disabled={!selectionsComplete}
