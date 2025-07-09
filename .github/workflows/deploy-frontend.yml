@@ -30,7 +30,7 @@ jobs:
       - name: Build React App
         env:
           CI: false  # Ignore ESLint errors in CI
-          REACT_APP_BRIM_API_BASE_URL_PRODUCTION: ${{ secrets.BRIM_API_BASE_URL_PRODUCTION }}
+          REACT_APP_BRIM_API_BASE_URL: ${{ github.ref == 'refs/heads/main' && secrets.BRIM_API_BASE_URL_PRODUCTION || secrets.BRIM_API_BASE_URL_TEST }}
         run: npm run build
 
       - name: Deploy to Firebase Hosting
