@@ -376,6 +376,14 @@ const onSelectionChange = useCallback((values) => {
               }
             />
             <Route
+              path="/dashboard/:subject"
+              element={
+                <ProtectedRoute user={user} token={token}>
+                  <Dashboard user={user} API_BASE_URL={API_BASE_URL} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/"
               element={
                 user && token ? (

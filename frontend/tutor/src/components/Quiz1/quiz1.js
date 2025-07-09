@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useNavigate from 'react-router-dom';
 import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import Stopwatch from '../Stopwatch/Stopwatch';
@@ -23,7 +24,7 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
 
    const [image1, setImage1] = useState(null); // State for correct answer image
     const [image2, setImage2] = useState(null); // State for incorrect answer image
-
+  const navigate = useNavigate();
   // Integrity score hook
   const {
     questionStartTime,
@@ -156,7 +157,7 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
   };
 
   const handleCompleteQuiz = () => {
-    onCompleteQuiz();
+    navigate('/select');
   };
 
   const integrityScore = 100 - cheatScore;
