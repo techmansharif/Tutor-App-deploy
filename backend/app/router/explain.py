@@ -571,7 +571,7 @@ async def generate_ai_response_and_update_progress(prompt: str,system_instructio
                 yield f"data: {json.dumps({'content': chunk})}\n\n"
         
         # Update database after streaming completes
-        new_pair = {"question": explain_query.query, "answer": full_answer}
+        new_pair = {"question": explain_query.query, "answer": full_answer, "image": image_data}
         chat_memory_updated = progress.chat_memory + [new_pair] 
         
         if len(chat_memory_updated) > 30:
@@ -657,7 +657,8 @@ async def post_explain(
         temp_progress and 
         temp_progress.chat_memory):
         # Early return - no need for full progress setup
-        previous_answers = [str(pair['answer']) for pair in temp_progress.chat_memory]
+        previous_answers = [{"text": str(pair['answer']), "image": pair.get('image')} for pair in temp_progress.chat_memory]
+        #previous_answers = [str(pair['answer']) for pair in temp_progress.chat_memory]
         return ExplainResponse(answer="", image=None, initial_response=previous_answers)
 
     # Early check for continue completion
@@ -691,7 +692,7 @@ async def post_explain(
         image = progress.next_continue_image
         
         # Update progress
-        new_pair = {"question": explain_query.query, "answer": answer}
+        new_pair = {"question": explain_query.query, "answer": answer, "image": image}
         chat_memory_updated = progress.chat_memory + [new_pair]
         if len(chat_memory_updated) > 30:
             chat_memory_updated = chat_memory_updated[-30:]

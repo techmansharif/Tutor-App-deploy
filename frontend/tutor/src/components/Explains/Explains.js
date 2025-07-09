@@ -223,8 +223,8 @@ setExplanationHistory((prev) => {
   });
 } else if (data.initial_response && isInitial) {
   // Handle initial response with previous answers from chat_memory
-  const answers = data.initial_response.map(answer => 
-    createProcessedEntry(answer, null, false, false)
+  const answers = data.initial_response.map(answerObj => 
+    createProcessedEntry(answerObj.text, answerObj.image, false, false)
   );
   setExplanationHistory((prev) => [...prev, ...answers]);
 } else {
