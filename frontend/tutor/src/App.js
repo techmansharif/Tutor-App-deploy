@@ -149,10 +149,9 @@ function App() {
 
         // Check Quiz1 completion status
         axios
-          .get(`${API_BASE_URL}/quiz1/status/`, {
+          .get(`${API_BASE_URL}/quiz1/status/?user_id=${userData.user_id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
-              user_id: userData.user_id,
             },
             withCredentials: true,
           })

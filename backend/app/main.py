@@ -419,10 +419,14 @@ async def select_subject_topic_subtopic(
 # Quiz1 status endpoint
 @app.get("/quiz1/status/")
 async def get_quiz1_status(
-    user_id: int = Header(...),
+    user_id: int = Query(...),
     authorization: Optional[str] = Header(None),
     db: Session = Depends(get_db)
 ):
+    logger.info(f"Received user_id: {user_id}, authorization: {authorization}")
+    if not authorization:
+        raise HTTPException(status_code=401, detail="Missing authorization header")
+    
     try:
         user_data = get_user_from_token(authorization)
         if user_data.get("id") != user_id:
@@ -430,7 +434,6 @@ async def get_quiz1_status(
     except:
         raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
     
-    # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
