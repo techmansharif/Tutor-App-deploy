@@ -156,7 +156,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000",
         "https://test-deployment-e19fb.web.app",
-    "https://test-deployment-e19fb.firebaseapp.com",
+   "https://brimai-internal-test-v1.web.app",
     "https://brimai-test-v1.web.app"],
     allow_credentials=True,
     allow_methods=["*"],
