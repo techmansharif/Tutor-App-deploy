@@ -1,6 +1,6 @@
 
 ###
-from fastapi import FastAPI, Depends, HTTPException, status, Header
+from fastapi import FastAPI, Depends, HTTPException, status, Header, Query
 from fastapi import Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
@@ -429,32 +429,16 @@ async def select_subject_topic_subtopic(
     
     return {"message": f"Selected subject: {selection.subject}, topic: {selection.topic}, subtopic: {selection.subtopic if selection.subtopic else 'None'}", "selection_id": user_selection.id}
 
-# @app.get("/quiz1/status/")
-# async def get_quiz1_status(
-#     credentials: HTTPAuthorizationCredentials = Depends(security),
-#     db: Session = Depends(get_db),
-#     request: Request = None
-# ):  
-#     try:
-#         token = credentials.credentials
-#         user_data = get_user_from_token(f"Bearer {token}")  # or just token depending on your method
-#         user_id = user_data["id"]
-#     except Exception as e:
-#         raise HTTPException(status_code=401, detail="Invalid token")
-
-#     quiz1_attempt = db.query(Quiz1Attempt).filter(
-#         Quiz1Attempt.user_id == user_id,
-#         Quiz1Attempt.completed_at.isnot(None)
-#     ).first()
-
-#     return {"completed": quiz1_attempt is not None}
-
 @app.get("/quiz1/status/")
 async def get_quiz1_status(
-    user_id: int = Header(...),
+    user_id: int = Query(...),
     authorization: Optional[str] = Header(None),
     db: Session = Depends(get_db)
 ):
+    logger.info(f"Received user_id: {user_id}, authorization: {authorization}")
+    if not authorization:
+        raise HTTPException(status_code=401, detail="Missing authorization header")
+    
     try:
         user_data = get_user_from_token(authorization)
         if user_data.get("id") != user_id:
@@ -462,7 +446,6 @@ async def get_quiz1_status(
     except:
         raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
     
-    # Validate user
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
@@ -473,6 +456,31 @@ async def get_quiz1_status(
     ).first()
 
     return {"completed": quiz1_attempt is not None}
+
+# @app.get("/quiz1/status/")
+# async def get_quiz1_status(
+#     user_id: int = Header(...),
+#     authorization: Optional[str] = Header(None),
+#     db: Session = Depends(get_db)
+# ):
+#     try:
+#         user_data = get_user_from_token(authorization)
+#         if user_data.get("id") != user_id:
+#             raise HTTPException(status_code=401, detail="Unauthorized: Invalid token")
+#     except:
+#         raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing token")
+    
+#     # Validate user
+#     user = db.query(User).filter(User.id == user_id).first()
+#     if not user:
+#         raise HTTPException(status_code=404, detail=f"User ID {user_id} not found")
+    
+#     quiz1_attempt = db.query(Quiz1Attempt).filter(
+#         Quiz1Attempt.user_id == user_id,
+#         Quiz1Attempt.completed_at.isnot(None)
+#     ).first()
+
+#     return {"completed": quiz1_attempt is not None}
 
 app.include_router(quizzes_router)
 

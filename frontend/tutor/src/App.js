@@ -145,13 +145,12 @@ function App() {
           name: data.user.name,
         };
         setUser(userData);
-
+        console.log(userData);
         // Check Quiz1 completion status
         axios
-          .get(`${API_BASE_URL}/quiz1/status/`, {
+          .get(`${API_BASE_URL}/quiz1/status/?user_id=${userData.user_id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
-              user_id: userData.user_id.toString(),
             },
             withCredentials: true,
           })
@@ -369,6 +368,14 @@ const onSelectionChange = useCallback((values) => {
             />
             <Route
               path="/dashboard"
+              element={
+                <ProtectedRoute user={user} token={token}>
+                  <Dashboard user={user} API_BASE_URL={API_BASE_URL} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/:subject"
               element={
                 <ProtectedRoute user={user} token={token}>
                   <Dashboard user={user} API_BASE_URL={API_BASE_URL} />
