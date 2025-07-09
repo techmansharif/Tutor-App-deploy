@@ -163,7 +163,7 @@ const Quiz1 = ({ user, API_BASE_URL, setHasCompletedQuiz1 }) => {
   };
 
   const handleCompleteQuiz = () => {
-    navigate('/selection');
+    navigate('/select');
   };
 
   const integrityScore = 100 - cheatScore;
