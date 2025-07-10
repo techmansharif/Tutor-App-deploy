@@ -56,7 +56,7 @@ const NavigationButtons = ({ selectionsComplete, onProceedToPractice }) => {
         </button>
         <button
           onClick={() => (selectionsComplete ? onProceedToPractice() : navigate('/select'))}
-          className={`nav-button ${currentPath === `/practice/${selectedSubject}/${selectedTopic}/${selectedSubtopic}` ? 'nav-button-active' : ''}  ${
+          className={`nav-button ${currentPath.includes('/practice/') ? 'nav-button-active' : ''}  ${
             !selectionsComplete ? 'nav-button-disabled' : ''
           }`}
           disabled={!selectionsComplete}
@@ -65,8 +65,8 @@ const NavigationButtons = ({ selectionsComplete, onProceedToPractice }) => {
           <div style={{ fontSize: '0.8em' }}> বিষয় চর্চা </div>
         </button>
         <button
-          onClick={() => (selectionsComplete ? navigate(`/quiz/${selectedSubject}/${selectedTopic}/${selectedSubtopic}`) : navigate('/select'))}
-          className={`nav-button ${currentPath === `/quiz/${selectedSubject}/${selectedTopic}/${selectedSubtopic}` ? 'nav-button-active' : ''} ${
+          onClick={() => (selectionsComplete ? navigate(`/quiz/${encodeURIComponent(selectedSubject)}/${encodeURIComponent(selectedTopic)}/${encodeURIComponent(selectedSubtopic)}`) : navigate('/select'))}
+          className={`nav-button ${currentPath.includes('/quiz') ? 'nav-button-active' : ''} ${
             !selectionsComplete ? 'nav-button-disabled' : ''
           }`}
           disabled={!selectionsComplete}
@@ -323,7 +323,7 @@ const onSelectionChange = useCallback((values) => {
               }
             />
             <Route
-              path="/explains/:subject/:topic/:subtopic"
+              path="/explains/:selectedSubject/:selectedTopic/:selectedSubtopic"
               element={
                 <ProtectedRoute user={user} token={token}>
                   <Explains
@@ -337,7 +337,7 @@ const onSelectionChange = useCallback((values) => {
               }
             />
             <Route
-              path="/practice/:subject/:topic/:subtopic"
+              path="/practice/:selectedSubject/:selectedTopic/:selectedSubtopic"
               element={
                 <ProtectedRoute user={user} token={token}>
                   <PracticeQuiz
@@ -349,7 +349,7 @@ const onSelectionChange = useCallback((values) => {
               }
             />
             <Route
-              path="/quiz/:subject/:topic/:subtopic"
+              path="/quiz/:selectedSubject/:selectedTopic/:selectedSubtopic"
               element={
                 <ProtectedRoute user={user} token={token}>
                   <Quiz

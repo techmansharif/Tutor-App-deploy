@@ -6,7 +6,7 @@ import Stopwatch from '../Stopwatch/Stopwatch';
 import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add this import
 import './quiz1.css';
 
-const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
+const Quiz1 = ({ user, API_BASE_URL, setHasCompletedQuiz1 }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [hardnessLevel, setHardnessLevel] = useState(1);
   const [questionsTried, setQuestionsTried] = useState(0);
@@ -53,16 +53,21 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
       setIsLoading(true);
       try {
         const token = localStorage.getItem('access_token');
-        const response = await axios.post(
-          `${API_BASE_URL}/quiz1/`,
-          submission,
-          {
-            headers: { 
-              'user-id': user.user_id,
-              'Authorization': `Bearer ${token}`
-            }
-          }
-        );
+        const config = {
+        headers: {
+          'user-id': user.user_id,
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      };
+
+      let response;
+      if (submission) {
+        response = await axios.post(`${API_BASE_URL}/quiz1/`, submission, config);
+      } else {
+        // 🚨 Don't send `null` — use `undefined` or omit the body
+        response = await axios.post(`${API_BASE_URL}/quiz1/`, undefined, config);
+      }
 
       const { question, hardness_level, message, attempt_id,image1,image2 } = response.data;
       if (question) {
@@ -166,7 +171,7 @@ const Quiz1 = ({ user, API_BASE_URL, onCompleteQuiz }) => {
     return (
       <div className="quiz1-container">
         <h2>Assessment Complete</h2>
-        <p>You have completed the Assesment! Check your scores.</p>
+        <p>You have completed the Assessment! Check your scores.</p>
         <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Score: {score} / {questionsTried}</p>
         <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Total Questions Tried: {questionsTried}</p>
         <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>Final Difficulty Level: {hardnessLevel}</p>

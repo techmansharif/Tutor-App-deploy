@@ -306,7 +306,6 @@ const PracticeQuiz = ({ user, API_BASE_URL }) => {
           <div className="modal-content">
             <div className="feedback correct">
               <h3>Correct!</h3>
-              <p>Well done! You selected the right answer.</p>
               {image1 && (
                 <img
                   src={`data:image/png;base64,${image1}`}
@@ -320,7 +319,6 @@ const PracticeQuiz = ({ user, API_BASE_URL }) => {
                   }}
                 />
               )}
-              <p>Great speed!</p>
               <p>Moving to a more challenging question...</p>
             </div>
           </div>

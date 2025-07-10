@@ -4,7 +4,6 @@ import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add this import
 import Stopwatch from '../Stopwatch/Stopwatch';
-import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import './quiz.css';
 
 const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) => {
@@ -293,7 +292,6 @@ const fetchQuizQuestion = async (submission = null) => {
         <div className="modal-content">
           <div className="feedback correct">
             <h3>Correct!</h3>
-            <p>Well done! You selected the right answer.</p>
 
              {image1 && (
                 <img
@@ -308,8 +306,7 @@ const fetchQuizQuestion = async (submission = null) => {
                   }}
                 />
               )}
-            <p>Great speed!</p>
-            <p>Moving to a more challenging question...</p>
+            <p>Moving to the next challenging question...</p>
           </div>
         </div>
       </div>
@@ -334,10 +331,10 @@ const fetchQuizQuestion = async (submission = null) => {
     />
   )}
   <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-    <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}:<MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
+    <strong>Correct Answer- </strong> {currentQuestion.correct_option.toUpperCase()}:<MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
   </p>
   <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-    <strong>Explanation:</strong> <MathText>{currentQuestion.explanation}</MathText>
+    <strong>Explanation- </strong> <MathText>{currentQuestion.explanation}</MathText>
   </p>
 </div>
 <div className="action-buttons">

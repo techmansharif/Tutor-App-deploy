@@ -27,7 +27,7 @@ const navigate = useNavigate();
     
     // Filter out unwanted subjects
     const filteredSubjects = response.data.filter(subject => 
-      !['Higher Math', 'General Math', 'quiz1'].includes(subject.name)
+      !['Higher Math', 'General Math', 'quiz1', 'data'].includes(subject.name)
     );
     
     setSubjects(filteredSubjects);

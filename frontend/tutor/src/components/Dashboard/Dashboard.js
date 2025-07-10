@@ -30,12 +30,15 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
   const [selectedSubject, setSelectedSubject] = useState(subject || '');
   const [selectedTopic, setSelectedTopic] = useState('');
   const [progressData, setProgressData] = useState([]);
+  const [totalQuizAttempts, setTotalQuizAttempts] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [hasCompletedQuiz1, setHasCompletedQuiz1] = useState(true);
   const [showGraph, setShowGraph] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [analyticsData, setAnalyticsData] = useState([]);
 
-  // Placeholder images for subjects (replace with actual image URLs if available)
+  // Placeholder images for subjects based on the image
   const subjectImages = {
     "গণিত": '/bookcovers/math.jpg',
     "English": '/bookcovers/english.png',
@@ -46,12 +49,12 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
     const checkQuiz1Status = async () => {
       try {
         const token = localStorage.getItem('access_token');
-        const response = await axios.get(`${API_BASE_URL}/quiz1/status/`, {
-          headers: {
-            'user-id': user.user_id,
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(`${API_BASE_URL}/quiz1/status/?user_id=${user.user_id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
+          });
         setHasCompletedQuiz1(response.data.completed);
       } catch (err) {
         console.error('Error checking Quiz1 status:', err);
@@ -91,6 +94,7 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
           setTopics(sortedTopics);
           setSelectedTopic('');
           setProgressData([]);
+          setTotalQuizAttempts(0);
           setShowGraph(false);
         })
         .catch((err) => {
@@ -101,6 +105,7 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
       setTopics([]);
       setSelectedTopic('');
       setProgressData([]);
+      setTotalQuizAttempts(0);
       setShowGraph(false);
     }
   }, [selectedSubject, API_BASE_URL]);
@@ -124,6 +129,7 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
             quiz_taken: subtopic.quiz_taken,
           }));
           setProgressData(transformedData);
+          setTotalQuizAttempts(response.data.total_quiz_attempts || 0);
           setLoading(false);
           setError(null);
         })
@@ -131,10 +137,12 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
           console.error('Error fetching progress:', err);
           setError('Failed to load progress data.');
           setProgressData([]);
+          setTotalQuizAttempts(0);
           setLoading(false);
         });
     } else {
       setProgressData([]);
+      setTotalQuizAttempts(0);
       setShowGraph(false);
     }
   }, [selectedSubject, selectedTopic, user.user_id, API_BASE_URL]);
@@ -158,6 +166,29 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
     }
   };
 
+  const fetchAnalyticsData = async () => {
+    if (selectedSubject && selectedTopic) {
+      try {
+        const token = localStorage.getItem('access_token');
+        const response = await axios.get(
+          `${API_BASE_URL}/analytics/${selectedSubject}/${selectedTopic}/`,
+          {
+            headers: { 
+              'user-id': user.user_id,
+              'Authorization': `Bearer ${token}`
+            }
+          }
+        );
+        setAnalyticsData(response.data.analytics);
+        setShowAnalytics(true);
+        setShowGraph(false); // Hide graph when showing analytics
+      } catch (err) {
+        console.error('Error fetching analytics:', err);
+        setError('Failed to load analytics data.');
+      }
+    }
+  };
+
   const getOverallProgress = () => {
     if (progressData.length === 0) return 0;
     const totalProgress = progressData.reduce((sum, item) => sum + item.completion_percentage, 0);
@@ -169,11 +200,45 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
   };
 
   const getQuizzesTaken = () => {
-    return progressData.filter((item) => item.quiz_taken).length;
+    return totalQuizAttempts;
   };
 
   const getSortedProgressData = () => {
     return [...progressData].sort((a, b) => b.completion_percentage - a.completion_percentage);
+  };
+
+  // Helper function to format time in seconds to minutes and seconds
+
+  const formatTime = (seconds) => {
+
+    if (seconds <= 0) return 'N/A';
+
+    
+
+    if (seconds < 60) {
+
+      return `${seconds}s`;
+
+    }
+
+    
+
+    const minutes = Math.floor(seconds / 60);
+
+    const remainingSeconds = Math.round(seconds % 60);
+
+    
+
+    if (remainingSeconds === 0) {
+
+      return `${minutes} min`;
+
+    } else {
+
+      return `${minutes} min ${remainingSeconds}s`;
+
+    }
+
   };
 
   const chartData = {
@@ -344,7 +409,6 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
       {!selectedSubject ? (
         <div className="subject-selection-section">
           <h4>আপনার অগ্রগতি দেখুন! </h4>
-          <div><h4>Choose a Subject:</h4></div>
           <div className="subject-cards">
             {subjects.map((subject) => (
               <div
@@ -358,6 +422,9 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
                   className="subject-image"
                 />
                 <h3>{subject.name}</h3>
+                {subject.name === 'গণিত' && <p>নবম-দশম শ্রেণী</p>}
+                {subject.name === 'উচ্চতর গণিত' && <p>নবম-দশম শ্রেণী</p>}
+                {subject.name === 'English' && <p>Classes Nine and Ten</p>}
               </div>
             ))}
           </div>
@@ -443,14 +510,36 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
                 </div>
               ))}
             </div>
-
-            <button className="graph-toggle-button" onClick={() => setShowGraph(!showGraph)}>
-              {showGraph ? 'Hide Graph' : 'See Graph'}
-            </button>
+            <div className="button-group">
+              <button 
+                className="graph-toggle-button" 
+                onClick={() => {
+                  setShowGraph(!showGraph);
+                  setShowAnalytics(false);
+                }}
+              >
+                {showGraph ? 'Hide Graph' : 'See Graph'}
+              </button>
+              <button 
+                  className="analytics-toggle-button"
+                  onClick={fetchAnalyticsData}
+                >
+                  Analytics
+              </button>
+            </div>
           </div>
 
           {showGraph && (
             <div className="chart-section">
+              <div className="chart-header">
+                <h4>Progress Graph</h4>
+                <button 
+                  className="close-graph-button"
+                  onClick={() => setShowGraph(false)}
+                >
+                  ✕ Close
+                </button>
+              </div>
               <div className="chart-container">
                 <Bar data={chartData} options={chartOptions} />
               </div>
@@ -474,6 +563,43 @@ const Dashboard = ({ user, API_BASE_URL, onGoToSelection }) => {
                     <strong>Not Started (0%)</strong>
                   </span>
                 </div>
+              </div>
+            </div>
+          )}
+          
+          {showAnalytics && (
+            <div className="analytics-section">
+              <div className="analytics-header">
+                <h4> Response Time Analytics</h4>
+                <button 
+                  className="close-analytics-button"
+                  onClick={() => setShowAnalytics(false)}
+                >
+                  ✕ Close
+                </button>
+              </div>
+              
+              <div className="analytics-table-container">
+                <table className="analytics-table">
+                  <thead>
+                    <tr>
+                      <th>Subtopic Name</th>
+                      <th>Quiz Date</th>
+                      <th>Avg Response<br />Time(sec)</th>
+                      <th>Total Response<br />Time(sec)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {analyticsData.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.subtopic_name}</td>
+                        <td>{item.quiz_date || 'No quiz taken'}</td>
+                        <td>{formatTime(item.average_response_time)}</td>
+                        <td>{formatTime(item.total_response_time)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           )}
