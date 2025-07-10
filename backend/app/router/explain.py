@@ -754,4 +754,3 @@ async def post_explain(
 )
     
     return ExplainResponse(answer=answer,image=image_data)
-
