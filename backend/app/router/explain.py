@@ -44,8 +44,8 @@ if not api_key:
 # ADD THIS: Async database engine - loads from env and converts to async
 from dotenv import load_dotenv
 # or you can use any other environment variable that indicates production
-is_production = os.getenv("GCLOUD_PROJECT_ID") is not None  # or use any other production indicator
-
+#is_production = os.getenv("GCLOUD_PROJECT_ID") is not None  # or use any other production indicator
+is_production=True
 if is_production:
     # Production environment - get URL from environment variables set by Cloud Run
     DATABASE_URL = os.getenv("DATABASE_URL")
