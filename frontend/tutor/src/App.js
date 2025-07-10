@@ -44,8 +44,8 @@ const NavigationButtons = ({ selectionsComplete, onProceedToPractice }) => {
           <div style={{ fontSize: '0.8em' }}> বিষয় বাছাই </div>
         </button>
         <button
-          onClick={() => (selectionsComplete ? navigate(`/explains/${selectedSubject}/${selectedTopic}/${selectedSubtopic}`) : navigate('/select'))}
-          className={`nav-button ${currentPath === `/explains/${selectedSubject}/${selectedTopic}/${selectedSubtopic}` ? 'nav-button-active' : ''} ${
+          onClick={() => (selectionsComplete ? navigate(`/explains/${encodeURIComponent(selectedSubject)}/${encodeURIComponent(selectedTopic)}/${encodeURIComponent(selectedSubtopic)}`) : navigate('/select'))}
+          className={`nav-button ${currentPath.includes('/explains') ? 'nav-button-active' : ''} ${
             !selectionsComplete ? 'nav-button-disabled' : ''
           }`}
           disabled={!selectionsComplete}
@@ -64,8 +64,8 @@ const NavigationButtons = ({ selectionsComplete, onProceedToPractice }) => {
           <div style={{ fontSize: '0.8em' }}> বিষয় চর্চা </div>
         </button>
         <button
-          onClick={() => (selectionsComplete ? navigate(`/quiz/${selectedSubject}/${selectedTopic}/${selectedSubtopic}`) : navigate('/select'))}
-          className={`nav-button ${currentPath === `/quiz/${selectedSubject}/${selectedTopic}/${selectedSubtopic}` ? 'nav-button-active' : ''} ${
+          onClick={() => (selectionsComplete ? navigate(`/quiz/${encodeURIComponent(selectedSubject)}/${encodeURIComponent(selectedTopic)}/${encodeURIComponent(selectedSubtopic)}`) : navigate('/select'))}
+          className={`nav-button ${currentPath.includes('/quiz') ? 'nav-button-active' : ''} ${
             !selectionsComplete ? 'nav-button-disabled' : ''
           }`}
           disabled={!selectionsComplete}
@@ -319,7 +319,7 @@ const onSelectionChange = useCallback((values) => {
               }
             />
             <Route
-              path="/explains/:subject/:topic/:subtopic"
+              path="/explains/:selectedSubject/:selectedTopic/:selectedSubtopic"
               element={
                 <ProtectedRoute user={user} token={token}>
                   <Explains

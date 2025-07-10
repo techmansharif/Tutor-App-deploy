@@ -23,7 +23,7 @@ const LoadingScreen = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % loadingItems.length);
-    }, 2700); // 2.5s animation + 0.2s buffer for smooth transition
+    }, 4500); // 4.5s for each image and text cycle
 
     return () => clearInterval(interval);
   }, []);
@@ -38,8 +38,14 @@ const LoadingScreen = () => {
           className="loading-image"
         />
         <p
-          key={`text-${currentIndex}`}
-          className="loading-text"
+          key={`text-first-${currentIndex}`}
+          className="loading-text loading-text-first"
+        >
+          {loadingItems[currentIndex].text}
+        </p>
+        <p
+          key={`text-second-${currentIndex}`}
+          className="loading-text loading-text-second"
         >
           {loadingItems[currentIndex].text}
         </p>

@@ -1,35 +1,71 @@
 .loading-screen {
-  background-color: #FFD966; /* Custom background color */
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%; 
   aspect-ratio: 1/1;
-  max-width: 500px; /* Prevent oversized rendering */
-  max-height: 500px; /* Ensure it fits within parent */
   padding: 1rem;
-  border-radius: 0.5rem; /* Tailwind's rounded-lg */
+  border-radius: 0.5rem;
 }
 
 .loading-content {
   text-align: center;
+  position: relative;
 }
 
 .loading-image {
   margin: 0 auto 1rem;
-  width: 8rem; /* Tailwind's w-32 */
-  height: 8rem; 
+  width: 8rem;
+  height: 8rem;
   overflow: hidden;
-  /* object-fit: cover; */
-  /* border-radius: 9999px; Tailwind's rounded-full */
-  animation: fadeInOut 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: fadeInOut 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .loading-text {
-  color: black; /* Tailwind's text-white */
-  font-size: 1.25rem; /* Tailwind's text-xl */
-  font-weight: 600; /* Tailwind's font-semibold */
-  animation: fadeInOut 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  color: #000000;
+  font-size: 1.25rem;
+  font-weight: 600;
+  position: absolute;
+  width: auto; /* Changed from 100% to auto to fit content */
+  white-space: nowrap; /* Prevent text wrapping */
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  /* background: linear-gradient(45deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; */
+}
+
+.loading-text-first {
+  animation: glideInOutFirst 4.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.loading-text-second {
+  animation: glideInOutSecond 4.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.loading-text::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 0, 0.3) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-text-first::before {
+  animation: goldDustFirst 2.5s ease-in-out forwards;
+}
+
+.loading-text-second::before {
+  animation: goldDustSecond 2.5s ease-in-out forwards;
 }
 
 @keyframes fadeInOut {
@@ -48,5 +84,109 @@
   100% {
     opacity: 0;
     transform: translateY(-15px) scale(0.95);
+  }
+}
+
+@keyframes glideInOutFirst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px) scale(0.9);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: translate(-50%, 20px) scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 20px) scale(0.9);
+  }
+}
+
+@keyframes glideInOutSecond {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px) scale(0.9);
+  }
+  55% {
+    opacity: 0;
+    transform: translate(-50%, -20px) scale(0.9);
+  }
+  65% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  95% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 20px) scale(0.9);
+  }
+}
+
+@keyframes goldDustFirst {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  5% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+  15% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  45% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+@keyframes goldDustSecond {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  55% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  60% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+  70% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  95% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
   }
 }

@@ -4,7 +4,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  padding-bottom: 75px; /* prevent extra scroll room */
+  padding-bottom: 35px; /* prevent extra scroll room */
   margin-bottom: 0; /* just in case */
   font-family: Arial, sans-serif;
   max-height: 100dvh; /* Use dynamic viewport height */
@@ -17,8 +17,8 @@
   margin-top: 20px;
   line-height: 1.6;
   overflow-x: auto;
-   min-height: 500px; /* Desktop default */
-   overflow-wrap: break-word;
+  min-height: 500px; /* Desktop default */
+  overflow-wrap: break-word;
 }
 
 /* Chat-like container */

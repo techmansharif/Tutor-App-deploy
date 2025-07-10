@@ -188,7 +188,7 @@ const PracticeQuiz = ({ user, API_BASE_URL}) => {
   };
 
   const handleCompletePractice = () => {
-     navigate('/quiz');
+     navigate(`/quiz/${encodeURIComponent(subject)}/${encodeURIComponent(topic)}/${encodeURIComponent(subtopic)}`);
   };
 
   const handleRestart = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, memo, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
@@ -16,20 +16,91 @@ const Explains = ({
   selectedSubject,
   selectedTopic,
   selectedSubtopic,
-  user,
+  user, 
   API_BASE_URL,
-  //onProceedToPractice
+  // onProceedToPractice
 }) => {
   const [explanationHistory, setExplanationHistory] = useState([]);
   const [isExplainLoading, setIsExplainLoading] = useState(false);
+  const [nextId, setNextId] = useState(1);
   const [explainFinished, setExplainFinished] = useState(false);
   const [userQuery, setUserQuery] = useState('');
   const initialFetchRef = useRef(false);
   const explanationContainerRef = useRef(null);
-  const [previousHistoryLength, setPreviousHistoryLength] = useState(0); // Add this
+  const [previousHistoryLength, setPreviousHistoryLength] = useState(0);
   const [newlyAddedIndices, setNewlyAddedIndices] = useState(new Set());
- const [explainAgainIndices, setExplainAgainIndices] = useState(new Set());
+  const [explainAgainIndices, setExplainAgainIndices] = useState(new Set());
+  const audioPlayerRefs = useRef(new Map());
+  const isComponentMountedRef = useRef(true);
+  const [currentController, setCurrentController] = useState(null);
   const navigate = useNavigate();
+
+  const createProcessedEntry = (text, image = null, isNewest = false, isExplainAgain = false) => {
+    const entry = {
+      id: nextId,
+      text,
+      processedText: processExplanation(text),
+      image,
+      isNewest,
+      isExplainAgain
+    };
+    setNextId(prev => prev + 1);
+    return entry;
+  };
+
+  const handleAudioPlayerRef = useCallback((entryId, ref) => {
+    if (ref) {
+      console.log(`Registering AudioPlayer for entry ${entryId}`);
+      audioPlayerRefs.current.set(entryId, ref);
+    } else {
+      console.log(`Unregistering AudioPlayer for entry ${entryId}`);
+      audioPlayerRefs.current.delete(entryId);
+    }
+  }, []);
+
+  const stopAllAudio = useCallback(() => {
+    console.log('Explains: Stopping all audio players...');
+    return new Promise((resolve) => {
+      const cleanupPromises = [];
+      audioPlayerRefs.current.forEach((audioPlayerRef, entryId) => {
+        if (audioPlayerRef && audioPlayerRef.cleanup) {
+          console.log(`Cleaning up AudioPlayer for entry ${entryId}`);
+          const cleanupPromise = Promise.resolve(audioPlayerRef.cleanup()).catch(error => {
+            if (error.name !== 'AbortError') {
+              console.warn(`Error cleaning up AudioPlayer for entry ${entryId}:`, error);
+            }
+          });
+          cleanupPromises.push(cleanupPromise);
+        }
+      });
+      Promise.all(cleanupPromises).then(() => {
+        console.log(`Explains: Cleaned up ${cleanupPromises.length} AudioPlayer instances`);
+        resolve();
+      }).catch(error => {
+        if (error.name !== 'AbortError') {
+          console.warn('Error resolving cleanup promises:', error);
+        }
+        resolve();
+      });
+    });
+  }, []);
+
+  const onProceedToPractice = () => {
+    if (selectedSubject && selectedTopic && selectedSubtopic) {
+      navigate(`/practice/${encodeURIComponent(selectedSubject)}/${encodeURIComponent(selectedTopic)}/${encodeURIComponent(selectedSubtopic)}`);
+    } else {
+      navigate('/select');
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      console.log('Explains: Component unmounting - cleaning up all audio');
+      isComponentMountedRef.current = false;
+      stopAllAudio();
+    };
+  }, [stopAllAudio]);
+
   useEffect(() => {
     if (!initialFetchRef.current) {
       initialFetchRef.current = true;
@@ -40,106 +111,158 @@ const Explains = ({
       }, user.user_id, API_BASE_URL);
       fetchExplain("explain", true);
     }
+  }, [selectedSubject, selectedTopic, selectedSubtopic, user.user_id, API_BASE_URL]);
 
-    return () => {
-      // Cleanup logic if needed
-    };
-  }, []);
-
-useEffect(() => {
-  if (explanationContainerRef.current && explanationHistory.length > previousHistoryLength) {
-    // Only scroll when new content is added (not during loading)
-    if (!isExplainLoading) {
-      const container = explanationContainerRef.current;
-      const entries = container.querySelectorAll('.explanation-entry');
-      
-      if (entries.length > 0) {
-        // Scroll to the start of the newest entry
-        const newestEntry = entries[entries.length - 1];
+  useEffect(() => {
+    if (explanationContainerRef.current && explanationHistory.length > previousHistoryLength) {
+      if (!isExplainLoading) {
         const container = explanationContainerRef.current;
-        const containerRect = container.getBoundingClientRect();
-        const entryRect = newestEntry.getBoundingClientRect();
-        const scrollOffset = entryRect.top - containerRect.top;
-
-        container.scrollTo({
-          top: container.scrollTop + scrollOffset,
-          behavior: 'smooth'
-        });
+        const entries = container.querySelectorAll('.explanation-entry');
+        if (entries.length > 0) {
+          const newestEntry = entries[entries.length - 1];
+          const containerRect = container.getBoundingClientRect();
+          const entryRect = newestEntry.getBoundingClientRect();
+          const scrollOffset = entryRect.top - containerRect.top;
+          container.scrollTo({
+            top: container.scrollTop + scrollOffset,
+            behavior: 'smooth'
+          });
+        }
+        setPreviousHistoryLength(explanationHistory.length);
       }
-      
-      setPreviousHistoryLength(explanationHistory.length);
     }
-  }
-}, [explanationHistory, isExplainLoading, previousHistoryLength]);
-
-
-
-const stopAllAudio = () => {
-  window.speechSynthesis.cancel();
-};
+  }, [explanationHistory, isExplainLoading, previousHistoryLength]);
 
   const fetchExplain = async (query, isInitial = false, isExplainAgain = false) => {
     setIsExplainLoading(true);
-     // Add this scroll logic right after setting loading to true
-  if (!isInitial && explanationContainerRef.current) {
-    setTimeout(() => {
-      const container = explanationContainerRef.current;
-      container.scrollTo({
-        top: container.scrollHeight,
-        behavior: 'smooth'
-      });
-    }, 100); // Small delay to ensure loading component is rendered
-  }
-    try  {
-    const token = localStorage.getItem('access_token');
-
     
-      // URL encode the path parameters to handle special characters
-      const encodedSubject = encodeURIComponent(selectedSubject);
-      const encodedTopic = encodeURIComponent(selectedTopic);
-      const encodedSubtopic = encodeURIComponent(selectedSubtopic);
+    if (!isInitial && explanationContainerRef.current) {
+      setTimeout(() => {
+        const container = explanationContainerRef.current;
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: 'smooth'
+        });
+      }, 100);
+    }
 
-    const response = await axios.post(
+    const token = localStorage.getItem('access_token');
+    const encodedSubject = encodeURIComponent(selectedSubject);
+    const encodedTopic = encodeURIComponent(selectedTopic);
+    const encodedSubtopic = encodeURIComponent(selectedSubtopic);
+    
+    try {
+      const response = await fetch(
         `${API_BASE_URL}/${encodedSubject}/${encodedTopic}/${encodedSubtopic}/explains/`,
-      { query, is_initial: isInitial },
-      {
-        headers: { 
-          'user-id': user.user_id,
-          'Authorization': `Bearer ${token}`
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'user-id': user.user_id,
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ query, is_initial: isInitial }),
+          
+        }
+      );
+
+      if (response.headers.get('content-type')?.includes('text/event-stream')) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let accumulatedText = '';
+        let imageData = null;
+        let entryIndex = -1;
+
+        setExplanationHistory((prev) => {
+          const entry = createProcessedEntry('', null, !isExplainAgain, isExplainAgain);
+          const newHistory = [...prev, entry];
+          entryIndex = newHistory.length - 1;
+          if (isExplainAgain) {
+            setExplainAgainIndices(new Set([entryIndex]));
+            setNewlyAddedIndices(new Set());
+          } else {
+            setNewlyAddedIndices(new Set([entryIndex]));
+            setExplainAgainIndices(new Set());
+          }
+          return newHistory;
+        });
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value);
+          const lines = chunk.split('\n');
+
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              try {
+                const data = JSON.parse(line.slice(6));
+                if (data.content) {
+                  accumulatedText += data.content;
+                  setExplanationHistory((prev) => {
+                    const newHistory = [...prev];
+                    newHistory[entryIndex] = {
+                      ...newHistory[entryIndex],
+                      text: accumulatedText,
+                      processedText: processExplanation(accumulatedText),
+                      image: imageData
+                    };
+                    return newHistory;
+                  });
+                } else if (data.image) {
+                  imageData = data.image;
+                  setExplanationHistory((prev) => {
+                    const newHistory = [...prev];
+                    newHistory[entryIndex] = {
+                      ...newHistory[entryIndex],
+                      text: accumulatedText,
+                      processedText: processExplanation(accumulatedText),
+                      image: imageData
+                    };
+                    return newHistory;
+                  });
+                } else if (data.status === 'complete') {
+                  break;
+                }
+              } catch (e) {
+                console.error('Error parsing SSE data:', e);
+              }
+            }
+          }
+        }
+      } else {
+        const data = await response.json();
+        if (data.answer === "Congratulations, you have mastered the topic!") {
+          setExplainFinished(true);
+          setExplanationHistory((prev) => {
+            const entry = createProcessedEntry(data.answer, data.image, !isExplainAgain, false);
+            const newHistory = [...prev, entry];
+            if (!isExplainAgain) {
+              setNewlyAddedIndices(new Set([newHistory.length - 1]));
+            }
+            return newHistory;
+          });
+        } else if (data.initial_response && isInitial) {
+          const answers = data.initial_response.map(answerObj => 
+            createProcessedEntry(answerObj.text, answerObj.image, false, false)
+          );
+          setExplanationHistory((prev) => [...prev, ...answers]);
+        } else {
+          setExplanationHistory((prev) => {
+            const entry = createProcessedEntry(data.answer, data.image, !isExplainAgain, isExplainAgain);
+            const newHistory = [...prev, entry];
+            if (isExplainAgain) {
+              setExplainAgainIndices(new Set([newHistory.length - 1]));
+              setNewlyAddedIndices(new Set());
+            } else if (!isExplainAgain) {
+              setNewlyAddedIndices(new Set([newHistory.length - 1]));
+              setExplainAgainIndices(new Set());
+            }
+            return newHistory;
+          });
         }
       }
-    );
-      
-      if (response.data.answer === "Congratulations, you have mastered the topic!") {
-        setExplainFinished(true);
-        setExplanationHistory((prev) => {
-  const newHistory = [...prev, { text: response.data.answer, image: response.data.image }];
-  if (!isExplainAgain) { // CHANGED - only mark as newest if not "explain again"
-    setNewlyAddedIndices(new Set([newHistory.length - 1]));
-  }
-  return newHistory;
-});
-          
-      } else if (response.data.initial_response && isInitial) {
-        // Handle initial response with previous answers from chat_memory
-        const answers = response.data.initial_response.map(answer => ({
-          text: answer,
-          image: null
-        }));
-        setExplanationHistory((prev) => [...prev, ...answers]);
-      } else {
-  setExplanationHistory((prev) => {
-    const newHistory = [...prev, { text: response.data.answer, image: response.data.image}];
-    if (isExplainAgain) {
-      setExplainAgainIndices(new Set([newHistory.length - 1]));
-      setNewlyAddedIndices(new Set()); // Clear previous newest entries
-    } else if (!isExplainAgain) {
-      setNewlyAddedIndices(new Set([newHistory.length - 1]));
-      setExplainAgainIndices(new Set()); // Clear previous explain-again entries
-    }
-    return newHistory;
-  });
-}
     } catch (error) {
       console.error('Error fetching explanation:', error);
       alert('Error fetching explanation. Please try again.');
@@ -148,50 +271,151 @@ const stopAllAudio = () => {
     }
   };
 
-  const handleContinueExplain = () => {
-    stopAllAudio();
-    trackInteraction(INTERACTION_TYPES.CONTINUE_CLICKED, {
-      subject: selectedSubject,
-      topic: selectedTopic,
-      subtopic: selectedSubtopic
-    }, user.user_id, API_BASE_URL);
-    fetchExplain("continue");
+  const handleContinueExplain = async () => {
+    stopAllAudio().then(() => {
+      trackInteraction(INTERACTION_TYPES.CONTINUE_CLICKED, {
+        subject: selectedSubject,
+        topic: selectedTopic,
+        subtopic: selectedSubtopic
+      }, user.user_id, API_BASE_URL);
+      fetchExplain("continue");
+    }).catch(error => {
+      console.error('Error during audio cleanup:', error);
+      fetchExplain("continue"); // Proceed even if cleanup fails to avoid blocking
+    });
   };
 
   const handleExplainAgain = () => {
-      stopAllAudio();
-    fetchExplain("explain",false,true);
+    stopAllAudio().then(() => {
+      trackInteraction(INTERACTION_TYPES.EXPLAIN_AGAIN_CLICKED, {
+        subject: selectedSubject,
+        topic: selectedTopic,
+        subtopic: selectedSubtopic
+      }, user.user_id, API_BASE_URL);
+      fetchExplain("explain", false, true);
+    }).catch(error => {
+      console.error('Error during audio cleanup:', error);
+      fetchExplain("explain", false, true); // Proceed even if cleanup fails
+    });
   };
 
   const handleCustomQuery = () => {
-  
     if (userQuery.trim()) {
-      stopAllAudio();
-      trackInteraction(INTERACTION_TYPES.CUSTOM_QUERY_SUBMITTED, {
-        subject: selectedSubject,
-        topic: selectedTopic,
-        subtopic: selectedSubtopic,
-        query: userQuery
-      }, user.user_id, API_BASE_URL);
-      fetchExplain(userQuery);
-      setUserQuery('');
+      stopAllAudio().then(() => {
+        trackInteraction(INTERACTION_TYPES.CUSTOM_QUERY_SUBMITTED, {
+          subject: selectedSubject,
+          topic: selectedTopic,
+          subtopic: selectedSubtopic,
+          query: userQuery
+        }, user.user_id, API_BASE_URL);
+        fetchExplain(userQuery);
+        setUserQuery('');
+      }).catch(error => {
+        console.error('Error during audio cleanup:', error);
+        fetchExplain(userQuery); // Proceed even if cleanup fails
+        setUserQuery('');
+      });
     }
   };
 
   const handleRefresh = () => {
-    trackInteraction(INTERACTION_TYPES.REFRESH_CLICKED, {
-    subject: selectedSubject,
-    topic: selectedTopic,
-    subtopic: selectedSubtopic,
-    historyLength: explanationHistory.length
-  }, user.user_id, API_BASE_URL);
-    setExplanationHistory([]);
-    setExplainFinished(false);
-    setPreviousHistoryLength(0);
-    setNewlyAddedIndices(new Set());
-    setExplainAgainIndices(new Set());
-    fetchExplain("refresh");
+    stopAllAudio().then(() => {
+      trackInteraction(INTERACTION_TYPES.REFRESH_CLICKED, {
+        subject: selectedSubject,
+        topic: selectedTopic,
+        subtopic: selectedSubtopic,
+        historyLength: explanationHistory.length
+      }, user.user_id, API_BASE_URL);
+      setExplanationHistory([]);
+      setExplainFinished(false);
+      setPreviousHistoryLength(0);
+      setNewlyAddedIndices(new Set());
+      setExplainAgainIndices(new Set());
+      setNextId(1);
+      fetchExplain("refresh");
+    }).catch(error => {
+      console.error('Error during audio cleanup:', error);
+      setExplanationHistory([]);
+      setExplainFinished(false);
+      setPreviousHistoryLength(0);
+      setNewlyAddedIndices(new Set());
+      setExplainAgainIndices(new Set());
+      setNextId(1);
+      fetchExplain("refresh"); // Proceed even if cleanup fails
+    });
   };
+
+  const ExplanationEntry = memo(({ entry, selectedSubject, onAudioPlayerRef }) => {
+    const audioPlayerRef = useRef(null);
+    
+    useEffect(() => {
+      if (audioPlayerRef.current) {
+        onAudioPlayerRef(entry.id, audioPlayerRef.current);
+      }
+      return () => {
+        onAudioPlayerRef(entry.id, null);
+      };
+    }, [entry.id, onAudioPlayerRef]);
+
+    return (
+      <div className={`explanation-entry ${entry.isNewest ? 'newest-entry' : ''} ${entry.isExplainAgain ? 'explain-again-entry' : ''}`}>
+        <div className="audio-player-container">
+          <AudioPlayer 
+            ref={audioPlayerRef}
+            text={processExplanation(entry.text)} 
+            API_BASE_URL={API_BASE_URL} 
+            user={user} 
+          />
+        </div>
+        <ReactMarkdown
+          children={entry.processedText}
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[
+            [rehypeKatex, {
+              throwOnError: false,
+              strict: false,
+              trust: true,
+              displayMode: false,
+              output: 'html'
+            }]
+          ]}
+          components={{
+            table: ({node, ...props}) => (
+              <div className="table-container">
+                <table {...props} className="markdown-table" />
+              </div>
+            ),
+            code: ({node, inline, className, children, ...props}) => {
+              return inline ? (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              ) : (
+                <div className="code-block-container">
+                  <pre>
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  </pre>
+                </div>
+              );
+            }
+          }}
+        />
+        {entry.image && (
+          <div className="explanation-image-component">
+            <img
+              src={`data:image/png;base64,${entry.image}`}
+              alt="Explanation diagram"
+              style={{ maxWidth: '100%', marginTop: '20px' }}
+            />
+          </div>
+        )}
+      </div>
+    );
+  });
+
+  ExplanationEntry.displayName = 'ExplanationEntry';
 
   return (
     <div className="explains-component-container">
@@ -206,64 +430,14 @@ const stopAllAudio = () => {
         ref={explanationContainerRef}
       >
         {explanationHistory.map((entry, index) => (
-      <div key={index} className={`explanation-entry ${newlyAddedIndices.has(index) ? 'newest-entry' : ''} ${explainAgainIndices.has(index) ? 'explain-again-entry' : ''}`}>
-               <div className="audio-player-container"><AudioPlayer text={processExplanation(entry.text)} /> </div>
-            <ReactMarkdown
-              children={preprocessMath(processExplanation(entry.text))}
-              remarkPlugins={[remarkGfm, remarkMath]}
-              rehypePlugins={[
-  // Custom plugin to restore pipes BEFORE KaTeX processing
-  () => (tree) => {
-    const visit = (node) => {
-      if (node.type === 'text' && node.value) {
-        node.value = postprocessMath(node.value);
-      }
-      if (node.children) {
-        node.children.forEach(visit);
-      }
-    };
-    visit(tree);
-  },
-  // Now KaTeX processes the restored content
-  [rehypeKatex, {
-    throwOnError: false,
-    strict: false
-  }]
-]}
-              components={{
-                table: ({ node, ...props }) => (
-                  <div className="table-container">
-                    <table {...props} className="markdown-table" />
-                  </div>
-                ),
-                code: ({ node, inline, className, children, ...props }) => {
-                  return inline ? (
-                    <code className={className} {...props}>
-                      {children}
-                    </code>
-                  ) : (
-                    <div className="code-block-container">
-                      <pre>
-                        <code className={className} {...props}>
-                          {children}
-                        </code>
-                      </pre>
-                    </div>
-                  );
-                }
-              }}
-            />
-            {entry.image && (
-              <div className="explanation-image-component">
-                <img
-                  src={`data:image/png;base64,${entry.image}`}
-                  alt="Explanation diagram"
-                  style={{ maxWidth: '100%', marginTop: '20px' }}
-                />
-              </div>
-            )}
-          </div>
+          <ExplanationEntry 
+            key={entry.id} 
+            entry={entry} 
+            selectedSubject={selectedSubject}
+            onAudioPlayerRef={handleAudioPlayerRef}
+          />
         ))}
+
         {isExplainLoading && (
           <div className="loading-component">
             <LoadingScreen />
@@ -271,14 +445,14 @@ const stopAllAudio = () => {
         )}
       </div>
       
-    <div className="explain-controls-component">
-  {explainFinished ? (
-    <button onClick={() => navigate('/practice')} className="primary-button-component">
-      Start Practice
-    </button>
-  ) : (
-    <> 
-      <div className="button-row">
+      <div className="explain-controls-component">
+        {explainFinished ? (
+          <button onClick={onProceedToPractice} className="primary-button-component">
+            Start Practice
+          </button>
+        ) : (
+          <>
+            <div className="button-row">
               <div className="refresh-button-group">
                 <button onClick={handleRefresh} className="restart-button-component">
                   <svg
@@ -311,6 +485,7 @@ const stopAllAudio = () => {
                   আরও সহজে <br />বলুন
                 </button>
               </div>
+              
               <div className="button-with-text">
                 <button
                   onClick={handleContinueExplain}
@@ -320,29 +495,28 @@ const stopAllAudio = () => {
                   পরবর্তী অংশে যান
                 </button>
               </div>
+            </div>
+            
+            <div className="custom-query-container">
+              <textarea
+                value={userQuery}
+                onChange={(e) => setUserQuery(e.target.value)}
+                placeholder="Ask a question..."
+                className="custom-query-input"
+                rows="1"
+                onInput={(e) => {
+                  e.target.style.height = 'auto';
+                  e.target.style.height = e.target.scrollHeight + 'px';
+                }}
+              />
+              <button onClick={handleCustomQuery} className="custom-query-button">
+                Ask AI
+              </button>
+            </div>
+          </>
+        )}
       </div>
-
-      <div className="custom-query-container">
-        <textarea
-          value={userQuery}
-          onChange={(e) => setUserQuery(e.target.value)}
-          placeholder="Ask a question..."
-          className="custom-query-input"
-          rows="1"
-          onInput={(e) => {
-            e.target.style.height = 'auto';
-            e.target.style.height = e.target.scrollHeight + 'px';
-          }}
-        />
-        <button onClick={handleCustomQuery} className="custom-query-button">
-          Ask AI
-        </button>
-      </div>
-    </>
-  )}
-</div>
-</div>
-    
+    </div>
   );
 };
 
