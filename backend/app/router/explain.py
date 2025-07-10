@@ -54,7 +54,9 @@ if DATABASE_URL is None:
     DATABASE_URL = os.getenv("DATABASE_URL")
     print(DATABASE_URL)
     
-async_database_url = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://")
+# Simply replace psycopg2 with asyncpg
+async_database_url = DATABASE_URL.replace("postgresql+psycopg2://", "postgresql+asyncpg://")
+
 # ADD THIS: Async database engine
 async_engine = create_async_engine(
      async_database_url,  # Replace with your DB URL
