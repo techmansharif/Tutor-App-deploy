@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 
 
@@ -18,4 +18,4 @@ class ExplainResponse(BaseModel):
     image: Optional[str] = None  # Base64-encoded image string (or None if no image)
     total:Optional[int]=None
     current:Optional[int]=None
-    initial_response: Optional[List[str]] = None
+    initial_response: Optional[List[Dict[str, Optional[str]]]] = None

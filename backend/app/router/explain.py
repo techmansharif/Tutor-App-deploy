@@ -1,5 +1,7 @@
 
 from fastapi import APIRouter, Depends, HTTPException, Header, Request,BackgroundTasks
+from fastapi.responses import StreamingResponse
+import json 
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy import select, update
@@ -17,7 +19,8 @@ from google import genai
 from google.genai import types
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
-
+import asyncio
+from concurrent.futures import Future
 import re
 
 # Import JWT utils
@@ -122,7 +125,7 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
             model=MODEL,
             contents=contents,
             config=types.GenerateContentConfig(
-                thinking_config=types.ThinkingConfig(thinking_budget=-1),
+                thinking_config=types.ThinkingConfig(thinking_budget=0),
                 system_instruction=system_instruction,  # Move this OUTSIDE config
                 temperature=temperature
             )
@@ -132,6 +135,57 @@ def generate_gemini_response(prompt: str,system_instruction:str="", temperature:
     # response=r"$$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56 $$"
     
     return response.text.strip()
+
+async def generate_gemini_response_stream(prompt: str, system_instruction: str = "", temperature: float = 0.2,image_base64: Optional[str] = None):
+    """Generate streaming response using Gemini API"""
+    queue = asyncio.Queue()
+    loop = asyncio.get_event_loop()  # Get loop reference BEFORE thread
+    
+    def _stream_in_thread(event_loop):  # Accept loop parameter
+        # Add image if provided
+        contents = []
+        if image_base64:
+            image_bytes = base64.b64decode(image_base64)
+            image_part = types.Part.from_bytes(
+                data=image_bytes, 
+                mime_type="image/jpeg"
+            )
+            contents.append(image_part)
+
+        # Add text prompt
+        contents.append(prompt)
+        try:
+            response = client.models.generate_content_stream(
+                model=MODEL,
+                contents=contents,
+                config=types.GenerateContentConfig(
+                    thinking_config=types.ThinkingConfig(thinking_budget=-1),
+                    system_instruction=system_instruction,
+                    temperature=temperature
+                )
+            )
+            full_text = ""
+            for chunk in response:
+                if chunk.text:
+                    full_text += chunk.text
+                    asyncio.run_coroutine_threadsafe(queue.put(chunk.text), event_loop)
+            # Signal completion with full text
+            asyncio.run_coroutine_threadsafe(queue.put(f"[COMPLETE]{full_text}"), event_loop)
+
+        except Exception as e:
+            asyncio.run_coroutine_threadsafe(queue.put(f"[ERROR]{str(e)}"), event_loop)
+        finally:
+            asyncio.run_coroutine_threadsafe(queue.put(None), event_loop)  # End signal
+
+    # Start streaming in executor with loop parameter
+    loop.run_in_executor(executor, _stream_in_thread, loop)  # Pass loop as argument
+      # ADD THIS PART:
+    # Yield chunks as they arrive
+    while True:
+        chunk = await queue.get()
+        if chunk is None:  # End signal
+            break
+        yield chunk
 
 # Dependency to get DB session
 def get_db():
@@ -143,7 +197,7 @@ def get_db():
 
 
 
-async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks: list, subject: str):
+async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks: list, subject: str,topic:str=""):
     """
     Pre-generate the next continue response and store it in the database
     """
@@ -193,7 +247,7 @@ async def pre_generate_continue_response(user_id: int, subtopic_id: int, chunks:
                 
             # Build prompt for the next chunk
             continue_query = ""
-            prompt, system_instruction = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject)
+            prompt, system_instruction = build_prompt(continue_query, progress.chat_memory, None, next_chunk, subject,topic)
             
             # Generate AI response using thread pool (keep this sync call in executor)
             loop = asyncio.get_event_loop()
@@ -422,7 +476,7 @@ async def process_query_logic(query: str, subject: str, chunks: list, chunk_inde
 
 
 
-def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) ->  tuple[str, str]:
+def build_prompt(query: str, chat_memory: list, context, chunks, subject: str,topic:str) ->  tuple[str, str]:
       # NEW: Prepare memory_text from UserProgress.chat_memory
     memory_text = "\n\n".join([
         f"User: {pair['question']}\nAssistant: {pair['answer']}"
@@ -433,52 +487,53 @@ def build_prompt(query: str, chat_memory: list, context, chunks, subject: str) -
   #  print(f"gemini api will get this \n the chatmemory:{chat_memory}\n\n chunk is {chunks}")
     if subject =='গণিত' or subject == "উচ্চতর গণিত":
         system_instruction =r"""
-        আপনি একজন শিক্ষাগত সহকারী। আপনার কাজ হল বাংলাদেশের ৯-১০ শ্রেণির শিক্ষার্থীদের সহজ ও ধাপে ধাপে শেখানো। আপনার বাক্যগুলো সহজ হতে হবে।
+         আপনি বাংলাদেশের ৯-১০ শ্রেণির শিক্ষাগত সহকারী। সহজ ভাষায় ধাপে ধাপে পাঠের অংশ শেখান।
          আপনি  পাঠের অংশটি  সহজে ব্যাখ্যা করবেন এবং তথ্যে থাকা উদাহরণ অংক সহজে ভেঙে ভেঙে বুঝবেন |
-আপনার শিক্ষা পদ্ধতি:
-1. তথ্য মজার এবং আকর্ষণীয় উপায়ে ব্যাখ্যা করুন
-2. ব্যাখ্যাটি আকর্ষণীয় করুন, প্রয়োজনে গল্প ব্যবহার করুন
-3. সাম্প্রতিক কথোপকথনের স্মৃতি ব্যবহার করে উত্তরটি ব্যক্তিগত করুন
-4. সব টেক্সট, শিরোনাম এবং তালিকার জন্য মার্কডাউন ব্যবহার করুন
-5. গাণিতিক প্রকাশ:
-   - ইনলাইন গণিত: একক ডলার চিহ্নে আবদ্ধ করুন
-     উদাহরণ:  $x = 5$  ,  $x^2 = 25$ 
-   - সমীকরণ: Enclose in double dollar signs
-    উদাহরণ:
-   $$ \frac{a}{b} $$
-   $$\frac{a + b}{c - d} = \frac{10}{5}$$, $$\text{পরিসর} = (90 - 35) + 1 = 55 + 1 = 56$$ ,
-     $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
-- Tally mark : 
-      -  $\text{||||}$ for 4
-     -   follow above pattern for tally mark represent 5 by $\cancel{\text{||||}}$ for number below 5 write as   $\text{||}$ for 2 , $\text{||||}$ for 4 etc
-      -  for number above 5 break into group of 5 like 9=5+4 so in tally it is $\cancel{\text{||||}}$   $\text{||||}$ 
-        18 is 5+5+5+3 so write it as  $\cancel{\text{||||}}$  $\cancel{\text{||||}}$  $\cancel{\text{||||}}$ $\text{|||}$ 
-   - সঠিক LaTeX syntax নিশ্চিত করুন
-     $$\sin^2\theta + \cos^2\theta = 1$$
-     
-6. প্রয়োজনে সারসংক্ষেপ বা তুলনামূলক বিশ্লেষণের জন্য Markdown টেবিল ব্যবহার করুন
-Basic Table (বেসিক টেবিল):
-|নাম | বয়স | শ্রেণী |
-|-----|------|--------|
-| রহিম | 14 | নবম |
-| করিম | 15 | দশম |
-| সালমা | 14 | নবম |
-Table with Alignment (সারিবদ্ধ টেবিল):
-| পণ্য | পরিমাণ | মূল্য (টাকা) | মোট |
-|:-----|-------:|:------------:|----:|
-| কলম | 5 | 10 | 50 |
-| খাতা | 3 | 40 | 120 |
-| রাবার | 2 | 5 | 10 |
-| **সর্বমোট** | | | **180** |
-Math in Tables (টেবিলে গণিত):
-| সূত্র | উদাহরণ | ফলাফল |
-|:------|:------:|-------:|
-| বর্গ | $x^2$ যখন $x=5$ | $25$ |
-| বর্গমূল | $\sqrt{16}$ | $4$ |
-| ভগ্নাংশ | $\frac{10}{2}$ | $5$ |
+নির্দেশিকা:
 
-লক্ষ্য: শিক্ষার্থীরা যেন আনন্দের সাথে এবং সহজে বিষয়টি বুঝতে পারে।
+1. মজার ও আকর্ষণীয় ব্যাখ্যা, প্রয়োজনে গল্প
+
+2. কথোপকথনের স্মৃতি ব্যবহার করে ব্যক্তিগতকরণ  
+
+3. মার্কডাউন ব্যবহার করুন 
+
+4. শুধু টেক্সট ব্যবহার করুন, কোনো ASCII আর্ট নয়
+
+5.সাধারণ লেখা ও তালিকার জন্য সহজ টেক্সট ফরম্যাটিং ব্যবহার করুন।  শুধু গাণিতিক প্রকাশ জন্য ল্যাটেক্স ব্যবহার করবেন
+
+6. গাণিতিক প্রকাশ:
+
+   - ইনলাইন: $x = 5$, $x^2 = 25$ 
+
+   - সমীকরণ: $\frac{a + b}{c - d} = \frac{10}{5}$, $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
+
+   - LaTeX: $\sin^2\theta + \cos^2\theta = 1$
+
+
+
+7. টেবিল উদাহরণ:
+
+   |নাম|বয়স|শ্রেণী|
+
+   |---|---|---|
+
+   |রহিম|14|নবম|
+
+   
+
+   |সূত্র|উদাহরণ|ফলাফল|
+
+   |:---|:---:|---:|
+
+   |বর্গ|$x^2$ যখন $x=5$|$25$|
+
+
+   #5. ট্যালি: $\text{||||}$(4), $\cancel{\text{||||}}$(5), 9=$\cancel{\text{||||}}$ $\text{||||}$, 18=$\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\cancel{\text{||||}}$ $\text{|||}$
+
+লক্ষ্য: আনন্দের সাথে সহজে শেখানো।
+
         """
+        
     elif subject=="English":
         system_instruction = r"""You are an educational assistant tasked with creating a step-by-step learning guide for a user. Your sentences should be simple.
 
@@ -505,7 +560,8 @@ Your teaching approach:
 পাঠের অংশ:
 {context if context else chunks}
 
- এটি  ধাপে ধাপে ভেঙে বুঝাও। উদাহরণ থাকলে সেটিও সহজ করে উপস্থাপন করো।
+ 
+পাঠের অংশ ধাপে ধাপে ভেঙে বুঝাও। উদাহরণ থাকলে সেটিও সহজ করে উপস্থাপন করো। শুধু টেক্সট ব্যবহার করুন, কোনো ASCII আর্ট নয়
 
 """
     else:
@@ -527,43 +583,77 @@ Your teaching approach:
 
 async def generate_ai_response_and_update_progress(prompt: str,system_instruction:str, query: str, answer_text: str, 
                                            progress: UserProgress, chunk_index: int, 
-                                           explain_query: ExplainQuery,user_id: int, subtopic_id: int,db: AsyncSession, image_data: Optional[str] = None) -> str:
+                                           explain_query: ExplainQuery,user_id: int, subtopic_id: int,db: AsyncSession, image_data: Optional[str] = None): #add image parameter
 
+    async def stream_generator():
+        full_answer = ""
+        async for chunk in generate_gemini_response_stream(prompt, system_instruction, 0.3, image_data):
+            if chunk.startswith("[COMPLETE]"):
+                # Extract full text for DB update
+                full_answer = chunk[10:]  # Remove [COMPLETE] prefix
+            else:
+                yield f"data: {json.dumps({'content': chunk})}\n\n"
+        
+        # Update database after streaming completes
+        new_pair = {"question": explain_query.query, "answer": full_answer, "image": image_data}
+        chat_memory_updated = progress.chat_memory + [new_pair] 
+        
+        if len(chat_memory_updated) > 30:
+            chat_memory_updated = chat_memory_updated[-30:]
+       
+        await db.execute(
+            update(UserProgress)
+            .filter(
+                UserProgress.user_id == user_id,
+                UserProgress.subtopic_id == subtopic_id
+            )
+            .values(
+                chat_memory=chat_memory_updated,
+                chunk_index=chunk_index,
+                last_updated=datetime.utcnow()
+            )
+        )
+        await db.commit()    
+        # Send image at the end if exists
+        if image_data:
+            yield f"data: {json.dumps({'image': image_data})}\n\n"
     
+        yield f"data: {json.dumps({'status': 'complete'})}\n\n"
+    return StreamingResponse(stream_generator(), media_type="text/event-stream")
     # Generate response
     # Run Gemini API call in threadpool
-    loop = asyncio.get_event_loop()
-    answer = await loop.run_in_executor(executor, generate_gemini_response, prompt,system_instruction, 0.3,image_data)
+    # loop = asyncio.get_event_loop()
+    # answer = await loop.run_in_executor(executor, generate_gemini_response, prompt,system_instruction, 0.3,image_data)
     
 
  
-    # NEW: Update UserProgress with new chunk_index and chat_memory
+    # # NEW: Update UserProgress with new chunk_index and chat_memory
  
 
-    # When updating:
-    new_pair = {"question": explain_query.query, "answer": answer}
-    chat_memory_updated = progress.chat_memory + [new_pair] 
+    # # When updating:
+    # new_pair = {"question": explain_query.query, "answer": answer}
+    # chat_memory_updated = progress.chat_memory + [new_pair] 
     
-    if len(chat_memory_updated) > 30:
-        chat_memory_updated = chat_memory_updated[-30:]  # Keep only last 30
+    # if len(chat_memory_updated) > 30:
+    #     chat_memory_updated = chat_memory_updated[-30:]  # Keep only last 30
 
    
-    # Use async update instead of object modification
-    await db.execute(
-        update(UserProgress)
-        .filter(
-            UserProgress.user_id == user_id,
-            UserProgress.subtopic_id == subtopic_id
-        )
-        .values(
-            chat_memory=chat_memory_updated,
-            chunk_index=chunk_index,
-            last_updated=datetime.utcnow()
-        )
-    )
-    await db.commit()
+    # # Use async update instead of object modification
+    # await db.execute(
+    #     update(UserProgress)
+    #     .filter(
+    #         UserProgress.user_id == user_id,
+    #         UserProgress.subtopic_id == subtopic_id
+    #     )
+    #     .values(
+    #         chat_memory=chat_memory_updated,
+    #         chunk_index=chunk_index,
+    #         last_updated=datetime.utcnow()
+    #     )
+    # )
+    # await db.commit()
 
-    return answer
+    # return answer
 
 
 
@@ -623,7 +713,8 @@ async def post_explain(
         temp_progress and 
         temp_progress.chat_memory):
         # Early return - no need for full progress setup
-        previous_answers = [str(pair['answer']) for pair in temp_progress.chat_memory]
+        #previous_answers = [str(pair['answer']) for pair in temp_progress.chat_memory]
+        previous_answers = [{"text": str(pair['answer']), "image": pair.get('image')} for pair in temp_progress.chat_memory]
         return ExplainResponse(answer="", image=None, initial_response=previous_answers)
 
     # Early check for continue completion
@@ -657,7 +748,7 @@ async def post_explain(
         image = progress.next_continue_image
         
         # Update progress
-        new_pair = {"question": explain_query.query, "answer": answer}
+        new_pair = {"question": explain_query.query, "answer": answer, "image": image}
         chat_memory_updated = progress.chat_memory + [new_pair]
         if len(chat_memory_updated) > 30:
             chat_memory_updated = chat_memory_updated[-30:]
@@ -697,7 +788,8 @@ async def post_explain(
     user_id,
     subtopic_obj.id,
     chunks,
-    subject
+    subject,
+    topic
 )
         current_dir = os.getcwd()
         filename = os.path.join(current_dir, "explain_raw_text.txt")
@@ -739,10 +831,10 @@ async def post_explain(
 
 
     
-    prompt, system_instruction =  build_prompt(query, chat_memory, context, selected_chunk, subject)
-    answer =await generate_ai_response_and_update_progress(prompt,system_instruction, query, explain_query.query, 
-                                                                progress, chunk_index, explain_query, user_id, subtopic_obj.id,db,image_data)
-    
+    prompt, system_instruction =  build_prompt(query, chat_memory, context, selected_chunk, subject, topic)
+    # answer =await generate_ai_response_and_update_progress(prompt,system_instruction, query, explain_query.query, progress, chunk_index, explain_query, user_id, subtopic_obj.id,db,image_data)
+    # Pass image_data to the streaming function
+    response = await generate_ai_response_and_update_progress(prompt, system_instruction, query, explain_query.query, progress, chunk_index, explain_query, user_id, subtopic_obj.id, db,image_data=image_data)  # Pass the image
 
     # Start background generation for next continue
     background_tasks.add_task(
@@ -750,8 +842,10 @@ async def post_explain(
     user_id,
     subtopic_obj.id,
     chunks,
-    subject
+    subject,
+    topic
 )
     
-    return ExplainResponse(answer=answer,image=image_data)
+    # return ExplainResponse(answer=answer,image=image_data)
+    return response
 

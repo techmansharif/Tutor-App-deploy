@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { IntegrityScore, useIntegrityScore } from '../integrity_score/integrity_score';
 import { processQuizText, MathText } from '../ProcessText/ProcessQuiz'; // Add this import
 import Stopwatch from '../Stopwatch/Stopwatch';
-import LoadingScreen from '../LoadingScreen/LoadingScreen';
-import './quiz.css';
-import { useNavigate } from 'react-router-dom';
 
-const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic }) => {
+import './quiz.css';
+
+const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic, onCompleteQuiz }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [hardnessLevel, setHardnessLevel] = useState(5);
   const [questionsTried, setQuestionsTried] = useState(0);
@@ -22,13 +22,10 @@ const Quiz = ({ user, API_BASE_URL, subject, topic, subtopic }) => {
   const [showCongrats, setShowCongrats] = useState(false);
   const [isTimerPaused, setIsTimerPaused] = useState(false);
   const [attemptId, setAttemptId] = useState(null);
-    const [image1, setImage1] = useState(null); // State for correct answer image
-    const [image2, setImage2] = useState(null); // State for incorrect answer image
-    const [completionDate, setCompletionDate] = useState('');
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [completionDate, setCompletionDate] = useState('');
   const navigate = useNavigate();
-
-
-  // Integrity score hook
   const {
     questionStartTime,
     setQuestionStartTime,
@@ -59,7 +56,7 @@ const fetchQuizQuestion = async (submission = null) => {
          const token = localStorage.getItem('access_token');
           const encodedSubtopic = encodeURIComponent(subtopic);
       const response = await axios.post(
-         `${API_BASE_URL}/${subject}/${topic}/${encodedSubtopic }/quiz/`,
+         `${API_BASE_URL}/${encodeURIComponent(subject)}/${encodeURIComponent(topic)}/${encodedSubtopic }/quiz/`,
         submission,
         {
            headers: { 
@@ -94,6 +91,7 @@ const fetchQuizQuestion = async (submission = null) => {
         setIsComplete(true);
         setCompletionMessage(message);
 
+                // Add this line to capture completion date:
         const now = new Date();
         const formattedDate = now.toLocaleDateString('en-GB', { 
           day: '2-digit', 
@@ -240,7 +238,7 @@ const fetchQuizQuestion = async (submission = null) => {
   <div className="practice-quiz-container">
  <div className="quiz-header">
          <div className="quiz-title-section">
-                  <h2 style={{ color: 'blue' }}><i className="bi bi-pencil-fill"></i>  QUIZ</h2>
+                  <h2><i className="bi bi-pencil-fill"></i>  QUIZ</h2>
                   <h3>{subject}</h3>
                   <h3>{topic}</h3>
                   <h3>{subtopic}</h3>
@@ -295,7 +293,6 @@ const fetchQuizQuestion = async (submission = null) => {
         <div className="modal-content">
           <div className="feedback correct">
             <h3>Correct!</h3>
-            <p>Well done! You selected the right answer.</p>
 
              {image1 && (
                 <img
@@ -310,7 +307,6 @@ const fetchQuizQuestion = async (submission = null) => {
                   }}
                 />
               )}
-            <p>Great speed!</p>
             <p>Moving to a more challenging question...</p>
           </div>
         </div>
@@ -336,10 +332,10 @@ const fetchQuizQuestion = async (submission = null) => {
     />
   )}
   <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-    <strong>Correct Answer:</strong> {currentQuestion.correct_option.toUpperCase()}:<MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
+    <strong>Correct Answer- </strong> {currentQuestion.correct_option.toUpperCase()}:<MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
   </p>
   <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-    <strong>Explanation:</strong> <MathText>{currentQuestion.explanation}</MathText>
+    <strong>Explanation- </strong> <MathText>{currentQuestion.explanation}</MathText>
   </p>
 </div>
 <div className="action-buttons">

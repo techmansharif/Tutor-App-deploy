@@ -22,6 +22,7 @@ from .router.dashboard import router as dashboard_router
 from .router.explain import router as explains_router
 from .router.revise import router as revise_router 
 from .router.user_interactions import router as interactions_router 
+from .router.audio_stream import router as audio_router
 from fastapi import Request
 from starlette.middleware.sessions import SessionMiddleware
 
@@ -489,6 +490,7 @@ app.include_router(dashboard_router)
 app.include_router(explains_router)
 app.include_router(revise_router)
 app.include_router(interactions_router)
+app.include_router(audio_router)
 # @app.on_event("startup")
 # async def startup_event():
 #     Base.metadata.create_all(bind=engine)
