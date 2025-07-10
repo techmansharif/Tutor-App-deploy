@@ -8,6 +8,11 @@
     ],
     "redirects": [
       {
+        "source": "/tutorSSC",
+        "destination": "https://brimai-test-v1.web.app/",
+        "type": 301
+      },
+      {
         "source": "/tutorssc",
         "destination": "https://brimai-test-v1.web.app/",
         "type": 301
