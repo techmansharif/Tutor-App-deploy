@@ -363,7 +363,7 @@ const handleAnswerSelect = (option) => {
           </p>
         )}
           <button onClick={handleRestart} className="restart-button">
-            Restart Revision
+            Okay
           </button>
         </div>
       </div>
@@ -436,26 +436,30 @@ const handleAnswerSelect = (option) => {
 
       {showExplanation && (
         <div className="explanation-box">
-          <div className={`feedback ${isCorrect ? 'correct' : 'incorrect'}`}>
-            <h3>{isCorrect ? 'Correct!' : 'Incorrect'}</h3>
-            <p>{isCorrect ? 'Well done! You selected the right answer.' : 'Your answer was incorrect.'}</p>
-            
-            <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-              <strong>Correct Answer-</strong> {currentQuestion.correct_option.toUpperCase()}: <MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
-            </p>
-            
-            <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
-              <strong>Explanation-</strong> <MathText>{currentQuestion.explanation}</MathText>
-            </p>
-          </div>
+          <div className='modal-overlay'>
+            <div className='modal-content'>
+            <div className={`feedback ${isCorrect ? 'correct' : 'incorrect'}`}>
+              <h3>{isCorrect ? 'Correct!' : 'Incorrect'}</h3>
+              <p>{isCorrect ? 'Well done! You selected the right answer.' : 'Your answer was incorrect.'}</p>
+              
+              <p style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
+                <strong>Correct Answer- </strong> {currentQuestion.correct_option.toUpperCase()}: <MathText>{currentQuestion[`option_${currentQuestion.correct_option}`]}</MathText>
+              </p>
+              
+              <p className="explanation indented-text" style={{ marginLeft: '20px', paddingLeft: '10px', textAlign: 'left' }}>
+                <strong>Explanation- </strong> <MathText>{currentQuestion.explanation}</MathText>
+              </p>
+            </div>
           
-          <div className="action-buttons">
-            <button onClick={handleRetry} className="retry-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-              Retry Question
-            </button>
-            <button onClick={handleNextQuestion} className="next-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-              Next Question
-            </button>
+            <div className="action-buttons">
+              <button onClick={handleRetry} className="retry-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                Retry Question
+              </button>
+              <button onClick={handleNextQuestion} className="next-button" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                Next Question
+              </button>
+            </div>
+            </div>
           </div>
         </div>
       )}
