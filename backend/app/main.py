@@ -142,7 +142,8 @@ CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 #REDIRECT_URI = "https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app/auth/google/callback"
 REDIRECT_URI = os.getenv("REDIRECT_URI", "http://localhost:8000/auth/google/callback")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
-
+print(f"client id is {CLIENT_ID}")
+print(f"client secret is {CLIENT_SECRET}")
 print(f"redirect uri is {REDIRECT_URI}")
 print(f"FRONTEND url {FRONTEND_URL}")
 GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth"
