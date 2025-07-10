@@ -42,17 +42,28 @@ if not api_key:
 
 
 # ADD THIS: Async database engine - loads from env and converts to async
-DATABASE_URL = os.getenv("DATABASE_URL")  # For production (Cloud Run)
+from dotenv import load_dotenv
+# or you can use any other environment variable that indicates production
+is_production = os.getenv("GCLOUD_PROJECT_ID") is not None  # or use any other production indicator
 
-# Fallback for local development
-if DATABASE_URL is None:
-    from dotenv import load_dotenv
-    load_dotenv(dotenv_path=r"C:\E backup\tutor app deploy\Tutor-App\backend\app\.env") 
+if is_production:
+    # Production environment - get URL from environment variables set by Cloud Run
     DATABASE_URL = os.getenv("DATABASE_URL")
-    print(DATABASE_URL)
+    if DATABASE_URL is None:
+        raise ValueError("DATABASE_URL environment variable is not set in production")
+    print("Using production database URL")
+    async_database_url = DATABASE_URL.replace("postgresql+psycopg2://", "postgresql+asyncpg://")
+
+else:
+    # Local development environment - load from .env file
+    load_dotenv(dotenv_path=r"C:\E backup\tutor app deploy\Tutor-App\backend\app\.env")
+    DATABASE_URL = os.getenv("DATABASE_URL")
+    if DATABASE_URL is None:
+        raise ValueError("DATABASE_URL not found in local .env file")
+    print("Using local development database URL")
+    async_database_url = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://")
     
-# Simply replace psycopg2 with asyncpg
-async_database_url = DATABASE_URL.replace("postgresql+psycopg2://", "postgresql+asyncpg://")
+
 
 # ADD THIS: Async database engine
 async_engine = create_async_engine(

@@ -114,7 +114,7 @@ function App() {
   //const API_BASE_URL = 'https://fastapi-tutor-app-backend-208251878692.asia-south1.run.app';
 
   const API_BASE_URL = process.env.REACT_APP_BRIM_API_BASE_URL || 'http://localhost:8000';
-
+  alert(`the api base url is ${API_BASE_URL}` )
   const navigate = useNavigate();
  
   useEffect(() => {
